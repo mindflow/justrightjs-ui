@@ -1,6 +1,7 @@
 import multiEntry from 'rollup-plugin-multi-entry';
 import postprocess from 'rollup-plugin-postprocess';
 import copy from 'rollup-plugin-copy';
+import { uglify } from "rollup-plugin-uglify";
 
 export default [{
     input: "src/**/*.js",
