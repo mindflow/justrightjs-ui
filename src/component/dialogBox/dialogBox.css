@@ -1,0 +1,144 @@
+  .dialogbox-open {
+    overflow: hidden;
+  }
+  
+  .dialogbox-open .dialogbox {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  .dialogbox.fade .dialogbox-dialog {
+    transition: -webkit-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+    transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+    -webkit-transform: translate(0, -50px);
+    transform: translate(0, -50px);
+  }
+  
+  .dialogbox.show .dialogbox-dialog {
+    -webkit-transform: none;
+    transform: none;
+  }
+  
+  .dialogbox-header .close {
+    padding: 1rem 1rem;
+    margin: -1rem -1rem -1rem auto;
+  }
+  
+  .dialogbox-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+  
+  .dialogbox-body {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1rem;
+  }
+  
+  .dialogbox-footer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+  }
+  
+  .dialogbox-footer > :not(:first-child) {
+    margin-left: .25rem;
+  }
+  
+  .dialogbox-footer > :not(:last-child) {
+    margin-right: .25rem;
+  }
+  
+  .dialogbox {
+    position: absolute;
+    top: 0;
+    z-index:10;
+    display: none;
+    overflow: hidden;
+    outline: 0;
+  }
+
+  .dialogbox-dialog {
+    position: relative;
+    margin: 0;
+  }
+
+  .dialogbox-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+  }
+
+  .dialogbox-header {
+    display: -ms-flexbox;
+    display: flex;
+    background-color: #999999;
+    color: #ffffff;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  @media (min-width: 0px) {
+
+    .dialogbox {
+      left: 0;
+      width: 100%;
+    }
+    
+    .dialogbox-dialog {
+      width: 100%;
+      margin: 0;
+    }
+
+  }
+
+  @media (min-width: 640px) {
+    
+    .dialogbox {
+      padding-top: 1.5rem;
+      left: 50%;
+      transform: translate(-50%,0);
+      width: auto;
+    }
+    
+    .dialogbox-dialog {
+      width: auto;
+      margin: 0.5rem;
+      pointer-events: none;
+    }
+
+    .dialogbox-content {
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 0.3rem;
+    }
+
+    .dialogbox-header {
+      border-top-left-radius: 0.3rem;
+      border-top-right-radius: 0.3rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dialogbox.fade .dialogbox-dialog {
+      transition: none;
+    }
+  }

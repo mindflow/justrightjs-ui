@@ -1,0 +1,24 @@
+{
+  "name": "justright_ui_v1",
+  "version": "1.0.0",
+  "description": "Just Right JS UI Components",
+  "main": "./dist/cjs/justright_ui_v1.js",
+  "scripts": {
+    "build": "node ./node_modules/rollup/dist/bin/rollup -c",
+    "watch": "node ./node_modules/rollup/dist/bin/rollup -c --watch"
+  },
+  "author": "Toby Nilsen",
+  "license": "MIT",
+  "dependencies": {
+    "coreutil_v1": "file:../coreutiljs",
+    "justright_core_v1": "file:../justrightjs-core",
+    "mindi_v1": "file:../mindijs",
+    "xmlparser_v1": "file:../xmlparserjs"
+  },
+  "devDependencies": {
+    "rollup": "^1.25.2",
+    "rollup-plugin-multi-entry": "^2.1.0",
+    "rollup-plugin-postprocess": "^1.0.2",
+    "rollup-plugin-copy": "^3.1.0"
+  }
+}
