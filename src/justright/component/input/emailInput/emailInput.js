@@ -66,6 +66,8 @@ export class EmailInput {
             }
         });
         this.eventRegistry.listen("//event:emailInputEnter", enterCheck, idx);
+
+        this.withPlaceholder("Email");
     }
 
 	getComponent(){

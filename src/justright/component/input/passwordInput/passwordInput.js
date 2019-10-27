@@ -67,6 +67,8 @@ export class PasswordInput {
             }
         });
         this.eventRegistry.listen("//event:passwordInputEnter", enterCheck, this.component.getComponentIndex());
+
+        this.withPlaceholder("Password");
     }
 
 	getComponent(){
@@ -95,7 +97,6 @@ export class PasswordInput {
     }
 
     withEnterListener(listener) {
-        this.eventRegistry.attach(this.component.get("passwordInput"), "onkeyup", "//event:passwordInputEnter", this.component.getComponentIndex());
         let enterCheck = new ObjectFunction(this,(event) => { if(event.getKeyCode() === 13 && this.validator.isValid()) { listener.call(); } });
         this.eventRegistry.listen("//event:passwordInputEnter", enterCheck, this.component.getComponentIndex());
         return this;
