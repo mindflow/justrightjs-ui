@@ -12,12 +12,13 @@
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-bottom: 1rem;
 }
 
 .email-error {
     min-width:200px;
     max-width:400px;
-    transform:translate(0%,-120%);
+    transform:translate(0%,-100%) translate(0%,-5px);
     padding:10px 20px;
     color:#333333;
     background-color:#FFFFE0;

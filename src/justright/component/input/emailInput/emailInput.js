@@ -125,4 +125,12 @@ export class EmailInput {
         this.component.get("emailInput").selectAll();
     }
 
+    enable() {
+        this.component.get("emailInput").enable();
+    }
+
+    disable() {
+        this.component.get("emailInput").disable();
+    }
+
 }

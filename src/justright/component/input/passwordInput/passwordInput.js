@@ -12,6 +12,9 @@ import { Logger, ObjectFunction } from "coreutil_v1";
 
 const LOG = new Logger("PasswordInput");
 
+const INPUT = "passwordInput";
+const ERROR = "passwordError";
+
 export class PasswordInput {
 
 	static get COMPONENT_NAME() { return "PasswordInput"; }
@@ -47,8 +50,8 @@ export class PasswordInput {
         CanvasStyles.enableStyle(PasswordInput.COMPONENT_NAME);
 
         let idx = this.component.getComponentIndex();
-        let passwordInput = this.component.get("passwordInput");
-        let passwordError = this.component.get("passwordError");
+        let passwordInput = this.component.get(INPUT);
+        let passwordError = this.component.get(ERROR);
 
         passwordInput.setAttributeValue("name",this.name);
 
@@ -86,13 +89,13 @@ export class PasswordInput {
         this.dataBindRegistry.add(
             InputElementDataBinding
                 .link(model, this.validator)
-                .to(this.component.get("passwordInput"))
+                .to(this.component.get(INPUT))
         );
         return this;
     }
 
     withPlaceholder(placeholderValue) {
-        this.component.get("passwordInput").setAttributeValue("placeholder",placeholderValue);
+        this.component.get(INPUT).setAttributeValue("placeholder",placeholderValue);
         return this;
     }
 
@@ -110,19 +113,10 @@ export class PasswordInput {
         }
     }
 
-    showValidationError() {
-        this.component.get("passwordError").setStyle("display","block");
-    }
-    
-    hideValidationError() {
-        this.component.get("passwordError").setStyle("display","none");
-    }
-
-    focus() {
-        this.component.get("passwordInput").focus();
-    }
-
-    selectAll() {
-        this.component.get("passwordInput").selectAll();
-    }
+    showValidationError() { this.component.get(ERROR).setStyle("display","block"); }
+    hideValidationError() { this.component.get(ERROR).setStyle("display","none"); }
+    focus() { this.component.get(INPUT).focus(); }
+    selectAll() { this.component.get(INPUT).selectAll(); }
+    enable() { this.component.get(INPUT).enable(); }
+    disable() { this.component.get(INPUT).disable(); }
 }
