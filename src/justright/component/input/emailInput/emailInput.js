@@ -72,9 +72,16 @@ export class EmailInput {
 
     keyUp(event) {
         this.changed = true;
-        if (event.getKeyCode() === 13 && !this.validator.isValid()) {
+        if (event.getKeyCode() !== 13) {
+            return;
+        }
+        if (!this.validator.isValid()) {
             this.showValidationError();
             this.selectAll();
+            return;
+        }
+        if (this.enterListener) {
+            this.enterListener.call();
         }
     }
 
@@ -98,20 +105,19 @@ export class EmailInput {
     }
 
     withEnterListener(listener) {
-        let enterCheck = new ObjectFunction(this, (event) => { if (event.getKeyCode() === 13 && this.validator.isValid()) { listener.call(); } });
-        this.eventRegistry.listen("//event:emailInputKeyUp", enterCheck, this.component.getComponentIndex());
+        this.enterListener = listener;
         return this;
     }
 
     blurred() {
-        if(!this.changed) {
+        if (!this.changed) {
             return;
         }
-        if (this.validator.isValid()) {
-            this.hideValidationError();
-        } else {
+        if (!this.validator.isValid()) {
             this.showValidationError();
+            return;
         }
+        this.hideValidationError();
     }
 
     showValidationError() { this.component.get("emailError").setStyle("display","block"); }

@@ -7,7 +7,7 @@ import {
     Component,
     InputElementDataBinding, 
     AndValidatorSet,
-    PasswordValidator
+    PasswordValidator,
 } from "justright_core_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
 
@@ -97,11 +97,16 @@ export class PasswordMatcherInput {
 
     controlKeyUp(event) {
         this.controlChanged = true;
-        if (event.getKeyCode() === 13) {
-            if (!this.controlValidator.isValid()) {
-                this.showControlValidationError();
-                this.selectAllControl();
-            }
+        if (event.getKeyCode() !== 13) {
+            return;
+        }
+        if (!this.controlValidator.isValid()) {
+            this.showControlValidationError();
+            this.selectAllControl();
+            return;
+        }
+        if (this.enterListener) {
+            this.enterListener.call();
         }
     }
 
@@ -114,18 +119,19 @@ export class PasswordMatcherInput {
         this.controlValidator.setValue(this.component.get(INPUT).getValue());
         this.controlValidator.invalid();
         this.component.get(CONTROL_INPUT).setValue("");
-        if (event.getKeyCode() === 13) {
-            if (!this.passwordValidator.isValid()) {
-                this.showPasswordValidationError();
-                this.selectAll();
-            } else {
-                this.focusControl();
-                this.selectAllControl();
-            }
+        if (event.getKeyCode() !== 13) {
+            return;
         }
+        if (!this.passwordValidator.isValid()) {
+            this.showPasswordValidationError();
+            this.selectAll();
+            return;
+        }
+        this.focusControl();
+        this.selectAllControl();
     }
 
-	getComponent(){
+	getComponent() {
 		return this.component;
     }
 
@@ -154,8 +160,7 @@ export class PasswordMatcherInput {
     }
 
     withEnterListener(listener) {
-        let enterCheck = new ObjectFunction(this,(event) => { if(event.getKeyCode() === 13 && this.validator.isValid()) { listener.call(); } });
-        this.eventRegistry.listen("//event:passwordMatcherControlInputKeyUp", enterCheck, this.component.getComponentIndex());
+        this.enterListener = listener;
         return this;
     }
 
@@ -163,22 +168,22 @@ export class PasswordMatcherInput {
         if (!this.controlChanged) {
             return;
         }
-        if (this.controlValidator.isValid()) {
-            this.hideControlValidationError();
-        } else {
+        if (!this.controlValidator.isValid()) {
             this.showControlValidationError();
+            return;
         }
+        this.hideControlValidationError();
     }
 
     passwordMatcherInputBlurred() {
         if (!this.changed) {
             return;
         }
-        if (this.passwordValidator.isValid()) {
-            this.hidePasswordValidationError();
-        } else {
+        if (!this.passwordValidator.isValid()) {
             this.showPasswordValidationError();
+            return;
         }
+        this.hidePasswordValidationError();
     }
 
     showPasswordValidationError() { this.component.get(ERROR).setStyle("display","block"); }
