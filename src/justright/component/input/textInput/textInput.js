@@ -1,4 +1,4 @@
-import { ComponentFactory, EventRegistry, CanvasStyles, DataBindRegistry, Component, InputElementDataBinding } from "justright_core_v1";
+import { ComponentFactory, EventRegistry, CanvasStyles, Component, InputElementDataBinding } from "justright_core_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
 
 const LOG = new Logger("TextInput");
@@ -19,9 +19,6 @@ export class TextInput {
         /** @type {EventRegistry} */
         this.eventRegistry = EventRegistry;
 
-        /** @type {DataBindRegistry} */
-        this.dataBindRegistry = DataBindRegistry;
-
         /** @type {string} */
         this.name = name;
     }
@@ -41,8 +38,7 @@ export class TextInput {
     }
 
     withModel(model, validator) {
-        this.dataBindRegistry
-            .add(InputElementDataBinding.link(model, validator).to(this.component.get("textInput")));
+        InputElementDataBinding.link(model, validator).to(this.component.get("textInput"));
         return this;
     }
 

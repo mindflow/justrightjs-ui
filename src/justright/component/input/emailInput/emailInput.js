@@ -4,7 +4,6 @@ import {
     ComponentFactory,
     EventRegistry,
     CanvasStyles,
-    DataBindRegistry,
     Component,
     InputElementDataBinding
 } from "justright_core_v1";
@@ -28,13 +27,12 @@ export class EmailInput {
         /** @type {EventRegistry} */
         this.eventRegistry = EventRegistry;
 
-        /** @type {DataBindRegistry} */
-        this.dataBindRegistry = DataBindRegistry;
-
         this.name = name;
 
         this.validator = new EmailValidator()
             .withValidListener(new ObjectFunction(this, this.hideValidationError));
+
+        this.changed = false;
     }
 
     createComponent() {
@@ -52,26 +50,32 @@ export class EmailInput {
         emailInput.setAttributeValue("name",this.name);
 
         this.eventRegistry.attach(emailInput, "onblur", "//event:emailInputBlur", idx);
+        this.eventRegistry.attach(emailInput, "onkeyup", "//event:emailInputKeyUp", idx);
+        this.eventRegistry.attach(emailInput, "onchange", "//event:emailInputChange", idx);
         this.eventRegistry.attach(emailError, "onclick", "//event:emailErrorClicked", idx);
-        this.eventRegistry.attach(emailInput, "onkeyup", "//event:emailInputEnter", idx);
 
-        this.eventRegistry.listen("//event:emailInputBlur", new ObjectFunction(this, this.emailInputBlurred), idx);
-
+        this.eventRegistry.listen("//event:emailInputBlur", new ObjectFunction(this, this.blurred), idx);
+        this.eventRegistry.listen("//event:emailInputKeyUp", new ObjectFunction(this, this.keyUp), idx);
+        this.eventRegistry.listen("//event:emailInputChange", new ObjectFunction(this, this.change), idx);
         this.eventRegistry.listen("//event:emailErrorClicked", new ObjectFunction(this, this.hideValidationError), idx);
-
-        let enterCheck = new ObjectFunction(this, (event) => {
-            if (event.getKeyCode() === 13 && !this.validator.isValid()) {
-                this.showValidationError();
-                this.selectAll();
-            }
-        });
-        this.eventRegistry.listen("//event:emailInputEnter", enterCheck, idx);
 
         this.withPlaceholder("Email");
     }
 
 	getComponent(){
 		return this.component;
+    }
+
+    change() {
+        this.changed = true;
+    }
+
+    keyUp(event) {
+        this.changed = true;
+        if (event.getKeyCode() === 13 && !this.validator.isValid()) {
+            this.showValidationError();
+            this.selectAll();
+        }
     }
 
     /**
@@ -82,11 +86,9 @@ export class EmailInput {
     }
 
     withModel(model) {
-        this.dataBindRegistry.add(
-            InputElementDataBinding
-                .link(model, this.validator)
-                .to(this.component.get("emailInput"))
-        );
+        InputElementDataBinding
+            .link(model, this.validator)
+            .to(this.component.get("emailInput"));
         return this;
     }
 
@@ -97,40 +99,25 @@ export class EmailInput {
 
     withEnterListener(listener) {
         let enterCheck = new ObjectFunction(this, (event) => { if (event.getKeyCode() === 13 && this.validator.isValid()) { listener.call(); } });
-        this.eventRegistry.listen("//event:emailInputEnter", enterCheck, this.component.getComponentIndex());
+        this.eventRegistry.listen("//event:emailInputKeyUp", enterCheck, this.component.getComponentIndex());
         return this;
     }
 
-    emailInputBlurred() {
-        if(this.validator.isValid()) {
+    blurred() {
+        if(!this.changed) {
+            return;
+        }
+        if (this.validator.isValid()) {
             this.hideValidationError();
         } else {
             this.showValidationError();
         }
     }
 
-    showValidationError() {
-        this.component.get("emailError").setStyle("display","block");
-    }
-    
-    hideValidationError() {
-        this.component.get("emailError").setStyle("display","none");
-    }
-
-    focus() {
-        this.component.get("emailInput").focus();
-    }
-
-    selectAll() {
-        this.component.get("emailInput").selectAll();
-    }
-
-    enable() {
-        this.component.get("emailInput").enable();
-    }
-
-    disable() {
-        this.component.get("emailInput").disable();
-    }
-
+    showValidationError() { this.component.get("emailError").setStyle("display","block"); }
+    hideValidationError() { this.component.get("emailError").setStyle("display","none"); }
+    focus() { this.component.get("emailInput").focus(); }
+    selectAll() { this.component.get("emailInput").selectAll(); }
+    enable() { this.component.get("emailInput").enable(); }
+    disable() { this.component.get("emailInput").disable(); }
 }

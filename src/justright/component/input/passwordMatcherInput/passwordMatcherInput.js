@@ -4,7 +4,6 @@ import {
     ComponentFactory,
     EventRegistry,
     CanvasStyles,
-    DataBindRegistry,
     Component,
     InputElementDataBinding, 
     AndValidatorSet,
@@ -36,9 +35,6 @@ export class PasswordMatcherInput {
         /** @type {EventRegistry} */
         this.eventRegistry = EventRegistry;
 
-        /** @type {DataBindRegistry} */
-        this.dataBindRegistry = DataBindRegistry;
-
         this.name = name;
 
         this.passwordValidator = new PasswordValidator()
@@ -50,6 +46,9 @@ export class PasswordMatcherInput {
         this.validator = new AndValidatorSet()
             .withValidator(this.passwordValidator)
             .withValidator(this.controlValidator);
+
+        this.changed = false;
+        this.controlChanged = false;
     }
 
     createComponent() {
@@ -70,46 +69,60 @@ export class PasswordMatcherInput {
         passwordMatcherInput.setAttributeValue("name",this.name);
 
         this.eventRegistry.attach(passwordMatcherInput, "onblur", "//event:passwordMatcherInputBlur", idx);
-        this.eventRegistry.attach(passwordMatcherInput, "onkeyup", "//event:passwordMatcherInputEnter", idx);
+        this.eventRegistry.attach(passwordMatcherInput, "onkeyup", "//event:passwordMatcherInputKeyUp", idx);
+        this.eventRegistry.attach(passwordMatcherInput, "onchange", "//event:passwordMatcherInputChange", idx);
         this.eventRegistry.attach(passwordMatcherError, "onclick", "//event:passwordMatcherErrorClicked", idx);
 
         this.eventRegistry.attach(passwordMatcherControlInput, "onblur", "//event:passwordMatcherControlInputBlur", idx);
-        this.eventRegistry.attach(passwordMatcherControlInput, "onkeyup", "//event:passwordMatcherControlInputEnter", idx);
+        this.eventRegistry.attach(passwordMatcherControlInput, "onkeyup", "//event:passwordMatcherControlInputKeyUp", idx);
+        this.eventRegistry.attach(passwordMatcherControlInput, "onchange", "//event:passwordMatcherControlInputChange", idx);
         this.eventRegistry.attach(passwordMatcherControlError, "onclick", "//event:passwordMatcherControlErrorClicked", idx);
 
         this.eventRegistry.listen("//event:passwordMatcherInputBlur", new ObjectFunction(this, this.passwordMatcherInputBlurred), idx);
-        this.eventRegistry.listen("//event:passwordMatcherControlInputBlur", new ObjectFunction(this, this.passwordMatcherControlInputBlurred), idx);
-
+        this.eventRegistry.listen("//event:passwordMatcherInputKeyUp",  new ObjectFunction(this, this.keyUp), idx);
+        this.eventRegistry.listen("//event:passwordMatcherInputChange",  new ObjectFunction(this, this.change), idx);
         this.eventRegistry.listen("//event:passwordMatcherErrorClicked", new ObjectFunction(this, this.hidePasswordValidationError), idx);
+
+        this.eventRegistry.listen("//event:passwordMatcherControlInputBlur", new ObjectFunction(this, this.passwordMatcherControlInputBlurred), idx);
+        this.eventRegistry.listen("//event:passwordMatcherControlInputKeyUp", new ObjectFunction(this, this.controlKeyUp), idx);
+        this.eventRegistry.listen("//event:passwordMatcherControlInputChange", new ObjectFunction(this, this.controlChange), idx);
         this.eventRegistry.listen("//event:passwordMatcherControlErrorClicked", new ObjectFunction(this, this.hideControlValidationError), idx);
 
-        let enterCheck = new ObjectFunction(this, (event) => {
-            this.controlValidator.setValue(this.component.get(INPUT).getValue());
-            this.controlValidator.invalid();
-            this.component.get(CONTROL_INPUT).setValue("");
-            if (event.getKeyCode() === 13) {
-                if (!this.passwordValidator.isValid()) {
-                    this.showPasswordValidationError();
-                    this.selectAll();
-                } else {
-                    this.focusControl();
-                    this.selectAllControl();
-                }
-            }
-        });
-        this.eventRegistry.listen("//event:passwordMatcherInputEnter", enterCheck, this.component.getComponentIndex());
-
-        let controlEnterCheck = new ObjectFunction(this, (event) => {
-            if (event.getKeyCode() === 13) {
-                if (!this.controlValidator.isValid()) {
-                    this.showControlValidationError();
-                    this.selectAllControl();
-                }
-            }
-        });
-        this.eventRegistry.listen("//event:passwordMatcherControlInputEnter", controlEnterCheck, this.component.getComponentIndex());
-
         this.withPlaceholder("Password", "Confirm password");
+    }
+
+    controlChange() {
+        this.changed = true;
+    }
+
+    controlKeyUp(event) {
+        this.controlChanged = true;
+        if (event.getKeyCode() === 13) {
+            if (!this.controlValidator.isValid()) {
+                this.showControlValidationError();
+                this.selectAllControl();
+            }
+        }
+    }
+
+    change() {
+        this.changed = true;
+    }
+
+    keyUp(event) {
+        this.changed = true;
+        this.controlValidator.setValue(this.component.get(INPUT).getValue());
+        this.controlValidator.invalid();
+        this.component.get(CONTROL_INPUT).setValue("");
+        if (event.getKeyCode() === 13) {
+            if (!this.passwordValidator.isValid()) {
+                this.showPasswordValidationError();
+                this.selectAll();
+            } else {
+                this.focusControl();
+                this.selectAllControl();
+            }
+        }
     }
 
 	getComponent(){
@@ -124,16 +137,13 @@ export class PasswordMatcherInput {
     }
 
     withModel(model) {
-        this.dataBindRegistry.add(
-            InputElementDataBinding
-                .link(model, this.passwordValidator)
-                .to(this.component.get(INPUT))
-        );
-        this.dataBindRegistry.add(
-            InputElementDataBinding
-                .link(model, this.controlValidator)
-                .to(this.component.get(CONTROL_INPUT))
-        );
+        InputElementDataBinding
+            .link(model, this.passwordValidator)
+            .to(this.component.get(INPUT));
+        
+        InputElementDataBinding
+            .link(model, this.controlValidator)
+            .to(this.component.get(CONTROL_INPUT));
         return this;
     }
 
@@ -145,12 +155,15 @@ export class PasswordMatcherInput {
 
     withEnterListener(listener) {
         let enterCheck = new ObjectFunction(this,(event) => { if(event.getKeyCode() === 13 && this.validator.isValid()) { listener.call(); } });
-        this.eventRegistry.listen("//event:passwordMatcherControlInputEnter", enterCheck, this.component.getComponentIndex());
+        this.eventRegistry.listen("//event:passwordMatcherControlInputKeyUp", enterCheck, this.component.getComponentIndex());
         return this;
     }
 
     passwordMatcherControlInputBlurred() {
-        if(this.controlValidator.isValid()) {
+        if (!this.controlChanged) {
+            return;
+        }
+        if (this.controlValidator.isValid()) {
             this.hideControlValidationError();
         } else {
             this.showControlValidationError();
@@ -158,7 +171,10 @@ export class PasswordMatcherInput {
     }
 
     passwordMatcherInputBlurred() {
-        if(this.passwordValidator.isValid()) {
+        if (!this.changed) {
+            return;
+        }
+        if (this.passwordValidator.isValid()) {
             this.hidePasswordValidationError();
         } else {
             this.showPasswordValidationError();

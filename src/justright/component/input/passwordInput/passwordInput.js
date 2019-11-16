@@ -4,7 +4,6 @@ import {
     ComponentFactory,
     EventRegistry,
     CanvasStyles,
-    DataBindRegistry,
     Component,
     InputElementDataBinding 
 } from "justright_core_v1";
@@ -32,13 +31,12 @@ export class PasswordInput {
         /** @type {EventRegistry} */
         this.eventRegistry = EventRegistry;
 
-        /** @type {DataBindRegistry} */
-        this.dataBindRegistry = DataBindRegistry;
-
         this.name = name;
 
         this.validator = new RequiredValidator()
             .withValidListener(new ObjectFunction(this, this.hideValidationError));
+
+        this.changed = false;
     }
 
     createComponent() {
@@ -56,26 +54,32 @@ export class PasswordInput {
         passwordInput.setAttributeValue("name",this.name);
 
         this.eventRegistry.attach(passwordInput, "onblur", "//event:passwordInputBlur", idx);
+        this.eventRegistry.attach(passwordInput, "onkeyup", "//event:passwordInputKeyUp", idx);
+        this.eventRegistry.attach(passwordInput, "onchange", "//event:passwordInputChange", idx);
         this.eventRegistry.attach(passwordError, "onclick", "//event:passwordErrorClicked", idx);
-        this.eventRegistry.attach(passwordInput, "onkeyup", "//event:passwordInputEnter", idx);
 
         this.eventRegistry.listen("//event:passwordInputBlur", new ObjectFunction(this, this.passwordInputBlurred), idx);
-
+        this.eventRegistry.listen("//event:passwordInputKeyUp", new ObjectFunction(this, this.keyUp), idx);
+        this.eventRegistry.listen("//event:passwordInputChange", new ObjectFunction(this, this.change), idx);
         this.eventRegistry.listen("//event:passwordErrorClicked", new ObjectFunction(this, this.hideValidationError), idx);
-
-        let enterCheck = new ObjectFunction(this, (event) => {
-            if (event.getKeyCode() === 13 && !this.validator.isValid()) {
-                this.showValidationError();
-                this.selectAll();
-            }
-        });
-        this.eventRegistry.listen("//event:passwordInputEnter", enterCheck, this.component.getComponentIndex());
 
         this.withPlaceholder("Password");
     }
 
 	getComponent(){
 		return this.component;
+    }
+
+    change() {
+        this.changed = true;
+    }
+
+    keyUp(event) {
+        this.changed = true;
+        if (event.getKeyCode() === 13 && !this.validator.isValid()) {
+            this.showValidationError();
+            this.selectAll();
+        }
     }
 
     /**
@@ -86,11 +90,9 @@ export class PasswordInput {
     }
 
     withModel(model) {
-        this.dataBindRegistry.add(
-            InputElementDataBinding
-                .link(model, this.validator)
-                .to(this.component.get(INPUT))
-        );
+        InputElementDataBinding
+            .link(model, this.validator)
+            .to(this.component.get(INPUT));
         return this;
     }
 
@@ -101,12 +103,15 @@ export class PasswordInput {
 
     withEnterListener(listener) {
         let enterCheck = new ObjectFunction(this,(event) => { if(event.getKeyCode() === 13 && this.validator.isValid()) { listener.call(); } });
-        this.eventRegistry.listen("//event:passwordInputEnter", enterCheck, this.component.getComponentIndex());
+        this.eventRegistry.listen("//event:passwordInputKeyUp", enterCheck, this.component.getComponentIndex());
         return this;
     }
 
     passwordInputBlurred() {
-        if(this.validator.isValid()) {
+        if (!this.changed) {
+            return;
+        }
+        if (this.validator.isValid()) {
             this.hideValidationError();
         } else {
             this.showValidationError();

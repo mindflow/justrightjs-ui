@@ -2,7 +2,6 @@ import {
     ComponentFactory,
     EventRegistry,
     CanvasStyles,
-    DataBindRegistry,
     Component,
     InputElementDataBinding
 } from "justright_core_v1";
@@ -26,9 +25,6 @@ export class CheckBox {
         /** @type {EventRegistry} */
         this.eventRegistry = EventRegistry;
 
-        /** @type {DataBindRegistry} */
-        this.dataBindRegistry = DataBindRegistry;
-
         /** @type {string} */
         this.name = name;
     }
@@ -48,8 +44,7 @@ export class CheckBox {
     }
 
     withModel(model, validator) {
-        this.dataBindRegistry
-            .add(InputElementDataBinding.link(model, validator).to(this.component.get("checkBox")));
+        InputElementDataBinding.link(model, validator).to(this.component.get("checkBox"));
         return this;
     }
 
