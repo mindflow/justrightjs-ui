@@ -3,6 +3,9 @@ import { Logger, ObjectFunction } from "coreutil_v1";
 
 const LOG = new Logger("TextInput");
 
+const KEYUP_EVENT = "//event:textInputKeyUp";
+const CLICK_EVENT = "//event:textInputClicked";
+
 export class TextInput {
 
 	static get COMPONENT_NAME() { return "TextInput"; }
@@ -21,6 +24,31 @@ export class TextInput {
 
         /** @type {string} */
         this.name = name;
+
+        const idx = this.component.getComponentIndex();
+        const input = this.component.get("textInput");
+
+        this.eventRegistry.attach(input, "onkeyup", KEYUP_EVENT, idx);
+        this.eventRegistry.attach(input, "onclick", CLICK_EVENT, idx);
+
+        this.eventRegistry.listen(KEYUP_EVENT, new ObjectFunction(this, this.keyUp), idx);
+        this.eventRegistry.listen(CLICK_EVENT, new ObjectFunction(this, this.click), idx);
+
+    }
+
+    keyUp(event) {
+        if(event.getKeyCode() !== 13) {
+            return;
+        }
+        if(this.enterListener) {
+            this.enterListener.call();
+        }
+    }
+
+    click(event) {
+        if(this.clickListener) {
+            this.clickListener.call();
+        }
     }
 
     createComponent() {
@@ -47,16 +75,13 @@ export class TextInput {
         return this;
     }
 
-    withClickListener(clickListener) {
-        this.eventRegistry.attach(this.component.get("textInput"), "onclick", "//event:textInputClicked", this.component.getComponentIndex());
-        this.eventRegistry.listen("//event:textInputClicked", clickListener, this.component.getComponentIndex());
+    withClickListener(listener) {
+        this.clickListener = listener;
         return this;
     }
 
     withEnterListener(listener) {
-        this.eventRegistry.attach(this.component.get("textInput"), "onkeyup", "//event:textInputEnter", this.component.getComponentIndex());
-        let enterCheck = new ObjectFunction(this, (event) => { if (event.getKeyCode() === 13) { listener.call(); } });
-        this.eventRegistry.listen("//event:textInputEnter", enterCheck, this.component.getComponentIndex());
+        this.enterListener = listener;
         return this;
     }
 

@@ -11,6 +11,11 @@ import { Logger, ObjectFunction } from "coreutil_v1";
 
 const LOG = new Logger("EmailInput");
 
+const BLUR_EVENT = "//event:emailInputBlur";
+const KEYUP_EVENT = "//event:emailInputKeyUp";
+const CHANGE_EVENT = "//event:emailInputChange";
+const ERROR_CLICK_EVENT = "//event:emailErrorClicked";
+
 export class EmailInput {
 
 	static get COMPONENT_NAME() { return "EmailInput"; }
@@ -43,21 +48,21 @@ export class EmailInput {
     postConfig() {
         CanvasStyles.enableStyle(EmailInput.COMPONENT_NAME);
 
-        let idx = this.component.getComponentIndex();
-        let emailInput = this.component.get("emailInput");
-        let emailError = this.component.get("emailError");
+        const idx = this.component.getComponentIndex();
+        const input = this.component.get("emailInput");
+        const error = this.component.get("emailError");
 
-        emailInput.setAttributeValue("name",this.name);
+        input.setAttributeValue("name",this.name);
 
-        this.eventRegistry.attach(emailInput, "onblur", "//event:emailInputBlur", idx);
-        this.eventRegistry.attach(emailInput, "onkeyup", "//event:emailInputKeyUp", idx);
-        this.eventRegistry.attach(emailInput, "onchange", "//event:emailInputChange", idx);
-        this.eventRegistry.attach(emailError, "onclick", "//event:emailErrorClicked", idx);
+        this.eventRegistry.attach(input, "onblur", BLUR_EVENT, idx);
+        this.eventRegistry.attach(input, "onkeyup", KEYUP_EVENT, idx);
+        this.eventRegistry.attach(input, "onchange", CHANGE_EVENT, idx);
+        this.eventRegistry.attach(error, "onclick", ERROR_CLICK_EVENT, idx);
 
-        this.eventRegistry.listen("//event:emailInputBlur", new ObjectFunction(this, this.blurred), idx);
-        this.eventRegistry.listen("//event:emailInputKeyUp", new ObjectFunction(this, this.keyUp), idx);
-        this.eventRegistry.listen("//event:emailInputChange", new ObjectFunction(this, this.change), idx);
-        this.eventRegistry.listen("//event:emailErrorClicked", new ObjectFunction(this, this.hideValidationError), idx);
+        this.eventRegistry.listen(BLUR_EVENT, new ObjectFunction(this, this.blurred), idx);
+        this.eventRegistry.listen(KEYUP_EVENT, new ObjectFunction(this, this.keyUp), idx);
+        this.eventRegistry.listen(CHANGE_EVENT, new ObjectFunction(this, this.change), idx);
+        this.eventRegistry.listen(ERROR_CLICK_EVENT, new ObjectFunction(this, this.hideValidationError), idx);
 
         this.withPlaceholder("Email");
     }

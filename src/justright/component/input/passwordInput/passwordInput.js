@@ -14,6 +14,11 @@ const LOG = new Logger("PasswordInput");
 const INPUT = "passwordInput";
 const ERROR = "passwordError";
 
+const BLUR_EVENT = "//event:passwordInputBlur";
+const KEYUP_EVENT = "//event:passwordInputKeyUp";
+const CHANGE_EVENT = "//event:passwordInputChange";
+const ERROR_CLICK_EVENT = "//event:passwordErrorClicked";
+
 export class PasswordInput {
 
 	static get COMPONENT_NAME() { return "PasswordInput"; }
@@ -47,21 +52,21 @@ export class PasswordInput {
     postConfig() {
         CanvasStyles.enableStyle(PasswordInput.COMPONENT_NAME);
 
-        let idx = this.component.getComponentIndex();
-        let passwordInput = this.component.get(INPUT);
-        let passwordError = this.component.get(ERROR);
+        const idx = this.component.getComponentIndex();
+        const input = this.component.get(INPUT);
+        const error = this.component.get(ERROR);
 
-        passwordInput.setAttributeValue("name",this.name);
+        input.setAttributeValue("name",this.name);
 
-        this.eventRegistry.attach(passwordInput, "onblur", "//event:passwordInputBlur", idx);
-        this.eventRegistry.attach(passwordInput, "onkeyup", "//event:passwordInputKeyUp", idx);
-        this.eventRegistry.attach(passwordInput, "onchange", "//event:passwordInputChange", idx);
-        this.eventRegistry.attach(passwordError, "onclick", "//event:passwordErrorClicked", idx);
+        this.eventRegistry.attach(input, "onblur", BLUR_EVENT, idx);
+        this.eventRegistry.attach(input, "onkeyup", KEYUP_EVENT, idx);
+        this.eventRegistry.attach(input, "onchange", CHANGE_EVENT, idx);
+        this.eventRegistry.attach(error, "onclick", ERROR_CLICK_EVENT, idx);
 
-        this.eventRegistry.listen("//event:passwordInputBlur", new ObjectFunction(this, this.passwordInputBlurred), idx);
-        this.eventRegistry.listen("//event:passwordInputKeyUp", new ObjectFunction(this, this.keyUp), idx);
-        this.eventRegistry.listen("//event:passwordInputChange", new ObjectFunction(this, this.change), idx);
-        this.eventRegistry.listen("//event:passwordErrorClicked", new ObjectFunction(this, this.hideValidationError), idx);
+        this.eventRegistry.listen(BLUR_EVENT, new ObjectFunction(this, this.passwordInputBlurred), idx);
+        this.eventRegistry.listen(KEYUP_EVENT, new ObjectFunction(this, this.keyUp), idx);
+        this.eventRegistry.listen(CHANGE_EVENT, new ObjectFunction(this, this.change), idx);
+        this.eventRegistry.listen(ERROR_CLICK_EVENT, new ObjectFunction(this, this.hideValidationError), idx);
 
         this.withPlaceholder("Password");
     }
