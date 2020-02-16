@@ -47,6 +47,8 @@ export class DialogBox {
         this.component = this.componentFactory.create("DialogBox");
         this.eventRegistry.attach(this.component.get("closeButton"), "onclick", "//event:closeClicked", this.component.getComponentIndex());
         this.eventRegistry.listen("//event:closeClicked", new ObjectFunction(this, this.hide),this.component.getComponentIndex());
+        this.backShade = this.backShade
+            .withClickListener(new ObjectFunction(this, this.hide));
     }
 
     /**
@@ -86,7 +88,7 @@ export class DialogBox {
 	}
     
     hide() {
-        this.initBackShade();
+        this.backShade.mountSelf();
         this.mountSelf();
 
         this.getComponent().get("dialogBox").setAttributeValue("class" , "dialogbox fade");
@@ -101,7 +103,7 @@ export class DialogBox {
 
     show() {
         CanvasStyles.enableStyle(DialogBox.COMPONENT_NAME);
-        this.initBackShade();
+        this.backShade.mountSelf();
         this.mountSelf();
 
         this.backShade.enable();
@@ -118,14 +120,6 @@ export class DialogBox {
     mountSelf() {
         if(!this.getComponent().getRootElement().isMounted()) {
             CanvasRoot.addBodyElement(this.getComponent().getRootElement());
-        }
-    }
-
-    initBackShade() {
-        if(!this.backShade) {
-            this.backShade = this.backShade
-                .withClickListener(new ObjectFunction(this, this.hide));
-            this.backShade.mountSelf();
         }
     }
 
