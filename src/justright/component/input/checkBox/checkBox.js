@@ -30,12 +30,8 @@ export class CheckBox {
         this.name = name;
     }
 
-    createComponent() {
-        /** @type {Component} */
-        this.component = this.componentFactory.create("CheckBox");
-    }
-
     postConfig() {
+        this.component = this.componentFactory.create("CheckBox");
         CanvasStyles.enableStyle(CheckBox.COMPONENT_NAME);
         this.component.get("checkBox").setAttributeValue("name",this.name);
     }

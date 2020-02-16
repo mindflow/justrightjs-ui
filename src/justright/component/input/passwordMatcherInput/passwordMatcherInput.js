@@ -62,12 +62,9 @@ export class PasswordMatcherInput {
         this.controlChanged = false;
     }
 
-    createComponent() {
-        /** @type {Component} */
-        this.component = this.componentFactory.create("PasswordMatcherInput");
-    }
-
     postConfig() {
+        this.component = this.componentFactory.create("PasswordMatcherInput");
+
         CanvasStyles.enableStyle(PasswordMatcherInput.COMPONENT_NAME);
 
         const idx = this.component.getComponentIndex();

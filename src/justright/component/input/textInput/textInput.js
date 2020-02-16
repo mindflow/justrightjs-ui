@@ -52,13 +52,11 @@ export class TextInput {
         }
     }
 
-    createComponent() {
-        /** @type {Component} */
-        this.component = this.componentFactory.create("TextInput");
-    }
-
     postConfig() {
+        this.component = this.componentFactory.create("TextInput");
+
         CanvasStyles.enableStyle(TextInput.COMPONENT_NAME);
+        
         this.component.get("textInput").setAttributeValue("name", this.name);
     }
 

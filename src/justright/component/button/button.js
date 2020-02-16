@@ -43,11 +43,8 @@ export class Button {
         this.eventRegistry = InjectionPoint.instance(EventRegistry);
     }
 
-    createComponent() {
-        this.component = this.componentFactory.create("Button");
-    }
-
     postConfig() {
+        this.component = this.componentFactory.create("Button");
         CanvasStyles.enableStyle(Button.COMPONENT_NAME);
         this.component.get("button").setChild(this.label);
         this.component.get("button").setAttributeValue("class","btn " + this.buttonType);

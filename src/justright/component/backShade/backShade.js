@@ -28,13 +28,9 @@ export class BackShade {
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
 	}
 
-    createComponent() {
-        LOG.info("creating component");
-        this.component = this.componentFactory.create("BackShade");
-    }
-
     postConfig() {
-
+        LOG.info("Post config");
+        this.component = this.componentFactory.create("BackShade");
     }
 
     /**

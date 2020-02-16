@@ -41,12 +41,10 @@ export class DialogBox {
         this.stylesRegistry = InjectionPoint.instance(StylesRegistry);
 	}
 
-    createComponent() {
-        LOG.info("creating component");
-        this.component = this.componentFactory.create("DialogBox");
-    }
 
     postConfig() {
+        LOG.info("Post config")
+        this.component = this.componentFactory.create("DialogBox");
         this.eventRegistry.attach(this.component.get("closeButton"), "onclick", "//event:closeClicked", this.component.getComponentIndex());
         this.eventRegistry.listen("//event:closeClicked", new ObjectFunction(this, this.hide),this.component.getComponentIndex());
     }

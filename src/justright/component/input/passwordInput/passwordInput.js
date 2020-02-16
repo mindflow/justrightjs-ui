@@ -45,12 +45,9 @@ export class PasswordInput {
         this.changed = false;
     }
 
-    createComponent() {
-        /** @type {Component} */
-        this.component = this.componentFactory.create("PasswordInput");
-    }
-
     postConfig() {
+        this.component = this.componentFactory.create("PasswordInput");
+
         CanvasStyles.enableStyle(PasswordInput.COMPONENT_NAME);
 
         const idx = this.component.getComponentIndex();

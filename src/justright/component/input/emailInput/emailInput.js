@@ -41,12 +41,9 @@ export class EmailInput {
         this.changed = false;
     }
 
-    createComponent() {
-        /** @type {Component} */
-        this.component = this.componentFactory.create("EmailInput");
-    }
-
     postConfig() {
+        this.component = this.componentFactory.create("EmailInput");
+
         CanvasStyles.enableStyle(EmailInput.COMPONENT_NAME);
 
         const idx = this.component.getComponentIndex();
