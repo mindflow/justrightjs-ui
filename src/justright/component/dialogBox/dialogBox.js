@@ -7,7 +7,7 @@ import {
     CanvasRoot
 } from "justright_core_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
-import { Injector } from "mindi_v1";
+import { InjectionPoint } from "mindi_v1";
 import { BackShade } from "../backShade/backShade.js";
 
 
@@ -25,22 +25,20 @@ export class DialogBox {
     constructor(){
 
 		/** @type {EventRegistry} */
-		this.eventRegistry = EventRegistry;
+		this.eventRegistry = InjectionPoint.instance(EventRegistry);
 
         /** @type {ComponentFactory} */
-        this.componentFactory = ComponentFactory;
+        this.componentFactory = InjectionPoint.instance(ComponentFactory);
 
-        /** @type {Injector} */
-        this.injector = Injector;
 
 		/** @type {Component} */
         this.component = null;
         
         /** @type {BackShade} */
-        this.backShade = null;
+        this.backShade = InjectionPoint.instance(BackShade);
 
         /** @type {StylesRegistry} */
-        this.stylesRegistry = StylesRegistry;
+        this.stylesRegistry = InjectionPoint.instance(StylesRegistry);
 	}
 
     createComponent() {
@@ -127,7 +125,7 @@ export class DialogBox {
 
     initBackShade() {
         if(!this.backShade) {
-            this.backShade = this.injector.prototypeInstance(BackShade)
+            this.backShade = this.backShade
                 .withClickListener(new ObjectFunction(this, this.hide));
             this.backShade.mountSelf();
         }

@@ -7,6 +7,7 @@ import {
     Component,
     InputElementDataBinding 
 } from "justright_core_v1";
+import { InjectionPoint } from "mindi_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
 
 const LOG = new Logger("PasswordInput");
@@ -31,10 +32,10 @@ export class PasswordInput {
      */
     constructor(name) {
         /** @type {ComponentFactory} */
-        this.componentFactory = ComponentFactory;
+        this.componentFactory = InjectionPoint.instance(ComponentFactory);
 
         /** @type {EventRegistry} */
-        this.eventRegistry = EventRegistry;
+        this.eventRegistry = InjectionPoint.instance(EventRegistry);
 
         this.name = name;
 

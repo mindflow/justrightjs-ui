@@ -1,4 +1,5 @@
 import { ComponentFactory, EventRegistry, CanvasStyles, Component, InputElementDataBinding } from "justright_core_v1";
+import { InjectionPoint } from "mindi_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
 
 const LOG = new Logger("TextInput");
