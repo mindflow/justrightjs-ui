@@ -75,7 +75,7 @@ export class BackShade {
     }
 
     mountSelf() {
-        if(!this.getComponent().getRootElement().isMounted()) {
+        if (!this.getComponent().getRootElement().isMounted()) {
             CanvasRoot.addBodyElement(this.getComponent().getRootElement());
         }
     }
