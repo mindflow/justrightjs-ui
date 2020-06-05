@@ -31,7 +31,7 @@ export class CheckBox {
     }
 
     postConfig() {
-        this.component = this.componentFactory.create("CheckBox");
+        this.component = this.componentFactory.create(CheckBox.COMPONENT_NAME);
         CanvasStyles.enableStyle(CheckBox.COMPONENT_NAME);
         this.component.get("checkBox").setAttributeValue("name",this.name);
     }

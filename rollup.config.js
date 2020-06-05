@@ -17,7 +17,7 @@ export default [{
         postprocess([
             [/(?<=import\s*(.*)\s*from\s*)['"]((?!.*[.]js).*)['"];/, '\'./$2.js\'']
         ]),
-        uglify()
+        //uglify()
     ]
 },{
     input: "src/**/*.js",
@@ -37,6 +37,6 @@ export default [{
             ],
             verbose: true
         }),
-        uglify()
+        //uglify()
     ]
 }];

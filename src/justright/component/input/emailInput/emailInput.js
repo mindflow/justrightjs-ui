@@ -4,72 +4,89 @@ import {
     ComponentFactory,
     EventRegistry,
     CanvasStyles,
-    Component,
-    InputElementDataBinding
+    InputElementDataBinding,
+    Component
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
 
 const LOG = new Logger("EmailInput");
 
-const BLUR_EVENT = "//event:emailInputBlur";
-const KEYUP_EVENT = "//event:emailInputKeyUp";
-const CHANGE_EVENT = "//event:emailInputChange";
-const ERROR_CLICK_EVENT = "//event:emailErrorClicked";
-
 export class EmailInput {
 
 	static get COMPONENT_NAME() { return "EmailInput"; }
     static get TEMPLATE_URL() { return "/assets/justrightjs-ui/emailInput.html"; }
     static get STYLES_URL() { return "/assets/justrightjs-ui/emailInput.css"; }
+
+    static get BLUR_EVENT() { return "//event:emailInputBlur"; }
+    static get KEYUP_EVENT() { return "//event:emailInputKeyUp"; }
+    static get CHANGE_EVENT() { return "//event:emailInputChange"; }
+    static get ERROR_CLICK_EVENT() { return "//event:emailErrorClicked"; }
+    
+    static get DEFAULT_PLACEHOLDER() { return "Email"; }
+    
+    static get INPUT_ELEMENT_ID() { return "emailInput"; }
+    static get ERROR_ELEMENT_ID() { return "emailError"; }
+
     /**
      * 
      * @param {string} name 
      */
-    constructor(name) {
+    constructor(name, mandatory = false, placeholder = EmailInput.DEFAULT_PLACEHOLDER) {
+
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
 
         /** @type {EventRegistry} */
         this.eventRegistry = InjectionPoint.instance(EventRegistry);
 
+        /** @type {String} */
         this.name = name;
 
-        this.validator = new EmailValidator()
+        /** @type {EmailValidator} */
+        this.validator = new EmailValidator(mandatory)
             .withValidListener(new ObjectFunction(this, this.hideValidationError));
 
+        /** @type {Boolean} */
         this.changed = false;
+
+        /** @type {Component} */
+        this.component = null;
+
+        /** @type {String} */
+        this.placeholder = placeholder;
     }
 
     postConfig() {
-        this.component = this.componentFactory.create("EmailInput");
+        
+        this.component = this.componentFactory.create(EmailInput.COMPONENT_NAME);
 
         CanvasStyles.enableStyle(EmailInput.COMPONENT_NAME);
 
         const idx = this.component.getComponentIndex();
-        const input = this.component.get("emailInput");
-        const error = this.component.get("emailError");
+        const input = this.component.get(EmailInput.INPUT_ELEMENT_ID);
+        const error = this.component.get(EmailInput.ERROR_ELEMENT_ID);
 
         input.setAttributeValue("name",this.name);
 
-        this.eventRegistry.attach(input, "onblur", BLUR_EVENT, idx);
-        this.eventRegistry.attach(input, "onkeyup", KEYUP_EVENT, idx);
-        this.eventRegistry.attach(input, "onchange", CHANGE_EVENT, idx);
-        this.eventRegistry.attach(error, "onclick", ERROR_CLICK_EVENT, idx);
+        this.eventRegistry.attach(input, "onblur", EmailInput.BLUR_EVENT, idx);
+        this.eventRegistry.attach(input, "onkeyup", EmailInput.KEYUP_EVENT, idx);
+        this.eventRegistry.attach(input, "onchange", EmailInput.CHANGE_EVENT, idx);
+        this.eventRegistry.attach(error, "onclick", EmailInput.ERROR_CLICK_EVENT, idx);
 
-        this.eventRegistry.listen(BLUR_EVENT, new ObjectFunction(this, this.blurred), idx);
-        this.eventRegistry.listen(KEYUP_EVENT, new ObjectFunction(this, this.keyUp), idx);
-        this.eventRegistry.listen(CHANGE_EVENT, new ObjectFunction(this, this.change), idx);
-        this.eventRegistry.listen(ERROR_CLICK_EVENT, new ObjectFunction(this, this.hideValidationError), idx);
+        this.eventRegistry.listen(EmailInput.BLUR_EVENT, new ObjectFunction(this, this.blurred), idx);
+        this.eventRegistry.listen(EmailInput.KEYUP_EVENT, new ObjectFunction(this, this.keyUp), idx);
+        this.eventRegistry.listen(EmailInput.CHANGE_EVENT, new ObjectFunction(this, this.change), idx);
+        this.eventRegistry.listen(EmailInput.ERROR_CLICK_EVENT, new ObjectFunction(this, this.hideValidationError), idx);
 
-        this.withPlaceholder("Email");
+        this.withPlaceholder(this.placeholder);
     }
 
 	getComponent(){
 		return this.component;
     }
 
-    change() {
+    change(event) {
         this.changed = true;
     }
 
@@ -98,12 +115,12 @@ export class EmailInput {
     withModel(model) {
         InputElementDataBinding
             .link(model, this.validator)
-            .to(this.component.get("emailInput"));
+            .to(this.component.get(EmailInput.INPUT_ELEMENT_ID));
         return this;
     }
 
     withPlaceholder(placeholderValue) {
-        this.component.get("emailInput").setAttributeValue("placeholder",placeholderValue);
+        this.component.get(EmailInput.INPUT_ELEMENT_ID).setAttributeValue("placeholder",placeholderValue);
         return this;
     }
 
@@ -112,7 +129,7 @@ export class EmailInput {
         return this;
     }
 
-    blurred() {
+    blurred(event) {
         if (!this.changed) {
             return;
         }
@@ -123,10 +140,10 @@ export class EmailInput {
         this.hideValidationError();
     }
 
-    showValidationError() { this.component.get("emailError").setStyle("display","block"); }
-    hideValidationError() { this.component.get("emailError").setStyle("display","none"); }
-    focus() { this.component.get("emailInput").focus(); }
-    selectAll() { this.component.get("emailInput").selectAll(); }
-    enable() { this.component.get("emailInput").enable(); }
-    disable() { this.component.get("emailInput").disable(); }
+    showValidationError() { this.component.get(EmailInput.ERROR_ELEMENT_ID).setStyle("display","block"); }
+    hideValidationError() { this.component.get(EmailInput.ERROR_ELEMENT_ID).setStyle("display","none"); }
+    focus() { this.component.get(EmailInput.INPUT_ELEMENT_ID).focus(); }
+    selectAll() { this.component.get(EmailInput.INPUT_ELEMENT_ID).selectAll(); }
+    enable() { this.component.get(EmailInput.INPUT_ELEMENT_ID).enable(); }
+    disable() { this.component.get(EmailInput.INPUT_ELEMENT_ID).disable(); }
 }

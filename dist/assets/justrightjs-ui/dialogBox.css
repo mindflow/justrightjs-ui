@@ -114,6 +114,7 @@
   @media (min-width: 640px) {
     
     .dialogbox {
+      margin-top: 54pt;
       padding-top: 1.5rem;
       left: 50%;
       transform: translate(-50%,0);

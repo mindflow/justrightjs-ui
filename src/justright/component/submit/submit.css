@@ -37,8 +37,8 @@
   
   .btn-primary.disabled, .btn-primary:disabled {
     color: #fff;
-    background-color: #5eabfd;
-    border-color: #5eabfd;
+    background-color: #007bff;
+    border-color: #007bff;
   }
   
   .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,

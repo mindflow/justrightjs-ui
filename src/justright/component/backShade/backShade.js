@@ -3,7 +3,8 @@ import {
     ComponentFactory,
     EventRegistry,
     CanvasStyles,
-    CanvasRoot
+    CanvasRoot,
+    BaseElement
 } from "justright_core_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
@@ -26,11 +27,22 @@ export class BackShade {
 
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
+
+        /** @type {BaseElement} */
+        this.container = null;
 	}
 
     postConfig() {
         LOG.info("Post config");
         this.component = this.componentFactory.create("BackShade");
+    }
+
+    /**
+     * 
+     * @param {BaseElement} container 
+     */
+    setContainer(container) {
+        this.container = container;
     }
 
     /**
@@ -76,7 +88,11 @@ export class BackShade {
 
     mountSelf() {
         if (!this.getComponent().getRootElement().isMounted()) {
-            CanvasRoot.addBodyElement(this.getComponent().getRootElement());
+            if(this.container) {
+                this.container.addChild(this.getComponent());
+            }else{
+                CanvasRoot.prependBodyElement(this.getComponent().getRootElement());
+            }
         }
     }
 

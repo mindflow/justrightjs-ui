@@ -1,4 +1,4 @@
-.text-input {
+.phone-input {
     display: block;
     width: 100%;
     height: calc(1.5em + 0.75rem + 2px);
@@ -15,7 +15,7 @@
     margin-bottom: 1rem;
 }
 
-.text-error {
+.phone-error {
     min-width:200px;
     max-width:400px;
     transform:translate(0%,-100%) translate(0%,-5px);
@@ -33,7 +33,7 @@
     cursor: pointer;
 }
 
-.text-error i {
+.phone-error i {
     position:absolute;
     top:100%;
     left:30%;
@@ -43,7 +43,7 @@
     overflow:hidden;
 }
 
-.text-error i::after {
+.phone-error i::after {
     content:'';
     position:absolute;
     width:15px;
@@ -53,3 +53,4 @@
     background-color:#FFFFE0;
     box-shadow:0 1px 8px rgba(0,0,0,0.5);
 }
+

@@ -1,0 +1,53 @@
+.banner-message {
+    padding: 18pt;
+    color: white;
+    width: 100%;
+    transition: opacity 0.5s;
+}
+
+.banner-message.hide {
+    opacity: 0;
+}
+
+.banner-message.show {
+    opacity: 0.90;
+}
+
+.banner-message-alert {
+    background-color: #f44336;
+}
+
+.banner-message-success {
+    background-color: #4CAF50;
+}
+
+.banner-message-info {
+    background-color: #2196F3;
+}
+
+.banner-message-warning {
+    background-color: #ff9800;
+}
+  
+.banner-message-close-button {
+    margin-left: 15pt;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22pt;
+    line-height: 14pt;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+.banner-message-close-button:hover {
+    color: black;
+} 
+
+.banner-message-header {
+    font-weight:bold;
+}
+
+.banner-message-message {
+    margin-left:15px;
+}

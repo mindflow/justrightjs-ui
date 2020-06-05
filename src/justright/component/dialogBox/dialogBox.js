@@ -4,7 +4,8 @@ import {
     EventRegistry,
     CanvasStyles,
     StylesRegistry,
-    CanvasRoot
+    CanvasRoot,
+    BaseElement
 } from "justright_core_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
@@ -39,9 +40,11 @@ export class DialogBox {
 
         /** @type {StylesRegistry} */
         this.stylesRegistry = InjectionPoint.instance(StylesRegistry);
-	}
 
-
+        /** @type {BaseElement} */
+        this.container = null;
+    }
+    
     postConfig() {
         LOG.info("Post config")
         this.component = this.componentFactory.create("DialogBox");
@@ -50,6 +53,16 @@ export class DialogBox {
         this.backShade = this.backShade
             .withClickListener(new ObjectFunction(this, this.hide));
     }
+
+    /**
+     * 
+     * @param {BaseElement} container 
+     */
+    setContainer(container) {
+        this.container = container;
+        this.backShade.setContainer(this.container);
+    }
+
 
     /**
      * @return {Component}
@@ -119,7 +132,11 @@ export class DialogBox {
      */
     mountSelf() {
         if(!this.getComponent().getRootElement().isMounted()) {
-            CanvasRoot.addBodyElement(this.getComponent().getRootElement());
+            if(this.container) {
+                this.container.addChild(this.getComponent());
+            }else{
+                CanvasRoot.prependBodyElement(this.getComponent().getRootElement());
+            }
         }
     }
 
