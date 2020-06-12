@@ -27,11 +27,15 @@ export class Button {
      * 
      * @param {string} label 
      * @param {string} buttonType 
+     * @param {ObjectFunction} clickListener
      */
-    constructor(label, buttonType = Button.TYPE_PRIMARY) {
+    constructor(label, buttonType = Button.TYPE_PRIMARY, clickListener = null) {
 
         /** @type {string} */
         this.label = label;
+
+        /** @type {ObjectFunction} */
+        this.clickListener = clickListener;
 
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
@@ -48,6 +52,9 @@ export class Button {
         CanvasStyles.enableStyle(Button.COMPONENT_NAME);
         this.component.get("button").setChild(this.label);
         this.component.get("button").setAttributeValue("class","btn " + this.buttonType);
+        if(this.clickListener) {
+            this.registerClickListener(this.clickListener);
+        }
     }
 
 	getComponent(){
@@ -58,7 +65,7 @@ export class Button {
      * 
      * @param {ObjectFunction} clickedListener 
      */
-    withClickListener(clickListener) {
+    registerClickListener(clickListener) {
         this.eventRegistry.attach(this.component.get("button"), "onclick", "//event:buttonClicked", this.component.getComponentIndex());
         this.eventRegistry.listen("//event:buttonClicked", clickListener, this.component.getComponentIndex());
         return this;

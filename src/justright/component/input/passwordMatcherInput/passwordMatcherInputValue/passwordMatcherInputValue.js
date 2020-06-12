@@ -1,16 +1,16 @@
+import { RequiredValidator, PasswordValidator } from "justright_core_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
-import { CommonInput } from "../commonInput";
-import { PhoneValidator } from "justright_core_v1";
+import { CommonInput } from "../../commonInput";
 
-const LOG = new Logger("PhoneInput");
+const LOG = new Logger("PasswordMatcherInputValue");
 
-export class PhoneInput extends CommonInput {
+export class PasswordMatcherInputValue extends CommonInput {
+    
+    static get COMPONENT_NAME() { return "PasswordMatcherInputValue"; }
+    static get DEFAULT_PLACEHOLDER() { return "New password"; }
 
-    static get COMPONENT_NAME() { return "PhoneInput"; }
-    static get DEFAULT_PLACEHOLDER() { return "Phone"; }
-
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/phoneInput.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/phoneInput.css"; }
+    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/passwordMatcherInputValue.html"; }
+    static get STYLES_URL() { return "/assets/justrightjs-ui/passwordMatcherInputValue.css"; }
 
     /**
      * 
@@ -27,13 +27,13 @@ export class PhoneInput extends CommonInput {
     constructor(name, mandatory = false, placeholder = TextInput.DEFAULT_PLACEHOLDER, model = null, 
         clickListener = null, keyupListener = null, enterListener = null, changeListener = null, blurListener = null) {
 
-        super(PhoneInput.COMPONENT_NAME,
+        super(PasswordMatcherInputValue.COMPONENT_NAME,
             name,
             placeholder,
-            "phoneInput",
-            "phoneError",
+            "passwordMatcherInputValueField",
+            "passwordMatcherInputValueError",
             model,
-            new PhoneValidator(mandatory),
+            new PasswordValidator(mandatory),
             clickListener,
             keyupListener,
             enterListener,
