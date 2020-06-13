@@ -14,14 +14,14 @@ export class Button {
     static get TEMPLATE_URL() { return "/assets/justrightjs-ui/button.html"; }
     static get STYLES_URL() { return "/assets/justrightjs-ui/button.css"; }
 
-    static get TYPE_PRIMARY() { return "btn-primary"; }
-    static get TYPE_SECONDARY() { return "btn-secondary"; }
-    static get TYPE_SUCCESS() { return "btn-success"; }
-    static get TYPE_INFO() { return "btn-info"; }
-    static get TYPE_WARNING() { return "btn-warning"; }
-    static get TYPE_DANGER() { return "btn-danger"; }
-    static get TYPE_LIGHT() { return "btn-light"; }
-    static get TYPE_DARK() { return "btn-dark"; }
+    static get TYPE_PRIMARY() { return "button-primary"; }
+    static get TYPE_SECONDARY() { return "button-secondary"; }
+    static get TYPE_SUCCESS() { return "button-success"; }
+    static get TYPE_INFO() { return "button-info"; }
+    static get TYPE_WARNING() { return "button-warning"; }
+    static get TYPE_DANGER() { return "button-danger"; }
+    static get TYPE_LIGHT() { return "button-light"; }
+    static get TYPE_DARK() { return "button-dark"; }
 
     /**
      * 
@@ -51,7 +51,7 @@ export class Button {
         this.component = this.componentFactory.create("Button");
         CanvasStyles.enableStyle(Button.COMPONENT_NAME);
         this.component.get("button").setChild(this.label);
-        this.component.get("button").setAttributeValue("class","btn " + this.buttonType);
+        this.component.get("button").setAttributeValue("class","button " + this.buttonType);
         if(this.clickListener) {
             this.registerClickListener(this.clickListener);
         }
@@ -69,6 +69,14 @@ export class Button {
         this.eventRegistry.attach(this.component.get("button"), "onclick", "//event:buttonClicked", this.component.getComponentIndex());
         this.eventRegistry.listen("//event:buttonClicked", clickListener, this.component.getComponentIndex());
         return this;
+    }
+
+    enableLoading() {
+        this.getComponent().get("spinnerContainer").setAttributeValue("class","button-spinner-container-visible");
+    }
+
+    disableLoading() {
+        this.getComponent().get("spinnerContainer").setAttributeValue("class","button-spinner-container-hidden");
     }
 
     disable() {
