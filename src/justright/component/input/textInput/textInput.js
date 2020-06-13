@@ -33,7 +33,7 @@ export class TextInput extends CommonInput {
             "textInput",
             "textError",
             model,
-            new RequiredValidator(mandatory),
+            new RequiredValidator(!mandatory),
             clickListener,
             keyupListener,
             enterListener,

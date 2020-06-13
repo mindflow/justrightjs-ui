@@ -33,7 +33,7 @@ export class PhoneInput extends CommonInput {
             "phoneInput",
             "phoneError",
             model,
-            new PhoneValidator(mandatory),
+            new PhoneValidator(mandatory, !mandatory),
             clickListener,
             keyupListener,
             enterListener,

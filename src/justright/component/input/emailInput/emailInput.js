@@ -33,7 +33,7 @@ export class EmailInput extends CommonInput {
             "emailInput",
             "emailError",
             model,
-            new EmailValidator(mandatory),
+            new EmailValidator(mandatory, !mandatory),
             clickListener,
             keyupListener,
             enterListener,

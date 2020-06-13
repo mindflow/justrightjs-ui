@@ -33,7 +33,7 @@ export class PasswordInput extends CommonInput {
             "passwordInput",
             "passwordError",
             model,
-            new RequiredValidator(mandatory),
+            new RequiredValidator(!mandatory),
             clickListener,
             keyupListener,
             enterListener,
