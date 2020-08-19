@@ -1,6 +1,7 @@
-import { EqualsValidator } from "justright_core_v1";
-import { Logger, ObjectFunction } from "coreutil_v1";
+import { EqualsPropertyValidator } from "justright_core_v1";
+import { Logger } from "coreutil_v1";
 import { CommonInput } from "../../commonInput";
+import { ListenerBundle } from "../../../listenerBundle";
 
 const LOG = new Logger("PasswordMatcherInputControl");
 
@@ -12,33 +13,27 @@ export class PasswordMatcherInputControl extends CommonInput {
     static get TEMPLATE_URL() { return "/assets/justrightjs-ui/passwordMatcherInputControl.html"; }
     static get STYLES_URL() { return "/assets/justrightjs-ui/passwordMatcherInputControl.css"; }
 
+
+
     /**
      * 
      * @param {string} name
-     * @param {boolean} mandatory
-     * @param {string} placeholder
      * @param {object} model
-     * @param {ObjectFunction} comparedValueFunction
-     * @param {ObjectFunction} clickListener
-     * @param {ObjectFunction} keyupListener
-     * @param {ObjectFunction} enterListener
-     * @param {ObjectFunction} changeListener
-     * @param {ObjectFunction} blurListener
+     * @param {ListenerBundle} listenerBundle
+     * @param {string} placeholder
+     * @param {string} modelComparedPropertyName
+     * @param {boolean} mandatory
      */
-    constructor(name, mandatory = false, placeholder = TextInput.DEFAULT_PLACEHOLDER, model = null, comparedValueFunction = null,
-        clickListener = null, keyupListener = null, enterListener = null, changeListener = null, blurListener = null) {
+    constructor(name, model = null, modelComparedPropertyName = null, listenerBundle = null, placeholder = TextInput.DEFAULT_PLACEHOLDER,
+           mandatory = false) {
 
         super(PasswordMatcherInputControl.COMPONENT_NAME,
             name,
+            model,
+            listenerBundle,
+            new EqualsPropertyValidator(mandatory, false, model, modelComparedPropertyName),
             placeholder,
             "passwordMatcherInputControlField",
-            "passwordMatcherInputControlError",
-            model,
-            new EqualsValidator(mandatory, false, comparedValueFunction),
-            clickListener,
-            keyupListener,
-            enterListener,
-            changeListener,
-            blurListener);
+            "passwordMatcherInputControlError");
     }
 }

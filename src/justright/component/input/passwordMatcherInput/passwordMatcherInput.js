@@ -2,12 +2,13 @@ import {
     AbstractValidator,
     ComponentFactory,
     CanvasStyles,
-    AndValidatorSet,
+    AndValidatorSet
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
-import { Logger, ObjectFunction } from "coreutil_v1";
+import { Logger } from "coreutil_v1";
 import { PasswordMatcherInputValue } from "./passwordMatcherInputValue/passwordMatcherInputValue";
 import { PasswordMatcherInputControl } from "./passwordMatcherInputControl/passwordMatcherInputControl";
+import { ListenerBundle } from "../../listenerBundle";
 
 const LOG = new Logger("PasswordMatcherInput");
 
@@ -19,20 +20,20 @@ export class PasswordMatcherInput {
 
     /**
      * 
-     * @param {string} name 
-     * @param {boolean} mandatory 
-     * @param {string} placeholder 
-     * @param {string} controlPlaceholder 
-     * @param {object} model 
-     * @param {ObjectFunction} comparedValueFunction 
-     * @param {ObjectFunction} passwordEnteredListener 
+     * @param {string} name
+     * @param {string} controlName
+     * @param {object} model
+     * @param {ListenerBundle} listenerBundle
+     * @param {string} placeholder
+     * @param {string} controlPlaceholder
+     * @param {boolean} mandatory
      */
-    constructor(name, controlName, mandatory = false, 
+    constructor(name, controlName,
+        model = null,
+        listenerBundle = null, 
         placeholder = PasswordMatcherInput.DEFAULT_PLACEHOLDER, 
         controlPlaceholder = PasswordMatcherInput.DEFAULT_CONTROL_PLACEHOLDER,
-        model = null,
-        comparedValueFunction = null,
-        passwordEnteredListener = null) {
+        mandatory = false) {
 
 
         /** @type {ComponentFactory} */
@@ -40,12 +41,12 @@ export class PasswordMatcherInput {
 
         /** @type {PasswordMatcherInputValue} */
 		this.passwordMatcherInputValue = InjectionPoint.instance(
-			PasswordMatcherInputValue, [name, mandatory, placeholder, model, null, null, new ObjectFunction(this, this.passwordEntered)]
+            PasswordMatcherInputValue, [name, model, new ListenerBundle().withEnterListener(this, this.passwordEntered), placeholder,  mandatory]
 		);
 
         /** @type {PasswordMatcherInputControl} */
 		this.passwordMatcherInputControl = InjectionPoint.instance(
-			PasswordMatcherInputControl, [controlName, mandatory, controlPlaceholder, model, comparedValueFunction, null, null, passwordEnteredListener]
+            PasswordMatcherInputControl, [controlName, model, name, listenerBundle, controlPlaceholder, mandatory]
 		);
     }
 

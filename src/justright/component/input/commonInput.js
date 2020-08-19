@@ -1,6 +1,7 @@
 import { ObjectFunction } from "coreutil_v1";
-import { InputElementDataBinding, AbstractValidator, ComponentFactory, EventRegistry, CanvasStyles } from "justright_core_v1";
+import { InputElementDataBinding, AbstractValidator, ComponentFactory, EventRegistry, CanvasStyles, Event } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
+import { ListenerBundle } from "../listenerBundle";
 
 export class CommonInput {
 
@@ -9,7 +10,7 @@ export class CommonInput {
     static get INPUT_ENTER_EVENT_ID() { return "//event:inputEnter"; }
     static get INPUT_CHANGE_EVENT_ID() { return "//event:inputChange"; }
     static get INPUT_BLUR_EVENT_ID() { return "//event:inputBlur"; }
-    static get ERROR_CLICKED_EVENT_ID() { return "//event:errorClicked"; }
+    static get ERROR_CLICK_EVENT_ID() { return "//event:errorClicked"; }
 
     static get ON_CLICK() { return "onclick"; }
     static get ON_KEYUP() { return "onkeyup"; }
@@ -18,21 +19,25 @@ export class CommonInput {
 
     /**
      * 
-     * @param {string} componentName 
-     * @param {string} name 
-     * @param {string} placeholder 
-     * @param {string} inputElementId 
-     * @param {string} errorElementId 
-     * @param {object} model 
-     * @param {AbstractValidator} validator 
-     * @param {ObjectFunction} clickListener
-     * @param {ObjectFunction} keyupListener
-     * @param {ObjectFunction} enterListener
-     * @param {ObjectFunction} changeListener
-     * @param {ObjectFunction} blurListener
+     * @param {string} componentName
+     * @param {string} name
+     * @param {object} model
+     * @param {ListenerBundle} listenerBundle
+     * @param {AbstractValidator} validator
+     * @param {string} placeholder
+     * @param {string} inputElementId
+     * @param {string} errorElementId
+     * 
+
      */
-    constructor(componentName, name, placeholder, inputElementId, errorElementId, model = null, validator = null, 
-            clickListener = null, keyupListener = null, enterListener = null, changeListener = null, blurListener = null) {
+    constructor(componentName,
+        name,
+        model = null, 
+        listenerBundle = null,
+        validator = null, 
+        placeholder = null,
+        inputElementId = "input",
+        errorElementId = "error") {
 
         /** @type {string} */
         this.componentName = componentName;
@@ -55,20 +60,8 @@ export class CommonInput {
         /** @type {AbstractValidator} */
         this.validator = validator;
 
-        /** @type {ObjectFunction} */
-        this.clickListener = clickListener;
-
-        /** @type {ObjectFunction} */
-        this.keyupListener = keyupListener;
-
-        /** @type {ObjectFunction} */
-        this.enterListener = enterListener;
-
-        /** @type {ObjectFunction} */
-        this.changeListener = changeListener;
-
-        /** @type {ObjectFunction} */
-        this.blurListener = blurListener;
+        /** @type {ListenerBundle} */
+        this.listenerBundle = (null != listenerBundle) ? listenerBundle : new ListenerBundle();
 
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
@@ -83,7 +76,7 @@ export class CommonInput {
     postConfig() {
         this.component = this.componentFactory.create(this.componentName);
 
-        CanvasStyles.enableStyle(this.componentName);
+        CanvasStyles.enableStyle(this.componentName, this.component.getComponentIndex());
 
         this.component.get(this.inputElementId).setAttributeValue("name", this.name);
         this.component.get(this.inputElementId).setAttributeValue("placeholder", this.placeholder);
@@ -96,12 +89,12 @@ export class CommonInput {
             InputElementDataBinding.link(this.model, this.validator).to(this.component.get(this.inputElementId));
         }
 
-        this.registerListener(new ObjectFunction(this, this.entered), CommonInput.ON_KEYUP, CommonInput.INPUT_ENTER_EVENT_ID, (event) => { return event.getKeyCode() === 13; } );
-        this.registerListener(new ObjectFunction(this, this.keyupped), CommonInput.ON_KEYUP, CommonInput.INPUT_BLUR_EVENT_ID);
+        this.registerListener(new ObjectFunction(this, this.entered), CommonInput.ON_KEYUP, CommonInput.INPUT_ENTER_EVENT_ID, (event) => { return event.isKeyCode(13); } );
+        this.registerListener(new ObjectFunction(this, this.keyupped), CommonInput.ON_KEYUP, CommonInput.INPUT_KEYUP_EVENT_ID);
         this.registerListener(new ObjectFunction(this, this.changed), CommonInput.ON_CHANGE, CommonInput.INPUT_CHANGE_EVENT_ID);
         this.registerListener(new ObjectFunction(this, this.blurred), CommonInput.ON_BLUR, CommonInput.INPUT_BLUR_EVENT_ID);
-        this.registerListener(new ObjectFunction(this, this.clicked), CommonInput.ON_CLICK, CommonInput.INPUT_BLUR_EVENT_ID);
-        this.registerListener(new ObjectFunction(this, this.errorClicked), CommonInput.ON_CLICK, CommonInput.ERROR_CLICKED_EVENT_ID);
+        this.registerListener(new ObjectFunction(this, this.clicked), CommonInput.ON_CLICK, CommonInput.INPUT_CLICK_EVENT_ID);
+        this.registerListener(new ObjectFunction(this, this.errorClicked), CommonInput.ON_CLICK, CommonInput.ERROR_CLICK_EVENT_ID);
     }
 
     getComponent() {
@@ -127,24 +120,24 @@ export class CommonInput {
         return this;
     }
 
+    /**
+     * 
+     * @param {Event} event 
+     */
     keyupped(event) {
-        this.tainted = true;
-        if (this.keyupListener) {
-            this.keyupListener.call(event);
+        if (!event.isKeyCode(13) && !event.isKeyCode(16) && !event.isKeyCode(9)) {
+            this.tainted = true;
         }
+        this.listenerBundle.callKeyUp(event);
     }
 
     changed(event) {
         this.tainted = true;
-        if (this.changedListener) {
-            this.changedListener.call(event);
-        }
+        this.listenerBundle.callChange(event);
     }
 
     clicked(event) {
-        if (this.clickListener) {
-            this.clickListener.call(event);
-        }
+        this.listenerBundle.callClick(event);
     }
 
     entered(event) {
@@ -153,10 +146,7 @@ export class CommonInput {
             this.selectAll();
             return;
         }
-
-        if (this.enterListener) {
-            this.enterListener.call(event);
-        }
+        this.listenerBundle.callEnter(event);
     }
 
     blurred(event) {
@@ -168,18 +158,12 @@ export class CommonInput {
             return;
         }
         this.hideValidationError();
-
-        if (this.blurListener) {
-            this.blurListener.call(event);
-        }
+        this.listenerBundle.callBlur(event);
     }
 
     errorClicked(event) {
         this.hideValidationError();
-
-        if (this.errorClickListener) {
-            this.errorClickListener.call(event);
-        }
+        this.listenerBundle.callErrorClick(event);
     }
 
 
@@ -189,6 +173,6 @@ export class CommonInput {
     selectAll() { this.component.get(this.inputElementId).selectAll(); }
     enable() { this.component.get(this.inputElementId).enable(); }
     disable() { this.component.get(this.inputElementId).disable(); }
-    clear() { this.component.get(this.inputElementId).setValue(""); }
+    clear() { this.tainted = false; this.component.get(this.inputElementId).setValue(""); }
 
 }

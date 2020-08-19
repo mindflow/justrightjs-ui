@@ -5,6 +5,7 @@ import {
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
+import { ListenerBundle } from "../listenerBundle";
 
 const LOG = new Logger("Button");
 
@@ -25,17 +26,17 @@ export class Button {
 
     /**
      * 
-     * @param {string} label 
-     * @param {string} buttonType 
-     * @param {ObjectFunction} clickListener
+     * @param {string} label
+     * @param {ListenerBundle} listenerBundle
+     * @param {string} buttonType
      */
-    constructor(label, buttonType = Button.TYPE_PRIMARY, clickListener = null) {
+    constructor(label, listenerBundle = null, buttonType = Button.TYPE_PRIMARY) {
 
         /** @type {string} */
         this.label = label;
 
-        /** @type {ObjectFunction} */
-        this.clickListener = clickListener;
+        /** @type {ListenerBundle} */
+        this.listenerBundle = (null != listenerBundle) ? listenerBundle : new ListenerBundle();
 
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
@@ -52,9 +53,7 @@ export class Button {
         CanvasStyles.enableStyle(Button.COMPONENT_NAME);
         this.component.get("button").setChild(this.label);
         this.component.get("button").setAttributeValue("class","button " + this.buttonType);
-        if(this.clickListener) {
-            this.registerClickListener(this.clickListener);
-        }
+        this.registerClickListener();
     }
 
 	getComponent(){
@@ -65,10 +64,14 @@ export class Button {
      * 
      * @param {ObjectFunction} clickedListener 
      */
-    registerClickListener(clickListener) {
+    registerClickListener() {
         this.eventRegistry.attach(this.component.get("button"), "onclick", "//event:buttonClicked", this.component.getComponentIndex());
-        this.eventRegistry.listen("//event:buttonClicked", clickListener, this.component.getComponentIndex());
+        this.eventRegistry.listen("//event:buttonClicked", new ObjectFunction(this, this.clicked), this.component.getComponentIndex());
         return this;
+    }
+
+    clicked(event) {
+        this.listenerBundle.callClick(event);
     }
 
     enableLoading() {

@@ -1,6 +1,7 @@
-import { Logger, ObjectFunction } from "coreutil_v1";
+import { Logger } from "coreutil_v1";
 import { CommonInput } from "../commonInput";
 import { PhoneValidator } from "justright_core_v1";
+import { ListenerBundle } from "../../listenerBundle";
 
 const LOG = new Logger("PhoneInput");
 
@@ -15,29 +16,20 @@ export class PhoneInput extends CommonInput {
     /**
      * 
      * @param {string} name
-     * @param {boolean} mandatory
-     * @param {string} placeholder
      * @param {object} model
-     * @param {ObjectFunction} clickListener
-     * @param {ObjectFunction} keyupListener
-     * @param {ObjectFunction} enterListener
-     * @param {ObjectFunction} changeListener
-     * @param {ObjectFunction} blurListener
+     * @param {ListenerBundle} listenerBundle
+     * @param {string} placeholder
+     * @param {boolean} mandatory
      */
-    constructor(name, mandatory = false, placeholder = TextInput.DEFAULT_PLACEHOLDER, model = null, 
-        clickListener = null, keyupListener = null, enterListener = null, changeListener = null, blurListener = null) {
+    constructor(name, model = null, listenerBundle = null, placeholder = TextInput.DEFAULT_PLACEHOLDER, mandatory = false) {
 
         super(PhoneInput.COMPONENT_NAME,
             name,
+            model,
+            listenerBundle,
+            new PhoneValidator(mandatory, !mandatory),
             placeholder,
             "phoneInput",
-            "phoneError",
-            model,
-            new PhoneValidator(mandatory, !mandatory),
-            clickListener,
-            keyupListener,
-            enterListener,
-            changeListener,
-            blurListener);
+            "phoneError");
     }
 }

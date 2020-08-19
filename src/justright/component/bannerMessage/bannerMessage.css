@@ -1,8 +1,26 @@
-.banner-message {
+.banner-message-large-square {
     padding: 18pt;
+}
+
+.banner-message-small-square {
+    padding: 6pt;
+}
+
+.banner-message-large-round {
+    padding: 18pt;
+    border-radius: 5px;
+}
+
+.banner-message-small-round {
+    padding: 6pt;
+    border-radius: 5px;
+}
+
+.banner-message {
     color: white;
     width: 100%;
     transition: opacity 0.5s;
+    margin-bottom: 1rem;
 }
 
 .banner-message.hide {

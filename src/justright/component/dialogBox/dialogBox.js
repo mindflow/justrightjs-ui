@@ -31,7 +31,6 @@ export class DialogBox {
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
 
-
 		/** @type {Component} */
         this.component = null;
         
@@ -110,12 +109,12 @@ export class DialogBox {
             this.backShade.disableAfter(500);
         },200);
         setTimeout(() => {
-            CanvasStyles.disableStyle(DialogBox.COMPONENT_NAME);
+            CanvasStyles.disableStyle(DialogBox.COMPONENT_NAME, this.component.getComponentIndex());
         },201);
     }
 
     show() {
-        CanvasStyles.enableStyle(DialogBox.COMPONENT_NAME);
+        CanvasStyles.enableStyle(DialogBox.COMPONENT_NAME, this.component.getComponentIndex());
         this.backShade.mountSelf();
         this.mountSelf();
 
@@ -141,7 +140,7 @@ export class DialogBox {
     }
 
     removeSelf() {
-        CanvasStyles.removeStyle(DialogBox.COMPONENT_NAME);
+        CanvasStyles.disableStyle(DialogBox.COMPONENT_NAME, this.component.getComponentIndex());
         this.getComponent().removeSelf();
     }
 }
