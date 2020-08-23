@@ -1,7 +1,7 @@
 import { EqualsPropertyValidator } from "justright_core_v1";
 import { Logger } from "coreutil_v1";
-import { CommonInput } from "../../commonInput";
-import { ListenerBundle } from "../../../listenerBundle";
+import { CommonInput } from "../../commonInput.js";
+import { CommonListeners } from "../../../commonListeners.js";
 
 const LOG = new Logger("PasswordMatcherInputControl");
 
@@ -19,18 +19,18 @@ export class PasswordMatcherInputControl extends CommonInput {
      * 
      * @param {string} name
      * @param {object} model
-     * @param {ListenerBundle} listenerBundle
+     * @param {CommonListeners} commonListeners
      * @param {string} placeholder
      * @param {string} modelComparedPropertyName
      * @param {boolean} mandatory
      */
-    constructor(name, model = null, modelComparedPropertyName = null, listenerBundle = null, placeholder = TextInput.DEFAULT_PLACEHOLDER,
+    constructor(name, model = null, modelComparedPropertyName = null, commonListeners = null, placeholder = TextInput.DEFAULT_PLACEHOLDER,
            mandatory = false) {
 
         super(PasswordMatcherInputControl.COMPONENT_NAME,
             name,
             model,
-            listenerBundle,
+            commonListeners,
             new EqualsPropertyValidator(mandatory, false, model, modelComparedPropertyName),
             placeholder,
             "passwordMatcherInputControlField",

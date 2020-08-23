@@ -5,7 +5,7 @@ import {
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
-import { ListenerBundle } from "../listenerBundle";
+import { CommonListeners } from "../commonListeners.js";
 
 const LOG = new Logger("Button");
 
@@ -27,16 +27,16 @@ export class Button {
     /**
      * 
      * @param {string} label
-     * @param {ListenerBundle} listenerBundle
+     * @param {CommonListeners} commonListeners
      * @param {string} buttonType
      */
-    constructor(label, listenerBundle = null, buttonType = Button.TYPE_PRIMARY) {
+    constructor(label, commonListeners = null, buttonType = Button.TYPE_PRIMARY) {
 
         /** @type {string} */
         this.label = label;
 
-        /** @type {ListenerBundle} */
-        this.listenerBundle = (null != listenerBundle) ? listenerBundle : new ListenerBundle();
+        /** @type {CommonListeners} */
+        this.commonListeners = (null != commonListeners) ? commonListeners : new CommonListeners();
 
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
@@ -71,7 +71,7 @@ export class Button {
     }
 
     clicked(event) {
-        this.listenerBundle.callClick(event);
+        this.commonListeners.callClick(event);
     }
 
     enableLoading() {

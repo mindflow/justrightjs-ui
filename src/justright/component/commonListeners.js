@@ -1,7 +1,7 @@
 import { ObjectFunction } from "coreutil_v1";
 import { Event } from "justright_core_v1";
 
-export class ListenerBundle {
+export class CommonListeners {
     
     constructor() {
 
@@ -14,16 +14,6 @@ export class ListenerBundle {
      */
     withClickListener(targetObject, targetFunction) {
         this.clickListener = new ObjectFunction(targetObject, targetFunction);
-        return this;
-    }
-
-    /**
-     * 
-     * @param {object} targetObject 
-     * @param {function} targetFunction 
-     */
-    withErrorClickListener(targetObject, targetFunction) {
-        this.errorClickListener = new ObjectFunction(targetObject, targetFunction);
         return this;
     }
 
@@ -79,10 +69,6 @@ export class ListenerBundle {
 
     callClick(event) {
         this.callListener(this.clickListener, event);
-    }
-
-    callErrorClick(event) {
-        this.callListener(this.errorClickListener, event);
     }
 
     callKeyUp(event) {

@@ -1,7 +1,7 @@
 import { ObjectFunction } from "coreutil_v1";
 import { InputElementDataBinding, AbstractValidator, ComponentFactory, EventRegistry, CanvasStyles, Event } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
-import { ListenerBundle } from "../listenerBundle";
+import { CommonListeners } from "../commonListeners.js";
 
 export class CommonInput {
 
@@ -22,18 +22,16 @@ export class CommonInput {
      * @param {string} componentName
      * @param {string} name
      * @param {object} model
-     * @param {ListenerBundle} listenerBundle
+     * @param {CommonListeners} commonListeners
      * @param {AbstractValidator} validator
      * @param {string} placeholder
      * @param {string} inputElementId
      * @param {string} errorElementId
-     * 
-
      */
     constructor(componentName,
         name,
         model = null, 
-        listenerBundle = null,
+        commonListeners = null,
         validator = null, 
         placeholder = null,
         inputElementId = "input",
@@ -60,8 +58,8 @@ export class CommonInput {
         /** @type {AbstractValidator} */
         this.validator = validator;
 
-        /** @type {ListenerBundle} */
-        this.listenerBundle = (null != listenerBundle) ? listenerBundle : new ListenerBundle();
+        /** @type {CommonListeners} */
+        this.commonListeners = (null != commonListeners) ? commonListeners : new CommonListeners();
 
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
@@ -89,33 +87,37 @@ export class CommonInput {
             InputElementDataBinding.link(this.model, this.validator).to(this.component.get(this.inputElementId));
         }
 
-        this.registerListener(new ObjectFunction(this, this.entered), CommonInput.ON_KEYUP, CommonInput.INPUT_ENTER_EVENT_ID, (event) => { return event.isKeyCode(13); } );
-        this.registerListener(new ObjectFunction(this, this.keyupped), CommonInput.ON_KEYUP, CommonInput.INPUT_KEYUP_EVENT_ID);
-        this.registerListener(new ObjectFunction(this, this.changed), CommonInput.ON_CHANGE, CommonInput.INPUT_CHANGE_EVENT_ID);
-        this.registerListener(new ObjectFunction(this, this.blurred), CommonInput.ON_BLUR, CommonInput.INPUT_BLUR_EVENT_ID);
-        this.registerListener(new ObjectFunction(this, this.clicked), CommonInput.ON_CLICK, CommonInput.INPUT_CLICK_EVENT_ID);
-        this.registerListener(new ObjectFunction(this, this.errorClicked), CommonInput.ON_CLICK, CommonInput.ERROR_CLICK_EVENT_ID);
+        this.registerListener(this.inputElementId, new ObjectFunction(this, this.entered), CommonInput.ON_KEYUP, CommonInput.INPUT_ENTER_EVENT_ID, (event) => { return event.isKeyCode(13); } );
+        this.registerListener(this.inputElementId, new ObjectFunction(this, this.keyupped), CommonInput.ON_KEYUP, CommonInput.INPUT_KEYUP_EVENT_ID);
+        this.registerListener(this.inputElementId, new ObjectFunction(this, this.changed), CommonInput.ON_CHANGE, CommonInput.INPUT_CHANGE_EVENT_ID);
+        this.registerListener(this.inputElementId, new ObjectFunction(this, this.blurred), CommonInput.ON_BLUR, CommonInput.INPUT_BLUR_EVENT_ID);
+        this.registerListener(this.inputElementId, new ObjectFunction(this, this.clicked), CommonInput.ON_CLICK, CommonInput.INPUT_CLICK_EVENT_ID);
+        this.registerListener(this.errorElementId, new ObjectFunction(this, this.errorClicked), CommonInput.ON_CLICK, CommonInput.ERROR_CLICK_EVENT_ID);
     }
 
     getComponent() {
         return this.component;
     }
 
+    /**
+     * @returns {AbstractValidator}
+     */
     getValidator() {
         return this.validator;
     }
 
     /**
      * 
+     * @param {string} elementId 
      * @param {ObjectFunction} listener 
      * @param {string} eventName 
      * @param {string} eventId 
      * @param {function} eventFilter 
      */
-    registerListener(listener, eventName, eventId, eventFilter = null) {
-        this.eventRegistry.attach(this.component.get(this.inputElementId), eventName, eventId, this.component.getComponentIndex());
+    registerListener(elementId, listener, eventName, eventId, eventFilter = null) {
+        this.eventRegistry.attach(this.component.get(elementId), eventName, eventId, this.component.getComponentIndex());
         let filteredListener = listener;
-        if(eventFilter) { filteredListener = new ObjectFunction(this,(event) => { if(eventFilter.call(this,event)) { listener.call(event); } }); }
+        if (eventFilter) { filteredListener = new ObjectFunction(this,(event) => { if(eventFilter.call(this,event)) { listener.call(event); } }); }
         this.eventRegistry.listen(eventId, filteredListener, this.component.getComponentIndex());
         return this;
     }
@@ -128,16 +130,16 @@ export class CommonInput {
         if (!event.isKeyCode(13) && !event.isKeyCode(16) && !event.isKeyCode(9)) {
             this.tainted = true;
         }
-        this.listenerBundle.callKeyUp(event);
+        this.commonListeners.callKeyUp(event);
     }
 
     changed(event) {
         this.tainted = true;
-        this.listenerBundle.callChange(event);
+        this.commonListeners.callChange(event);
     }
 
     clicked(event) {
-        this.listenerBundle.callClick(event);
+        this.commonListeners.callClick(event);
     }
 
     entered(event) {
@@ -146,7 +148,7 @@ export class CommonInput {
             this.selectAll();
             return;
         }
-        this.listenerBundle.callEnter(event);
+        this.commonListeners.callEnter(event);
     }
 
     blurred(event) {
@@ -158,12 +160,11 @@ export class CommonInput {
             return;
         }
         this.hideValidationError();
-        this.listenerBundle.callBlur(event);
+        this.commonListeners.callBlur(event);
     }
 
     errorClicked(event) {
         this.hideValidationError();
-        this.listenerBundle.callErrorClick(event);
     }
 
 
@@ -173,6 +174,6 @@ export class CommonInput {
     selectAll() { this.component.get(this.inputElementId).selectAll(); }
     enable() { this.component.get(this.inputElementId).enable(); }
     disable() { this.component.get(this.inputElementId).disable(); }
-    clear() { this.tainted = false; this.component.get(this.inputElementId).setValue(""); }
+    clear() { this.component.get(this.inputElementId).setValue(""); this.tainted = false; this.hideValidationError(); }
 
 }

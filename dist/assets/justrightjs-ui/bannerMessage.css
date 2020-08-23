@@ -1,51 +1,28 @@
-.banner-message-large-square {
-    padding: 18pt;
-}
+.banner-message-size-large { padding: 18pt; }
+.banner-message-size-default, .banner-message-size-medium { padding: 12pt; }
+.banner-message-size-small { padding: 6pt; }
 
-.banner-message-small-square {
-    padding: 6pt;
-}
+.banner-message-shape-default, .banner-message-shape-square { border-radius: 0px; }
+.banner-message-shape-round { border-radius: 5px; }
 
-.banner-message-large-round {
-    padding: 18pt;
-    border-radius: 5px;
-}
-
-.banner-message-small-round {
-    padding: 6pt;
-    border-radius: 5px;
-}
+.banner-message-spacing-default, .banner-message-spacing-none { margin: 0pt; }
+.banner-message-spacing-above { margin-top: 1rem; }
+.banner-message-spacing-below { margin-bottom: 1rem; }
+.banner-message-spacing-above-below { margin-top: 1rem;  margin-bottom: 1rem; }
 
 .banner-message {
     color: white;
     width: 100%;
     transition: opacity 0.5s;
-    margin-bottom: 1rem;
 }
 
-.banner-message.hide {
-    opacity: 0;
-}
+.banner-message.hide { opacity: 0; }
+.banner-message.show { opacity: 0.90; }
 
-.banner-message.show {
-    opacity: 0.90;
-}
-
-.banner-message-alert {
-    background-color: #f44336;
-}
-
-.banner-message-success {
-    background-color: #4CAF50;
-}
-
-.banner-message-info {
-    background-color: #2196F3;
-}
-
-.banner-message-warning {
-    background-color: #ff9800;
-}
+.banner-message-type-alert { background-color: #f44336; }
+.banner-message-type-success { background-color: #4CAF50; }
+.banner-message-type-info { background-color: #2196F3; }
+.banner-message-type-warning { background-color: #ff9800; }
   
 .banner-message-close-button {
     margin-left: 15pt;
@@ -58,14 +35,6 @@
     transition: 0.3s;
   }
   
-.banner-message-close-button:hover {
-    color: black;
-} 
-
-.banner-message-header {
-    font-weight:bold;
-}
-
-.banner-message-message {
-    margin-left:15px;
-}
+.banner-message-close-button:hover {color: black; } 
+.banner-message-header { font-weight:bold; }
+.banner-message-message { margin-left:15px; }

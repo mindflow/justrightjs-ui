@@ -5,6 +5,7 @@ import {
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
+import { CustomAppearance } from "../customAppearance.js";
 
 const LOG = new Logger("BannerMessage");
 
@@ -14,23 +15,19 @@ export class BannerMessage {
     static get TEMPLATE_URL() { return "/assets/justrightjs-ui/bannerMessage.html"; }
     static get STYLES_URL() { return "/assets/justrightjs-ui/bannerMessage.css"; }
 
-    static get TYPE_ALERT() { return "banner-message-alert"; }
-    static get TYPE_INFO() { return "banner-message-info"; }
-    static get TYPE_SUCCESS() { return "banner-message-success"; }
-    static get TYPE_WARNING() { return "banner-message-warning"; }
-
-    static get SHAPE_LARGE_SQUARE() { return "banner-message-large-square"; }
-    static get SHAPE_LARGE_ROUND() { return "banner-message-large-round"; }
-    static get SHAPE_SMALL_SQUARE() { return "banner-message-small-square"; }
-    static get SHAPE_SMALL_ROUND() { return "banner-message-small-round"; }
+    static get TYPE_ALERT() { return "type-alert"; }
+    static get TYPE_INFO() { return "type-info"; }
+    static get TYPE_SUCCESS() { return "type-success"; }
+    static get TYPE_WARNING() { return "type-warning"; }
 
     /**
      * 
      * @param {string} message 
      * @param {string} bannerType 
      * @param {boolean} closeable 
+     * @param {CustomAppearance} customAppearance
      */
-    constructor(message, bannerType = BannerMessage.TYPE_PRIMARY, closeable = false, bannerShape = BannerMessage.SHAPE_LARGE_SQUARE) {
+    constructor(message, bannerType = BannerMessage.TYPE_INFO, closeable = false, customAppearance = null) {
 
         /** @type {string} */
         this.message = message;
@@ -44,9 +41,6 @@ export class BannerMessage {
         /** @type {string} */
         this.bannerType = bannerType;
 
-        /** @type {string} */
-        this.bannerShape = bannerShape;
-
         /** @type {EventRegistry} */
         this.eventRegistry = InjectionPoint.instance(EventRegistry);
 
@@ -56,15 +50,35 @@ export class BannerMessage {
         /** @type {ObjectFunction} */
         this.onShowListener = null;
 
+        /** @type {CustomAppearance} */
+        this.customAppearance = customAppearance;
+
     }
 
     postConfig() {
         this.component = this.componentFactory.create("BannerMessage");
         this.component.get("bannerMessageHeader").setChild("Alert");
         this.component.get("bannerMessageMessage").setChild(this.message);
-        this.component.get("bannerMessage").setAttributeValue("class","banner-message fade " + this.bannerShape + " " + this.bannerType);
+        this.applyClasses("banner-message fade");
         this.eventRegistry.attach(this.component.get("bannerMessageCloseButton"), "onclick", "//event:bannerMessageCloseButtonClicked", this.component.getComponentIndex());
         this.eventRegistry.listen("//event:bannerMessageCloseButtonClicked", new ObjectFunction(this,this.hide), this.component.getComponentIndex());
+    }
+
+    applyClasses(baseClasses) {
+        let classes = baseClasses;
+        classes = classes + " banner-message-" + this.bannerType;
+        if (this.customAppearance) {
+            if (this.customAppearance.getShape()) {
+                classes = classes + " banner-message-" + this.customAppearance.getShape();
+            }
+            if (this.customAppearance.getSize()) {
+                classes = classes + " banner-message-" + this.customAppearance.getSize();
+            }
+            if (this.customAppearance.getSpacing()) {
+                classes = classes + " banner-message-" + this.customAppearance.getSpacing();
+            }
+        }
+        this.component.get("bannerMessage").setAttributeValue("class",classes);
     }
 
 	getComponent(){
@@ -106,7 +120,7 @@ export class BannerMessage {
     }
 
     hide() {
-        this.getComponent().get("bannerMessage").setAttributeValue("class" , "banner-message hide " + this.bannerShape + " " + this.bannerType);
+        this.applyClasses("banner-message hide");
         setTimeout(() => { 
             this.getComponent().get("bannerMessage").setStyle("display","none");
         },500);
@@ -119,11 +133,17 @@ export class BannerMessage {
         }
     }
 
-    show() {
+    show(newHeader = null, newMessage = null) {
+        if (newHeader) {
+            this.setHeader(newHeader);
+        }
+        if (newMessage) {
+            this.setMessage(newMessage);
+        }
         CanvasStyles.enableStyle(BannerMessage.COMPONENT_NAME, this.component.getComponentIndex());
         this.getComponent().get("bannerMessage").setStyle("display","block");
         setTimeout(() => { 
-            this.getComponent().get("bannerMessage").setAttributeValue("class" , "banner-message show " + this.bannerShape + " " + this.bannerType) ;
+            this.applyClasses("banner-message show");
         },100);
         if(this.onShowListener) {
             this.onShowListener.call();

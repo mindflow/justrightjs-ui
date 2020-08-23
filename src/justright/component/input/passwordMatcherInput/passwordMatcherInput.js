@@ -6,9 +6,9 @@ import {
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger } from "coreutil_v1";
-import { PasswordMatcherInputValue } from "./passwordMatcherInputValue/passwordMatcherInputValue";
-import { PasswordMatcherInputControl } from "./passwordMatcherInputControl/passwordMatcherInputControl";
-import { ListenerBundle } from "../../listenerBundle";
+import { PasswordMatcherInputValue } from "./passwordMatcherInputValue/passwordMatcherInputValue.js";
+import { PasswordMatcherInputControl } from "./passwordMatcherInputControl/passwordMatcherInputControl.js";
+import { CommonListeners } from "../../commonListeners.js";
 
 const LOG = new Logger("PasswordMatcherInput");
 
@@ -23,14 +23,14 @@ export class PasswordMatcherInput {
      * @param {string} name
      * @param {string} controlName
      * @param {object} model
-     * @param {ListenerBundle} listenerBundle
+     * @param {CommonListeners} commonListeners
      * @param {string} placeholder
      * @param {string} controlPlaceholder
      * @param {boolean} mandatory
      */
     constructor(name, controlName,
         model = null,
-        listenerBundle = null, 
+        commonListeners = null, 
         placeholder = PasswordMatcherInput.DEFAULT_PLACEHOLDER, 
         controlPlaceholder = PasswordMatcherInput.DEFAULT_CONTROL_PLACEHOLDER,
         mandatory = false) {
@@ -41,12 +41,12 @@ export class PasswordMatcherInput {
 
         /** @type {PasswordMatcherInputValue} */
 		this.passwordMatcherInputValue = InjectionPoint.instance(
-            PasswordMatcherInputValue, [name, model, new ListenerBundle().withEnterListener(this, this.passwordEntered), placeholder,  mandatory]
+            PasswordMatcherInputValue, [name, model, new CommonListeners().withEnterListener(this, this.passwordEntered), placeholder,  mandatory]
 		);
 
         /** @type {PasswordMatcherInputControl} */
 		this.passwordMatcherInputControl = InjectionPoint.instance(
-            PasswordMatcherInputControl, [controlName, model, name, listenerBundle, controlPlaceholder, mandatory]
+            PasswordMatcherInputControl, [controlName, model, name, commonListeners, controlPlaceholder, mandatory]
 		);
     }
 

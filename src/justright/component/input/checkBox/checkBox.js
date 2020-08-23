@@ -7,7 +7,7 @@ import {
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
-import { ListenerBundle } from "../../listenerBundle";
+import { CommonListeners } from "../../commonListeners.js";
 
 const LOG = new Logger("CheckBox");
 
@@ -20,9 +20,9 @@ export class CheckBox {
      * 
      * @param {string} name 
      * @param {object} model
-     * @param {ListenerBundle} listenerBundle
+     * @param {CommonListeners} commonListeners
      */
-    constructor(name, model = null, listenerBundle = null) {
+    constructor(name, model = null, commonListeners = null) {
         
         /** @type {string} */
         this.name = name;
@@ -34,7 +34,7 @@ export class CheckBox {
         this.component = null;
 
         /** @type {ObjectFunction} */
-        this.listenerBundle = (null != listenerBundle) ? listenerBundle : new ListenerBundle();
+        this.commonListeners = (null != commonListeners) ? commonListeners : new CommonListeners();
         
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
