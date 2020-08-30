@@ -104,6 +104,7 @@ export class DialogBox {
         this.mountSelf();
 
         this.getComponent().get("dialogBox").setAttributeValue("class" , "dialogbox fade");
+
         setTimeout(() => { 
             this.getComponent().get("dialogBox").setStyle("display","none");
             this.backShade.disableAfter(500);

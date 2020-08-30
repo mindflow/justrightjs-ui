@@ -69,7 +69,7 @@ export class BackShade {
             this.getComponent().get("backShade").setStyle("display", "none");
         }, milliSeconds);
         setTimeout(() => {
-            CanvasStyles.disableStyle(BackShade.COMPONENT_NAME);
+            CanvasStyles.disableStyle(BackShade.COMPONENT_NAME, this.component.getComponentIndex());
         }, milliSeconds + 1);
     }
 
@@ -78,7 +78,7 @@ export class BackShade {
     }
 
     enable() {
-        CanvasStyles.enableStyle(BackShade.COMPONENT_NAME);
+        CanvasStyles.enableStyle(BackShade.COMPONENT_NAME, this.component.getComponentIndex());
         this.mountSelf();
         this.getComponent().get("backShade").setStyle("display", "block");
         setTimeout(() => { 

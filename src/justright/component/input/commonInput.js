@@ -1,7 +1,9 @@
-import { ObjectFunction } from "coreutil_v1";
+import { ObjectFunction, Logger } from "coreutil_v1";
 import { InputElementDataBinding, AbstractValidator, ComponentFactory, EventRegistry, CanvasStyles, Event } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CommonListeners } from "../commonListeners.js";
+
+const LOG = new Logger("CommonInput");
 
 export class CommonInput {
 
