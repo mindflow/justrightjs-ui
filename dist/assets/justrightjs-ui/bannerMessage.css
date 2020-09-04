@@ -1,9 +1,9 @@
 .banner-message-size-large { padding: 18pt; }
 .banner-message-size-default, .banner-message-size-medium { padding: 12pt; }
-.banner-message-size-small { padding: 6pt; }
+.banner-message-size-small { padding-left: 10pt; padding-right:10px; padding-bottom: 8px; padding-top: 8px; }
 
 .banner-message-shape-default, .banner-message-shape-square { border-radius: 0px; }
-.banner-message-shape-round { border-radius: 5px; }
+.banner-message-shape-round { border-radius: 3px; }
 
 .banner-message-spacing-default, .banner-message-spacing-none { margin: 0pt; }
 .banner-message-spacing-above { margin-top: 1rem; }
