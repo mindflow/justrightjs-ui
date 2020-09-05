@@ -7,6 +7,7 @@ import {
 } from "justright_core_v1";
 import { Logger, ObjectFunction, TimePromise } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
+import { BackShadeListeners } from "./backShadeListeners.js";
 
 const LOG = new Logger("BackShade");
 
@@ -19,7 +20,7 @@ export class BackShade {
     /**
      * 
      */
-    constructor(){
+    constructor(backShadeListeners = new BackShadeListeners()){
 
 		/** @type {EventRegistry} */
         this.eventRegistry = InjectionPoint.instance(EventRegistry);
@@ -30,12 +31,18 @@ export class BackShade {
         /** @type {BaseElement} */
         this.container = null;
 
+        /**
+         * @type {BackShadeListeners}
+         */
+        this.backShadeListeners = backShadeListeners;
+
         this.hidden = true;
 	}
 
     postConfig() {
-        LOG.info("Post config");
-        this.component = this.componentFactory.create("BackShade");
+        this.component = this.componentFactory.create(BackShade.COMPONENT_NAME);
+        this.eventRegistry.attach(this.component.get("backShade"), "onclick", "//event:backShadeClicked", this.component.getComponentIndex());
+        this.eventRegistry.listen("//event:backShadeClicked", new ObjectFunction(this, this.backgroundClickOccured), this.component.getComponentIndex());
     }
 
     /**
@@ -43,14 +50,8 @@ export class BackShade {
      */
 	getComponent(){ return this.component; }
 
-    /**
-     * 
-     * @param {ObjectFunction} clickedListener 
-     */
-    withClickListener(clickedListener) {
-        this.eventRegistry.attach(this.component.get("backShade"), "onclick", "//event:backShadeClicked", this.component.getComponentIndex());
-        this.eventRegistry.listen("//event:backShadeClicked", clickedListener, this.component.getComponentIndex());
-        return this;
+    backgroundClickOccured() {
+        this.backShadeListeners.callBackgroundClicked();
     }
 
     hideAfter(milliSeconds) {

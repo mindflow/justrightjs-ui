@@ -9,6 +9,7 @@ import {
 import { TimePromise, Logger, ObjectFunction } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 import { BackShade } from "../backShade/backShade.js";
+import { BackShadeListeners } from "../backShade/backShadeListeners.js";
 
 
 const LOG = new Logger("DialogBox");
@@ -34,7 +35,8 @@ export class DialogBox {
         this.component = null;
         
         /** @type {BackShade} */
-        this.backShade = InjectionPoint.instance(BackShade);
+        this.backShade = InjectionPoint.instance(BackShade, [new BackShadeListeners()
+            .withBackgroundClicked(this, this.backshadeBackgroundClickOccured)]);
 
         /** @type {StylesRegistry} */
         this.stylesRegistry = InjectionPoint.instance(StylesRegistry);
@@ -46,12 +48,11 @@ export class DialogBox {
     }
     
     postConfig() {
-        LOG.info("Post config")
-        this.component = this.componentFactory.create("DialogBox");
+        this.component = this.componentFactory.create(DialogBox.COMPONENT_NAME);
+        this.component.set("backShadeContainer", this.backShade.getComponent());
+
         this.eventRegistry.attach(this.component.get("closeButton"), "onclick", "//event:closeClicked", this.component.getComponentIndex());
         this.eventRegistry.listen("//event:closeClicked", new ObjectFunction(this, this.hide),this.component.getComponentIndex());
-        this.backShade = this.backShade.withClickListener(new ObjectFunction(this, this.hide));
-        this.component.set("backShadeContainer", this.backShade.getComponent());
     }
 
 
@@ -65,6 +66,8 @@ export class DialogBox {
      * @param {string} text 
      */
     setTitle(text){ this.getComponent().setChild("title", text); }
+
+    backshadeBackgroundClickOccured() { this.hide(); }
 
     /**
      * 
@@ -88,11 +91,11 @@ export class DialogBox {
             return new Promise((resolve, reject) => {resolve();});
         }
         this.hidden = true;
-        this.getDialogBoxWindow().setAttributeValue("class" , "dialogbox fade");
+        this.getDialogBoxWindow().setAttributeValue("class", "dialogbox fade");
         const hideBackShadePromise = this.backShade.hideAfter(300);
         const hidePromise = TimePromise.asPromise(200,
             () => { 
-                this.getDialogBoxWindow().setStyle("display","none");
+                this.getDialogBoxWindow().setStyle("display", "none");
             }
         );
         const disableStylePromise = TimePromise.asPromise(201,
@@ -110,7 +113,7 @@ export class DialogBox {
         this.hidden = false;
         CanvasStyles.enableStyle(DialogBox.COMPONENT_NAME, this.component.getComponentIndex());
         this.backShade.show();
-        this.getDialogBoxWindow().setStyle("display","block");
+        this.getDialogBoxWindow().setStyle("display", "block");
         return TimePromise.asPromise(100, 
             () => {
                 this.getDialogBoxWindow().setAttributeValue("class", "dialogbox fade show");
@@ -118,7 +121,5 @@ export class DialogBox {
         );
     }
 
-    getDialogBoxWindow() {
-        return this.getComponent().get("dialogBoxWindow");
-    }
+    getDialogBoxWindow() { return this.getComponent().get("dialogBoxWindow"); }
 }
