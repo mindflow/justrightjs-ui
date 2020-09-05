@@ -3,10 +3,9 @@ import {
     ComponentFactory,
     EventRegistry,
     CanvasStyles,
-    CanvasRoot,
     BaseElement
 } from "justright_core_v1";
-import { Logger, ObjectFunction } from "coreutil_v1";
+import { Logger, ObjectFunction, TimePromise } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 
 const LOG = new Logger("BackShade");
@@ -38,19 +37,9 @@ export class BackShade {
     }
 
     /**
-     * 
-     * @param {BaseElement} container 
-     */
-    setContainer(container) {
-        this.container = container;
-    }
-
-    /**
      * @return {Component}
      */
-	getComponent(){
-		return this.component;
-    }
+	getComponent(){ return this.component; }
 
     /**
      * 
@@ -62,42 +51,33 @@ export class BackShade {
         return this;
     }
 
-    disableAfter(milliSeconds) {
-        this.mountSelf();
+    hideAfter(milliSeconds) {
         this.getComponent().get("backShade").setAttributeValue("class", "back-shade fade");
-        setTimeout(() => { 
-            this.getComponent().get("backShade").setStyle("display", "none");
-        }, milliSeconds);
-        setTimeout(() => {
-            CanvasStyles.disableStyle(BackShade.COMPONENT_NAME, this.component.getComponentIndex());
-        }, milliSeconds + 1);
-    }
-
-    disable() {
-        this.disableAfter(500);
-    }
-
-    enable() {
-        CanvasStyles.enableStyle(BackShade.COMPONENT_NAME, this.component.getComponentIndex());
-        this.mountSelf();
-        this.getComponent().get("backShade").setStyle("display", "block");
-        setTimeout(() => { 
-            this.getComponent().get("backShade").setAttributeValue("class", "back-shade fade show") 
-        }, 100);
-    }
-
-    mountSelf() {
-        if (!this.getComponent().getRootElement().isMounted()) {
-            if(this.container) {
-                this.container.addChild(this.getComponent());
-            }else{
-                CanvasRoot.prependBodyElement(this.getComponent().getRootElement());
+        const hidePromise = TimePromise.asPromise(milliSeconds,
+            () => {
+                this.getComponent().get("backShade").setStyle("display", "none");
             }
-        }
+        );
+        const disableStylePromise = TimePromise.asPromise(milliSeconds + 1,
+            () => {
+                CanvasStyles.disableStyle(BackShade.COMPONENT_NAME, this.component.getComponentIndex());
+            }
+        );
+        return Promise.all([hidePromise, disableStylePromise]);
     }
 
-    removeSelf() {
-        this.getComponent().remove();
+    hide() { this.disableAfter(500); }
+
+    show() {
+        CanvasStyles.enableStyle(BackShade.COMPONENT_NAME, this.component.getComponentIndex());
+        this.getComponent().get("backShade").setStyle("display", "block");
+        return TimePromise.asPromise(100,
+            () => { 
+                this.getComponent().get("backShade").setAttributeValue("class", "back-shade fade show")
+            }
+        );
     }
+
+    removeSelf() { this.getComponent().remove(); }
     
 }
