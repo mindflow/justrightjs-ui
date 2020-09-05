@@ -29,6 +29,8 @@ export class BackShade {
 
         /** @type {BaseElement} */
         this.container = null;
+
+        this.hidden = true;
 	}
 
     postConfig() {
@@ -52,6 +54,10 @@ export class BackShade {
     }
 
     hideAfter(milliSeconds) {
+        if (this.hidden) {
+            return new Promise((resolve, reject) => {resolve();});
+        }
+        this.hidden = true;
         this.getComponent().get("backShade").setAttributeValue("class", "back-shade fade");
         const hidePromise = TimePromise.asPromise(milliSeconds,
             () => {
@@ -66,9 +72,13 @@ export class BackShade {
         return Promise.all([hidePromise, disableStylePromise]);
     }
 
-    hide() { this.disableAfter(500); }
+    hide() { return this.disableAfter(500); }
 
     show() {
+        if (!this.hidden) {
+            return new Promise((resolve, reject) => {resolve();});
+        }
+        this.hidden = false;
         CanvasStyles.enableStyle(BackShade.COMPONENT_NAME, this.component.getComponentIndex());
         this.getComponent().get("backShade").setStyle("display", "block");
         return TimePromise.asPromise(100,
@@ -77,7 +87,5 @@ export class BackShade {
             }
         );
     }
-
-    removeSelf() { this.getComponent().remove(); }
     
 }

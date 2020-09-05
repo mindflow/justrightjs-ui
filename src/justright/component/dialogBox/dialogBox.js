@@ -41,6 +41,8 @@ export class DialogBox {
 
         /** @type {BaseElement} */
         this.container = null;
+
+        this.hidden = true;
     }
     
     postConfig() {
@@ -82,11 +84,15 @@ export class DialogBox {
 	set(key,val) { this.getComponent().set(key,val); }
     
     hide() {
+        if (this.hidden) {
+            return new Promise((resolve, reject) => {resolve();});
+        }
+        this.hidden = true;
         this.getDialogBoxWindow().setAttributeValue("class" , "dialogbox fade");
+        const hideBackShadePromise = this.backShade.hideAfter(300);
         const hidePromise = TimePromise.asPromise(200,
             () => { 
                 this.getDialogBoxWindow().setStyle("display","none");
-                this.backShade.hideAfter(500);
             }
         );
         const disableStylePromise = TimePromise.asPromise(201,
@@ -94,10 +100,14 @@ export class DialogBox {
                 CanvasStyles.disableStyle(DialogBox.COMPONENT_NAME, this.component.getComponentIndex());
             }
         );
-        return Promise.all([hidePromise, disableStylePromise]);
+        return Promise.all([hidePromise, disableStylePromise, hideBackShadePromise]);
     }
 
     show() {
+        if (!this.hidden) {
+            return new Promise((resolve, reject) => {resolve();});
+        }
+        this.hidden = false;
         CanvasStyles.enableStyle(DialogBox.COMPONENT_NAME, this.component.getComponentIndex());
         this.backShade.show();
         this.getDialogBoxWindow().setStyle("display","block");
@@ -106,11 +116,6 @@ export class DialogBox {
                 this.getDialogBoxWindow().setAttributeValue("class", "dialogbox fade show");
             }
         );
-    }
-
-    removeSelf() {
-        CanvasStyles.disableStyle(DialogBox.COMPONENT_NAME, this.component.getComponentIndex());
-        this.getComponent().removeSelf();
     }
 
     getDialogBoxWindow() {
