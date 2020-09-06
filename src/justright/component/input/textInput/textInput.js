@@ -27,7 +27,7 @@ export class TextInput extends CommonInput {
             name,
             model,
             commonListeners,
-            new RequiredValidator(!mandatory),
+            new RequiredValidator(false, mandatory),
             placeholder,
             "textInput",
             "textError");
