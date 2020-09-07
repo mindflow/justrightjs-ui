@@ -5,10 +5,11 @@ import {
     AndValidatorSet
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
-import { Logger } from "coreutil_v1";
+import { Logger, PropertyAccessor, ObjectFunction } from "coreutil_v1";
 import { PasswordMatcherInputValue } from "./passwordMatcherInputValue/passwordMatcherInputValue.js";
 import { PasswordMatcherInputControl } from "./passwordMatcherInputControl/passwordMatcherInputControl.js";
 import { CommonListeners } from "../../commonListeners.js";
+import { PasswordMatcherModel } from "./passwordMatcherModel.js";
 
 const LOG = new Logger("PasswordMatcherInput");
 
@@ -21,32 +22,35 @@ export class PasswordMatcherInput {
     /**
      * 
      * @param {string} name
-     * @param {string} controlName
      * @param {object} model
      * @param {CommonListeners} commonListeners
      * @param {string} placeholder
      * @param {string} controlPlaceholder
      * @param {boolean} mandatory
      */
-    constructor(name, controlName,
+    constructor(name,
         model = null,
         commonListeners = null, 
         placeholder = PasswordMatcherInput.DEFAULT_PLACEHOLDER, 
         controlPlaceholder = PasswordMatcherInput.DEFAULT_CONTROL_PLACEHOLDER,
         mandatory = false) {
 
+        this.passwordMatcherModel = new PasswordMatcherModel();
+
+        this.name = name;
+        this.model = model;
 
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
 
         /** @type {PasswordMatcherInputValue} */
 		this.passwordMatcherInputValue = InjectionPoint.instance(
-            PasswordMatcherInputValue, [name, model, new CommonListeners().withEnterListener(this, this.passwordEntered), placeholder,  mandatory]
+            PasswordMatcherInputValue, ["newPassword", this.passwordMatcherModel, new CommonListeners().withEnterListener(this, this.passwordEntered), placeholder,  mandatory]
 		);
 
         /** @type {PasswordMatcherInputControl} */
 		this.passwordMatcherInputControl = InjectionPoint.instance(
-            PasswordMatcherInputControl, [controlName, model, name, commonListeners, controlPlaceholder, mandatory]
+            PasswordMatcherInputControl, ["controlPassword", this.passwordMatcherModel, "newPassword", commonListeners, controlPlaceholder, mandatory]
 		);
     }
 
@@ -61,8 +65,13 @@ export class PasswordMatcherInput {
         /** @type {AndValidatorSet} */
         this.validator = new AndValidatorSet()
             .withValidator(this.passwordMatcherInputValue.getValidator())
-            .withValidator(this.passwordMatcherInputControl.getValidator());
+            .withValidator(this.passwordMatcherInputControl.getValidator()
+            .withValidListener(new ObjectFunction(this, this.passwordMatcherValidOccured)));
 
+    }
+
+    passwordMatcherValidOccured() {
+        PropertyAccessor.setValue(this.model, this.name, this.passwordMatcherModel.getNewPassword())
     }
 
     passwordEntered() {

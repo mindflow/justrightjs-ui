@@ -19,9 +19,9 @@ export class PasswordMatcherInputControl extends CommonInput {
      * 
      * @param {string} name
      * @param {object} model
+     * @param {string} modelComparedPropertyName
      * @param {CommonListeners} commonListeners
      * @param {string} placeholder
-     * @param {string} modelComparedPropertyName
      * @param {boolean} mandatory
      */
     constructor(name, model = null, modelComparedPropertyName = null, commonListeners = null, placeholder = TextInput.DEFAULT_PLACEHOLDER,
