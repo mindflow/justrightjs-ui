@@ -49,23 +49,17 @@ export class DialogBox {
     
     postConfig() {
         this.component = this.componentFactory.create(DialogBox.COMPONENT_NAME);
-        this.component.set("backShadeContainer", this.backShade.getComponent());
+        this.component.set("backShadeContainer", this.backShade.component);
 
-        this.eventRegistry.attach(this.component.get("closeButton"), "onclick", "//event:closeClicked", this.component.getComponentIndex());
-        this.eventRegistry.listen("//event:closeClicked", new ObjectFunction(this, this.hide),this.component.getComponentIndex());
+        this.eventRegistry.attach(this.component.get("closeButton"), "onclick", "//event:closeClicked", this.component.componentIndex);
+        this.eventRegistry.listen("//event:closeClicked", new ObjectFunction(this, this.hide),this.component.componentIndex);
     }
-
-
-    /**
-     * @return {Component}
-     */
-	getComponent(){ return this.component; }
 
     /**
      * 
      * @param {string} text 
      */
-    setTitle(text){ this.getComponent().setChild("title", text); }
+    setTitle(text){ this.component.setChild("title", text); }
 
     backshadeBackgroundClickOccured() { this.hide(); }
 
@@ -74,17 +68,17 @@ export class DialogBox {
      * @param {Component} component 
      */
     setFooter(component){
-        this.getComponent().get("dialogBoxFooter").setStyle("display", "block");
-        this.getComponent().setChild("dialogBoxFooter", component);
+        this.component.get("dialogBoxFooter").setStyle("display", "block");
+        this.component.setChild("dialogBoxFooter", component);
     }
 
     /**
      * 
      * @param {Component} component 
      */
-    setContent(component){ this.getComponent().setChild("dialogBoxContent",component); }
+    setContent(component){ this.component.setChild("dialogBoxContent",component); }
 
-	set(key,val) { this.getComponent().set(key,val); }
+	set(key,val) { this.component.set(key,val); }
     
     hide() {
         if (this.hidden) {
@@ -100,7 +94,7 @@ export class DialogBox {
         );
         const disableStylePromise = TimePromise.asPromise(201,
             () => {
-                CanvasStyles.disableStyle(DialogBox.COMPONENT_NAME, this.component.getComponentIndex());
+                CanvasStyles.disableStyle(DialogBox.COMPONENT_NAME, this.component.componentIndex);
             }
         );
         return Promise.all([hidePromise, disableStylePromise, hideBackShadePromise]);
@@ -111,7 +105,7 @@ export class DialogBox {
             return new Promise((resolve, reject) => {resolve();});
         }
         this.hidden = false;
-        CanvasStyles.enableStyle(DialogBox.COMPONENT_NAME, this.component.getComponentIndex());
+        CanvasStyles.enableStyle(DialogBox.COMPONENT_NAME, this.component.componentIndex);
         this.backShade.show();
         this.getDialogBoxWindow().setStyle("display", "block");
         return TimePromise.asPromise(100, 
@@ -121,5 +115,5 @@ export class DialogBox {
         );
     }
 
-    getDialogBoxWindow() { return this.getComponent().get("dialogBoxWindow"); }
+    getDialogBoxWindow() { return this.component.get("dialogBoxWindow"); }
 }

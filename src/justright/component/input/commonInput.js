@@ -76,7 +76,7 @@ export class CommonInput {
     postConfig() {
         this.component = this.componentFactory.create(this.componentName);
 
-        CanvasStyles.enableStyle(this.componentName, this.component.getComponentIndex());
+        CanvasStyles.enableStyle(this.componentName, this.component.componentIndex);
 
         this.component.get(this.inputElementId).setAttributeValue("name", this.name);
         this.component.get(this.inputElementId).setAttributeValue("placeholder", this.placeholder);
@@ -97,10 +97,6 @@ export class CommonInput {
         this.registerListener(this.errorElementId, new ObjectFunction(this, this.errorClicked), CommonInput.ON_CLICK, CommonInput.ERROR_CLICK_EVENT_ID);
     }
 
-    getComponent() {
-        return this.component;
-    }
-
     /**
      * @returns {AbstractValidator}
      */
@@ -117,10 +113,10 @@ export class CommonInput {
      * @param {function} eventFilter 
      */
     registerListener(elementId, listener, eventName, eventId, eventFilter = null) {
-        this.eventRegistry.attach(this.component.get(elementId), eventName, eventId, this.component.getComponentIndex());
+        this.eventRegistry.attach(this.component.get(elementId), eventName, eventId, this.component.componentIndex);
         let filteredListener = listener;
         if (eventFilter) { filteredListener = new ObjectFunction(this,(event) => { if(eventFilter.call(this,event)) { listener.call(event); } }); }
-        this.eventRegistry.listen(eventId, filteredListener, this.component.getComponentIndex());
+        this.eventRegistry.listen(eventId, filteredListener, this.component.componentIndex);
         return this;
     }
 

@@ -54,8 +54,4 @@ export class CheckBox {
         }
     }
 
-	getComponent(){
-		return this.component;
-    }
-
 }

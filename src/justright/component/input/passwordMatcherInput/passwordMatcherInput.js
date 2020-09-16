@@ -45,7 +45,11 @@ export class PasswordMatcherInput {
 
         /** @type {PasswordMatcherInputValue} */
 		this.passwordMatcherInputValue = InjectionPoint.instance(
-            PasswordMatcherInputValue, ["newPassword", this.passwordMatcherModel, new CommonListeners().withEnterListener(this, this.passwordEntered), placeholder,  mandatory]
+            PasswordMatcherInputValue, ["newPassword", this.passwordMatcherModel, 
+                new CommonListeners()
+                    .withEnterListener(this, this.passwordEntered)
+                    .withKeyUpListener(this, this.passwordChanged),
+                placeholder,  mandatory]
 		);
 
         /** @type {PasswordMatcherInputControl} */
@@ -59,8 +63,8 @@ export class PasswordMatcherInput {
 
         CanvasStyles.enableStyle(PasswordMatcherInput.COMPONENT_NAME);
 
-        this.component.setChild("passwordMatcherInputValue",this.passwordMatcherInputValue.getComponent());
-        this.component.setChild("passwordMatcherInputControl",this.passwordMatcherInputControl.getComponent());
+        this.component.setChild("passwordMatcherInputValue",this.passwordMatcherInputValue.component);
+        this.component.setChild("passwordMatcherInputControl",this.passwordMatcherInputControl.component);
 
         /** @type {AndValidatorSet} */
         this.validator = new AndValidatorSet()
@@ -80,8 +84,8 @@ export class PasswordMatcherInput {
         }
     }
 
-	getComponent() {
-		return this.component;
+    passwordChanged() {
+        this.passwordMatcherInputControl.clear();
     }
 
     /**

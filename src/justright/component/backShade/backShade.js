@@ -41,14 +41,9 @@ export class BackShade {
 
     postConfig() {
         this.component = this.componentFactory.create(BackShade.COMPONENT_NAME);
-        this.eventRegistry.attach(this.component.get("backShade"), "onclick", "//event:backShadeClicked", this.component.getComponentIndex());
-        this.eventRegistry.listen("//event:backShadeClicked", new ObjectFunction(this, this.backgroundClickOccured), this.component.getComponentIndex());
+        this.eventRegistry.attach(this.component.get("backShade"), "onclick", "//event:backShadeClicked", this.component.componentIndex);
+        this.eventRegistry.listen("//event:backShadeClicked", new ObjectFunction(this, this.backgroundClickOccured), this.component.componentIndex);
     }
-
-    /**
-     * @return {Component}
-     */
-	getComponent(){ return this.component; }
 
     backgroundClickOccured() {
         this.backShadeListeners.callBackgroundClicked();
@@ -59,15 +54,15 @@ export class BackShade {
             return new Promise((resolve, reject) => {resolve();});
         }
         this.hidden = true;
-        this.getComponent().get("backShade").setAttributeValue("class", "back-shade fade");
+        this.component.get("backShade").setAttributeValue("class", "back-shade fade");
         const hidePromise = TimePromise.asPromise(milliSeconds,
             () => {
-                this.getComponent().get("backShade").setStyle("display", "none");
+                this.component.get("backShade").setStyle("display", "none");
             }
         );
         const disableStylePromise = TimePromise.asPromise(milliSeconds + 1,
             () => {
-                CanvasStyles.disableStyle(BackShade.COMPONENT_NAME, this.component.getComponentIndex());
+                CanvasStyles.disableStyle(BackShade.COMPONENT_NAME, this.component.componentIndex);
             }
         );
         return Promise.all([hidePromise, disableStylePromise]);
@@ -80,11 +75,11 @@ export class BackShade {
             return new Promise((resolve, reject) => {resolve();});
         }
         this.hidden = false;
-        CanvasStyles.enableStyle(BackShade.COMPONENT_NAME, this.component.getComponentIndex());
-        this.getComponent().get("backShade").setStyle("display", "block");
+        CanvasStyles.enableStyle(BackShade.COMPONENT_NAME, this.component.componentIndex);
+        this.component.get("backShade").setStyle("display", "block");
         return TimePromise.asPromise(100,
             () => { 
-                this.getComponent().get("backShade").setAttributeValue("class", "back-shade fade show")
+                this.component.get("backShade").setAttributeValue("class", "back-shade fade show")
             }
         );
     }

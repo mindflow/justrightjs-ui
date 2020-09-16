@@ -56,17 +56,13 @@ export class Button {
         this.registerClickListener();
     }
 
-	getComponent(){
-		return this.component;
-    }
-
     /**
      * 
      * @param {ObjectFunction} clickedListener 
      */
     registerClickListener() {
-        this.eventRegistry.attach(this.component.get("button"), "onclick", "//event:buttonClicked", this.component.getComponentIndex());
-        this.eventRegistry.listen("//event:buttonClicked", new ObjectFunction(this, this.clicked), this.component.getComponentIndex());
+        this.eventRegistry.attach(this.component.get("button"), "onclick", "//event:buttonClicked", this.component.componentIndex);
+        this.eventRegistry.listen("//event:buttonClicked", new ObjectFunction(this, this.clicked), this.component.componentIndex);
         return this;
     }
 
@@ -75,18 +71,18 @@ export class Button {
     }
 
     enableLoading() {
-        this.getComponent().get("spinnerContainer").setAttributeValue("class","button-spinner-container-visible");
+        this.component.get("spinnerContainer").setAttributeValue("class","button-spinner-container-visible");
     }
 
     disableLoading() {
-        this.getComponent().get("spinnerContainer").setAttributeValue("class","button-spinner-container-hidden");
+        this.component.get("spinnerContainer").setAttributeValue("class","button-spinner-container-hidden");
     }
 
     disable() {
-        this.getComponent().get("button").setAttributeValue("disabled","true");
+        this.component.get("button").setAttributeValue("disabled","true");
     }
 
     enable() {
-        this.getComponent().get("button").removeAttribute("disabled");
+        this.component.get("button").removeAttribute("disabled");
     }
 }

@@ -60,8 +60,8 @@ export class BannerMessage {
         this.component.get("bannerMessageHeader").setChild("Alert");
         this.component.get("bannerMessageMessage").setChild(this.message);
         this.applyClasses("banner-message fade");
-        this.eventRegistry.attach(this.component.get("bannerMessageCloseButton"), "onclick", "//event:bannerMessageCloseButtonClicked", this.component.getComponentIndex());
-        this.eventRegistry.listen("//event:bannerMessageCloseButtonClicked", new ObjectFunction(this,this.hide), this.component.getComponentIndex());
+        this.eventRegistry.attach(this.component.get("bannerMessageCloseButton"), "onclick", "//event:bannerMessageCloseButtonClicked", this.component.componentIndex);
+        this.eventRegistry.listen("//event:bannerMessageCloseButtonClicked", new ObjectFunction(this,this.hide), this.component.componentIndex);
     }
 
     applyClasses(baseClasses) {
@@ -80,10 +80,6 @@ export class BannerMessage {
         }
         this.component.get("bannerMessage").setAttributeValue("class",classes);
     }
-
-	getComponent(){
-		return this.component;
-    }
     
     setHeader(header) {
         this.header = header;
@@ -100,7 +96,7 @@ export class BannerMessage {
      * @param {ObjectFunction} clickedListener 
      */
     remove() {
-        return this.getComponent().remove();
+        return this.component.remove();
     }
 
     /**
@@ -122,11 +118,10 @@ export class BannerMessage {
     hide() {
         this.applyClasses("banner-message hide");
         setTimeout(() => { 
-            this.getComponent().get("bannerMessage").setStyle("display","none");
+            this.component.get("bannerMessage").setStyle("display","none");
         },500);
-        this.component.getComponentIndex()
         setTimeout(() => {
-            CanvasStyles.disableStyle(BannerMessage.COMPONENT_NAME, this.component.getComponentIndex());
+            CanvasStyles.disableStyle(BannerMessage.COMPONENT_NAME, this.component.componentIndex);
         },501);
         if(this.onHideListener) {
             this.onHideListener.call();
@@ -140,8 +135,8 @@ export class BannerMessage {
         if (newMessage) {
             this.setMessage(newMessage);
         }
-        CanvasStyles.enableStyle(BannerMessage.COMPONENT_NAME, this.component.getComponentIndex());
-        this.getComponent().get("bannerMessage").setStyle("display","block");
+        CanvasStyles.enableStyle(BannerMessage.COMPONENT_NAME, this.component.componentIndex);
+        this.component.get("bannerMessage").setStyle("display","block");
         setTimeout(() => { 
             this.applyClasses("banner-message show");
         },100);
