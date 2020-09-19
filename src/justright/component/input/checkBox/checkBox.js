@@ -24,20 +24,22 @@ export class CheckBox {
      */
     constructor(name, model = null, commonListeners = null) {
         
+        /** @type {ComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+
+        /** @type {Component} */
+        this.component = null;
+
+
         /** @type {string} */
         this.name = name;
 
         /** @type {object} */
         this.model = model;
 
-        /** @type {Component} */
-        this.component = null;
-
         /** @type {ObjectFunction} */
         this.commonListeners = (null != commonListeners) ? commonListeners : new CommonListeners();
         
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
 
         /** @type {EventRegistry} */
         this.eventRegistry = InjectionPoint.instance(EventRegistry);

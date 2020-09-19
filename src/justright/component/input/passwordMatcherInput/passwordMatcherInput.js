@@ -2,7 +2,8 @@ import {
     AbstractValidator,
     ComponentFactory,
     CanvasStyles,
-    AndValidatorSet
+    AndValidatorSet,
+    Component
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, PropertyAccessor, ObjectFunction } from "coreutil_v1";
@@ -35,16 +36,19 @@ export class PasswordMatcherInput {
         controlPlaceholder = PasswordMatcherInput.DEFAULT_CONTROL_PLACEHOLDER,
         mandatory = false) {
 
+        /** @type {ComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+
+        /** @type {Component} */
+        this.component = null;
+
+        /** @type {AndValidatorSet} */
+        this.validator = null;
+
         this.passwordMatcherModel = new PasswordMatcherModel();
 
         this.name = name;
         this.model = model;
-
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
-
-        /** @type {AndValidatorSet} */
-        this.validator = null;
 
         /** @type {PasswordMatcherInputValue} */
 		this.passwordMatcherInputValue = InjectionPoint.instance(

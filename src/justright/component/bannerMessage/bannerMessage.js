@@ -1,7 +1,8 @@
 import {
     ComponentFactory,
     EventRegistry,
-    CanvasStyles
+    CanvasStyles,
+    Component
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, ObjectFunction } from "coreutil_v1";
@@ -29,14 +30,17 @@ export class BannerMessage {
      */
     constructor(message, bannerType = BannerMessage.TYPE_INFO, closeable = false, customAppearance = null) {
 
+        /** @type {ComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+
+        /** @type {Component} */
+        this.component = null;
+
         /** @type {string} */
         this.message = message;
 
         /** @type {boolean} */
         this.closeable = closeable;
-
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
 
         /** @type {string} */
         this.bannerType = bannerType;

@@ -22,11 +22,14 @@ export class BackShade {
      */
     constructor(backShadeListeners = new BackShadeListeners()){
 
-		/** @type {EventRegistry} */
-        this.eventRegistry = InjectionPoint.instance(EventRegistry);
-
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
+
+        /** @type {Component} */
+        this.component = null;
+
+		/** @type {EventRegistry} */
+        this.eventRegistry = InjectionPoint.instance(EventRegistry);
 
         /** @type {BaseElement} */
         this.container = null;
