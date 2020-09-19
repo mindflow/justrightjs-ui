@@ -172,6 +172,6 @@ export class CommonInput {
     selectAll() { this.component.get(this.inputElementId).selectAll(); }
     enable() { this.component.get(this.inputElementId).enable(); }
     disable() { this.component.get(this.inputElementId).disable(); }
-    clear() { this.component.get(this.inputElementId).setValue(""); this.tainted = false; this.hideValidationError(); }
+    clear() { this.component.get(this.inputElementId).value = ""; this.tainted = false; this.hideValidationError(); }
 
 }
