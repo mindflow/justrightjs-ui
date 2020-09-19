@@ -43,6 +43,9 @@ export class PasswordMatcherInput {
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
 
+        /** @type {AndValidatorSet} */
+        this.validator = null;
+
         /** @type {PasswordMatcherInputValue} */
 		this.passwordMatcherInputValue = InjectionPoint.instance(
             PasswordMatcherInputValue, ["newPassword", this.passwordMatcherModel, 
@@ -68,9 +71,9 @@ export class PasswordMatcherInput {
 
         /** @type {AndValidatorSet} */
         this.validator = new AndValidatorSet()
-            .withValidator(this.passwordMatcherInputValue.getValidator())
-            .withValidator(this.passwordMatcherInputControl.getValidator()
-            .withValidListener(new ObjectFunction(this, this.passwordMatcherValidOccured)));
+            .withValidator(this.passwordMatcherInputValue.validator)
+            .withValidator(this.passwordMatcherInputControl.validator)
+            .withValidListener(new ObjectFunction(this, this.passwordMatcherValidOccured));
 
     }
 
@@ -79,20 +82,13 @@ export class PasswordMatcherInput {
     }
 
     passwordEntered() {
-        if(this.passwordMatcherInputValue.getValidator().isValid()) {
+        if(this.passwordMatcherInputValue.validator.isValid()) {
             this.passwordMatcherInputControl.focus();
         }
     }
 
     passwordChanged() {
         this.passwordMatcherInputControl.clear();
-    }
-
-    /**
-     * @returns {AbstractValidator}
-     */
-    getValidator() {
-        return this.validator;
     }
 
     focus() { this.passwordMatcherInputValue.focus(); }

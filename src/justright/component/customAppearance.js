@@ -24,6 +24,7 @@ export class CustomAppearance {
         this.shape = CustomAppearance.SHAPE_DEAFULT;
         this.spacing = CustomAppearance.SPACING_DEFAULT;
         this.visibility = CustomAppearance.VISIBILITY_DEAFULT;
+        this.locked = false;
     }
 
     withSize(size) {
@@ -45,26 +46,5 @@ export class CustomAppearance {
         this.visibility = visibility;
         return this;
     }
-
-    getSize() {
-        return this.size;
-    }
-
-    getShape() {
-        return this.shape;
-    }
-
-    getSpacing() {
-        return this.spacing;
-    }
-
-    getVisibility() {
-        return this.visibility;
-    }
-
-    getLocked() {
-        return this.locked;
-    }
-
 
 }

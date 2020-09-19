@@ -98,13 +98,6 @@ export class CommonInput {
     }
 
     /**
-     * @returns {AbstractValidator}
-     */
-    getValidator() {
-        return this.validator;
-    }
-
-    /**
      * 
      * @param {string} elementId 
      * @param {ObjectFunction} listener 

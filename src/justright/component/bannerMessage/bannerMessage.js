@@ -68,14 +68,14 @@ export class BannerMessage {
         let classes = baseClasses;
         classes = classes + " banner-message-" + this.bannerType;
         if (this.customAppearance) {
-            if (this.customAppearance.getShape()) {
-                classes = classes + " banner-message-" + this.customAppearance.getShape();
+            if (this.customAppearance.shape) {
+                classes = classes + " banner-message-" + this.customAppearance.shape;
             }
-            if (this.customAppearance.getSize()) {
-                classes = classes + " banner-message-" + this.customAppearance.getSize();
+            if (this.customAppearance.size) {
+                classes = classes + " banner-message-" + this.customAppearance.size;
             }
-            if (this.customAppearance.getSpacing()) {
-                classes = classes + " banner-message-" + this.customAppearance.getSpacing();
+            if (this.customAppearance.spacing) {
+                classes = classes + " banner-message-" + this.customAppearance.spacing;
             }
         }
         this.component.get("bannerMessage").setAttributeValue("class",classes);
