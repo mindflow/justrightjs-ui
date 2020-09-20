@@ -85,12 +85,12 @@ export class BannerMessage {
         this.component.get("bannerMessage").setAttributeValue("class",classes);
     }
     
-    setHeader(header) {
+    applyHeader(header) {
         this.header = header;
         this.component.get("bannerMessageHeader").setChild(this.header);
     }
 
-    setMessage(message) {
+    applyMessage(message) {
         this.message = message;
         this.component.get("bannerMessageMessage").setChild(this.message);
     }
@@ -134,10 +134,10 @@ export class BannerMessage {
 
     show(newHeader = null, newMessage = null) {
         if (newHeader) {
-            this.setHeader(newHeader);
+            this.applyHeader(newHeader);
         }
         if (newMessage) {
-            this.setMessage(newMessage);
+            this.applyMessage(newMessage);
         }
         CanvasStyles.enableStyle(BannerMessage.COMPONENT_NAME, this.component.componentIndex);
         this.component.get("bannerMessage").setStyle("display","block");
