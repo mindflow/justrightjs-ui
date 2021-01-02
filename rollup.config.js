@@ -1,5 +1,5 @@
 import multi from '@rollup/plugin-multi-entry';
-import replace from '@rollup/plugin-replace';
+import webes from 'plugin-webes';
 import { terser } from "rollup-plugin-terser";
 import copy from 'rollup-plugin-copy';
 
@@ -14,16 +14,12 @@ export default [{
     },
     plugins: [
         multi(),
-        replace({
-            'coreutil_v1': 'coreutilv1',
-            'xmlparser_v1': 'xmlparserv1',
-            'mindi_v1': 'mindiv1',
-            'justright_core_v1': 'justrightcorev1',
-
-            'coreutilv1': './coreutil_v1.js',
-            'xmlparserv1': './xmlparser_v1.js',
-            'mindiv1': './mindi_v1.js',
-            'justrightcorev1' : './justright_core_v1.js'
+        webes({
+            'coreutil_v1': './coreutil_v1.js',
+            'xmlparser_v1': './xmlparser_v1.js',
+            'mindi_v1': './mindi_v1.js',
+            'justright_core_v1': './justright_core_v1.js',
+            replaceStage: 'renderChunk'
         })
     ]
 },{
@@ -36,17 +32,12 @@ export default [{
     },
     plugins: [
         multi(),
-        replace({
-            'coreutil_v1': 'coreutilv1',
-            'xmlparser_v1': 'xmlparserv1',
-            'mindi_v1': 'mindiv1',
-            'justright_core_v1': 'justrightcorev1',
-
-            'coreutilv1': './coreutil_v1.js',
-            'xmlparserv1': './xmlparser_v1.js',
-            'mindiv1': './mindi_v1.js',
-            'containerbridgev1': './containerbridge_v1.js',
-            'justrightcorev1' : './justright_core_v1.js'
+        webes({
+            'coreutil_v1': './coreutil_v1.js',
+            'xmlparser_v1': './xmlparser_v1.js',
+            'mindi_v1': './mindi_v1.js',
+            'justright_core_v1': './justright_core_v1.js',
+            replaceStage: 'renderChunk'
         }),
         terser()
     ]
