@@ -1,7 +1,7 @@
-import multiEntry from 'rollup-plugin-multi-entry';
-import postprocess from 'rollup-plugin-postprocess';
+import multi from '@rollup/plugin-multi-entry';
+import replace from '@rollup/plugin-replace';
+import { terser } from "rollup-plugin-terser";
 import copy from 'rollup-plugin-copy';
-import uglify from "rollup-plugin-uglify-es";
 
 export default [{
     input: "src/**/*.js",
@@ -13,10 +13,18 @@ export default [{
         format: "es"
     },
     plugins: [
-        multiEntry(),
-        postprocess([
-            [/(?<=import\s*(.*)\s*from\s*)['"]((?!.*[.]js).*)['"];/, '\'./$2.js\'']
-        ])
+        multi(),
+        replace({
+            'coreutil_v1': 'coreutilv1',
+            'xmlparser_v1': 'xmlparserv1',
+            'mindi_v1': 'mindiv1',
+            'justright_core_v1': 'justrightcorev1',
+
+            'coreutilv1': './coreutil_v1.js',
+            'xmlparserv1': './xmlparser_v1.js',
+            'mindiv1': './mindi_v1.js',
+            'justrightcorev1' : './justright_core_v1.js'
+        })
     ]
 },{
     input: "src/**/*.js",
@@ -27,11 +35,20 @@ export default [{
         format: "es"
     },
     plugins: [
-        multiEntry(),
-        postprocess([
-            [/(?<=import\s*(.*)\s*from\s*)['"]((?!.*[.]js).*)['"];/, '\'./$2.js\'']
-        ]),
-        uglify()
+        multi(),
+        replace({
+            'coreutil_v1': 'coreutilv1',
+            'xmlparser_v1': 'xmlparserv1',
+            'mindi_v1': 'mindiv1',
+            'justright_core_v1': 'justrightcorev1',
+
+            'coreutilv1': './coreutil_v1.js',
+            'xmlparserv1': './xmlparser_v1.js',
+            'mindiv1': './mindi_v1.js',
+            'containerbridgev1': './containerbridge_v1.js',
+            'justrightcorev1' : './justright_core_v1.js'
+        }),
+        terser()
     ]
 },{
     input: "src/**/*.js",
@@ -43,14 +60,13 @@ export default [{
         format: "cjs"
     },
     plugins: [
-        multiEntry(),
+        multi(),
         copy({
             targets: [
               { src: 'src/**/*.css', dest: 'dist/assets/justrightjs-ui' },
               { src: 'src/**/*.html', dest: 'dist/assets/justrightjs-ui' }
             ],
             verbose: true
-        }),
-        //uglify()
+        })
     ]
 }];
