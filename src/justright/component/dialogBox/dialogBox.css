@@ -7,7 +7,23 @@
     overflow-y: auto;
   }
   
-  .dialogbox.fade .dialogbox-dialog {
+  .dialogbox-fade {
+    transition: opacity 0.15s linear;
+  }
+
+  .dialogbox-display-block {
+    display: block;
+  }
+
+  .dialogbox-display-none {
+    display: none;
+  }
+
+  .dialogbox-fade:not(.dialogbox-show) {
+    opacity: 0;
+  }
+
+  .dialogbox.dialogbox-fade .dialogbox-dialog {
     transition: -webkit-transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
     transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
@@ -15,12 +31,12 @@
     transform: translate(0, -50px);
   }
   
-  .dialogbox.show .dialogbox-dialog {
+  .dialogbox.dialogbox-show .dialogbox-dialog {
     -webkit-transform: none;
     transform: none;
   }
   
-  .dialogbox-header .close {
+  .dialogbox-header .dialogbox-close-button {
     padding: 1rem 1rem;
     margin: -1rem -1rem -1rem auto;
   }
@@ -62,7 +78,6 @@
     position: absolute;
     top: 0;
     z-index:10;
-    display: none;
     overflow: hidden;
     outline: 0;
   }
@@ -95,6 +110,34 @@
     justify-content: space-between;
     padding: 1rem 1rem;
     border-bottom: 1px solid #dee2e6;
+  }
+
+  .dialogbox-close-button {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+  }
+  
+  .dialogbox-close-button:hover {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .dialogbox-close-button:not(:disabled):not(.disabled):hover, .dialogbox-close-button:not(:disabled):not(.disabled):focus {
+    opacity: .75;
+  }
+
+  button.dialogbox-close-button {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
   }
 
   @media (min-width: 0px) {
@@ -139,7 +182,10 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .dialogbox.fade .dialogbox-dialog {
+    .dialogbox.dialogbox-fade .dialogbox-dialog {
+      transition: none;
+    }
+    .dialogbox-fade {
       transition: none;
     }
   }
