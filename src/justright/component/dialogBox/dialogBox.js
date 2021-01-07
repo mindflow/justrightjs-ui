@@ -33,8 +33,9 @@ export class DialogBox {
         this.component = null;
         
         /** @type {BackShade} */
-        this.backShade = InjectionPoint.instance(BackShade, [new BackShadeListeners()
-            .withBackgroundClicked(this, this.backshadeBackgroundClickOccured)]);
+        this.backShade = InjectionPoint.instance(BackShade, [
+            new BackShadeListeners()
+                .withBackgroundClicked(new ObjectFunction(this, this.backshadeBackgroundClickOccured))]);
 
         this.hidden = true;
     }

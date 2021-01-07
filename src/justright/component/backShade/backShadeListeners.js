@@ -8,11 +8,10 @@ export class BackShadeListeners {
 
     /**
      * 
-     * @param {object} targetObject 
-     * @param {function} targetFunction 
+     * @param {ObjectFunction} backgroundClickedListener 
      */
-    withBackgroundClicked(targetObject, targetFunction) {
-        this.backgroundClickedListener = new ObjectFunction(targetObject, targetFunction);
+    withBackgroundClicked(backgroundClickedListener) {
+        this.backgroundClickedListener = backgroundClickedListener;
         return this;
     }
 
