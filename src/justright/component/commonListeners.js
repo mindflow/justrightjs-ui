@@ -9,61 +9,55 @@ export class CommonListeners {
 
     /**
      * 
-     * @param {object} targetObject 
-     * @param {function} targetFunction 
+     * @param {ObjectFunction} clickListener 
      */
-    withClickListener(targetObject, targetFunction) {
-        this.clickListener = new ObjectFunction(targetObject, targetFunction);
+    withClickListener(clickListener) {
+        this.clickListener = clickListener;
         return this;
     }
 
     /**
      * 
-     * @param {object} targetObject 
-     * @param {function} targetFunction 
+     * @param {ObjectFunction} keyUpListener 
      */
-    withKeyUpListener(targetObject, targetFunction) {
-        this.keyUpListener = new ObjectFunction(targetObject, targetFunction);
+    withKeyUpListener(keyUpListener) {
+        this.keyUpListener = keyUpListener;
         return this;
     }
 
     /**
      * 
-     * @param {object} targetObject 
-     * @param {function} targetFunction 
+     * @param {ObjectFunction} enterListener 
      */
-    withEnterListener(targetObject, targetFunction) {
-        this.enterListener = new ObjectFunction(targetObject, targetFunction);
+    withEnterListener(enterListener) {
+        this.enterListener = enterListener;
         return this;
     }
 
     /**
      * 
-     * @param {object} targetObject 
-     * @param {function} targetFunction 
+     * @param {ObjectFunction} blurListener 
      */
-    withBlurListener(targetObject, targetFunction) {
-        this.blurListener = new ObjectFunction(targetObject, targetFunction);
+    withBlurListener(blurListener) {
+        this.blurListener = blurListener;
         return this;
     }
 
     /**
      * 
-     * @param {object} targetObject 
-     * @param {function} targetFunction 
+     * @param {ObjectFunction} changeListener 
      */
-    withChangeListener(targetObject, targetFunction) {
-        this.changeListener = new ObjectFunction(targetObject, targetFunction);
+    withChangeListener(changeListener) {
+        this.changeListener = changeListener;
         return this;
     }
 
     /**
      * 
-     * @param {object} targetObject 
-     * @param {function} targetFunction 
+     * @param {ObjectFunction} focusListener 
      */
-    withFocusListener(targetObject, targetFunction) {
-        this.focusListener = new ObjectFunction(targetObject, targetFunction);
+    withFocusListener(focusListener) {
+        this.focusListener = focusListener;
         return this;
     }
 

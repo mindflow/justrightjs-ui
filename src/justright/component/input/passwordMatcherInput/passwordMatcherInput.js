@@ -52,11 +52,14 @@ export class PasswordMatcherInput {
 
         /** @type {PasswordMatcherInputValue} */
 		this.passwordMatcherInputValue = InjectionPoint.instance(
-            PasswordMatcherInputValue, ["newPassword", this.passwordMatcherModel, 
+            PasswordMatcherInputValue, [
+                "newPassword",
+                this.passwordMatcherModel, 
                 new CommonListeners()
-                    .withEnterListener(this, this.passwordEntered)
-                    .withKeyUpListener(this, this.passwordChanged),
-                placeholder,  mandatory]
+                    .withEnterListener(new ObjectFunction(this, this.passwordEntered))
+                    .withKeyUpListener(new ObjectFunction(this, this.passwordChanged)),
+                placeholder,
+                mandatory]
 		);
 
         /** @type {PasswordMatcherInputControl} */
