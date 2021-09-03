@@ -126,11 +126,21 @@ export class CommonInput {
         if (!event.isKeyCode(13) && !event.isKeyCode(16) && !event.isKeyCode(9)) {
             this.tainted = true;
         }
+        if ("" === event.getTargetValue()) {
+            this.tainted = false;
+        }
         this.commonListeners.callKeyUp(event);
     }
 
+    /**
+     * 
+     * @param {Event} event 
+     */
     changed(event) {
         this.tainted = true;
+        if ("" === event.getTargetValue()) {
+            this.tainted = false;
+        }
         this.commonListeners.callChange(event);
     }
 
