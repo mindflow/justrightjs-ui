@@ -65,8 +65,7 @@ export class Button {
      * @param {ObjectFunction} clickedListener 
      */
     registerClickListener() {
-        this.eventRegistry.attach(this.component.get("button"), "onclick", "//event:buttonClicked", this.component.componentIndex);
-        this.eventRegistry.listen("//event:buttonClicked", new ObjectFunction(this, this.clicked), this.component.componentIndex);
+        this.component.get("button").listenTo("click", new ObjectFunction(this, this.clicked));
         return this;
     }
 

@@ -7,17 +7,10 @@ const LOG = new Logger("CommonInput");
 
 export class CommonInput {
 
-    static get INPUT_CLICK_EVENT_ID() { return "//event:inputClicked"; }
-    static get INPUT_KEYUP_EVENT_ID() { return "//event:inputKeyUp"; }
-    static get INPUT_ENTER_EVENT_ID() { return "//event:inputEnter"; }
-    static get INPUT_CHANGE_EVENT_ID() { return "//event:inputChange"; }
-    static get INPUT_BLUR_EVENT_ID() { return "//event:inputBlur"; }
-    static get ERROR_CLICK_EVENT_ID() { return "//event:errorClicked"; }
-
-    static get ON_CLICK() { return "onclick"; }
-    static get ON_KEYUP() { return "onkeyup"; }
-    static get ON_CHANGE() { return "onchange"; }
-    static get ON_BLUR() { return "onblur"; }
+    static get ON_CLICK() { return "click"; }
+    static get ON_KEYUP() { return "keyup"; }
+    static get ON_CHANGE() { return "change"; }
+    static get ON_BLUR() { return "blur"; }
 
     /**
      * 
@@ -94,12 +87,12 @@ export class CommonInput {
             InputElementDataBinding.link(this.model, this.validator).to(this.component.get(this.inputElementId));
         }
 
-        this.registerListener(this.inputElementId, new ObjectFunction(this, this.entered), CommonInput.ON_KEYUP, CommonInput.INPUT_ENTER_EVENT_ID, (event) => { return event.isKeyCode(13); } );
-        this.registerListener(this.inputElementId, new ObjectFunction(this, this.keyupped), CommonInput.ON_KEYUP, CommonInput.INPUT_KEYUP_EVENT_ID);
-        this.registerListener(this.inputElementId, new ObjectFunction(this, this.changed), CommonInput.ON_CHANGE, CommonInput.INPUT_CHANGE_EVENT_ID);
-        this.registerListener(this.inputElementId, new ObjectFunction(this, this.blurred), CommonInput.ON_BLUR, CommonInput.INPUT_BLUR_EVENT_ID);
-        this.registerListener(this.inputElementId, new ObjectFunction(this, this.clicked), CommonInput.ON_CLICK, CommonInput.INPUT_CLICK_EVENT_ID);
-        this.registerListener(this.errorElementId, new ObjectFunction(this, this.errorClicked), CommonInput.ON_CLICK, CommonInput.ERROR_CLICK_EVENT_ID);
+        this.registerListener(this.inputElementId, new ObjectFunction(this, this.entered), CommonInput.ON_KEYUP, (event) => { return event.isKeyCode(13); } );
+        this.registerListener(this.inputElementId, new ObjectFunction(this, this.keyupped), CommonInput.ON_KEYUP);
+        this.registerListener(this.inputElementId, new ObjectFunction(this, this.changed), CommonInput.ON_CHANGE);
+        this.registerListener(this.inputElementId, new ObjectFunction(this, this.blurred), CommonInput.ON_BLUR);
+        this.registerListener(this.inputElementId, new ObjectFunction(this, this.clicked), CommonInput.ON_CLICK);
+        this.registerListener(this.errorElementId, new ObjectFunction(this, this.errorClicked), CommonInput.ON_CLICK);
     }
 
     /**
@@ -110,11 +103,10 @@ export class CommonInput {
      * @param {string} eventId 
      * @param {function} eventFilter 
      */
-    registerListener(elementId, listener, eventName, eventId, eventFilter = null) {
-        this.eventRegistry.attach(this.component.get(elementId), eventName, eventId, this.component.componentIndex);
+    registerListener(elementId, listener, eventName, eventFilter = null) {
         let filteredListener = listener;
-        if (eventFilter) { filteredListener = new ObjectFunction(this,(event) => { if(eventFilter.call(this,event)) { listener.call(event); } }); }
-        this.eventRegistry.listen(eventId, filteredListener, this.component.componentIndex);
+        if (eventFilter) { filteredListener = new ObjectFunction(this, (event) => { if(eventFilter.call(this,event)) { listener.call(event); } }); }
+        this.component.get(elementId).listenTo(eventName, filteredListener);
         return this;
     }
 

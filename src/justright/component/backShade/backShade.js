@@ -44,8 +44,7 @@ export class BackShade {
 
     postConfig() {
         this.component = this.componentFactory.create(BackShade.COMPONENT_NAME);
-        this.eventRegistry.attach(this.component.get("backShade"), "onclick", "//event:backShadeClicked", this.component.componentIndex);
-        this.eventRegistry.listen("//event:backShadeClicked", new ObjectFunction(this, this.backgroundClickOccured), this.component.componentIndex);
+        this.component.get("backShade").listenTo("click", new ObjectFunction(this, this.backgroundClickOccured));
     }
 
     backgroundClickOccured() {

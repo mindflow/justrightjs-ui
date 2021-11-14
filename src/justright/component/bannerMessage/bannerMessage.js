@@ -64,8 +64,7 @@ export class BannerMessage {
         this.component.get("bannerMessageHeader").setChild("Alert");
         this.component.get("bannerMessageMessage").setChild(this.message);
         this.applyClasses("banner-message fade");
-        this.eventRegistry.attach(this.component.get("bannerMessageCloseButton"), "onclick", "//event:bannerMessageCloseButtonClicked", this.component.componentIndex);
-        this.eventRegistry.listen("//event:bannerMessageCloseButtonClicked", new ObjectFunction(this,this.hide), this.component.componentIndex);
+        this.component.get("bannerMessageCloseButton").listenTo("click", new ObjectFunction(this,this.hide));
     }
 
     applyClasses(baseClasses) {

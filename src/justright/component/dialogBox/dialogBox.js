@@ -43,9 +43,7 @@ export class DialogBox {
     postConfig() {
         this.component = this.componentFactory.create(DialogBox.COMPONENT_NAME);
         this.component.set("backShadeContainer", this.backShade.component);
-
-        this.eventRegistry.attach(this.component.get("closeButton"), "onclick", "//event:closeClicked", this.component.componentIndex);
-        this.eventRegistry.listen("//event:closeClicked", new ObjectFunction(this, this.hide),this.component.componentIndex);
+        this.component.get("closeButton").listenTo("click", new ObjectFunction(this, this.hide));
     }
 
     /**
