@@ -44,11 +44,6 @@ export class BackShade {
 
     postConfig() {
         this.component = this.componentFactory.create(BackShade.COMPONENT_NAME);
-        this.component.get("backShade").listenTo("click", new ObjectFunction(this, this.backgroundClickOccured));
-    }
-
-    backgroundClickOccured() {
-        this.backShadeListeners.callBackgroundClicked();
     }
 
     hideAfter(milliSeconds) {
@@ -69,8 +64,6 @@ export class BackShade {
         );
         return Promise.all([hidePromise, disableStylePromise]);
     }
-
-    hide() { return this.disableAfter(500); }
 
     show() {
         if (!this.hidden) {

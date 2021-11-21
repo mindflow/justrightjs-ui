@@ -2,7 +2,9 @@ import {
     Component,
     ComponentFactory,
     EventRegistry,
-    CanvasStyles
+    CanvasStyles,
+    CanvasRoot,
+    Event
 } from "justright_core_v1";
 import { TimePromise, Logger, ObjectFunction } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
@@ -35,15 +37,20 @@ export class DialogBox {
         /** @type {BackShade} */
         this.backShade = InjectionPoint.instance(BackShade, [
             new BackShadeListeners()
-                .withBackgroundClicked(new ObjectFunction(this, this.backshadeBackgroundClickOccured))]);
+                .withBackgroundClicked(new ObjectFunction(this, this.hide))]);
 
         this.hidden = true;
+
+        this.swallowFocusEscape = false;
+
+        this.owningTrigger = null;
     }
     
     postConfig() {
         this.component = this.componentFactory.create(DialogBox.COMPONENT_NAME);
         this.component.set("backShadeContainer", this.backShade.component);
         this.component.get("closeButton").listenTo("click", new ObjectFunction(this, this.hide));
+        CanvasRoot.listenToFocusEscape(new ObjectFunction(this, this.hide), this.component.get("dialogBoxWindow"));
     }
 
     /**
@@ -51,8 +58,6 @@ export class DialogBox {
      * @param {string} text 
      */
     setTitle(text){ this.component.setChild("title", text); }
-
-    backshadeBackgroundClickOccured() { this.hide(); }
 
     /**
      * 
@@ -71,7 +76,12 @@ export class DialogBox {
 
 	set(key,val) { this.component.set(key,val); }
     
-    hide() {
+    /**
+     * 
+     * @param {Event} event 
+     * @returns 
+     */
+    hide(event) {
         if (this.hidden) {
             return new Promise((resolve, reject) => {resolve();});
         }
@@ -90,7 +100,13 @@ export class DialogBox {
         return Promise.all([hidePromise, disableStylePromise, hideBackShadePromise]);
     }
 
-    show() {
+    /**
+     * 
+     * @param {Event} event 
+     * @returns 
+     */
+    show(event) {
+        CanvasRoot.swallowFocusEscape(500);
         if (!this.hidden) {
             return new Promise((resolve, reject) => {resolve();});
         }
