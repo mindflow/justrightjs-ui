@@ -57,16 +57,7 @@ export class Button {
         CanvasStyles.enableStyle(Button.COMPONENT_NAME);
         this.component.get("button").setChild(this.label);
         this.component.get("button").setAttributeValue("class","button " + this.buttonType);
-        this.registerClickListener();
-    }
-
-    /**
-     * 
-     * @param {ObjectFunction} clickedListener 
-     */
-    registerClickListener() {
         this.component.get("button").listenTo("click", new ObjectFunction(this, this.clicked));
-        return this;
     }
 
     clicked(event) {
