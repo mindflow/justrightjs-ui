@@ -4,9 +4,10 @@ import {
     EventRegistry,
     CanvasStyles,
     CanvasRoot,
-    Event
+    Event,
+    Navigation
 } from "justright_core_v1";
-import { TimePromise, Logger, ObjectFunction } from "coreutil_v1";
+import { TimePromise, Logger, ObjectFunction, List } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 import { BackShade } from "../backShade/backShade.js";
 import { BackShadeListeners } from "../backShade/backShadeListeners.js";
@@ -20,10 +21,12 @@ export class DialogBox {
     static get TEMPLATE_URL() { return "/assets/justrightjs-ui/dialogBox.html"; }
     static get STYLES_URL() { return "/assets/justrightjs-ui/dialogBox.css"; }
     
+    static get OPTION_BACK_ON_CLOSE() { return 1; }
+
     /**
      * 
      */
-    constructor(){
+    constructor(defaultOptions = []){
 
 		/** @type {EventRegistry} */
 		this.eventRegistry = InjectionPoint.instance(EventRegistry);
@@ -44,13 +47,19 @@ export class DialogBox {
         this.swallowFocusEscape = false;
 
         this.owningTrigger = null;
+
+        /** @type {List<string>} */
+        this.defaultOptions = new List(defaultOptions);
+
+        /** @type {List<string>} */
+        this.options = new List(defaultOptions);
     }
     
     postConfig() {
         this.component = this.componentFactory.create(DialogBox.COMPONENT_NAME);
         this.component.set("backShadeContainer", this.backShade.component);
-        this.component.get("closeButton").listenTo("click", new ObjectFunction(this, this.hide));
-        CanvasRoot.listenToFocusEscape(new ObjectFunction(this, this.hide), this.component.get("dialogBoxWindow"));
+        this.component.get("closeButton").listenTo("click", new ObjectFunction(this, this.close));
+        CanvasRoot.listenToFocusEscape(new ObjectFunction(this, this.close), this.component.get("dialogBoxWindow"));
     }
 
     /**
@@ -76,14 +85,24 @@ export class DialogBox {
 
 	set(key,val) { this.component.set(key,val); }
     
+    close() {
+        const options = this.options;
+        this.hide().then(() => {
+            if (options.contains(DialogBox.OPTION_BACK_ON_CLOSE)) {
+                Navigation.instance().back();
+            }
+        });
+    }
+
     /**
      * 
      * @param {Event} event 
      * @returns 
      */
     hide(event) {
+        const options = this.options;
         if (this.hidden) {
-            return new Promise((resolve, reject) => {resolve();});
+            return Promise.resolve();
         }
         this.hidden = true;
         this.getDialogBoxWindow().setAttributeValue("class", "dialogbox dialogbox-fade");
@@ -97,15 +116,20 @@ export class DialogBox {
                 CanvasStyles.disableStyle(DialogBox.COMPONENT_NAME, this.component.componentIndex);
             }
         );
+        this.options = this.defaultOptions;
         return Promise.all([hidePromise, disableStylePromise, hideBackShadePromise]);
     }
 
     /**
      * 
      * @param {Event} event 
+     * @param {Array<string>} temporaryOptions
      * @returns 
      */
-    show(event) {
+    show(event, temporaryOptions) {
+        if (temporaryOptions) {
+            this.options = new List(temporaryOptions);
+        }
         CanvasRoot.swallowFocusEscape(500);
         if (!this.hidden) {
             return new Promise((resolve, reject) => {resolve();});
