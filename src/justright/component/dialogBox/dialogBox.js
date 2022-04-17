@@ -87,7 +87,7 @@ export class DialogBox {
     
     close() {
         const options = this.options;
-        this.hide().then(() => {
+        return this.hide().then(() => {
             if (options.contains(DialogBox.OPTION_BACK_ON_CLOSE)) {
                 Navigation.instance().back();
             }
