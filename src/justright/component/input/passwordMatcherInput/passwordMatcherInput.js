@@ -6,7 +6,7 @@ import {
     Component
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
-import { Logger, PropertyAccessor, ObjectFunction } from "coreutil_v1";
+import { Logger, PropertyAccessor, Method } from "coreutil_v1";
 import { PasswordMatcherInputValue } from "./passwordMatcherInputValue/passwordMatcherInputValue.js";
 import { PasswordMatcherInputControl } from "./passwordMatcherInputControl/passwordMatcherInputControl.js";
 import { CommonListeners } from "../../commonListeners.js";
@@ -56,8 +56,8 @@ export class PasswordMatcherInput {
                 "newPassword",
                 this.passwordMatcherModel, 
                 new CommonListeners()
-                    .withEnterListener(new ObjectFunction(this, this.passwordEntered))
-                    .withKeyUpListener(new ObjectFunction(this, this.passwordChanged)),
+                    .withEnterListener(new Method(this, this.passwordEntered))
+                    .withKeyUpListener(new Method(this, this.passwordChanged)),
                 placeholder,
                 mandatory]
 		);
@@ -80,7 +80,7 @@ export class PasswordMatcherInput {
         this.validator = new AndValidatorSet()
             .withValidator(this.passwordMatcherInputValue.validator)
             .withValidator(this.passwordMatcherInputControl.validator)
-            .withValidListener(new ObjectFunction(this, this.passwordMatcherValidOccured));
+            .withValidListener(new Method(this, this.passwordMatcherValidOccured));
 
     }
 

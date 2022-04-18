@@ -1,4 +1,4 @@
-import { ObjectFunction } from "coreutil_v1";
+import { Method } from "coreutil_v1";
 import { Event } from "justright_core_v1";
 
 export class CommonListeners {
@@ -9,7 +9,7 @@ export class CommonListeners {
 
     /**
      * 
-     * @param {ObjectFunction} clickListener 
+     * @param {Method} clickListener 
      */
     withClickListener(clickListener) {
         this.clickListener = clickListener;
@@ -18,7 +18,7 @@ export class CommonListeners {
 
     /**
      * 
-     * @param {ObjectFunction} keyUpListener 
+     * @param {Method} keyUpListener 
      */
     withKeyUpListener(keyUpListener) {
         this.keyUpListener = keyUpListener;
@@ -27,7 +27,7 @@ export class CommonListeners {
 
     /**
      * 
-     * @param {ObjectFunction} enterListener 
+     * @param {Method} enterListener 
      */
     withEnterListener(enterListener) {
         this.enterListener = enterListener;
@@ -36,7 +36,7 @@ export class CommonListeners {
 
     /**
      * 
-     * @param {ObjectFunction} blurListener 
+     * @param {Method} blurListener 
      */
     withBlurListener(blurListener) {
         this.blurListener = blurListener;
@@ -45,7 +45,7 @@ export class CommonListeners {
 
     /**
      * 
-     * @param {ObjectFunction} changeListener 
+     * @param {Method} changeListener 
      */
     withChangeListener(changeListener) {
         this.changeListener = changeListener;
@@ -54,7 +54,7 @@ export class CommonListeners {
 
     /**
      * 
-     * @param {ObjectFunction} focusListener 
+     * @param {Method} focusListener 
      */
     withFocusListener(focusListener) {
         this.focusListener = focusListener;
@@ -87,7 +87,7 @@ export class CommonListeners {
 
     /**
      * 
-     * @param {ObjectFunction} listener 
+     * @param {Method} listener 
      * @param {Event} event 
      */
     callListener(listener, event) {

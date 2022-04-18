@@ -5,7 +5,7 @@ import {
     Component
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
-import { Logger, ObjectFunction } from "coreutil_v1";
+import { Logger, Method } from "coreutil_v1";
 import { CommonListeners } from "../commonListeners.js";
 
 const LOG = new Logger("Button");
@@ -57,7 +57,7 @@ export class Button {
         CanvasStyles.enableStyle(Button.COMPONENT_NAME);
         this.component.get("button").setChild(this.label);
         this.component.get("button").setAttributeValue("class","button " + this.buttonType);
-        this.component.get("button").listenTo("click", new ObjectFunction(this, this.clicked));
+        this.component.get("button").listenTo("click", new Method(this, this.clicked));
     }
 
     clicked(event) {

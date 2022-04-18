@@ -7,7 +7,7 @@ import {
     Event,
     Navigation
 } from "justright_core_v1";
-import { TimePromise, Logger, ObjectFunction, List } from "coreutil_v1";
+import { TimePromise, Logger, Method, List } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 import { BackShade } from "../backShade/backShade.js";
 import { BackShadeListeners } from "../backShade/backShadeListeners.js";
@@ -40,7 +40,7 @@ export class DialogBox {
         /** @type {BackShade} */
         this.backShade = InjectionPoint.instance(BackShade, [
             new BackShadeListeners()
-                .withBackgroundClicked(new ObjectFunction(this, this.hide))]);
+                .withBackgroundClicked(new Method(this, this.hide))]);
 
         this.hidden = true;
 
@@ -58,8 +58,8 @@ export class DialogBox {
     postConfig() {
         this.component = this.componentFactory.create(DialogBox.COMPONENT_NAME);
         this.component.set("backShadeContainer", this.backShade.component);
-        this.component.get("closeButton").listenTo("click", new ObjectFunction(this, this.close));
-        CanvasRoot.listenToFocusEscape(new ObjectFunction(this, this.close), this.component.get("dialogBoxWindow"));
+        this.component.get("closeButton").listenTo("click", new Method(this, this.close));
+        CanvasRoot.listenToFocusEscape(new Method(this, this.close), this.component.get("dialogBoxWindow"));
     }
 
     /**

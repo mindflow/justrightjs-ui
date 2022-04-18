@@ -1,4 +1,4 @@
-import { ObjectFunction } from "coreutil_v1";
+import { Method } from "coreutil_v1";
 
 export class BackShadeListeners {
 
@@ -8,7 +8,7 @@ export class BackShadeListeners {
 
     /**
      * 
-     * @param {ObjectFunction} backgroundClickedListener 
+     * @param {Method} backgroundClickedListener 
      */
     withBackgroundClicked(backgroundClickedListener) {
         this.backgroundClickedListener = backgroundClickedListener;
@@ -26,7 +26,7 @@ export class BackShadeListeners {
 
     /**
      * 
-     * @param {ObjectFunction} listener 
+     * @param {Method} listener 
      * @param {Event} event 
      */
     callListener(listener, event) {

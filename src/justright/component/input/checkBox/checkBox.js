@@ -6,7 +6,7 @@ import {
     InputElementDataBinding
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
-import { Logger, ObjectFunction } from "coreutil_v1";
+import { Logger, Method } from "coreutil_v1";
 import { CommonListeners } from "../../commonListeners.js";
 
 const LOG = new Logger("CheckBox");
@@ -37,7 +37,7 @@ export class CheckBox {
         /** @type {object} */
         this.model = model;
 
-        /** @type {ObjectFunction} */
+        /** @type {Method} */
         this.commonListeners = (null != commonListeners) ? commonListeners : new CommonListeners();
         
 

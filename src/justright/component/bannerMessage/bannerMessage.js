@@ -5,7 +5,7 @@ import {
     Component
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
-import { Logger, ObjectFunction } from "coreutil_v1";
+import { Logger, Method } from "coreutil_v1";
 import { CustomAppearance } from "../customAppearance.js";
 
 const LOG = new Logger("BannerMessage");
@@ -48,10 +48,10 @@ export class BannerMessage {
         /** @type {EventRegistry} */
         this.eventRegistry = InjectionPoint.instance(EventRegistry);
 
-        /** @type {ObjectFunction} */
+        /** @type {Method} */
         this.onHideListener = null;
 
-        /** @type {ObjectFunction} */
+        /** @type {Method} */
         this.onShowListener = null;
 
         /** @type {CustomAppearance} */
@@ -64,7 +64,7 @@ export class BannerMessage {
         this.component.get("bannerMessageHeader").setChild("Alert");
         this.component.get("bannerMessageMessage").setChild(this.message);
         this.applyClasses("banner-message fade");
-        this.component.get("bannerMessageCloseButton").listenTo("click", new ObjectFunction(this,this.hide));
+        this.component.get("bannerMessageCloseButton").listenTo("click", new Method(this,this.hide));
     }
 
     applyClasses(baseClasses) {
@@ -96,7 +96,7 @@ export class BannerMessage {
 
     /**
      * 
-     * @param {ObjectFunction} clickedListener 
+     * @param {Method} clickedListener 
      */
     remove() {
         return this.component.remove();
@@ -104,7 +104,7 @@ export class BannerMessage {
 
     /**
      * 
-     * @param {ObjectFunction} onHideListener 
+     * @param {Method} onHideListener 
      */
     onHide(onHideListener) {
         this.onHideListener = onHideListener;
@@ -112,7 +112,7 @@ export class BannerMessage {
 
     /**
      * 
-     * @param {ObjectFunction} onShowListener 
+     * @param {Method} onShowListener 
      */
     onShow(onShowListener) {
         this.onShowListener = onShowListener;

@@ -1,4 +1,4 @@
-import { ObjectFunction, Logger } from "coreutil_v1";
+import { Method, Logger } from "coreutil_v1";
 import { InputElementDataBinding, AbstractValidator, ComponentFactory, EventRegistry, CanvasStyles, Event, Component } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CommonListeners } from "../commonListeners.js";
@@ -80,32 +80,32 @@ export class CommonInput {
         this.component.get(this.inputElementId).setAttributeValue("placeholder", this.placeholder);
 
         if(this.validator) {
-            this.validator.withValidListener(new ObjectFunction(this,this.hideValidationError));
+            this.validator.withValidListener(new Method(this,this.hideValidationError));
         }
 
         if(this.model) {
             InputElementDataBinding.link(this.model, this.validator).to(this.component.get(this.inputElementId));
         }
 
-        this.registerListener(this.inputElementId, new ObjectFunction(this, this.entered), CommonInput.ON_KEYUP, (event) => { return event.isKeyCode(13); } );
-        this.registerListener(this.inputElementId, new ObjectFunction(this, this.keyupped), CommonInput.ON_KEYUP);
-        this.registerListener(this.inputElementId, new ObjectFunction(this, this.changed), CommonInput.ON_CHANGE);
-        this.registerListener(this.inputElementId, new ObjectFunction(this, this.blurred), CommonInput.ON_BLUR);
-        this.registerListener(this.inputElementId, new ObjectFunction(this, this.clicked), CommonInput.ON_CLICK);
-        this.registerListener(this.errorElementId, new ObjectFunction(this, this.errorClicked), CommonInput.ON_CLICK);
+        this.registerListener(this.inputElementId, new Method(this, this.entered), CommonInput.ON_KEYUP, (event) => { return event.isKeyCode(13); } );
+        this.registerListener(this.inputElementId, new Method(this, this.keyupped), CommonInput.ON_KEYUP);
+        this.registerListener(this.inputElementId, new Method(this, this.changed), CommonInput.ON_CHANGE);
+        this.registerListener(this.inputElementId, new Method(this, this.blurred), CommonInput.ON_BLUR);
+        this.registerListener(this.inputElementId, new Method(this, this.clicked), CommonInput.ON_CLICK);
+        this.registerListener(this.errorElementId, new Method(this, this.errorClicked), CommonInput.ON_CLICK);
     }
 
     /**
      * 
      * @param {string} elementId 
-     * @param {ObjectFunction} listener 
+     * @param {Method} listener 
      * @param {string} eventName 
      * @param {string} eventId 
      * @param {function} eventFilter 
      */
     registerListener(elementId, listener, eventName, eventFilter = null) {
         let filteredListener = listener;
-        if (eventFilter) { filteredListener = new ObjectFunction(this, (event) => { if(eventFilter.call(this,event)) { listener.call(event); } }); }
+        if (eventFilter) { filteredListener = new Method(this, (event) => { if(eventFilter.call(this,event)) { listener.call(event); } }); }
         this.component.get(elementId).listenTo(eventName, filteredListener);
         return this;
     }

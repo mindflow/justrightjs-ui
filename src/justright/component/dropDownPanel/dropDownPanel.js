@@ -8,7 +8,7 @@ import {
     HTML
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
-import { Logger, ObjectFunction } from "coreutil_v1";
+import { Logger, Method } from "coreutil_v1";
 
 const LOG = new Logger("DropDownPanel");
 
@@ -72,8 +72,8 @@ export class DropDownPanel {
         this.component.get("button").setChild(HTML.i("", this.iconClass));
         this.component.get("button").setAttributeValue("class", DropDownPanel.BUTTON + this.type);
         this.component.get("content").setAttributeValue("class", DropDownPanel.CONTENT + DropDownPanel.CONTENT_HIDDEN + this.orientation);
-        this.component.get("button").listenTo("click", new ObjectFunction(this, this.clicked));
-        CanvasRoot.listenToFocusEscape(new ObjectFunction(this, this.hide), this.component.get("dropDownPanelRoot"));
+        this.component.get("button").listenTo("click", new Method(this, this.clicked));
+        CanvasRoot.listenToFocusEscape(new Method(this, this.hide), this.component.get("dropDownPanelRoot"));
     }
 
     /**
