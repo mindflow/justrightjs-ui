@@ -85,13 +85,12 @@ export class DialogBox {
 
 	set(key,val) { this.component.set(key,val); }
     
-    close() {
+    async close() {
         const options = this.options;
-        return this.hide().then(() => {
-            if (options.contains(DialogBox.OPTION_BACK_ON_CLOSE)) {
-                Navigation.instance().back();
-            }
-        });
+        await this.hide();
+        if (options.contains(DialogBox.OPTION_BACK_ON_CLOSE)) {
+            Navigation.instance().back();
+        }
     }
 
     /**
