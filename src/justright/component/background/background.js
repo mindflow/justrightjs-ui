@@ -10,12 +10,15 @@ export class Background {
 	static get TEMPLATE_URL() { return "/assets/justrightjs-ui/background.html"; }
 	static get STYLES_URL() { return "/assets/justrightjs-ui/background.css"; }
 
-    constructor(){
+    constructor(backgroundImagePath){
 		/** @type {ComponentFactory} */
 		this.componentFactory = InjectionPoint.instance(ComponentFactory);
 
 		/** @type {Component} */
 		this.component = null;
+
+		/** @type {string} */
+		this.backgroundImagePath = backgroundImagePath;
 	}
 
 	set(key,val) {
@@ -24,6 +27,9 @@ export class Background {
 
 	postConfig() {
 		this.component = this.componentFactory.create(Background.COMPONENT_NAME);
+		if (this.backgroundImagePath) {
+			this.component.get("background").setAttributeValue("style", "background-image: url(\"" + this.backgroundImagePath + "\")");
+		}
 		CanvasStyles.enableStyle(Background.COMPONENT_NAME);
 	}
 

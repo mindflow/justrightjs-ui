@@ -23,10 +23,10 @@ export class Panel {
     static get PARAMETER_STYLE_SIZE_MINIMAL() { return " panel-size-minimal "; }
     static get PARAMETER_STYLE_SIZE_RESPONSIVE() { return " panel-size-responsive "; }
 
-    static get OPTION_STYLE_CONTENT_PADDING_SMALL() { return 1; }
-    static get OPTION_STYLE_CONTENT_PADDING_LARGE() { return 2; }
+    static get OPTION_STYLE_CONTENT_PADDING_SMALL() { return " panel-content-padding-small "; }
+    static get OPTION_STYLE_CONTENT_PADDING_LARGE() { return " panel-content-padding-large "; }
 
-    static get OPTION_STYLE_BORDER_SHADOW() { return 3; }
+    static get OPTION_STYLE_BORDER_SHADOW() { return " panel-border-shadow "; }
 
     /**
      * 
@@ -55,11 +55,21 @@ export class Panel {
         /** @type {string} */
         this.size = size;
 
+        /** @type {Array<String>} */
+        this.options = options;
+
     }
 
     postConfig() {
         this.component = this.componentFactory.create("Panel");
-        this.component.get("panel").setAttributeValue("class", this.type + this.contentAlign + this.size);
+        let classString = "";
+        classString = classString + this.type;
+        classString = classString + this.contentAlign;
+        classString = classString + this.size;
+        this.options.forEach(value => {
+            classString = classString + value;
+        });
+        this.component.get("panel").setAttributeValue("class", classString);
         CanvasStyles.enableStyle(Panel.COMPONENT_NAME);
     }
 
