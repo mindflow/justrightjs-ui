@@ -1,6 +1,5 @@
 import {
     ComponentFactory,
-    EventRegistry,
     CanvasStyles,
     Component
 } from "justright_core_v1";
@@ -47,9 +46,6 @@ export class Button {
 
         /** @type {string} */
         this.buttonType = buttonType;
-
-        /** @type {EventRegistry} */
-        this.eventRegistry = InjectionPoint.instance(EventRegistry);
     }
 
     postConfig() {

@@ -1,6 +1,5 @@
 import {
     ComponentFactory,
-    EventRegistry,
     CanvasStyles,
     Component,
     InputElementDataBinding
@@ -39,10 +38,6 @@ export class CheckBox {
 
         /** @type {Method} */
         this.commonListeners = (null != commonListeners) ? commonListeners : new CommonListeners();
-        
-
-        /** @type {EventRegistry} */
-        this.eventRegistry = InjectionPoint.instance(EventRegistry);
 
     }
 

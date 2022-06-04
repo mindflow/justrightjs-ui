@@ -1,6 +1,5 @@
 import {
     ComponentFactory,
-    EventRegistry,
     CanvasStyles,
     Component
 } from "justright_core_v1";
@@ -44,9 +43,6 @@ export class BannerMessage {
 
         /** @type {string} */
         this.bannerType = bannerType;
-
-        /** @type {EventRegistry} */
-        this.eventRegistry = InjectionPoint.instance(EventRegistry);
 
         /** @type {Method} */
         this.onHideListener = null;

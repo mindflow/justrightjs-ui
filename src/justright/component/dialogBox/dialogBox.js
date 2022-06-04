@@ -1,7 +1,6 @@
 import {
     Component,
     ComponentFactory,
-    EventRegistry,
     CanvasStyles,
     CanvasRoot,
     Event,
@@ -27,9 +26,6 @@ export class DialogBox {
      * 
      */
     constructor(defaultOptions = []){
-
-		/** @type {EventRegistry} */
-		this.eventRegistry = InjectionPoint.instance(EventRegistry);
 
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);

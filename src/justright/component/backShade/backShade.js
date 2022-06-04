@@ -1,7 +1,6 @@
 import {
     Component,
     ComponentFactory,
-    EventRegistry,
     CanvasStyles,
     BaseElement
 } from "justright_core_v1";
@@ -27,9 +26,6 @@ export class BackShade {
 
         /** @type {Component} */
         this.component = null;
-
-		/** @type {EventRegistry} */
-        this.eventRegistry = InjectionPoint.instance(EventRegistry);
 
         /** @type {BaseElement} */
         this.container = null;

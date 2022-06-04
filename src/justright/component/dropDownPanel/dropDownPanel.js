@@ -1,6 +1,5 @@
 import {
     ComponentFactory,
-    EventRegistry,
     CanvasStyles,
     Component,
     Event,
@@ -60,9 +59,6 @@ export class DropDownPanel {
 
         /** @type {string} */
         this.orientation = orientation;
-
-        /** @type {EventRegistry} */
-        this.eventRegistry = InjectionPoint.instance(EventRegistry);
 
     }
 

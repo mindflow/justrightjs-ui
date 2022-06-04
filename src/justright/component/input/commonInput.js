@@ -1,5 +1,5 @@
 import { Method, Logger } from "coreutil_v1";
-import { InputElementDataBinding, AbstractValidator, ComponentFactory, EventRegistry, CanvasStyles, Event, Component } from "justright_core_v1";
+import { InputElementDataBinding, AbstractValidator, ComponentFactory, CanvasStyles, Event, Component } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CommonListeners } from "../commonListeners.js";
 
@@ -59,13 +59,9 @@ export class CommonInput {
 
         /** @type {object} */
         this.model = model;
-
         
         /** @type {CommonListeners} */
         this.commonListeners = (null != commonListeners) ? commonListeners : new CommonListeners();
-
-        /** @type {EventRegistry} */
-        this.eventRegistry = InjectionPoint.instance(EventRegistry);
 
         /** @type {boolean} */
         this.tainted = false;
