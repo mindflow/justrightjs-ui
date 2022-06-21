@@ -1,5 +1,4 @@
 import { 
-    AbstractValidator,
     ComponentFactory,
     CanvasStyles,
     AndValidatorSet,
@@ -9,8 +8,8 @@ import { InjectionPoint } from "mindi_v1";
 import { Logger, PropertyAccessor, Method } from "coreutil_v1";
 import { PasswordMatcherInputValue } from "./passwordMatcherInputValue/passwordMatcherInputValue.js";
 import { PasswordMatcherInputControl } from "./passwordMatcherInputControl/passwordMatcherInputControl.js";
-import { CommonListeners } from "../../commonListeners.js";
 import { PasswordMatcherModel } from "./passwordMatcherModel.js";
+import { CommonInput } from "../commonInput.js";
 
 const LOG = new Logger("PasswordMatcherInput");
 
@@ -24,14 +23,12 @@ export class PasswordMatcherInput {
      * 
      * @param {string} name
      * @param {object} model
-     * @param {CommonListeners} commonListeners
      * @param {string} placeholder
      * @param {string} controlPlaceholder
      * @param {boolean} mandatory
      */
     constructor(name,
         model = null,
-        commonListeners = null, 
         placeholder = PasswordMatcherInput.DEFAULT_PLACEHOLDER, 
         controlPlaceholder = PasswordMatcherInput.DEFAULT_CONTROL_PLACEHOLDER,
         mandatory = false) {
@@ -55,26 +52,27 @@ export class PasswordMatcherInput {
             PasswordMatcherInputValue, [
                 "newPassword",
                 this.passwordMatcherModel, 
-                new CommonListeners()
-                    .withEnterListener(new Method(this, this.passwordEntered))
-                    .withKeyUpListener(new Method(this, this.passwordChanged)),
                 placeholder,
                 mandatory]
 		);
 
         /** @type {PasswordMatcherInputControl} */
 		this.passwordMatcherInputControl = InjectionPoint.instance(
-            PasswordMatcherInputControl, ["controlPassword", this.passwordMatcherModel, "newPassword", commonListeners, controlPlaceholder, mandatory]
+            PasswordMatcherInputControl, ["controlPassword", this.passwordMatcherModel, "newPassword", controlPlaceholder, mandatory]
 		);
     }
 
-    postConfig() {
-        this.component = this.componentFactory.create(PasswordMatcherInput.COMPONENT_NAME);
+    async postConfig() {
+        this.component = await this.componentFactory.create(PasswordMatcherInput.COMPONENT_NAME);
 
         CanvasStyles.enableStyle(PasswordMatcherInput.COMPONENT_NAME);
 
         this.component.setChild("passwordMatcherInputValue",this.passwordMatcherInputValue.component);
         this.component.setChild("passwordMatcherInputControl",this.passwordMatcherInputControl.component);
+
+        this.passwordMatcherInputValue.events
+            .listenTo(CommonInput.EVENT_ENTERED, new Method(this, this.passwordEntered))
+            .listenTo(CommonInput.EVENT_KEYUPPED, new Method(this, this.passwordChanged));
 
         /** @type {AndValidatorSet} */
         this.validator = new AndValidatorSet()

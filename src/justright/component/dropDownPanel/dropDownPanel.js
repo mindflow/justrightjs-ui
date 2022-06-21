@@ -39,7 +39,6 @@ export class DropDownPanel {
     /**
      * 
      * @param {string} iconClass
-     * @param {CommonListeners} commonListeners
      * @param {string} type
      * @param {string} orientation
      */

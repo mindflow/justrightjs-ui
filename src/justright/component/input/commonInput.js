@@ -1,23 +1,22 @@
 import { Method, Logger } from "coreutil_v1";
-import { InputElementDataBinding, AbstractValidator, ComponentFactory, CanvasStyles, Event, Component } from "justright_core_v1";
+import { InputElementDataBinding, AbstractValidator, ComponentFactory, CanvasStyles, Event, Component, EventManager } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
-import { CommonListeners } from "../commonListeners.js";
 
 const LOG = new Logger("CommonInput");
 
 export class CommonInput {
 
-    static get ON_CLICK() { return "click"; }
-    static get ON_KEYUP() { return "keyup"; }
-    static get ON_CHANGE() { return "change"; }
-    static get ON_BLUR() { return "blur"; }
+    static get EVENT_CLICKED() { return "clicked"; }
+    static get EVENT_ENTERED() { return "entered"; }
+    static get EVENT_KEYUPPED() { return "keyUpped"; }
+    static get EVENT_CHANGED() { return "changd"; }
+    static get EVENT_BLURRED() { return "blurred"; }
 
     /**
      * 
      * @param {string} componentName
      * @param {string} name
      * @param {object} model
-     * @param {CommonListeners} commonListeners
      * @param {AbstractValidator} validator
      * @param {string} placeholder
      * @param {string} inputElementId
@@ -25,8 +24,7 @@ export class CommonInput {
      */
     constructor(componentName,
         name,
-        model = null, 
-        commonListeners = null,
+        model = null,
         validator = null, 
         placeholder = null,
         inputElementId = "input",
@@ -59,12 +57,11 @@ export class CommonInput {
 
         /** @type {object} */
         this.model = model;
-        
-        /** @type {CommonListeners} */
-        this.commonListeners = (null != commonListeners) ? commonListeners : new CommonListeners();
 
         /** @type {boolean} */
         this.tainted = false;
+
+        this.eventManager = new EventManager();
     }
 
     postConfig() {
@@ -83,28 +80,22 @@ export class CommonInput {
             InputElementDataBinding.link(this.model, this.validator).to(this.component.get(this.inputElementId));
         }
 
-        this.registerListener(this.inputElementId, new Method(this, this.entered), CommonInput.ON_KEYUP, (event) => { return event.isKeyCode(13); } );
-        this.registerListener(this.inputElementId, new Method(this, this.keyupped), CommonInput.ON_KEYUP);
-        this.registerListener(this.inputElementId, new Method(this, this.changed), CommonInput.ON_CHANGE);
-        this.registerListener(this.inputElementId, new Method(this, this.blurred), CommonInput.ON_BLUR);
-        this.registerListener(this.inputElementId, new Method(this, this.clicked), CommonInput.ON_CLICK);
-        this.registerListener(this.errorElementId, new Method(this, this.errorClicked), CommonInput.ON_CLICK);
+        this.component.get(this.inputElementId)
+            .listenTo("keyup", new Method(this, this.keyupped))
+            .listenTo("change", new Method(this, this.changed))
+            .listenTo("blur", new Method(this, this.blurred))
+            .listenTo("click", new Method(this, this.clicked))
+            .listenTo("keyup", new Method(this, (event) => {
+                if (event.isKeyCode(13)) {
+                    this.entered(event);
+                }
+            }));
+
+        this.component.get(this.errorElementId)
+            .listenTo(CommonInput.ON_CLICK, new Method(this, this.errorClicked));
     }
 
-    /**
-     * 
-     * @param {string} elementId 
-     * @param {Method} listener 
-     * @param {string} eventName 
-     * @param {string} eventId 
-     * @param {function} eventFilter 
-     */
-    registerListener(elementId, listener, eventName, eventFilter = null) {
-        let filteredListener = listener;
-        if (eventFilter) { filteredListener = new Method(this, (event) => { if(eventFilter.call(this,event)) { listener.call(event); } }); }
-        this.component.get(elementId).listenTo(eventName, filteredListener);
-        return this;
-    }
+    get events() { return this.eventManager; }
 
     /**
      * 
@@ -117,7 +108,7 @@ export class CommonInput {
         if ("" === event.getTargetValue()) {
             this.tainted = false;
         }
-        this.commonListeners.callKeyUp(event);
+        this.events.trigger(CommonInput.EVENT_KEYUPPED, event);
     }
 
     /**
@@ -129,11 +120,11 @@ export class CommonInput {
         if ("" === event.getTargetValue()) {
             this.tainted = false;
         }
-        this.commonListeners.callChange(event);
+        this.events.trigger(CommonInput.EVENT_CHANGED, event);
     }
 
     clicked(event) {
-        this.commonListeners.callClick(event);
+        this.events.trigger(CommonInput.EVENT_CLICKED, event);
     }
 
     entered(event) {
@@ -142,7 +133,7 @@ export class CommonInput {
             this.selectAll();
             return;
         }
-        this.commonListeners.callEnter(event);
+        this.events.trigger(CommonInput.EVENT_ENTERED, event);
     }
 
     blurred(event) {
@@ -154,7 +145,7 @@ export class CommonInput {
             return;
         }
         this.hideValidationError();
-        this.commonListeners.callBlur(event);
+        this.events.trigger(CommonInput.EVENT_BLURRED, event);
     }
 
     errorClicked(event) {
