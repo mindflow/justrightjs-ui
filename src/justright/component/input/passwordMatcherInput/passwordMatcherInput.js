@@ -2,7 +2,8 @@ import {
     ComponentFactory,
     CanvasStyles,
     AndValidatorSet,
-    Component
+    Component,
+    EventManager
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, PropertyAccessor, Method } from "coreutil_v1";
@@ -18,6 +19,8 @@ export class PasswordMatcherInput {
 	static get COMPONENT_NAME() { return "PasswordMatcherInput"; }
     static get TEMPLATE_URL() { return "/assets/justrightjs-ui/passwordMatcherInput.html"; }
     static get STYLES_URL() { return "/assets/justrightjs-ui/passwordMatcherInput.css"; }
+
+	static get EVENT_VALIDATED_ENTERED() { return "validatedEntered"; }
 
     /**
      * 
@@ -48,18 +51,17 @@ export class PasswordMatcherInput {
         this.model = model;
 
         /** @type {PasswordMatcherInputValue} */
-		this.passwordMatcherInputValue = InjectionPoint.instance(
-            PasswordMatcherInputValue, [
-                "newPassword",
-                this.passwordMatcherModel, 
-                placeholder,
-                mandatory]
+		this.passwordMatcherInputValue = InjectionPoint.instance(PasswordMatcherInputValue,
+            ["newPassword", this.passwordMatcherModel, placeholder, mandatory]
 		);
 
         /** @type {PasswordMatcherInputControl} */
-		this.passwordMatcherInputControl = InjectionPoint.instance(
-            PasswordMatcherInputControl, ["controlPassword", this.passwordMatcherModel, "newPassword", controlPlaceholder, mandatory]
+		this.passwordMatcherInputControl = InjectionPoint.instance(PasswordMatcherInputControl,
+            ["controlPassword", this.passwordMatcherModel, "newPassword", controlPlaceholder, mandatory]
 		);
+
+        /** @type {EventManager} */
+        this.eventManager = new EventManager();
     }
 
     async postConfig() {
@@ -71,8 +73,11 @@ export class PasswordMatcherInput {
         this.component.setChild("passwordMatcherInputControl",this.passwordMatcherInputControl.component);
 
         this.passwordMatcherInputValue.events
-            .listenTo(CommonInput.EVENT_ENTERED, new Method(this, this.passwordEntered))
-            .listenTo(CommonInput.EVENT_KEYUPPED, new Method(this, this.passwordChanged));
+            .listenTo(CommonInput.EVENT_ENTERED, new Method(this, this.passwordValueEntered))
+            .listenTo(CommonInput.EVENT_KEYUPPED, new Method(this, this.passwordValueChanged));
+
+        this.passwordMatcherInputControl.events
+            .listenTo(CommonInput.EVENT_ENTERED, new Method(this, this.passwordControlEntered));
 
         /** @type {AndValidatorSet} */
         this.validator = new AndValidatorSet()
@@ -82,18 +87,26 @@ export class PasswordMatcherInput {
 
     }
 
+    get events() { return this.eventManager; }
+
     passwordMatcherValidOccured() {
         PropertyAccessor.setValue(this.model, this.name, this.passwordMatcherModel.getNewPassword())
     }
 
-    passwordEntered() {
-        if(this.passwordMatcherInputValue.validator.isValid()) {
+    passwordValueEntered(event) {
+        if (this.passwordMatcherInputValue.validator.isValid()) {
             this.passwordMatcherInputControl.focus();
         }
     }
 
-    passwordChanged() {
+    passwordValueChanged(event) {
         this.passwordMatcherInputControl.clear();
+    }
+
+    passwordControlEntered(event) {
+        if (this.validator.isValid()) {
+            this.events.trigger(PasswordMatcherInput.EVENT_VALIDATED_ENTERED, event);
+        }
     }
 
     focus() { this.passwordMatcherInputValue.focus(); }
