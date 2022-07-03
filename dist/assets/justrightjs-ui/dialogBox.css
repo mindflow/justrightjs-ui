@@ -2,7 +2,7 @@
     overflow: hidden;
   }
   
-  .dialogbox-open .dialogbox {
+  .dialogbox-open .dialogbox-overlay {
     overflow-x: hidden;
     overflow-y: auto;
   }
@@ -23,7 +23,7 @@
     opacity: 0;
   }
 
-  .dialogbox.dialogbox-fade .dialogbox-dialog {
+  .dialogbox-overlay.dialogbox-fade .dialogbox-frame {
     transition: -webkit-transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
     transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
@@ -31,14 +31,14 @@
     transform: translate(0, -50px);
   }
   
-  .dialogbox.dialogbox-show .dialogbox-dialog {
+  .dialogbox-overlay.dialogbox-show .dialogbox-frame {
     -webkit-transform: none;
     transform: none;
   }
   
   .dialogbox-header .dialogbox-close-button {
-    padding: 1rem 1rem;
-    margin: -1rem -1rem -1rem auto;
+    padding: 0.7rem 1rem;
+    margin: -0.7rem -1rem -0.7rem auto;
   }
   
   .dialogbox-title {
@@ -74,21 +74,18 @@
     margin-right: .25rem;
   }
   
-  .dialogbox {
-    position: absolute;
+  .dialogbox-overlay {
     top: 0;
     z-index:10;
     overflow: hidden;
     outline: 0;
   }
 
-  .dialogbox-dialog {
-    position: relative;
+  .dialogbox-frame {
     margin: 0;
   }
 
   .dialogbox-content {
-    position: relative;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;
@@ -108,7 +105,7 @@
     align-items: flex-start;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding: 1rem 1rem;
+    padding: 0.7rem 1rem;
     border-bottom: 1px solid #dee2e6;
   }
 
@@ -140,39 +137,62 @@
     appearance: none;
   }
 
-  @media (min-width: 0px) {
+  @media (max-width: 640px) {
 
-    .dialogbox {
+    .dialogbox-overlay {
+      position:fixed;
       left: 0;
       width: 100%;
+      height: 100%;
     }
     
-    .dialogbox-dialog {
-      width: 100%;
+    .dialogbox-frame {
+      position:absolute;
       margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .dialogbox-content {
+      position:relative;
+      height: 100%;
+    }
+
+    .dialogbox-body {
+      overflow-y: scroll;
     }
 
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 641px) {
     
-    .dialogbox {
+    .dialogbox-overlay {
+      position: absolute;
       margin-top: 54pt;
       padding-top: 1.5rem;
       left: 50%;
       transform: translate(-50%,0);
       width: auto;
+      height: auto;
     }
     
-    .dialogbox-dialog {
+    .dialogbox-frame {
+      position: relative;
       width: auto;
+      height: auto;
       margin: 0.5rem;
       pointer-events: none;
     }
 
     .dialogbox-content {
+      position: relative;
       border: 1px solid rgba(0, 0, 0, 0.2);
       border-radius: 0.3rem;
+      height: auto;
+    }
+
+    .dialogbox-body {
+      overflow-y: auto;
     }
 
     .dialogbox-header {
@@ -182,7 +202,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .dialogbox.dialogbox-fade .dialogbox-dialog {
+    .dialogbox-overlay.dialogbox-fade .dialogbox-frame {
       transition: none;
     }
     .dialogbox-fade {

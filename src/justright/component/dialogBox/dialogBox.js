@@ -55,7 +55,7 @@ export class DialogBox {
         this.component = this.componentFactory.create(DialogBox.COMPONENT_NAME);
         this.component.set("backShadeContainer", this.backShade.component);
         this.component.get("closeButton").listenTo("click", new Method(this, this.close));
-        CanvasRoot.listenToFocusEscape(new Method(this, this.close), this.component.get("dialogBoxWindow"));
+        CanvasRoot.listenToFocusEscape(new Method(this, this.close), this.component.get("dialogBoxOverlay"));
     }
 
     /**
@@ -100,10 +100,10 @@ export class DialogBox {
             return Promise.resolve();
         }
         this.hidden = true;
-        this.getDialogBoxWindow().setAttributeValue("class", "dialogbox dialogbox-fade");
+        this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-fade");
         const hideBackShadePromise = this.backShade.hideAfter(300);
         const hidePromise = TimePromise.asPromise(200, () => { 
-            this.getDialogBoxWindow().setAttributeValue("class", "dialogbox dialogbox-fade dialogbox-display-none");
+            this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-fade dialogbox-display-none");
             }
         );
         const disableStylePromise = TimePromise.asPromise(201, () => {
@@ -132,14 +132,14 @@ export class DialogBox {
         this.hidden = false;
         CanvasStyles.enableStyle(DialogBox.COMPONENT_NAME, this.component.componentIndex);
         this.backShade.show();
-        this.getDialogBoxWindow().setAttributeValue("class", "dialogbox dialogbox-fade dialogbox-display-block");
+        this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-fade dialogbox-display-block");
         return TimePromise.asPromise(100,  () => {
-                this.getDialogBoxWindow().setAttributeValue("class", "dialogbox dialogbox-fade dialogbox-display-block dialogbox-show");
+                this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-fade dialogbox-display-block dialogbox-show");
             }
         );
     }
 
-    getDialogBoxWindow() { return this.component.get("dialogBoxWindow"); }
+    getDialogBoxOverlay() { return this.component.get("dialogBoxOverlay"); }
 
     getDialogBox() { return this.component.get("dialogBox"); }
 }
