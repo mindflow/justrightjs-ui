@@ -100,10 +100,10 @@ export class DialogBox {
             return Promise.resolve();
         }
         this.hidden = true;
-        this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-fade");
+        this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-overlay-fade");
         const hideBackShadePromise = this.backShade.hideAfter(300);
         const hidePromise = TimePromise.asPromise(200, () => { 
-            this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-fade dialogbox-display-none");
+            this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-overlay-fade dialogbox-overlay-display-none");
             }
         );
         const disableStylePromise = TimePromise.asPromise(201, () => {
@@ -132,9 +132,9 @@ export class DialogBox {
         this.hidden = false;
         CanvasStyles.enableStyle(DialogBox.COMPONENT_NAME, this.component.componentIndex);
         this.backShade.show();
-        this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-fade dialogbox-display-block");
+        this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-overlay-fade dialogbox-overlay-display-block");
         return TimePromise.asPromise(100,  () => {
-                this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-fade dialogbox-display-block dialogbox-show");
+                this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-overlay-fade dialogbox-overlay-display-block dialogbox-overlay-show");
             }
         );
     }

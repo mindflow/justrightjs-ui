@@ -7,23 +7,23 @@
     overflow-y: auto;
   }
   
-  .dialogbox-fade {
+  .dialogbox-overlay-fade {
     transition: opacity 0.15s linear;
   }
 
-  .dialogbox-display-block {
+  .dialogbox-overlay-display-block {
     display: block;
   }
 
-  .dialogbox-display-none {
+  .dialogbox-overlay-display-none {
     display: none;
   }
 
-  .dialogbox-fade:not(.dialogbox-show) {
+  .dialogbox-overlay-fade:not(.dialogbox-overlay-show) {
     opacity: 0;
   }
 
-  .dialogbox-overlay.dialogbox-fade .dialogbox-frame {
+  .dialogbox-overlay.dialogbox-overlay-fade .dialogbox-frame {
     transition: -webkit-transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
     transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
@@ -31,7 +31,7 @@
     transform: translate(0, -50px);
   }
   
-  .dialogbox-overlay.dialogbox-show .dialogbox-frame {
+  .dialogbox-overlay.dialogbox-overlay-show .dialogbox-frame {
     -webkit-transform: none;
     transform: none;
   }
