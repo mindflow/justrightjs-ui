@@ -4,7 +4,7 @@ import {
     Component
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
-import { Logger, Method } from "coreutil_v1";
+import { Logger, Method, TimePromise } from "coreutil_v1";
 import { CustomAppearance } from "../customAppearance.js";
 
 const LOG = new Logger("BannerMessage");
@@ -114,20 +114,18 @@ export class BannerMessage {
         this.onShowListener = onShowListener;
     }
 
-    hide() {
+    async hide() {
         this.applyClasses("banner-message hide");
-        setTimeout(() => { 
+        await TimePromise.asPromise(500, () => { 
             this.component.get("bannerMessage").setStyle("display","none");
-        },500);
-        setTimeout(() => {
             CanvasStyles.disableStyle(BannerMessage.COMPONENT_NAME, this.component.componentIndex);
-        },501);
+        });
         if(this.onHideListener) {
             this.onHideListener.call();
         }
     }
 
-    show(newHeader = null, newMessage = null) {
+    async show(newHeader = null, newMessage = null) {
         if (newHeader) {
             this.applyHeader(newHeader);
         }
@@ -136,9 +134,9 @@ export class BannerMessage {
         }
         CanvasStyles.enableStyle(BannerMessage.COMPONENT_NAME, this.component.componentIndex);
         this.component.get("bannerMessage").setStyle("display","block");
-        setTimeout(() => { 
+        await TimePromise.asPromise(100,() => { 
             this.applyClasses("banner-message show");
-        },100);
+        });
         if(this.onShowListener) {
             this.onShowListener.call();
         }
