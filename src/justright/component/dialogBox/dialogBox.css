@@ -137,7 +137,7 @@
     appearance: none;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 500px) {
 
     .dialogbox-overlay {
       position:fixed;
@@ -164,7 +164,7 @@
 
   }
 
-  @media (min-width: 641px) {
+  @media (min-width: 501px) {
     
     .dialogbox-overlay {
       position: absolute;

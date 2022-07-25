@@ -92,7 +92,7 @@ export class CommonInput {
             }));
 
         this.component.get(this.errorElementId)
-            .listenTo(CommonInput.ON_CLICK, new Method(this, this.errorClicked));
+            .listenTo("click", new Method(this, this.errorClicked));
     }
 
     get events() { return this.eventManager; }
