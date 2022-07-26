@@ -160,6 +160,7 @@
 
     .dialogbox-body {
       overflow-y: scroll;
+      overflow-x: hidden;
     }
 
   }
@@ -192,7 +193,8 @@
     }
 
     .dialogbox-body {
-      overflow-y: hidden;
+      overflow-y: visible;
+      overflow-x: hidden;
     }
 
     .dialogbox-header {

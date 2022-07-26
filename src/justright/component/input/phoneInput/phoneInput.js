@@ -29,4 +29,7 @@ export class PhoneInput extends CommonInput {
             "phoneInput",
             "phoneError");
     }
+
+    showValidationError() { this.component.get(this.errorElementId).setAttributeValue("class", "phone-input-error phone-input-error-visible"); }
+    hideValidationError() { this.component.get(this.errorElementId).setAttributeValue("class", "phone-input-error phone-input-error-hidden"); }
 }

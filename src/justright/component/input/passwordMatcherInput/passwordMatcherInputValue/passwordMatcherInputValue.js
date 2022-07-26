@@ -29,4 +29,7 @@ export class PasswordMatcherInputValue extends CommonInput {
             "passwordMatcherInputValueField",
             "passwordMatcherInputValueError");
     }
+
+    showValidationError() { this.component.get(this.errorElementId).setAttributeValue("class", "password-matcher-input-value-error password-matcher-input-value-error-visible"); }
+    hideValidationError() { this.component.get(this.errorElementId).setAttributeValue("class", "password-matcher-input-value-error password-matcher-input-value-error-hidden"); }
 }

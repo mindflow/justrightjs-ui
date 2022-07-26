@@ -30,4 +30,7 @@ export class PasswordMatcherInputControl extends CommonInput {
             "passwordMatcherInputControlField",
             "passwordMatcherInputControlError");
     }
+
+    showValidationError() { this.component.get(this.errorElementId).setAttributeValue("class", "password-matcher-input-control-error password-matcher-input-control-error-visible"); }
+    hideValidationError() { this.component.get(this.errorElementId).setAttributeValue("class", "password-matcher-input-control-error password-matcher-input-control-error-hidden"); }
 }

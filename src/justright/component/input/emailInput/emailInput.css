@@ -1,4 +1,8 @@
 .email-input {
+
+}
+
+.email-input-entry {
     display: block;
     width: 100%;
     height: calc(1.5em + 0.75rem + 2px);
@@ -15,25 +19,45 @@
     margin-bottom: 1rem;
 }
 
-.email-error {
-    min-width:200px;
-    max-width:400px;
-    transform:translate(0%,-100%) translate(0%,-5px);
-    padding:10px 20px;
+.email-input-error {
+    width: fit-content;
     color:#333333;
+    transform:translate(+5px,-5px);
     background-color:#FFFFE0;
     font-weight:normal;
     font-size:14px;
     border-radius:8px;
-    position:fixed;
+    position:relative;
     z-index:99999998;
     box-sizing:border-box;
     box-shadow:0 1px 8px rgba(0,0,0,0.5);
-    display:none;
     cursor: pointer;
 }
 
-.email-error i {
+.email-input-error-hidden {
+    transition: max-height .3s .2s, 
+                padding .3s .2s, 
+                opacity .2s 0s,
+                visibility 0s .2s;
+    opacity: 0;
+    padding:0px 0px;
+    max-height: 0px;
+    display: block;
+    visibility: hidden;
+}
+
+.email-input-error-visible {
+    transition: max-height .3s,
+                padding .2s,
+                opacity .2s .2s;
+    opacity: 1;
+    padding:10px 20px;
+    max-height: 50px;
+    display: block;
+    visibility: visible;
+}
+
+.email-input-error i {
     position:absolute;
     top:100%;
     left:30%;
@@ -43,7 +67,7 @@
     overflow:hidden;
 }
 
-.email-error i::after {
+.email-input-error i::after {
     content:'';
     position:absolute;
     width:15px;

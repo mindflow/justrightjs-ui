@@ -29,4 +29,7 @@ export class PasswordInput extends CommonInput {
             "passwordInput",
             "passwordError");
     }
+
+    showValidationError() { this.component.get(this.errorElementId).setAttributeValue("class", "email-input-error email-input-error-visible"); }
+    hideValidationError() { this.component.get(this.errorElementId).setAttributeValue("class", "email-input-error email-input-error-hidden"); }
 }
