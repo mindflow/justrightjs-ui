@@ -51,6 +51,7 @@
     max-height: 150px;
     display: block;
     visibility: visible;
+    margin-top: 10px;
 }
 
 .phone-input-error i {

@@ -152,9 +152,6 @@ export class CommonInput {
         this.hideValidationError();
     }
 
-
-    showValidationError() { this.component.get(this.errorElementId).setStyle("display", "inline-block"); }
-    hideValidationError() { this.component.get(this.errorElementId).setStyle("display", "none"); }
     focus() { this.component.get(this.inputElementId).focus(); }
     selectAll() { this.component.get(this.inputElementId).selectAll(); }
     enable() { this.component.get(this.inputElementId).enable(); }
