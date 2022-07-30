@@ -1,0 +1,28 @@
+.banner-label-message {
+    color: white;
+    width: 100%;
+}
+
+.banner-label-message-close-button {
+    margin-left: 15pt;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22pt;
+    line-height: 14pt;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.banner-label-message-header {
+    color: white;
+}
+
+.banner-label-message-text {
+    margin-left:15px;
+}
+
+.banner-label-message-type-alert { background-color: #f44336; }
+.banner-label-message-type-success { background-color: #4CAF50; }
+.banner-label-message-type-info { background-color: #2196F3; }
+.banner-label-message-type-warning { background-color: #ff9800; }

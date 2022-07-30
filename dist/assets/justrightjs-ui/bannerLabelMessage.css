@@ -1,0 +1,50 @@
+.banner-label-message {
+    color: white;
+    width: 100%;
+}
+
+.banner-label-message-visible {
+    opacity: 0.8;
+    transition: opacity .3s .4s;
+}
+
+.banner-label-message-hidden {
+    opacity: 0;
+    transition: opacity .3s 0s;
+}
+
+.banner-label-message-close-button {
+    margin-left: 15pt;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22pt;
+    line-height: 14pt;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.banner-label-message-header {
+    color: white;
+}
+
+.banner-label-message-text {
+    margin-left:15px;
+}
+
+.banner-label-message-type-alert { background-color: #f44336; }
+.banner-label-message-type-success { background-color: #4CAF50; }
+.banner-label-message-type-info { background-color: #2196F3; }
+.banner-label-message-type-warning { background-color: #ff9800; }
+
+.banner-label-message-size-large { padding: 18pt; }
+.banner-label-message-size-default, .banner-label-size-medium { padding: 12pt; }
+.banner-label-message-size-small { padding-left: 10pt; padding-right:10px; padding-bottom: 8px; padding-top: 8px; }
+
+.banner-label-message-shape-default, .banner-label-shape-square { border-radius: 0px; }
+.banner-label-message-shape-round { border-radius: 3px; }
+
+.banner-label-message-spacing-default, .banner-label-spacing-none { margin: 0pt; }
+.banner-label-message-spacing-above { margin-top: 1rem; }
+.banner-label-message-spacing-below { margin-bottom: 1rem; }
+.banner-label-message-spacing-above-below { margin-top: 1rem;  margin-bottom: 1rem; }
