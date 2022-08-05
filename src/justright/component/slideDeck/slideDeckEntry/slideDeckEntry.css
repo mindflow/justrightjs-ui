@@ -1,0 +1,29 @@
+.slide-deck-entry-visible {
+    opacity: 1;
+    max-height: 1000px;
+    visibility: visible;
+    transform: translate(0%, 0%);
+    transition: transform .3s .3s, 
+                visibility 0s .6s,
+                opacity .3s .6s ease-out,
+                max-height .3s 0s;
+}
+
+.slide-deck-entry-move-right {
+    transform: translate(+100%, 0%);
+}
+
+.slide-deck-entry-move-left {
+    transform: translate(-100%, 0%);
+}
+
+.slide-deck-entry-hidden {
+    opacity: 0;
+    max-height: 0px;
+    overflow: hidden;
+    visibility: hidden;
+    transition: transform .3s 0s,
+                visibility 0s .3s,
+                opacity .0s .3s,
+                max-height .3s .3s;
+}

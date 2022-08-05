@@ -1,0 +1,13 @@
+.slide-deck {
+    background-color: #f1f1f1;
+    display: grid;
+    height: 100%;
+}
+
+.slide-deck > div {
+    background-color: #ffffff;
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    min-height: 0;
+}
