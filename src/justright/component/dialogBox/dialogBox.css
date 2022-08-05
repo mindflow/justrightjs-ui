@@ -158,7 +158,7 @@
     }
 
     .dialogbox-body {
-      overflow-y: scroll;
+      overflow-y: visible;
       overflow-x: hidden;
     }
 
