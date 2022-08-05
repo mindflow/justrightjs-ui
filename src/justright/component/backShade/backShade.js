@@ -4,7 +4,7 @@ import {
     CanvasStyles,
     BaseElement
 } from "justright_core_v1";
-import { Logger, Method, TimePromise } from "coreutil_v1";
+import { Logger, TimePromise } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 import { BackShadeListeners } from "./backShadeListeners.js";
 
@@ -30,9 +30,7 @@ export class BackShade {
         /** @type {BaseElement} */
         this.container = null;
 
-        /**
-         * @type {BackShadeListeners}
-         */
+        /** @type {BackShadeListeners} */
         this.backShadeListeners = backShadeListeners;
 
         this.hidden = true;
