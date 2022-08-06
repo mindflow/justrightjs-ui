@@ -105,7 +105,7 @@ export class CommonInput {
         if (!event.isKeyCode(13) && !event.isKeyCode(16) && !event.isKeyCode(9)) {
             this.tainted = true;
         }
-        if ("" === event.getTargetValue()) {
+        if ("" === event.targetValue) {
             this.tainted = false;
         }
         this.events.trigger(CommonInput.EVENT_KEYUPPED, event);
@@ -117,7 +117,7 @@ export class CommonInput {
      */
     changed(event) {
         this.tainted = true;
-        if ("" === event.getTargetValue()) {
+        if ("" === event.targetValue) {
             this.tainted = false;
         }
         this.events.trigger(CommonInput.EVENT_CHANGED, event);

@@ -1,4 +1,4 @@
-.text-input-entry {
+.number-input-entry {
     display: block;
     width: 100%;
     height: calc(1.5em + 0.75rem + 2px);
@@ -15,7 +15,7 @@
     margin-bottom: 1rem;
 }
 
-.text-input-error {
+.number-input-error {
     width: fit-content;
     color:#333333;
     transform:translate(+5px,-5px);
@@ -30,7 +30,7 @@
     cursor: pointer;
 }
 
-.text-input-error-hidden {
+.number-input-error-hidden {
     transition: max-height .3s .2s, 
                 padding .3s .2s, 
                 opacity .2s 0s,
@@ -42,7 +42,7 @@
     visibility: hidden;
 }
 
-.text-input-error-visible {
+.number-input-error-visible {
     transition: max-height .3s,
                 padding .2s,
                 opacity .2s .2s;
@@ -54,7 +54,7 @@
     margin-top: 10px;
 }
 
-.text-input-error i {
+.number-input-error i {
     position:absolute;
     top:100%;
     left:30%;
@@ -64,7 +64,7 @@
     overflow:hidden;
 }
 
-.text-input-error i::after {
+.number-input-error i::after {
     content:'';
     position:absolute;
     width:15px;
