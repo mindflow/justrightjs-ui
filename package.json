@@ -11,6 +11,7 @@
   "author": "Toby Nilsen",
   "license": "MIT",
   "dependencies": {
+    "containerbridge_v1": "file:../containerbridgejs/webbrowserbridge",
     "coreutil_v1": "file:../coreutiljs",
     "justright_core_v1": "file:../justrightjs-core",
     "mindi_v1": "file:../mindijs",

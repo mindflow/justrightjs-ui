@@ -5,7 +5,7 @@ import copy from 'rollup-plugin-copy';
 
 export default [{
     input: "src/**/*.js",
-    external: [ 'coreutil_v1','xmlparser_v1','mindi_v1','justright_core_v1' ],
+    external: [ 'coreutil_v1','xmlparser_v1','mindi_v1', 'containerbridge_v1','justright_core_v1' ],
     output: {
         name: 'justright_ui_v1',
         file: "dist/jsm/justright_ui_v1.js",
@@ -18,13 +18,14 @@ export default [{
             'coreutil_v1': './coreutil_v1.js',
             'xmlparser_v1': './xmlparser_v1.js',
             'mindi_v1': './mindi_v1.js',
+            'containerbridge_v1': './containerbridge_v1.js',
             'justright_core_v1': './justright_core_v1.js',
             replaceStage: 'renderChunk'
         })
     ]
 },{
     input: "src/**/*.js",
-    external: [ 'coreutil_v1','xmlparser_v1','mindi_v1','justright_core_v1' ],
+    external: [ 'coreutil_v1','xmlparser_v1','mindi_v1','containerbridge_v1','justright_core_v1' ],
     output: {
         name: 'justright_ui_v1',
         file: "dist/jsm/justright_ui_v1.min.js",
@@ -36,6 +37,7 @@ export default [{
             'coreutil_v1': './coreutil_v1.js',
             'xmlparser_v1': './xmlparser_v1.js',
             'mindi_v1': './mindi_v1.js',
+            'containerbridge_v1': './containerbridge_v1.js',
             'justright_core_v1': './justright_core_v1.js',
             replaceStage: 'renderChunk'
         }),
@@ -43,7 +45,7 @@ export default [{
     ]
 },{
     input: "src/**/*.js",
-    external: [ 'coreutil_v1','xmlparser_v1','mindi_v1','justright_core_v1' ],
+    external: [ 'coreutil_v1','xmlparser_v1','mindi_v1','containerbridge_v1','justright_core_v1' ],
     output: {
         name: 'justright_ui_v1',
         file: "dist/cjs/justright_ui_v1.js",
