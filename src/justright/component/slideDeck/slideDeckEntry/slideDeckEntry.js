@@ -36,16 +36,16 @@ export class SlideDeckEntry {
 
     show() {
         this.component.get("slideDeckEntryContent").setAttributeValue("style", "display:block");
-        this.component.get("slideDeckEntry").setAttributeValue("class", "slide-deck-entry-visible");
+        this.component.get("slideDeckEntry").setAttributeValue("class", "slide-deck-entry slide-deck-entry-visible");
         this.isVisible = true;
         
     }
 
     hide(nextIndex) {
         if (nextIndex > this.index) {
-            this.component.get("slideDeckEntry").setAttributeValue("class", "slide-deck-entry-hidden slide-deck-entry-move-left");
+            this.component.get("slideDeckEntry").setAttributeValue("class", "slide-deck-entry slide-deck-entry-hidden slide-deck-entry-move-left");
         } else {
-            this.component.get("slideDeckEntry").setAttributeValue("class", "slide-deck-entry-hidden slide-deck-entry-move-right");
+            this.component.get("slideDeckEntry").setAttributeValue("class", "slide-deck-entry slide-deck-entry-hidden slide-deck-entry-move-right");
         }
         this.isVisible = false;
         this.toggleDisplay();
