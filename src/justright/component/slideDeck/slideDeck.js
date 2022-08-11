@@ -1,4 +1,4 @@
-import { List, Map } from "coreutil_v1";
+import { List, Map, TimePromise } from "coreutil_v1";
 import { CanvasStyles, Component, ComponentFactory } from "justright_core_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
 import { SlideDeckEntry } from "./slideDeckEntry/slideDeckEntry.js";
@@ -47,6 +47,10 @@ export class SlideDeck {
         if (this.componentMap) {
             this.prepareEntries();
         }
+
+        this.scrollback = () => {
+            this.component.get("slideDeckEntries").element.parentElement.scrollTo(0,0);
+        };
     }
 
     prepareEntries() {
@@ -56,7 +60,7 @@ export class SlideDeck {
 
             
             if (null == this.currentEntry) {
-                slideDeckEntry.show(0);
+                slideDeckEntry.show();
                 this.currentEntry = slideDeckEntry;
             } else {
                 slideDeckEntry.hide(0);
@@ -82,6 +86,10 @@ export class SlideDeck {
         this.currentEntry.hide(nextEntry.index);
         this.currentEntry = nextEntry;
         this.currentEntry.show();
+        this.component.get("slideDeckEntries").element.parentElement.addEventListener("scroll", this.scrollback);
+        TimePromise.asPromise(1000, () => {
+            this.component.get("slideDeckEntries").element.parentElement.removeEventListener("scroll", this.scrollback);
+        });
     }
 
     slidePrevious() {
@@ -92,6 +100,11 @@ export class SlideDeck {
         this.currentEntry.hide(nextEntry.index);
         this.currentEntry = nextEntry;
         this.currentEntry.show();
+
+        this.component.get("slideDeckEntries").element.parentElement.addEventListener("scroll", this.scrollback);
+        TimePromise.asPromise(1000, () => {
+            this.component.get("slideDeckEntries").element.parentElement.removeEventListener("scroll", this.scrollback);
+        });
     }
 
     slideTo(name) {
@@ -99,6 +112,10 @@ export class SlideDeck {
         this.currentEntry.hide(nextEntry.index);
         this.currentEntry = nextEntry;
         this.currentEntry.show();
+        this.component.get("slideDeckEntries").element.parentElement.addEventListener("scroll", this.scrollback);
+        TimePromise.asPromise(1000, () => {
+            this.component.get("slideDeckEntries").element.parentElement.removeEventListener("scroll", this.scrollback);
+        });
     }
 
 }
