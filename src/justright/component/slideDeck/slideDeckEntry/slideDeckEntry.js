@@ -1,5 +1,5 @@
 import { TimePromise } from "coreutil_v1";
-import { CanvasStyles, Component, ComponentFactory } from "justright_core_v1";
+import { BaseElement, CanvasStyles, Component, ComponentFactory, CSS } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 
 export class SlideDeckEntry {
@@ -8,14 +8,14 @@ export class SlideDeckEntry {
     static get TEMPLATE_URL() { return "/assets/justrightjs-ui/slideDeckEntry.html"; }
     static get STYLES_URL() { return "/assets/justrightjs-ui/slideDeckEntry.css"; }
 
-    static get DEFAULT() { return "slide-deck-entry"; }
+    static get DEFAULT_CLASS() { return "slide-deck-entry"; }
 
-    static get SHIFT_VISIBLE() { return "slide-deck-entry-shift-visible" };
-    static get SHIFT_BEHIND() { return "slide-deck-entry-shift-behind" };
-    static get SHIFT_RIGHT() { return "slide-deck-entry-shift-right" };
+    static get ENTRY_POSITION_FRONT() { return "entry-position-front" };
+    static get ENTRY_POSITION_BEHIND() { return "entry-position-behind" };
+    static get ENTRY_POSITION_RIGHT() { return "entry-position-right" };
 
-    static get CONTENT_DEFAULT() { return "slide-deck-entry-content" };
-    static get CONTENT_HIDDEN() { return "slide-deck-entry-content-removed" };
+    static get CONTENT_EXISTANCE_PRESENT() { return "content-existance-present" };
+    static get CONTENT_EXISTANCE_REMOVED() { return "content-existance-removed" };
 
     constructor() {
         /** @type {ComponentFactory} */
@@ -27,7 +27,21 @@ export class SlideDeckEntry {
         /** @type {Number} */
         this.index = 0;
 
-        this.shift = SlideDeckEntry.SHIFT_VISIBLE;
+        this.position = SlideDeckEntry.ENTRY_POSITION_FRONT;
+    }
+
+    /**
+     * @returns {BaseElement}
+     */
+    get contentElement() {
+        return this.component.get("slideDeckEntryContent");
+    }
+
+    /**
+     * @returns {BaseElement}
+     */
+    get entryElement() {
+        return this.component.get("slideDeckEntry");
     }
 
     async postConfig() {
@@ -40,40 +54,39 @@ export class SlideDeckEntry {
     }
 
     setContent(component) {
-        this.component.setChild("slideDeckEntryContent", component);
+        this.contentElement.setChild(component);
     }
 
     show() {
-        this.setContentVisibility("");
-        this.setShift(SlideDeckEntry.SHIFT_VISIBLE, SlideDeckEntry.HEIGHT_VISIBLE);
+        this.setContentVisibility(SlideDeckEntry.CONTENT_EXISTANCE_PRESENT);
+        this.setShift(SlideDeckEntry.ENTRY_POSITION_FRONT);
     }
 
     hide(nextIndex) {
         if (nextIndex > this.index) {
-            this.setShift(SlideDeckEntry.SHIFT_BEHIND, SlideDeckEntry.HEIGHT_VISIBLE);
+            this.setShift(SlideDeckEntry.ENTRY_POSITION_BEHIND);
         } else {
-            this.setShift(SlideDeckEntry.SHIFT_RIGHT, SlideDeckEntry.HEIGHT_VISIBLE);
+            this.setShift(SlideDeckEntry.ENTRY_POSITION_RIGHT);
         }
         this.adjustWhenHidden();
     }
 
     adjustWhenHidden() {
         TimePromise.asPromise(600, () => {
-            if (this.shift === SlideDeckEntry.SHIFT_VISIBLE) {
+            if (this.position === SlideDeckEntry.ENTRY_POSITION_FRONT) {
                 return;
             }
-            this.setContentVisibility(SlideDeckEntry.CONTENT_HIDDEN);
+            this.setContentVisibility(SlideDeckEntry.CONTENT_EXISTANCE_REMOVED);
         });
     }
 
     setContentVisibility(contentVisibility) {
-        this.component.get("slideDeckEntryContent").setAttributeValue("class", contentVisibility + " " + SlideDeckEntry.CONTENT_DEFAULT);
+        CSS.from(this.contentElement).replace("content-existance-", contentVisibility);
     }
 
-    setShift(shift, height) {
-        this.shift = shift;
-        this.height = height;
-        this.component.get("slideDeckEntry").setAttributeValue("class", this.shift + " " + this.height + " " + SlideDeckEntry.DEFAULT);
+    setShift(position) {
+        this.position = position;
+        CSS.from(this.entryElement).replace("entry-position-", position);
     }
 
 }

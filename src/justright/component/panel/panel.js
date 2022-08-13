@@ -1,4 +1,4 @@
-import { ComponentFactory, Component, CanvasStyles } from "justright_core_v1";
+import { ComponentFactory, Component, CanvasStyles, CSS } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger } from "coreutil_v1";
 
@@ -62,14 +62,11 @@ export class Panel {
 
     postConfig() {
         this.component = this.componentFactory.create("Panel");
-        let classString = "";
-        classString = classString + this.type;
-        classString = classString + this.contentAlign;
-        classString = classString + this.size;
-        this.options.forEach(value => {
-            classString = classString + value;
-        });
-        this.component.get("panel").setAttributeValue("class", classString);
+
+        CSS.from(this.component.get("panel"))
+            .enable(this.type)
+            .enable(this.contentAlign)
+            .enable(this.size);
         CanvasStyles.enableStyle(Panel.COMPONENT_NAME);
     }
 

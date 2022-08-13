@@ -58,7 +58,6 @@ export class SlideDeck {
 
             const slideDeckEntry = await this.slideDeckEntryProvider.get();
 
-            
             if (null == this.currentEntry) {
                 slideDeckEntry.show();
                 this.currentEntry = slideDeckEntry;
