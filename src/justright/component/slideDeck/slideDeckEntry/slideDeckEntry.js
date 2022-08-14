@@ -73,7 +73,7 @@ export class SlideDeckEntry {
     }
 
     adjustWhenHidden() {
-        TimePromise.asPromise(6000, () => {
+        TimePromise.asPromise(600, () => {
             if (this.position === SlideDeckEntry.ENTRY_POSITION_FRONT) {
                 return;
             }
