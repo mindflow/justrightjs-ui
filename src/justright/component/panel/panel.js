@@ -10,23 +10,23 @@ export class Panel {
     static get TEMPLATE_URL() { return "/assets/justrightjs-ui/panel.html"; }
     static get STYLES_URL() { return "/assets/justrightjs-ui/panel.css"; }
 
-    static get PARAMETER_STYLE_TYPE_COLUMN_ROOT() { return " panel-type-column-root "; }
-    static get PARAMETER_STYLE_TYPE_COLUMN() { return " panel-type-column "; }
-    static get PARAMETER_STYLE_TYPE_ROW() { return " panel-type-row "; }
+    static get PARAMETER_STYLE_TYPE_COLUMN_ROOT() { return "panel-type-column-root"; }
+    static get PARAMETER_STYLE_TYPE_COLUMN() { return "panel-type-column"; }
+    static get PARAMETER_STYLE_TYPE_ROW() { return "panel-type-row"; }
 
-    static get PARAMETER_STYLE_CONTENT_ALIGN_LEFT() { return " panel-content-align-left "; }
-    static get PARAMETER_STYLE_CONTENT_ALIGN_RIGHT() { return " panel-content-align-right "; }
-    static get PARAMETER_STYLE_CONTENT_ALIGN_CENTER() { return " panel-content-align-center "; }
-    static get PARAMETER_STYLE_CONTENT_ALIGN_JUSTIFY() { return " panel-content-align-justify "; }
+    static get PARAMETER_STYLE_CONTENT_ALIGN_LEFT() { return "panel-content-align-left"; }
+    static get PARAMETER_STYLE_CONTENT_ALIGN_RIGHT() { return "panel-content-align-right"; }
+    static get PARAMETER_STYLE_CONTENT_ALIGN_CENTER() { return "panel-content-align-center"; }
+    static get PARAMETER_STYLE_CONTENT_ALIGN_JUSTIFY() { return "panel-content-align-justify"; }
 
-    static get PARAMETER_STYLE_SIZE_AUTO() { return " panel-size-auto "; }
-    static get PARAMETER_STYLE_SIZE_MINIMAL() { return " panel-size-minimal "; }
-    static get PARAMETER_STYLE_SIZE_RESPONSIVE() { return " panel-size-responsive "; }
+    static get PARAMETER_STYLE_SIZE_AUTO() { return "panel-size-auto"; }
+    static get PARAMETER_STYLE_SIZE_MINIMAL() { return "panel-size-minimal"; }
+    static get PARAMETER_STYLE_SIZE_RESPONSIVE() { return "panel-size-responsive"; }
 
-    static get OPTION_STYLE_CONTENT_PADDING_SMALL() { return " panel-content-padding-small "; }
-    static get OPTION_STYLE_CONTENT_PADDING_LARGE() { return " panel-content-padding-large "; }
+    static get OPTION_STYLE_CONTENT_PADDING_SMALL() { return "panel-content-padding-small"; }
+    static get OPTION_STYLE_CONTENT_PADDING_LARGE() { return "panel-content-padding-large"; }
 
-    static get OPTION_STYLE_BORDER_SHADOW() { return " panel-border-shadow "; }
+    static get OPTION_STYLE_BORDER_SHADOW() { return "panel-border-shadow"; }
 
     /**
      * 
@@ -61,13 +61,13 @@ export class Panel {
     }
 
     postConfig() {
-        this.component = this.componentFactory.create("Panel");
+        this.component = this.componentFactory.create(Panel.COMPONENT_NAME);
+        CanvasStyles.enableStyle(Panel.COMPONENT_NAME);
 
         CSS.from(this.component.get("panel"))
             .enable(this.type)
             .enable(this.contentAlign)
             .enable(this.size);
-        CanvasStyles.enableStyle(Panel.COMPONENT_NAME);
     }
 
 }

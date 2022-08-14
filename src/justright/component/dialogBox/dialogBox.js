@@ -10,6 +10,7 @@ import { TimePromise, Logger, Method, List } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 import { BackShade } from "../backShade/backShade.js";
 import { BackShadeListeners } from "../backShade/backShadeListeners.js";
+import { ContainerElement } from "containerbridge_v1";
 
 
 const LOG = new Logger("DialogBox");
@@ -103,7 +104,7 @@ export class DialogBox {
         this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-overlay-fade");
         const hideBackShadePromise = this.backShade.hideAfter(300);
         const hidePromise = TimePromise.asPromise(200, () => { 
-            this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-overlay-fade dialogbox-overlay-display-none");
+                this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-overlay-fade dialogbox-overlay-display-none");
             }
         );
         const disableStylePromise = TimePromise.asPromise(201, () => {
@@ -142,4 +143,8 @@ export class DialogBox {
     getDialogBoxOverlay() { return this.component.get("dialogBoxOverlay"); }
 
     getDialogBox() { return this.component.get("dialogBox"); }
+
+    scrollLock() {
+        ContainerElement.scrollLockTo(this.component.get("dialogBoxContent").element, 0, 0, 1000);
+    }
 }

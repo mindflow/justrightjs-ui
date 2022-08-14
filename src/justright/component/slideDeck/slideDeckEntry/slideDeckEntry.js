@@ -10,12 +10,12 @@ export class SlideDeckEntry {
 
     static get DEFAULT_CLASS() { return "slide-deck-entry"; }
 
-    static get ENTRY_POSITION_FRONT() { return "entry-position-front" };
-    static get ENTRY_POSITION_BEHIND() { return "entry-position-behind" };
-    static get ENTRY_POSITION_RIGHT() { return "entry-position-right" };
+    static get ENTRY_POSITION_FRONT() { return "position-front" };
+    static get ENTRY_POSITION_BEHIND() { return "position-behind" };
+    static get ENTRY_POSITION_RIGHT() { return "position-right" };
 
-    static get CONTENT_EXISTANCE_PRESENT() { return "content-existance-present" };
-    static get CONTENT_EXISTANCE_REMOVED() { return "content-existance-removed" };
+    static get CONTENT_EXISTANCE_PRESENT() { return "existance-present" };
+    static get CONTENT_EXISTANCE_REMOVED() { return "existance-removed" };
 
     constructor() {
         /** @type {ComponentFactory} */
@@ -27,6 +27,7 @@ export class SlideDeckEntry {
         /** @type {Number} */
         this.index = 0;
 
+        /** @type {String} */
         this.position = SlideDeckEntry.ENTRY_POSITION_FRONT;
     }
 
@@ -72,7 +73,7 @@ export class SlideDeckEntry {
     }
 
     adjustWhenHidden() {
-        TimePromise.asPromise(600, () => {
+        TimePromise.asPromise(6000, () => {
             if (this.position === SlideDeckEntry.ENTRY_POSITION_FRONT) {
                 return;
             }
@@ -81,12 +82,12 @@ export class SlideDeckEntry {
     }
 
     setContentVisibility(contentVisibility) {
-        CSS.from(this.contentElement).replace("content-existance-", contentVisibility);
+        CSS.from(this.contentElement).replace("existance-", contentVisibility);
     }
 
     setShift(position) {
         this.position = position;
-        CSS.from(this.entryElement).replace("entry-position-", position);
+        CSS.from(this.entryElement).replace("position-", position);
     }
 
 }
