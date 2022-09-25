@@ -28,8 +28,8 @@ export class Button {
 
     /**
      * 
-     * @param {string} label
-     * @param {string} buttonType
+     * @param {String} label
+     * @param {String} buttonType
      */
     constructor(label, buttonType = Button.TYPE_PRIMARY) {
 
@@ -39,10 +39,10 @@ export class Button {
         /** @type {Component} */
         this.component = null;
 
-        /** @type {string} */
+        /** @type {String} */
         this.label = label;
 
-        /** @type {string} */
+        /** @type {String} */
         this.buttonType = buttonType;
 
         /** @type {EventManager<Button>} */
