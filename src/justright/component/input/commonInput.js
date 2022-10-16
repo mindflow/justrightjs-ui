@@ -70,7 +70,7 @@ export class CommonInput {
         CanvasStyles.enableStyle(this.componentName, this.component.componentIndex);
 
         this.component.get(this.inputElementId).setAttributeValue("name", this.name);
-        this.component.get(this.inputElementId).setAttributeValue("placeholder", this.placeholder);
+        this.component.get(this.inputElementId).setAttributeValue("placeholder", ":  " +  this.placeholder);
 
         if(this.validator) {
             this.validator.withValidListener(new Method(this,this.hideValidationError));

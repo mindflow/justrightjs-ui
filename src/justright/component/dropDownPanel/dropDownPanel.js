@@ -4,7 +4,8 @@ import {
     Component,
     Event,
     CanvasRoot,
-    HTML
+    HTML,
+    CSS
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
@@ -17,24 +18,29 @@ export class DropDownPanel {
     static get TEMPLATE_URL()      { return "/assets/justrightjs-ui/dropDownPanel.html"; }
     static get STYLES_URL()        { return "/assets/justrightjs-ui/dropDownPanel.css"; }
 
-    static get TYPE_PRIMARY()      { return " drop-down-panel-button-primary "; }
-    static get TYPE_SECONDARY()    { return " drop-down-panel-button-secondary "; }
-    static get TYPE_SUCCESS()      { return " drop-down-panel-button-success "; }
-    static get TYPE_INFO()         { return " drop-down-panel-button-info "; }
-    static get TYPE_WARNING()      { return " drop-down-panel-button-warning "; }
-    static get TYPE_DANGER()       { return " drop-down-panel-button-danger "; }
-    static get TYPE_LIGHT()        { return " drop-down-panel-button-light "; }
-    static get TYPE_DARK()         { return " drop-down-panel-button-dark "; }
+    static get TYPE_PRIMARY()      { return "drop-down-panel-button-primary"; }
+    static get TYPE_SECONDARY()    { return "drop-down-panel-button-secondary"; }
+    static get TYPE_SUCCESS()      { return "drop-down-panel-button-success"; }
+    static get TYPE_INFO()         { return "drop-down-panel-button-info"; }
+    static get TYPE_WARNING()      { return "drop-down-panel-button-warning"; }
+    static get TYPE_DANGER()       { return "drop-down-panel-button-danger"; }
+    static get TYPE_LIGHT()        { return "drop-down-panel-button-light"; }
+    static get TYPE_DARK()         { return "drop-down-panel-button-dark"; }
 
-    static get ORIENTATION_LEFT()  { return " drop-down-panel-content-left "; }
-    static get ORIENTATION_RIGHT() { return " drop-down-panel-content-right "; }
+    static get SIZE_MEDIUM()       { return "drop-down-panel-button-medium"; }
+    static get SIZE_LARGE()        { return "drop-down-panel-button-large"; }
 
-    static get CONTENT_VISIBLE()   { return " drop-down-panel-content-visible "; }
-    static get CONTENT_HIDDEN()    { return " drop-down-panel-content-hidden "; }
-    static get CONTENT_EXPAND()    { return " drop-down-panel-content-expand "; }
-    static get CONTENT_COLLAPSE()  { return " drop-down-panel-content-collapse "; }
-    static get CONTENT()           { return " drop-down-panel-content "; }
-    static get BUTTON()            { return " drop-down-panel-button "; }
+    static get ORIENTATION_LEFT_TOP()     { return "drop-down-panel-left-top"; }
+    static get ORIENTATION_LEFT_BOTTOM()  { return "drop-down-panel-left-bottom"; }
+    static get ORIENTATION_RIGHT_TOP()    { return "drop-down-panel-right-top"; }
+    static get ORIENTATION_RIGHT_BOTTOM() { return "drop-down-panel-right-bottom"; }
+
+    static get CONTENT_VISIBLE()   { return "drop-down-panel-content-visible"; }
+    static get CONTENT_HIDDEN()    { return "drop-down-panel-content-hidden"; }
+    static get CONTENT_EXPAND()    { return "drop-down-panel-content-expand"; }
+    static get CONTENT_COLLAPSE()  { return "drop-down-panel-content-collapse"; }
+    static get CONTENT()           { return "drop-down-panel-content"; }
+    static get BUTTON()            { return "drop-down-panel-button"; }
 
     /**
      * 
@@ -42,7 +48,7 @@ export class DropDownPanel {
      * @param {string} type
      * @param {string} orientation
      */
-    constructor(iconClass, type = DropDownPanel.TYPE_DARK, orientation = DropDownPanel.ORIENTATION_LEFT) {
+    constructor(iconClass, type = DropDownPanel.TYPE_DARK, size = DropDownPanel.SIZE_MEDIUM, orientation = DropDownPanel.ORIENTATION_LEFT_TOP) {
 
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
@@ -57,6 +63,9 @@ export class DropDownPanel {
         this.type = type;
 
         /** @type {string} */
+        this.size = size;
+
+        /** @type {string} */
         this.orientation = orientation;
 
     }
@@ -65,8 +74,18 @@ export class DropDownPanel {
         this.component = this.componentFactory.create(DropDownPanel.COMPONENT_NAME);
         CanvasStyles.enableStyle(DropDownPanel.COMPONENT_NAME);
         this.component.get("button").setChild(HTML.i("", this.iconClass));
-        this.component.get("button").setAttributeValue("class", DropDownPanel.BUTTON + this.type);
-        this.component.get("content").setAttributeValue("class", DropDownPanel.CONTENT + DropDownPanel.CONTENT_HIDDEN + this.orientation);
+
+        CSS.from(this.component.get("button"))
+            .enable(DropDownPanel.BUTTON)
+            .enable(this.type);
+
+        CSS.from(this.component.get("content"))
+            .enable(DropDownPanel.CONTENT)
+            .disable(DropDownPanel.CONTENT_VISIBLE)
+            .enable(DropDownPanel.CONTENT_HIDDEN)
+            .enable(this.size)
+            .enable(this.orientation);
+
         this.component.get("button").listenTo("click", new Method(this, this.clicked));
         CanvasRoot.listenToFocusEscape(new Method(this, this.hide), this.component.get("dropDownPanelRoot"));
     }
@@ -95,13 +114,17 @@ export class DropDownPanel {
     }
 
     show() {
-        this.component.get("content").setAttributeValue("class", DropDownPanel.CONTENT + DropDownPanel.CONTENT_VISIBLE + this.orientation);
+        CSS.from(this.component.get("content"))
+            .disable(DropDownPanel.CONTENT_HIDDEN)
+            .enable(DropDownPanel.CONTENT_VISIBLE);
         this.component.get("arrow").setStyle("display", "block");
         this.component.get("content").element.focus();
     }
 
     hide() {
-        this.component.get("content").setAttributeValue("class", DropDownPanel.CONTENT + DropDownPanel.CONTENT_HIDDEN + this.orientation);
+        CSS.from(this.component.get("content"))
+            .disable(DropDownPanel.CONTENT_VISIBLE)
+            .enable(DropDownPanel.CONTENT_HIDDEN);
         this.component.get("arrow").setStyle("display", "none");
     }
 
