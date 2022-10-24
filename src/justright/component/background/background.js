@@ -1,4 +1,4 @@
-import { Component, ComponentFactory, CanvasStyles } from "justright_core_v1";
+import { Component, ComponentFactory, CanvasStyles, Style } from "justright_core_v1";
 import { Logger } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 
@@ -28,7 +28,8 @@ export class Background {
 	postConfig() {
 		this.component = this.componentFactory.create(Background.COMPONENT_NAME);
 		if (this.backgroundImagePath) {
-			this.component.get("background").setAttributeValue("style", "background-image: url(\"" + this.backgroundImagePath + "\")");
+            Style.from(this.component.get("background"))
+                .set("background-image", "url(\"" + this.backgroundImagePath + "\")");
 		}
 		CanvasStyles.enableStyle(Background.COMPONENT_NAME);
 	}

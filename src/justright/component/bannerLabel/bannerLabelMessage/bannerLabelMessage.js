@@ -1,5 +1,5 @@
 import { TimePromise } from "coreutil_v1";
-import { CanvasStyles, ComponentFactory, EventManager } from "justright_core_v1";
+import { CanvasStyles, ComponentFactory, CSS, EventManager, Style } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CustomAppearance } from "../../customAppearance.js";
 
@@ -43,38 +43,60 @@ export class BannerLabelMessage {
     async postConfig() {
         this.component = this.componentFactory.create(BannerLabelMessage.COMPONENT_NAME);
         CanvasStyles.enableStyle(BannerLabelMessage.COMPONENT_NAME);
-        this.applyClasses("banner-label-message");
+        CSS.from(this.messageContentElement)
+            .enable("banner-label-message")
+            .enable("banner-label-message-" + this.bannerType);
+
+        if (this.customAppearance && this.customAppearance.shape) {
+            CSS.from(this.messageContentElement)
+                .enable("banner-label-message-" + this.customAppearance.shape);
+        }
+        if (this.customAppearance && this.customAppearance.size) {
+            CSS.from(this.messageContentElement)
+                .enable("banner-label-message-" + this.customAppearance.size);
+        }
+        if (this.customAppearance && this.customAppearance.spacing) {
+            CSS.from(this.messageContentElement)
+                .enable("banner-label-message-" + this.customAppearance.spacing);
+        }
+
         this.component.get("bannerLabelMessageCloseButton").listenTo("click", () => {
             this.eventManager.trigger(BannerLabelMessage.EVENT_CLOSE_CLICKED);
         });
     }
 
     hide() {
-        this.applyClasses("banner-label-message banner-label-message-hidden");
-        this.isVisible = false;
-        this.toggleDisplay();
-    }
+        CSS.from(this.messageContentElement)
+            .disable("banner-label-message-visible")
+            .enable("banner-label-message-hidden");
 
-    toggleDisplay() {
+        this.isVisible = false;
+        
         TimePromise.asPromise(500, () => {
             if (!this.isVisible) {
-                this.component.get("bannerLabelMessage").setAttributeValue("style", "display:none");
-            }
-        });
-    }
-
-    toggleVisibility() {
-        TimePromise.asPromise(50, () => {
-            if (this.isVisible) {
-                this.applyClasses("banner-label-message banner-label-message-visible");
+                Style.from(this.component.get("bannerLabelMessage"))
+                    .set("display", "none");
             }
         });
     }
 
     show() {
-        this.component.get("bannerLabelMessage").setAttributeValue("style", "display:block");
-        this.toggleVisibility();
+        Style.from(this.component.get("bannerLabelMessage"))
+            .set("display", "block");
+
+        TimePromise.asPromise(50, () => {
+            if (this.isVisible) {
+                CSS.from(this.messageContentElement)
+                    .disable("banner-label-message-hidden")
+                    .enable("banner-label-message-visible")
+            }
+        });
+        
         this.isVisible = true;
+    }
+
+    get messageContentElement() {
+        return this.component.get("bannerLabelMessageContent");
     }
 
     setMessage(header, message) {
@@ -96,20 +118,4 @@ export class BannerLabelMessage {
         this.component.get("bannerLabelMessageText").setChild(this.message);
     }
 
-    applyClasses(baseClasses) {
-        let classes = baseClasses;
-        classes = classes + " banner-label-message-" + this.bannerType;
-        if (this.customAppearance) {
-            if (this.customAppearance.shape) {
-                classes = classes + " banner-label-message-" + this.customAppearance.shape;
-            }
-            if (this.customAppearance.size) {
-                classes = classes + " banner-label-message-" + this.customAppearance.size;
-            }
-            if (this.customAppearance.spacing) {
-                classes = classes + " banner-label-message-" + this.customAppearance.spacing;
-            }
-        }
-        this.component.get("bannerLabelMessageContent").setAttributeValue("class", classes);
-    }
 }
