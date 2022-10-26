@@ -5,7 +5,8 @@ import {
     Event,
     CanvasRoot,
     HTML,
-    CSS
+    CSS,
+    Style
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
@@ -106,7 +107,7 @@ export class DropDownPanel {
     }
 
     toggleContent() {
-        if (this.component.get("arrow").getStyle("display") !== "block") {
+        if (!Style.from(this.component.get("arrow")).is("display","block")) {
             this.show();
         } else {
             this.hide();
@@ -117,7 +118,8 @@ export class DropDownPanel {
         CSS.from(this.component.get("content"))
             .disable(DropDownPanel.CONTENT_HIDDEN)
             .enable(DropDownPanel.CONTENT_VISIBLE);
-        this.component.get("arrow").setStyle("display", "block");
+        Style.from(this.component.get("arrow"))
+            .set("display", "block");
         this.component.get("content").element.focus();
     }
 
