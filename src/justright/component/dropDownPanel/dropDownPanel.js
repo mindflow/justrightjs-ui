@@ -31,10 +31,8 @@ export class DropDownPanel {
     static get SIZE_MEDIUM()       { return "drop-down-panel-button-medium"; }
     static get SIZE_LARGE()        { return "drop-down-panel-button-large"; }
 
-    static get ORIENTATION_LEFT_TOP()     { return "drop-down-panel-left-top"; }
-    static get ORIENTATION_LEFT_BOTTOM()  { return "drop-down-panel-left-bottom"; }
-    static get ORIENTATION_RIGHT_TOP()    { return "drop-down-panel-right-top"; }
-    static get ORIENTATION_RIGHT_BOTTOM() { return "drop-down-panel-right-bottom"; }
+    static get ORIENTATION_LEFT()     { return "drop-down-panel-left"; }
+    static get ORIENTATION_RIGHT()    { return "drop-down-panel-right"; }
 
     static get CONTENT_VISIBLE()   { return "drop-down-panel-content-visible"; }
     static get CONTENT_HIDDEN()    { return "drop-down-panel-content-hidden"; }
@@ -49,7 +47,7 @@ export class DropDownPanel {
      * @param {string} type
      * @param {string} orientation
      */
-    constructor(iconClass, type = DropDownPanel.TYPE_DARK, size = DropDownPanel.SIZE_MEDIUM, orientation = DropDownPanel.ORIENTATION_LEFT_TOP) {
+    constructor(iconClass, type = DropDownPanel.TYPE_DARK, size = DropDownPanel.SIZE_MEDIUM, orientation = DropDownPanel.ORIENTATION_LEFT) {
 
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
