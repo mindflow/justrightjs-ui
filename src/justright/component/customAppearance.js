@@ -1,23 +1,23 @@
 export class CustomAppearance {
 
-    static get SIZE_DEFAULT() { return "size-default"; }
-    static get SIZE_SMALL() { return "size-small"; }
-    static get SIZE_MEDIUM() { return "size-medium"; }
-    static get SIZE_LARGE() { return "size-large"; }
+    static SIZE_DEFAUL = "size-default";
+    static SIZE_SMALL = "size-small";
+    static SIZE_MEDIUM = "size-medium";
+    static SIZE_LARGE = "size-large";
 
-    static get SHAPE_DEAFULT() { return "shape-default"; }
-    static get SHAPE_ROUND() { return "shape-round"; }
-    static get SHAPE_SQUARE() { return "shape-square"; }
+    static SHAPE_DEAFULT = "shape-default";
+    static SHAPE_ROUND = "shape-round";
+    static SHAPE_SQUARE = "shape-square";
 
-    static get VISIBILITY_DEAFULT() { return "visibility-default"; }
-    static get VISIBILITY_VISIBLE() { return "visibility-visible"; }
-    static get VISIBILITY_HIDDEN() { return "visibility-hidden"; }
+    static VISIBILITY_DEAFULT = "visibility-default";
+    static VISIBILITY_VISIBLE = "visibility-visible";
+    static VISIBILITY_HIDDEN = "visibility-hidden";
 
-    static get SPACING_DEFAULT() { return "spacing-default"; }
-    static get SPACING_NONE() { return "spacing-none"; }
-    static get SPACING_ABOVE() { return "spacing-above"; }
-    static get SPACING_BELOW() { return "spacing-below"; }
-    static get SPACING_ABOVE_BELOW() { return "spacing-above-below"; }
+    static SPACING_DEFAULT = "spacing-default";
+    static SPACING_NONE = "spacing-none";
+    static SPACING_ABOVE = "spacing-above";
+    static SPACING_BELOW = "spacing-below";
+    static SPACING_ABOVE_BELOW = "spacing-above-below";
 
     constructor() {
         this.size = CustomAppearance.SIZE_DEFAULT;
