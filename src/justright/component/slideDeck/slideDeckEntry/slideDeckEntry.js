@@ -4,18 +4,18 @@ import { InjectionPoint } from "mindi_v1";
 
 export class SlideDeckEntry {
 
-    static get COMPONENT_NAME() { return "SlideDeckEntry"; }
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/slideDeckEntry.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/slideDeckEntry.css"; }
+    static COMPONENT_NAME = "SlideDeckEntry";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/slideDeckEntry.html";
+    static STYLES_URL = "/assets/justrightjs-ui/slideDeckEntry.css";
 
-    static get DEFAULT_CLASS() { return "slide-deck-entry"; }
+    static DEFAULT_CLASS = "slide-deck-entry";
 
-    static get ENTRY_POSITION_FRONT() { return "position-front" };
-    static get ENTRY_POSITION_BEHIND() { return "position-behind" };
-    static get ENTRY_POSITION_RIGHT() { return "position-right" };
+    static ENTRY_POSITION_FRONT = "position-front";
+    static ENTRY_POSITION_BEHIND = "position-behind";
+    static ENTRY_POSITION_RIGHT = "position-right";
 
-    static get CONTENT_EXISTANCE_PRESENT() { return "existance-present" };
-    static get CONTENT_EXISTANCE_REMOVED() { return "existance-removed" };
+    static CONTENT_EXISTANCE_PRESENT = "existance-present";
+    static CONTENT_EXISTANCE_REMOVED = "existance-removed";
 
     constructor() {
         /** @type {ComponentFactory} */

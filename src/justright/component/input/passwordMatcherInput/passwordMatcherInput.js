@@ -16,11 +16,11 @@ const LOG = new Logger("PasswordMatcherInput");
 
 export class PasswordMatcherInput {
 
-	static get COMPONENT_NAME() { return "PasswordMatcherInput"; }
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/passwordMatcherInput.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/passwordMatcherInput.css"; }
+	static COMPONENT_NAME = "PasswordMatcherInput";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/passwordMatcherInput.html";
+    static STYLES_URL = "/assets/justrightjs-ui/passwordMatcherInput.css";
 
-	static get EVENT_VALIDATED_ENTERED() { return "validatedEntered"; }
+	static EVENT_VALIDATED_ENTERED = "validatedEntered";
 
     /**
      * 

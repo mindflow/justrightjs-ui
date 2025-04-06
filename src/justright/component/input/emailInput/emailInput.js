@@ -6,11 +6,11 @@ const LOG = new Logger("EmailInput");
 
 export class EmailInput extends CommonInput {
 
-    static get COMPONENT_NAME() { return "EmailInput"; }
-    static get DEFAULT_PLACEHOLDER() { return "Email"; }
+    static COMPONENT_NAME = "EmailInput";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/emailInput.html";
+    static STYLES_URL = "/assets/justrightjs-ui/emailInput.css";
 
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/emailInput.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/emailInput.css"; }
+    static DEFAULT_PLACEHOLDER = "Email";
 
     /**
      * 

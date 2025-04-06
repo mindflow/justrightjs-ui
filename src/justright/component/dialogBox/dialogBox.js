@@ -17,11 +17,11 @@ const LOG = new Logger("DialogBox");
 
 export class DialogBox {
 
-	static get COMPONENT_NAME() { return "DialogBox"; }
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/dialogBox.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/dialogBox.css"; }
+	static COMPONENT_NAME = "DialogBox";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/dialogBox.html";
+    static STYLES_URL = "/assets/justrightjs-ui/dialogBox.css";
     
-    static get OPTION_BACK_ON_CLOSE() { return 1; }
+    static OPTION_BACK_ON_CLOSE = 1;
 
     /**
      * 

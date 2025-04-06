@@ -6,9 +6,9 @@ const LOG = new Logger("Background");
 
 export class Background {
 
-	static get COMPONENT_NAME() { return "Background"; }
-	static get TEMPLATE_URL() { return "/assets/justrightjs-ui/background.html"; }
-	static get STYLES_URL() { return "/assets/justrightjs-ui/background.css"; }
+	static COMPONENT_NAME = "Background";
+	static TEMPLATE_URL = "/assets/justrightjs-ui/background.html";
+	static STYLES_URL = "/assets/justrightjs-ui/background.css";
 
     constructor(backgroundImagePath){
 		/** @type {ComponentFactory} */

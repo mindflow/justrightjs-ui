@@ -15,31 +15,31 @@ const LOG = new Logger("PopUpPanel");
 
 export class PopUpPanel {
 
-	static get COMPONENT_NAME()    { return "PopUpPanel"; }
-    static get TEMPLATE_URL()      { return "/assets/justrightjs-ui/popUpPanel.html"; }
-    static get STYLES_URL()        { return "/assets/justrightjs-ui/popUpPanel.css"; }
+	static COMPONENT_NAME = "PopUpPanel";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/popUpPanel.html";
+    static STYLES_URL = "/assets/justrightjs-ui/popUpPanel.css";
 
-    static get TYPE_PRIMARY()      { return "pop-up-panel-button-primary"; }
-    static get TYPE_SECONDARY()    { return "pop-up-panel-button-secondary"; }
-    static get TYPE_SUCCESS()      { return "pop-up-panel-button-success"; }
-    static get TYPE_INFO()         { return "pop-up-panel-button-info"; }
-    static get TYPE_WARNING()      { return "pop-up-panel-button-warning"; }
-    static get TYPE_DANGER()       { return "pop-up-panel-button-danger"; }
-    static get TYPE_LIGHT()        { return "pop-up-panel-button-light"; }
-    static get TYPE_DARK()         { return "pop-up-panel-button-dark"; }
+    static TYPE_PRIMARY = "pop-up-panel-button-primary";
+    static TYPE_SECONDARY = "pop-up-panel-button-secondary";
+    static TYPE_SUCCESS = "pop-up-panel-button-success";
+    static TYPE_INFO = "pop-up-panel-button-info";
+    static TYPE_WARNING = "pop-up-panel-button-warning";
+    static TYPE_DANGER = "pop-up-panel-button-danger";
+    static TYPE_LIGHT = "pop-up-panel-button-light";
+    static TYPE_DARK = "pop-up-panel-button-dark";
 
-    static get SIZE_MEDIUM()       { return "pop-up-panel-button-medium"; }
-    static get SIZE_LARGE()        { return "pop-up-panel-button-large"; }
+    static SIZE_MEDIUM = "pop-up-panel-button-medium";
+    static SIZE_LARGE = "pop-up-panel-button-large";
 
-    static get ORIENTATION_LEFT()     { return "pop-up-panel-left"; }
-    static get ORIENTATION_RIGHT()    { return "pop-up-panel-right"; }
+    static ORIENTATION_LEFT = "pop-up-panel-left";
+    static ORIENTATION_RIGHT = "pop-up-panel-right";
 
-    static get CONTENT_VISIBLE()   { return "pop-up-panel-content-visible"; }
-    static get CONTENT_HIDDEN()    { return "pop-up-panel-content-hidden"; }
-    static get CONTENT_EXPAND()    { return "pop-up-panel-content-expand"; }
-    static get CONTENT_COLLAPSE()  { return "pop-up-panel-content-collapse"; }
-    static get CONTENT()           { return "pop-up-panel-content"; }
-    static get BUTTON()            { return "pop-up-panel-button"; }
+    static CONTENT_VISIBLE = "pop-up-panel-content-visible";
+    static CONTENT_HIDDEN = "pop-up-panel-content-hidden";
+    static CONTENT_EXPAND = "pop-up-panel-content-expand";
+    static CONTENT_COLLAPSE = "pop-up-panel-content-collapse";
+    static CONTENT = "pop-up-panel-content";
+    static BUTTON = "pop-up-panel-button";
 
     /**
      * 

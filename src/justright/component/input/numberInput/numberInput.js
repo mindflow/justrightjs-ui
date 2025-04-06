@@ -6,11 +6,12 @@ const LOG = new Logger("TextInput");
 
 export class NumberInput extends CommonInput {
 
-    static get COMPONENT_NAME() { return "NumberInput"; }
-    static get DEFAULT_PLACEHOLDER() { return "Number"; }
+    static COMPONENT_NAME = "NumberInput";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/numberInput.html";
+    static STYLES_URL = "/assets/justrightjs-ui/numberInput.css";
 
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/numberInput.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/numberInput.css"; }
+    static DEFAULT_PLACEHOLDER = "Number";
+
 
     /**
      * 

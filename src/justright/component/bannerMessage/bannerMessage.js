@@ -11,14 +11,14 @@ const LOG = new Logger("BannerMessage");
 
 export class BannerMessage {
 
-	static get COMPONENT_NAME() { return "BannerMessage"; }
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/bannerMessage.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/bannerMessage.css"; }
+	static COMPONENT_NAME = "BannerMessage";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/bannerMessage.html";
+    static STYLES_URL = "/assets/justrightjs-ui/bannerMessage.css";
 
-    static get TYPE_ALERT() { return "type-alert"; }
-    static get TYPE_INFO() { return "type-info"; }
-    static get TYPE_SUCCESS() { return "type-success"; }
-    static get TYPE_WARNING() { return "type-warning"; }
+    static TYPE_ALERT = "type-alert";
+    static TYPE_INFO = "type-info";
+    static TYPE_SUCCESS = "type-success";
+    static TYPE_WARNING = "type-warning";
 
     /**
      * 

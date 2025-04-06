@@ -7,9 +7,9 @@ const LOG = new Logger("BackgroundVideo");
 
 export class BackgroundVideo {
 
-	static get COMPONENT_NAME() { return "BackgroundVideo"; }
-	static get TEMPLATE_URL() { return "/assets/justrightjs-ui/backgroundVideo.html"; }
-	static get STYLES_URL() { return "/assets/justrightjs-ui/backgroundVideo.css"; }
+	static COMPONENT_NAME = "BackgroundVideo";
+	static TEMPLATE_URL = "/assets/justrightjs-ui/backgroundVideo.html";
+	static STYLES_URL = "/assets/justrightjs-ui/backgroundVideo.css";
 
     constructor(videoSrc){
 

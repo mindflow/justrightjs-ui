@@ -5,11 +5,11 @@ import { SlideDeckEntry } from "./slideDeckEntry/slideDeckEntry.js";
 
 export class SlideDeck {
 
-    static get COMPONENT_NAME() { return "SlideDeck"; }
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/slideDeck.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/slideDeck.css"; }
+    static COMPONENT_NAME = "SlideDeck";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/slideDeck.html";
+    static STYLES_URL = "/assets/justrightjs-ui/slideDeck.css";
 
-    static get EVENT_ENTRY_CHANGED() { return "eventEntryChanged"; }
+    static EVENT_ENTRY_CHANGED = "eventEntryChanged";
 
     /**
      * 

@@ -6,12 +6,12 @@ const LOG = new Logger("PhoneInput");
 
 export class PhoneInput extends CommonInput {
 
-    static get COMPONENT_NAME() { return "PhoneInput"; }
-    static get DEFAULT_PLACEHOLDER() { return "Phone"; }
+    static COMPONENT_NAME = "PhoneInput";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/phoneInput.html";
+    static STYLES_URL = "/assets/justrightjs-ui/phoneInput.css";
 
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/phoneInput.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/phoneInput.css"; }
-
+    static DEFAULT_PLACEHOLDER = "Phone";
+    
     /**
      * 
      * @param {string} name

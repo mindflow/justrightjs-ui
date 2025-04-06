@@ -15,31 +15,31 @@ const LOG = new Logger("DropDownPanel");
 
 export class DropDownPanel {
 
-	static get COMPONENT_NAME()    { return "DropDownPanel"; }
-    static get TEMPLATE_URL()      { return "/assets/justrightjs-ui/dropDownPanel.html"; }
-    static get STYLES_URL()        { return "/assets/justrightjs-ui/dropDownPanel.css"; }
+	static COMPONENT_NAME = "DropDownPanel";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/dropDownPanel.html";
+    static STYLES_URL = "/assets/justrightjs-ui/dropDownPanel.css";
 
-    static get TYPE_PRIMARY()      { return "drop-down-panel-button-primary"; }
-    static get TYPE_SECONDARY()    { return "drop-down-panel-button-secondary"; }
-    static get TYPE_SUCCESS()      { return "drop-down-panel-button-success"; }
-    static get TYPE_INFO()         { return "drop-down-panel-button-info"; }
-    static get TYPE_WARNING()      { return "drop-down-panel-button-warning"; }
-    static get TYPE_DANGER()       { return "drop-down-panel-button-danger"; }
-    static get TYPE_LIGHT()        { return "drop-down-panel-button-light"; }
-    static get TYPE_DARK()         { return "drop-down-panel-button-dark"; }
+    static TYPE_PRIMARY = "drop-down-panel-button-primary";
+    static TYPE_SECONDARY = "drop-down-panel-button-secondary";
+    static TYPE_SUCCESS = "drop-down-panel-button-success";
+    static TYPE_INFO = "drop-down-panel-button-info";
+    static TYPE_WARNING = "drop-down-panel-button-warning";
+    static TYPE_DANGER = "drop-down-panel-button-danger";
+    static TYPE_LIGHT = "drop-down-panel-button-light";
+    static TYPE_DARK = "drop-down-panel-button-dark";
 
-    static get SIZE_MEDIUM()       { return "drop-down-panel-button-medium"; }
-    static get SIZE_LARGE()        { return "drop-down-panel-button-large"; }
+    static SIZE_MEDIUM = "drop-down-panel-button-medium";
+    static SIZE_LARGE = "drop-down-panel-button-large";
 
-    static get ORIENTATION_LEFT()     { return "drop-down-panel-left"; }
-    static get ORIENTATION_RIGHT()    { return "drop-down-panel-right"; }
+    static ORIENTATION_LEFT = "drop-down-panel-left";
+    static ORIENTATION_RIGHT = "drop-down-panel-right";
 
-    static get CONTENT_VISIBLE()   { return "drop-down-panel-content-visible"; }
-    static get CONTENT_HIDDEN()    { return "drop-down-panel-content-hidden"; }
-    static get CONTENT_EXPAND()    { return "drop-down-panel-content-expand"; }
-    static get CONTENT_COLLAPSE()  { return "drop-down-panel-content-collapse"; }
-    static get CONTENT()           { return "drop-down-panel-content"; }
-    static get BUTTON()            { return "drop-down-panel-button"; }
+    static CONTENT_VISIBLE = "drop-down-panel-content-visible";
+    static CONTENT_HIDDEN = "drop-down-panel-content-hidden";
+    static CONTENT_EXPAND = "drop-down-panel-content-expand";
+    static CONTENT_COLLAPSE = "drop-down-panel-content-collapse";
+    static CONTENT = "drop-down-panel-content";
+    static BUTTON = "drop-down-panel-button";
 
     /**
      * 

@@ -11,9 +11,9 @@ const LOG = new Logger("CheckBox");
 
 export class CheckBox {
 
-	static get COMPONENT_NAME() { return "CheckBox"; }
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/checkBox.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/checkBox.css"; }
+	static COMPONENT_NAME = "CheckBox";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/checkBox.html";
+    static STYLES_URL = "/assets/justrightjs-ui/checkBox.css";
     /**
      * 
      * @param {string} name 

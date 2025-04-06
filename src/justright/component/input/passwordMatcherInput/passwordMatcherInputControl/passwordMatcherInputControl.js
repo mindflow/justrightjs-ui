@@ -5,12 +5,12 @@ const LOG = new Logger("PasswordMatcherInputControl");
 
 export class PasswordMatcherInputControl extends CommonInput {
     
-    static get COMPONENT_NAME() { return "PasswordMatcherInputControl"; }
-    static get DEFAULT_PLACEHOLDER() { return "Confirm password"; }
+    static COMPONENT_NAME = "PasswordMatcherInputControl";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/passwordMatcherInputControl.html";
+    static STYLES_URL = "/assets/justrightjs-ui/passwordMatcherInputControl.css";
 
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/passwordMatcherInputControl.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/passwordMatcherInputControl.css"; }
-
+    static DEFAULT_PLACEHOLDER = "Confirm password";
+    
     /**
      * 
      * @param {string} name

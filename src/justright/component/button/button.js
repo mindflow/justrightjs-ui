@@ -13,26 +13,26 @@ const LOG = new Logger("Button");
 
 export class Button {
 
-	static get COMPONENT_NAME()  { return "Button"; }
-    static get TEMPLATE_URL()    { return "/assets/justrightjs-ui/button.html"; }
-    static get STYLES_URL()      { return "/assets/justrightjs-ui/button.css"; }
+	static COMPONENT_NAME = "Button";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/button.html";
+    static STYLES_URL = "/assets/justrightjs-ui/button.css";
 
-    static get TYPE_PRIMARY()    { return "button-primary"; }
-    static get TYPE_SECONDARY()  { return "button-secondary"; }
-    static get TYPE_SUCCESS()    { return "button-success"; }
-    static get TYPE_INFO()       { return "button-info"; }
-    static get TYPE_WARNING()    { return "button-warning"; }
-    static get TYPE_DANGER()     { return "button-danger"; }
-    static get TYPE_LIGHT()      { return "button-light"; }
-    static get TYPE_DARK()       { return "button-dark"; }
+    static TYPE_PRIMARY = "button-primary";
+    static TYPE_SECONDARY = "button-secondary";
+    static TYPE_SUCCESS = "button-success";
+    static TYPE_INFO = "button-info";
+    static TYPE_WARNING = "button-warning";
+    static TYPE_DANGER = "button-danger";
+    static TYPE_LIGHT = "button-light";
+    static TYPE_DARK = "button-dark";
 
-    static get SIZE_MEDIUM()     { return "button-medium"; }
-    static get SIZE_LARGE()      { return "button-large"; }
+    static SIZE_MEDIUM = "button-medium";
+    static SIZE_LARGE = "button-large";
 
-    static get SPINNER_VISIBLE() { return "button-spinner-container-visible"; }
-    static get SPINNER_HIDDEN()  { return "button-spinner-container-hidden"; }
+    static SPINNER_VISIBLE = "button-spinner-container-visible";
+    static SPINNER_HIDDEN = "button-spinner-container-hidden";
 
-    static get EVENT_CLICKED()   { return "click"; }
+    static EVENT_CLICKED = "click";
 
     /**
      * 

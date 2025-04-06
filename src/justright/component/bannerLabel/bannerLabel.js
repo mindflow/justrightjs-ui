@@ -6,9 +6,9 @@ import { BannerLabelMessage } from "./bannerLabelMessage/bannerLabelMessage.js";
 
 export class BannerLabel {
 
-	static get COMPONENT_NAME() { return "BannerLabel"; }
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/bannerLabel.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/bannerLabel.css"; }
+	static COMPONENT_NAME = "BannerLabel";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/bannerLabel.html";
+    static STYLES_URL = "/assets/justrightjs-ui/bannerLabel.css";
 
     constructor() {
         /** @type {ComponentFactory} */

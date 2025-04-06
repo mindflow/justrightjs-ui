@@ -6,11 +6,11 @@ const LOG = new Logger("PasswordMatcherInputValue");
 
 export class PasswordMatcherInputValue extends CommonInput {
     
-    static get COMPONENT_NAME() { return "PasswordMatcherInputValue"; }
-    static get DEFAULT_PLACEHOLDER() { return "New password"; }
+    static COMPONENT_NAME = "PasswordMatcherInputValue";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/passwordMatcherInputValue.html";
+    static STYLES_URL = "/assets/justrightjs-ui/passwordMatcherInputValue.css";
 
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/passwordMatcherInputValue.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/passwordMatcherInputValue.css"; }
+    static DEFAULT_PLACEHOLDER = "New password";
 
     /**
      * 

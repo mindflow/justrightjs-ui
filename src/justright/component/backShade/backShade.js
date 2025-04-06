@@ -12,9 +12,9 @@ const LOG = new Logger("BackShade");
 
 export class BackShade {
 
-	static get COMPONENT_NAME() { return "BackShade"; }
-	static get TEMPLATE_URL() { return "/assets/justrightjs-ui/backShade.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/backShade.css"; }
+	static COMPONENT_NAME = "BackShade";
+	static TEMPLATE_URL = "/assets/justrightjs-ui/backShade.html";
+    static STYLES_URL = "/assets/justrightjs-ui/backShade.css";
 
     /**
      * 

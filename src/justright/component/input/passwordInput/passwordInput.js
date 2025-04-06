@@ -6,11 +6,11 @@ const LOG = new Logger("PasswordInput");
 
 export class PasswordInput extends CommonInput {
     
-    static get COMPONENT_NAME() { return "PasswordInput"; }
-    static get DEFAULT_PLACEHOLDER() { return "Password"; }
+    static COMPONENT_NAME = "PasswordInput";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/passwordInput.html";
+    static STYLES_URL = "/assets/justrightjs-ui/passwordInput.css";
 
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/passwordInput.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/passwordInput.css"; }
+    static DEFAULT_PLACEHOLDER = "Password";
 
     /**
      * 

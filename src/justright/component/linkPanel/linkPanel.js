@@ -3,8 +3,7 @@ import {
     CanvasStyles,
     Component,
     EventManager,
-    CSS,
-    Style
+    CSS
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
@@ -13,24 +12,24 @@ const LOG = new Logger("LinkPanel");
 
 export class LinkPanel {
 
-	static get COMPONENT_NAME() { return "LinkPanel"; }
-    static get TEMPLATE_URL()   { return "/assets/justrightjs-ui/linkPanel.html"; }
-    static get STYLES_URL()     { return "/assets/justrightjs-ui/linkPanel.css"; }
+	static COMPONENT_NAME = "LinkPanel";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/linkPanel.html";
+    static STYLES_URL = "/assets/justrightjs-ui/linkPanel.css";
 
-    static get EVENT_CLICKED()  { return "click"; }
+    static EVENT_CLICKED = "click";
 
-    static get SIZE_SMALL()  { return "link-panel-small"; }
-    static get SIZE_MEDIUM() { return "link-panel-medium"; }
-    static get SIZE_LARGE()  { return "link-panel-large"; }
+    static SIZE_SMALL = "link-panel-small";
+    static SIZE_MEDIUM = "link-panel-medium";
+    static SIZE_LARGE = "link-panel-large";
 
-    static get ORIENTATION_FLAT()    { return "link-panel-flat"; }
-    static get ORIENTATION_STACKED() { return "link-panel-stacked"; }
+    static ORIENTATION_FLAT = "link-panel-flat";
+    static ORIENTATION_STACKED = "link-panel-stacked";
 
-    static get THEME_DARK()    { return "link-panel-dark"; }
-    static get THEME_LIGHT()   { return "link-panel-light"; }
-    static get THEME_DANGER()  { return "link-panel-danger"; }
-    static get THEME_INFO()    { return "link-panel-info"; }
-    static get THEME_SUCCESS() { return "link-panel-success"; }
+    static THEME_DARK = "link-panel-dark";
+    static THEME_LIGHT = "link-panel-light";
+    static THEME_DANGER = "link-panel-danger";
+    static THEME_INFO = "link-panel-info";
+    static THEME_SUCCESS = "link-panel-success";
 
     /**
      * 

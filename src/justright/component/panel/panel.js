@@ -6,27 +6,27 @@ const LOG = new Logger("Panel");
 
 export class Panel {
 
-	static get COMPONENT_NAME() { return "Panel"; }
-    static get TEMPLATE_URL() { return "/assets/justrightjs-ui/panel.html"; }
-    static get STYLES_URL() { return "/assets/justrightjs-ui/panel.css"; }
+	static COMPONENT_NAME = "Panel";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/panel.html";
+    static STYLES_URL = "/assets/justrightjs-ui/panel.css";
 
-    static get PARAMETER_STYLE_TYPE_COLUMN_ROOT() { return "panel-type-column-root"; }
-    static get PARAMETER_STYLE_TYPE_COLUMN() { return "panel-type-column"; }
-    static get PARAMETER_STYLE_TYPE_ROW() { return "panel-type-row"; }
+    static PARAMETER_STYLE_TYPE_COLUMN_ROOT = "panel-type-column-root";
+    static PARAMETER_STYLE_TYPE_COLUMN = "panel-type-column";
+    static PARAMETER_STYLE_TYPE_ROW = "panel-type-row";
 
-    static get PARAMETER_STYLE_CONTENT_ALIGN_LEFT() { return "panel-content-align-left"; }
-    static get PARAMETER_STYLE_CONTENT_ALIGN_RIGHT() { return "panel-content-align-right"; }
-    static get PARAMETER_STYLE_CONTENT_ALIGN_CENTER() { return "panel-content-align-center"; }
-    static get PARAMETER_STYLE_CONTENT_ALIGN_JUSTIFY() { return "panel-content-align-justify"; }
+    static PARAMETER_STYLE_CONTENT_ALIGN_LEFT = "panel-content-align-left";
+    static PARAMETER_STYLE_CONTENT_ALIGN_RIGHT = "panel-content-align-right";
+    static PARAMETER_STYLE_CONTENT_ALIGN_CENTER = "panel-content-align-center";
+    static PARAMETER_STYLE_CONTENT_ALIGN_JUSTIFY = "panel-content-align-justify";
 
-    static get PARAMETER_STYLE_SIZE_AUTO() { return "panel-size-auto"; }
-    static get PARAMETER_STYLE_SIZE_MINIMAL() { return "panel-size-minimal"; }
-    static get PARAMETER_STYLE_SIZE_RESPONSIVE() { return "panel-size-responsive"; }
+    static PARAMETER_STYLE_SIZE_AUTO = "panel-size-auto";
+    static PARAMETER_STYLE_SIZE_MINIMAL = "panel-size-minimal";
+    static PARAMETER_STYLE_SIZE_RESPONSIVE = "panel-size-responsive";
 
-    static get OPTION_STYLE_CONTENT_PADDING_SMALL() { return "panel-content-padding-small"; }
-    static get OPTION_STYLE_CONTENT_PADDING_LARGE() { return "panel-content-padding-large"; }
+    static OPTION_STYLE_CONTENT_PADDING_SMALL = "panel-content-padding-small";
+    static OPTION_STYLE_CONTENT_PADDING_LARGE = "panel-content-padding-large";
 
-    static get OPTION_STYLE_BORDER_SHADOW() { return "panel-border-shadow"; }
+    static OPTION_STYLE_BORDER_SHADOW = "panel-border-shadow";
 
     /**
      * 
