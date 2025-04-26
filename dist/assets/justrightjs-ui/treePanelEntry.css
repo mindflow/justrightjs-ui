@@ -1,0 +1,104 @@
+
+@media (min-width: 734px) {
+    .tree-panel-entry {
+        position: relative;
+        flex: 0 0 auto;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tree-panel-entry-record-element {
+        position: relative;
+        flex: 0 0 auto;
+
+        display: flex;
+        flex-direction: row;
+
+        margin-bottom: 5px;
+        
+    }
+
+    .tree-panel-entry-record-subrecordelements-container {
+        position: relative;
+        flex: 0 0 auto;
+
+        display: flex;
+        flex-direction: row;
+
+    }
+
+    .tree-panel-entry-subrecord-elements {
+        position: relative;
+        flex: 0 0 auto;
+
+        display: flex;
+        flex-direction: row;
+
+    }
+
+}
+
+@media (max-width: 733px) {
+    .tree-panel-entry {
+        position: relative;
+        flex: 0 0 auto;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tree-panel-entry-record-element {
+        position: relative;
+        flex: 0 0 auto;
+
+        display: flex;
+        flex-direction: row;
+
+        margin-bottom: 5px;
+    }
+
+    .tree-panel-entry-record-subrecordelements-container {
+        position: relative;
+        flex: 0 0 auto;
+
+        display: flex;
+        flex-direction: row;
+        
+    }
+
+    .tree-panel-entry-subrecord-elements {
+        position: relative;
+        flex: 0 0 auto;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+.tree-panel-entry-expand {
+    position: relative;
+    flex: 0 1 auto;
+
+    display: flex;
+    padding-right:5px;
+    
+}
+
+.tree-panel-entry-subrecord-elements-indent {
+    position: relative;
+    flex: 0 0 auto;
+
+    display: flex;
+    flex-direction: row;
+
+    padding-left:35px;
+}
+
+.tree-panel-entry-record-element {
+    position: relative;
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: row;
+}
