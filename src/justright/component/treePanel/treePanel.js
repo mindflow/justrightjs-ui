@@ -3,6 +3,7 @@ import { InjectionPoint, Provider } from "mindi_v1";
 import { Component, ComponentFactory, CanvasStyles, EventManager } from "justright_core_v1";
 import { TreePanelEntry } from "./treePanelEntry/treePanelEntry.js";
 import { Button } from "../button/button.js";
+import { Panel } from "../panel/panel.js";
 
 const LOG = new Logger("TreePanel");
 
@@ -17,7 +18,11 @@ export class TreePanel {
 	static SUB_RECORDS_STATE_UPDATE_REQUESTED = "subRecordsStateUpdateRequested";
 
 
-	constructor() {
+	/**
+	 * 
+	 * @param {Panel} buttonPanel 
+	 */
+	constructor(buttonPanel = null) {
 
 		/** @type {ComponentFactory} */
 		this.componentFactory = InjectionPoint.instance(ComponentFactory);
@@ -28,14 +33,14 @@ export class TreePanel {
 		/** @type {EventManager} */
 		this.eventManager = new EventManager();
 
-		/** @type {Button} */
-		this.refreshButton = InjectionPoint.instance(Button, ["Refresh", Button.TYPE_PRIMARY]);
-
 		/** @type {Provider<TreePanelEntry>} */
 		this.treePanelEntryProvier = InjectionPoint.provider(TreePanelEntry);
 
 		/** @type {TreePanelEntry} */
 		this.treePanelEntry = null;
+
+		/** @type {Panel} */
+		this.buttonPanel = buttonPanel;
 
 	}
 
@@ -43,8 +48,9 @@ export class TreePanel {
 		this.component = this.componentFactory.create(TreePanel.COMPONENT_NAME);
 		CanvasStyles.enableStyle(TreePanel.COMPONENT_NAME);
 
-		this.refreshButton.events.listenTo(Button.EVENT_CLICKED, new Method(this, this.refreshClicked));
-		this.component.setChild("buttons", this.refreshButton.component);
+		if (this.buttonPanel) {
+			this.component.setChild("buttonpanel", this.buttonPanel.component);
+		}
 
 		this.treePanelEntry = await this.treePanelEntryProvier.get();
 
@@ -92,11 +98,11 @@ export class TreePanel {
 	}
 
 	/**
-	 * Called by the root TreePanelEntry when the expand button is clicked
+	 * Reset
 	 * 
 	 * @param {Event} event 
 	 */
-	async refreshClicked(event) {
+	async reset(event) {
 		await this.subRecordsUpdateRequested(event, null, this.treePanelEntry.arrayState);
 		this.component.setChild("rootelement", this.treePanelEntry.component);
 	}
