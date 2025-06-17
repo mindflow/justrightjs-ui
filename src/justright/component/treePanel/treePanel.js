@@ -2,7 +2,6 @@ import { Logger, Method } from "coreutil_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
 import { Component, ComponentFactory, CanvasStyles, EventManager } from "justright_core_v1";
 import { TreePanelEntry } from "./treePanelEntry/treePanelEntry.js";
-import { Button } from "../button/button.js";
 import { Panel } from "../panel/panel.js";
 
 const LOG = new Logger("TreePanel");
