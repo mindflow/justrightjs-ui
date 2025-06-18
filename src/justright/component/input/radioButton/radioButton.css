@@ -1,0 +1,67 @@
+.radio-button {
+    display: block;
+    position: relative;
+    padding-left: 2em;
+    margin-bottom: 0.5em;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-bottom: 1rem;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .radio-button input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .radio-button-mark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20pt;
+    height: 20pt;
+    background-color: #ddd;
+    border-radius: 50%;
+    border-width: 1pt;
+    border-style: solid;
+    border-color: #bbb;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .radio-button:hover input ~ .check-box-mark {
+    background-color: #2196F3;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .radio-button input:checked ~ .radio-button-mark {
+    background-color: #ddd;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .radio-button-mark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .radio-button input:checked ~ .radio-button-mark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .radio-button .radio-button-mark:after {
+    left: 2.2pt;
+    top: 2.2pt;
+    width: 14pt;
+    height: 14pt;
+    background-color: #2196F3;
+    border-radius: 50%;
+  }
