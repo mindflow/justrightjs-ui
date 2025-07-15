@@ -58,8 +58,9 @@
   
   /* Style the checkmark/indicator */
   .radio-button .radio-button-mark:after {
-    left: 2.2pt;
-    top: 2.2pt;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: 14pt;
     height: 14pt;
     background-color: #2196F3;
