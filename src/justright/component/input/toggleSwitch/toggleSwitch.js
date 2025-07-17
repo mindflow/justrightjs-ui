@@ -3,7 +3,8 @@ import {
     CanvasStyles,
     Component,
     InputElementDataBinding,
-    EventManager
+    EventManager,
+    Event
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
@@ -16,8 +17,9 @@ export class ToggleSwitch {
     static TEMPLATE_URL = "/assets/justrightjs-ui/toggleSwitch.html";
     static STYLES_URL = "/assets/justrightjs-ui/toggleSwitch.css";
     
-    static EVENT_TOGGLED = "toggle";
-    static EVENT_CHANGED = "change";
+    static EVENT_ENABLED = "enabled";
+    static EVENT_DISABLED = "disabled";
+    static EVENT_CHANGED = "changed";
 
     /**
      * 
@@ -51,13 +53,26 @@ export class ToggleSwitch {
         }
 
         this.component.get("toggleSwitch").listenTo("change", new Method(this, this.toggled));
-        this.component.get("toggleSwitch").listenTo("click", new Method(this, this.clicked));
     }
 
+    /**
+     * 
+     * @param {Event} event 
+     */
     toggled(event) {
-        this.checked = event.target.checked;
-        this.events.trigger(ToggleSwitch.EVENT_TOGGLED, [event, this.checked]);
-        this.events.trigger(ToggleSwitch.EVENT_CHANGED, [event, this.checked]);
+        const oldValue = this.checked;
+        this.checked = event.target.mappedElement.checked;
+
+        if (oldValue !== this.checked) {
+            this.events.trigger(ToggleSwitch.EVENT_CHANGED, [event]);
+        }
+
+        if (this.checked) {
+            this.events.trigger(ToggleSwitch.EVENT_ENABLED, [event]);
+        } else {
+            this.events.trigger(ToggleSwitch.EVENT_DISABLED, [event]);
+        }
+        
     }
 
     clicked(event) {
@@ -69,10 +84,13 @@ export class ToggleSwitch {
      * Set the toggle state programmatically
      * @param {boolean} checked 
      */
-    setChecked(checked) {
+    toggle(checked) {
+        if (this.checked === checked) {
+            return; // No change
+        }
         this.checked = checked;
         if (this.component) {
-            this.component.get("toggleSwitch").setAttributeValue("checked", checked);
+            this.component.get("toggleSwitch").mappedElement.click();
         }
     }
 
@@ -82,16 +100,6 @@ export class ToggleSwitch {
      */
     isChecked() {
         return this.checked;
-    }
-
-    /**
-     * Enable or disable the toggle switch
-     * @param {boolean} enabled 
-     */
-    setEnabled(enabled) {
-        if (this.component) {
-            this.component.get("toggleSwitch").setAttributeValue("disabled", !enabled);
-        }
     }
 
 }
