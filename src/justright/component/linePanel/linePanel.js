@@ -14,6 +14,7 @@ export class LinePanel {
 
 	static EVENT_REFRESH_CLICKED = "refreshClicked";
 	static RECORD_ELEMENT_REQUESTED = "recordElementRequested";
+	static RECORDS_STATE_UPDATE_REQUESTED = "recordsStateUpdateRequested";
 
 	/**
 	 * 
@@ -33,6 +34,9 @@ export class LinePanel {
 		/** @type {Provider<LinePanelEntry>} */
 		this.linePanelEntryProvider = InjectionPoint.provider(LinePanelEntry);
 
+		/** @type {Provider<Panel>} */
+		this.panelProvider = InjectionPoint.provider(Panel);
+
         /** @type {StateManager<any[]>} */
         this.arrayState = InjectionPoint.instance(StateManager);
 
@@ -50,6 +54,8 @@ export class LinePanel {
 		}
 
 		this.arrayState.react(new Method(this, this.handleArrayState));
+
+
 	}
 
 	/**
@@ -68,7 +74,7 @@ export class LinePanel {
 	 * @param {Event} event 
 	 */
 	async reset(event) {
-
+		this.events.trigger(LinePanel.RECORDS_STATE_UPDATE_REQUESTED, [event, this.arrayState]);
 	}
 
     /**
@@ -83,10 +89,10 @@ export class LinePanel {
             await this.populateRecord(panel, record);
         });
 
-		this.component.setChild("subrecordElements", panel.component);
+		this.component.setChild("recordElements", panel.component);
     }
 
-	    /**
+	    /**`
 	 * @param {Component} panel
      * @param {any} record 
      */
