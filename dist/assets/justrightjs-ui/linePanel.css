@@ -1,0 +1,45 @@
+
+@media (min-width: 734px) {
+    .line-panel {
+        position: relative;
+        flex: 1 0 auto;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: top;
+
+        background-color: #ffffff;
+
+        padding: 5px;
+    }
+}
+
+@media (max-width: 733px) {
+    .line-panel {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+
+        background-color: #ffffff;
+
+        width: 100%;
+        padding: 5px;
+    }
+}
+
+.line-panel-content {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    flex: 1 0 auto;
+}
+
+.line-panel-buttons {
+    position: relative;
+    flex: 0 1 auto;
+
+    padding-bottom: 5px;
+}
