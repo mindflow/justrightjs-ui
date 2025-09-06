@@ -49,17 +49,17 @@ export class ToggleSwitch {
         CanvasStyles.enableStyle(ToggleSwitch.COMPONENT_NAME);
 
         if (this.model) {
-            InputElementDataBinding.link(this.model).to(this.component.get("toggleSwitch"));
+            InputElementDataBinding.link(this.model).to(this.component.get("checkbox"));
         }
 
-        this.component.get("toggleSwitch").listenTo("change", new Method(this, this.toggled));
+        this.component.get("checkbox").listenTo("change", new Method(this, this.clicked));
     }
 
     /**
      * 
      * @param {Event} event 
      */
-    toggled(event) {
+    clicked(event) {
         const oldValue = this.checked;
         this.checked = event.target.mappedElement.checked;
 
@@ -75,11 +75,6 @@ export class ToggleSwitch {
         
     }
 
-    clicked(event) {
-        // Additional click handling if needed
-        LOG.info("Toggle switch clicked");
-    }
-
     /**
      * Set the toggle state programmatically
      * @param {boolean} checked 
@@ -90,7 +85,7 @@ export class ToggleSwitch {
         }
         this.checked = checked;
         if (this.component) {
-            this.component.get("toggleSwitch").mappedElement.click();
+            this.component.get("checkbox").mappedElement.click();
         }
     }
 
