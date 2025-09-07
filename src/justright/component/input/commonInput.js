@@ -27,8 +27,8 @@ export class CommonInput {
         model = null,
         validator = null, 
         placeholder = null,
-        inputElementId = "input",
-        errorElementId = "error") {
+        inputElementId = null,
+        errorElementId = null) {
 
 
         /** @type {ComponentFactory} */
@@ -74,7 +74,9 @@ export class CommonInput {
         CanvasStyles.enableStyle(this.componentName, this.component.componentIndex);
 
         this.component.get(this.inputElementId).setAttributeValue("name", this.name);
-        this.component.get(this.inputElementId).setAttributeValue("placeholder", ":  " +  this.placeholder);
+        if (this.placeholder) {
+            this.component.get(this.inputElementId).setAttributeValue("placeholder", ":  " +  this.placeholder);
+        }
 
         if(this.validator) {
             this.validator.withValidListener(new Method(this,this.hideValidationError));
@@ -95,8 +97,10 @@ export class CommonInput {
                 }
             }));
 
-        this.component.get(this.errorElementId)
-            .listenTo("click", new Method(this, this.errorClicked));
+        if (this.errorElementId) {
+            this.component.get(this.errorElementId)
+                .listenTo("click", new Method(this, this.errorClicked));
+        }
     }
 
     get events() { return this.eventManager; }
