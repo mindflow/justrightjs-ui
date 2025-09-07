@@ -61,7 +61,11 @@ export class CommonInput {
         /** @type {boolean} */
         this.tainted = false;
 
+        /** @type {EventManager} */
         this.eventManager = new EventManager();
+
+        /** @type {InputElementDataBinding} */
+        this.dataBinding = null;
     }
 
     postConfig() {
@@ -77,7 +81,7 @@ export class CommonInput {
         }
 
         if(this.model) {
-            InputElementDataBinding.link(this.model, this.validator).to(this.component.get(this.inputElementId));
+            this.dataBinding = InputElementDataBinding.link(this.model, this.validator).to(this.component.get(this.inputElementId));
         }
 
         this.component.get(this.inputElementId)
@@ -96,6 +100,21 @@ export class CommonInput {
     }
 
     get events() { return this.eventManager; }
+
+    get value() { 
+        /** @type {HTMLInputElement} */
+        const input = this.component.get(this.inputElementId);
+        return input.value;
+    }
+
+    set value(value) {
+        /** @type {HTMLInputElement} */
+        const input = this.component.get(this.inputElementId);
+        input.value = value;
+        if (this.dataBinding) {
+            this.dataBinding.push();
+        }
+    }
 
     /**
      * 
