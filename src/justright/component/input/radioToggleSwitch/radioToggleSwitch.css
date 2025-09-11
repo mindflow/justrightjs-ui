@@ -1,0 +1,75 @@
+.radio-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 41pt;
+    height: 24pt;
+    margin-bottom: 1rem;
+}
+
+/* Hide the browser's default checkbox */
+.radio-toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.radio-toggle-switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 24pt;
+    transition: .4s;
+    border-width: 1pt;
+    border-style: solid;
+    border-color: #bbb;
+}
+
+/* The slider handle (the circle inside) */
+.radio-toggle-switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 17pt;
+    width: 17pt;
+    left: 3.5pt;
+    bottom: 3.5pt;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+    transform: translateX(0);
+}
+
+/* On mouse-over, add a grey background color */
+.radio-toggle-switch:hover .radio-toggle-switch-slider {
+    background-color: #bbb;
+}
+
+/* When the checkbox is checked, change background color */
+.radio-toggle-switch input:checked + .radio-toggle-switch-slider {
+    background-color: #2196F3;
+    border-color: #1976D2;
+}
+
+/* When checked, move the slider handle to the right */
+.radio-toggle-switch input:checked + .radio-toggle-switch-slider:before {
+    transform: translateX(17pt);
+}
+
+/* Focus styles for accessibility */
+.radio-toggle-switch input:focus + .radio-toggle-switch-slider {
+    box-shadow: 0 0 1pt #2196F3;
+}
+
+/* Disabled state */
+.radio-toggle-switch input:disabled + .radio-toggle-switch-slider {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.radio-toggle-switch input:disabled:hover + .radio-toggle-switch-slider {
+    background-color: #ccc;
+}

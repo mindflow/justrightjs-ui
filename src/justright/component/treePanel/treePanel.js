@@ -3,6 +3,7 @@ import { InjectionPoint, Provider } from "mindi_v1";
 import { Component, ComponentFactory, CanvasStyles, EventManager } from "justright_core_v1";
 import { TreePanelEntry } from "./treePanelEntry/treePanelEntry.js";
 import { Panel } from "../panel/panel.js";
+import { RadioToggleIcon } from "../input/radioToggleIcon/radioToggleIcon.js";
 
 const LOG = new Logger("TreePanel");
 
@@ -21,7 +22,7 @@ export class TreePanel {
 	 * 
 	 * @param {Panel} buttonPanel 
 	 */
-	constructor(buttonPanel = null) {
+	constructor(buttonPanel = null, expandButtonProvider = null) {
 
 		/** @type {ComponentFactory} */
 		this.componentFactory = InjectionPoint.instance(ComponentFactory);
@@ -41,6 +42,9 @@ export class TreePanel {
 		/** @type {Panel} */
 		this.buttonPanel = buttonPanel;
 
+		/** @type {Provider<RadioToggleIcon>} */
+		this.expandButtonProvider = (null !== expandButtonProvider) ? expandButtonProvider : InjectionPoint.provider(RadioToggleIcon);
+
 	}
 
 	async postConfig() {
@@ -51,12 +55,16 @@ export class TreePanel {
 			this.component.setChild("buttonpanel", this.buttonPanel.component);
 		}
 
-		this.treePanelEntry = await this.treePanelEntryProvier.get();
+		this.treePanelEntry = await this.treePanelEntryProvier.get([this.expandButtonProvider]);
 
 		this.treePanelEntry.events
 			.listenTo(TreePanelEntry.RECORD_ELEMENT_REQUESTED, new Method(this, this.entryRequested));
 		this.treePanelEntry.events
 			.listenTo(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, new Method(this, this.subRecordsUpdateRequested));
+			
+		// Root element has no record
+		this.treePanelEntry.component.get("subrecordIndent").remove();
+		this.treePanelEntry.component.get("recordElementContainer").remove();
 
 	}
 

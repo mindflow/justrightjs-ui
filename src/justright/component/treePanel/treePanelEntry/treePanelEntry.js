@@ -1,8 +1,8 @@
 import { Logger, Method } from "coreutil_v1";
 import { CanvasStyles, Component, ComponentFactory, EventManager, StateManager } from "justright_core_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
-import { Button } from "../../button/button.js";
 import { Panel } from "../../panel/panel.js";
+import { RadioToggleIcon } from "../../input/radioToggleIcon/radioToggleIcon.js";
 
 
 const LOG = new Logger("TreePanelEntry");
@@ -16,10 +16,7 @@ export class TreePanelEntry {
 	static RECORD_ELEMENT_REQUESTED = "recordElementRequested";
 	static SUB_RECORDS_STATE_UPDATE_REQUESTED = "subRecordsStateUpdateRequested";
 
-    constructor(showExpandButton = false, record = null) {
-
-		/** @type {boolean} */
-		this.showExpandButton = showExpandButton;
+    constructor(expandToggleProvider = null, record = null) {
 
 		/** @type {ComponentFactory} */
 		this.componentFactory = InjectionPoint.instance(ComponentFactory);
@@ -37,10 +34,10 @@ export class TreePanelEntry {
         this.arrayState = InjectionPoint.instance(StateManager);
 
 		/** @type {Provider<TreePanelEntry>} */
-		this.treePanelEntryProvier = InjectionPoint.provider(TreePanelEntry);
+		this.treePanelEntryProvider = InjectionPoint.provider(TreePanelEntry);
 
-		/** @type {Button} */
-		this.expandButton = InjectionPoint.instance(Button, ["+", Button.TYPE_PRIMARY]);
+		/** @type {Provider<RadioToggleIcon>} */
+		this.expandToggleProvider = expandToggleProvider;
 
         /** @type {any} */
         this.record = record;
@@ -50,14 +47,11 @@ export class TreePanelEntry {
 		this.component = this.componentFactory.create(TreePanelEntry.COMPONENT_NAME);
 		CanvasStyles.enableStyle(TreePanelEntry.COMPONENT_NAME);
 
-		this.expandButton.events.listenTo(Button.EVENT_CLICKED, new Method(this, this.loadSubRecordsClicked));
+		const expandToggle = await this.expandToggleProvider.get()
+		expandToggle.events.listenTo(RadioToggleIcon.EVENT_ENABLED, new Method(this, this.loadSubRecordsClicked));
+		expandToggle.events.listenTo(RadioToggleIcon.EVENT_DISABLED, new Method(this, this.hideSubRecordsClicked));
 
-		this.component.setChild("expandButton", this.expandButton.component);
-
-		if (!this.showExpandButton) {
-			this.component.get("subrecordIndent").remove();
-			this.component.get("recordElementContainer").remove();
-		}
+		this.component.setChild("expandButton", expandToggle.component);
 
         this.arrayState.react(new Method(this, this.handleArrayState));
     }
@@ -75,6 +69,7 @@ export class TreePanelEntry {
 			Panel.PARAMETER_STYLE_TYPE_COLUMN, 
 			Panel.PARAMETER_STYLE_CONTENT_ALIGN_LEFT, 
 			Panel.PARAMETER_STYLE_SIZE_MINIMAL]);
+
 		array.forEach(async (record) => {
             await this.populateRecord(panel, record);
         });
@@ -93,7 +88,7 @@ export class TreePanelEntry {
 			return;
 		}
 		
-		const treePanelEntry = await this.treePanelEntryProvier.get([true, record]);
+		const treePanelEntry = await this.treePanelEntryProvider.get([this.expandToggleProvider, record]);
 		treePanelEntry.component.setChild("recordElement", recordElement.component);
 
 		treePanelEntry.events
@@ -101,7 +96,7 @@ export class TreePanelEntry {
 
 		treePanelEntry.events
 			.listenTo(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, new Method(this, this.subRecordsUpdateRequested));
-	
+
 		panel.component.addChild("panel", treePanelEntry.component);
     }
 
@@ -137,6 +132,13 @@ export class TreePanelEntry {
     loadSubRecordsClicked(event) {
         this.eventManager
 			.trigger(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, [event, this.record, this.arrayState]);
+    }
+
+	/**
+	 * @param {Event} event 
+	 */
+    hideSubRecordsClicked(event) {
+        this.component.get("subrecordElements").clear();
     }
 
 }

@@ -8,6 +8,7 @@ import {
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
+import { CommonEvents } from "../common/commonEvents";
 
 const LOG = new Logger("Button");
 
@@ -32,7 +33,7 @@ export class Button {
     static SPINNER_VISIBLE = "button-spinner-container-visible";
     static SPINNER_HIDDEN = "button-spinner-container-hidden";
 
-    static EVENT_CLICKED = "click";
+    static EVENT_CLICKED = CommonEvents.CLICKED;
 
     /**
      * 

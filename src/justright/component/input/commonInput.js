@@ -1,16 +1,17 @@
 import { Method, Logger } from "coreutil_v1";
 import { InputElementDataBinding, AbstractValidator, ComponentFactory, CanvasStyles, Event, Component, EventManager } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
+import { CommonEvents } from "../common/commonEvents";
 
 const LOG = new Logger("CommonInput");
 
 export class CommonInput {
 
-    static get EVENT_CLICKED() { return "clicked"; }
-    static get EVENT_ENTERED() { return "entered"; }
-    static get EVENT_KEYUPPED() { return "keyUpped"; }
-    static get EVENT_CHANGED() { return "changd"; }
-    static get EVENT_BLURRED() { return "blurred"; }
+    static EVENT_CLICKED = CommonEvents.CLICKED;
+    static EVENT_ENTERED = CommonEvents.ENTERED;
+    static EVENT_KEYUPPED = CommonEvents.KEYUPPED;
+    static EVENT_CHANGED = CommonEvents.CHANGED;
+    static EVENT_BLURRED = CommonEvents.BLURRED;
 
     /**
      * 

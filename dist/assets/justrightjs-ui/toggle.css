@@ -1,15 +1,15 @@
-.toggle-icon-outline {
+.toggle-outline {
   display: inline-block;
   vertical-align: middle;
 }
 
-.toggle-icon-spinner,
-.toggle-icon-spinner:after {
+.toggle-spinner,
+.toggle-spinner:after {
   border-radius: 50%;
   width: 1.5em;
   height: 1.5em;
 }
-.toggle-icon-spinner {
+.toggle-spinner {
   margin:0.5em;
   display:inline-block;
   border-top: 0.2em solid rgba(128, 128, 128, 0.2);
@@ -19,20 +19,20 @@
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
-  -webkit-animation: toggle-icon-spinner-rotate 1.1s infinite linear;
-  animation: toggle-icon-spinner-rotate 1.1s infinite linear;
+  -webkit-animation: toggle-spinner-rotate 1.1s infinite linear;
+  animation: toggle-spinner-rotate 1.1s infinite linear;
 }
-.toggle-icon-spinner-container-visible {
+.toggle-spinner-container-visible {
   display:inline-block;
   height: 2.5em;
   vertical-align: middle;
 }
-.toggle-icon-spinner-container-hidden {
+.toggle-spinner-container-hidden {
   display:none;
   height: 2.5em;
   vertical-align: middle;
 }
-@-webkit-keyframes toggle-icon-spinner-rotate {
+@-webkit-keyframes toggle-spinner-rotate {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -42,7 +42,7 @@
     transform: rotate(360deg);
   }
 }
-@keyframes toggle-icon-spinner-rotate {
+@keyframes toggle-spinner-rotate {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -54,7 +54,7 @@
 }
 
 
-.toggle-icon {
+.toggle {
   display: inline-block;
   font-weight: 400;
   color: #212529;
@@ -72,30 +72,30 @@
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.toggle-icon-medium {
+.toggle-medium {
     font-size: 1rem;
 }
 
-.toggle-icon-large {
+.toggle-large {
     font-size: 1.5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .toggle-icon {
+    .toggle {
       transition: none;
     }
   }
   
-  .toggle-icon:hover {
+  .toggle:hover {
     color: #212529;
     text-decoration: none;
   }
   
-  .toggle-icon:focus, .toggle-icon.focus {
+  .toggle:focus, .toggle.focus {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
   }
   
-  .toggle-icon.disabled, .toggle-icon:disabled {
+  .toggle.disabled, .toggle:disabled {
     opacity: 0.65;
   }

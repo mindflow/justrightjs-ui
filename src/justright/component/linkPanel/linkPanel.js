@@ -7,6 +7,7 @@ import {
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
+import { CommonEvents } from "../common/commonEvents";
 
 const LOG = new Logger("LinkPanel");
 
@@ -16,7 +17,7 @@ export class LinkPanel {
     static TEMPLATE_URL = "/assets/justrightjs-ui/linkPanel.html";
     static STYLES_URL = "/assets/justrightjs-ui/linkPanel.css";
 
-    static EVENT_CLICKED = "click";
+    static EVENT_CLICKED = CommonEvents.CLICKED;
 
     static SIZE_SMALL = "link-panel-small";
     static SIZE_MEDIUM = "link-panel-medium";

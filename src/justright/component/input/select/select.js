@@ -1,6 +1,7 @@
 import { Logger, Method } from "coreutil_v1";
 import { CanvasStyles, Component, ComponentFactory, EventManager, InputElementDataBinding, OptionElement, SelectElement } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
+import { CommonEvents } from "../../common/commonEvents";
 
 const LOG = new Logger("Select");
 
@@ -12,7 +13,7 @@ export class Select {
 
 	static DEFAULT_PLACEHOLDER = "Select";
 
-	static EVENT_CLICKED = "click";
+	static EVENT_CLICKED = CommonEvents.CLICKED;
 
     /**
      * 

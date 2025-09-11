@@ -8,18 +8,19 @@ import {
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
+import { CommonEvents } from "../../common/commonEvents";
 
-const LOG = new Logger("ToggleSwitch");
+const LOG = new Logger("RadioToggleSwitch");
 
-export class ToggleSwitch {
+export class RadioToggleSwitch {
 
-    static COMPONENT_NAME = "ToggleSwitch";
-    static TEMPLATE_URL = "/assets/justrightjs-ui/toggleSwitch.html";
-    static STYLES_URL = "/assets/justrightjs-ui/toggleSwitch.css";
+    static COMPONENT_NAME = "RadioToggleSwitch";
+    static TEMPLATE_URL = "/assets/justrightjs-ui/radioToggleSwitch.html";
+    static STYLES_URL = "/assets/justrightjs-ui/radioToggleSwitch.css";
     
-    static EVENT_ENABLED = "enabled";
-    static EVENT_DISABLED = "disabled";
-    static EVENT_CHANGED = "changed";
+    static EVENT_ENABLED = CommonEvents.ENABLED;
+    static EVENT_DISABLED = CommonEvents.DISABLED;
+    static EVENT_CHANGED = CommonEvents.CHANGED;
 
     /**
      * 
@@ -45,8 +46,8 @@ export class ToggleSwitch {
     }
 
     postConfig() {
-        this.component = this.componentFactory.create(ToggleSwitch.COMPONENT_NAME);
-        CanvasStyles.enableStyle(ToggleSwitch.COMPONENT_NAME);
+        this.component = this.componentFactory.create(RadioToggleSwitch.COMPONENT_NAME);
+        CanvasStyles.enableStyle(RadioToggleSwitch.COMPONENT_NAME);
 
         if (this.model) {
             InputElementDataBinding.link(this.model).to(this.component.get("checkbox"));
@@ -64,13 +65,13 @@ export class ToggleSwitch {
         this.checked = event.target.mappedElement.checked;
 
         if (oldValue !== this.checked) {
-            this.events.trigger(ToggleSwitch.EVENT_CHANGED, [event]);
+            this.events.trigger(RadioToggleSwitch.EVENT_CHANGED, [event]);
         }
 
         if (this.checked) {
-            this.events.trigger(ToggleSwitch.EVENT_ENABLED, [event]);
+            this.events.trigger(RadioToggleSwitch.EVENT_ENABLED, [event]);
         } else {
-            this.events.trigger(ToggleSwitch.EVENT_DISABLED, [event]);
+            this.events.trigger(RadioToggleSwitch.EVENT_DISABLED, [event]);
         }
         
     }
