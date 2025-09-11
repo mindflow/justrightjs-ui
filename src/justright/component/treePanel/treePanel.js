@@ -3,7 +3,6 @@ import { InjectionPoint, Provider } from "mindi_v1";
 import { Component, ComponentFactory, CanvasStyles, EventManager } from "justright_core_v1";
 import { TreePanelEntry } from "./treePanelEntry/treePanelEntry.js";
 import { Panel } from "../panel/panel.js";
-import { ToggleIcon } from "../input/toggleIcon/toggleIcon.js";
 
 const LOG = new Logger("TreePanel");
 
@@ -16,13 +15,13 @@ export class TreePanel {
 	static EVENT_REFRESH_CLICKED = "refreshClicked";
 	static RECORD_ELEMENT_REQUESTED = "recordElementRequested";
 	static SUB_RECORDS_STATE_UPDATE_REQUESTED = "subRecordsStateUpdateRequested";
-
+	static EVENT_EXPAND_TOGGLE_OVERRIDE = "expandToggleOverride";
 
 	/**
 	 * 
 	 * @param {Panel} buttonPanel 
 	 */
-	constructor(buttonPanel = null, expandToggleProvider = null) {
+	constructor(buttonPanel = null) {
 
 		/** @type {ComponentFactory} */
 		this.componentFactory = InjectionPoint.instance(ComponentFactory);
@@ -42,9 +41,6 @@ export class TreePanel {
 		/** @type {Panel} */
 		this.buttonPanel = buttonPanel;
 
-		/** @type {Provider<ToggleIcon>} */
-		this.expandToggleProvider = (null !== expandToggleProvider) ? expandToggleProvider : InjectionPoint.provider(ToggleIcon);
-
 	}
 
 	async postConfig() {
@@ -55,13 +51,13 @@ export class TreePanel {
 			this.component.setChild("buttonpanel", this.buttonPanel.component);
 		}
 
-		this.treePanelEntry = await this.treePanelEntryProvier.get([this.expandToggleProvider]);
-
+		this.treePanelEntry = await this.treePanelEntryProvier.get();
 		this.treePanelEntry.events
 			.listenTo(TreePanelEntry.RECORD_ELEMENT_REQUESTED, new Method(this, this.entryRequested));
 		this.treePanelEntry.events
+			.listenTo(TreePanelEntry.EVENT_EXPAND_TOGGLE_OVERRIDE, new Method(this, this.expandToggleOverride));
+		this.treePanelEntry.events
 			.listenTo(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, new Method(this, this.subRecordsUpdateRequested));
-			
 		// Root element has no record
 		this.treePanelEntry.component.get("subrecordIndent").remove();
 		this.treePanelEntry.component.get("recordElementContainer").remove();
@@ -77,11 +73,37 @@ export class TreePanel {
 	 * Called by the root TreePanelEntry when it's or one of it's subordinate elements need to be rendered
 	 * 
 	 * @param {Event} event 
+	 * @param {TreePanelEntry} treePanelEntry
 	 * @param {any} record
 	 */
-	async entryRequested(event, record) {
+	async entryRequested(event, treePanelEntry, record) {
+		LOG.info("Entry requested");
 		try {
-			return await this.events.trigger(TreePanel.RECORD_ELEMENT_REQUESTED, [event, record]);
+
+			/** @type {any} */
+			const panel = await this.events
+				.trigger(TreePanel.RECORD_ELEMENT_REQUESTED, [event, record]);
+
+			return panel;
+		} catch (error) {
+			LOG.error(error);
+		}
+	}
+
+	/**
+	 * Called by the root TreePanelEntry it asks for the expand toggle to be overridden
+	 * 
+	 * @param {Event} event 
+	 * @param {TreePanelEntry} treePanelEntry
+	 * @param {any} record
+	 */
+	async expandToggleOverride(event, treePanelEntry, record) {
+		LOG.info("Expand Toggle Override requested");
+		try {
+
+			await this.events
+				.trigger(TreePanel.EVENT_EXPAND_TOGGLE_OVERRIDE, [treePanelEntry.expandToggle, record]);
+
 		} catch (error) {
 			LOG.error(error);
 		}
@@ -98,7 +120,9 @@ export class TreePanel {
 	 */
 	async subRecordsUpdateRequested(event, record, stateManager) {
 		try {
-			return await this.events.trigger(TreePanel.SUB_RECORDS_STATE_UPDATE_REQUESTED, [event, record, stateManager]);
+			await this.events
+				.trigger(TreePanel.SUB_RECORDS_STATE_UPDATE_REQUESTED, [event, record, stateManager]);
+
 		} catch (error) {
 			LOG.error(error);
 		}

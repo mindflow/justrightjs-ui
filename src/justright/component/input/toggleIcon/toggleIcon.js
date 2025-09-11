@@ -43,7 +43,7 @@ export class ToggleIcon {
      * @param {String} icon
      * @param {String} label
      */
-    constructor(name = "?", model = null, disabledIcon = "fas fa-circle", enabledIcon = "fas fa-circle-check", label = null) {
+    constructor(name = "?", model = null, label = null) {
 
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
@@ -64,10 +64,10 @@ export class ToggleIcon {
         this.label = label;
 
         /** @type {string} */
-        this.enabledIcon = enabledIcon;
+        this.enabledIcon = "fas fa-circle-check";
 
         /** @type {string} */
-        this.disabledIcon = disabledIcon;
+        this.disabledIcon = "fas fa-circle";
 
         /** @type {EventManager} */
         this.eventManager = new EventManager();
@@ -92,6 +92,18 @@ export class ToggleIcon {
         const icon = this.component.get("icon");
         icon.setAttributeValue("class", this.disabledIcon);
 
+    }
+
+    loadIcons(disabledIcon, enabledIcon) {
+        this.disabledIcon = disabledIcon;
+        this.enabledIcon = enabledIcon;
+        
+        const icon = this.component.get("icon");
+        if (this.enabled) {
+            icon.setAttributeValue("class", this.enabledIcon);
+        } else {
+            icon.setAttributeValue("class", this.disabledIcon);
+        }
     }
 
     /**
