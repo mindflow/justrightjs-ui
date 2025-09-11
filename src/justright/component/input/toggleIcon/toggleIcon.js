@@ -38,10 +38,12 @@ export class ToggleIcon {
 
     /**
      * 
+     * @param {String} name
+     * @param {Object} model
+     * @param {String} icon
      * @param {String} label
-     * @param {String} iconClass
      */
-    constructor(label, toggleIconSize = ToggleIcon.SIZE_MEDIUM, iconClass) {
+    constructor(name = "?", model = null, disabledIcon = "fas fa-circle", enabledIcon = "fas fa-circle-check", label = null) {
 
         /** @type {ComponentFactory} */
         this.componentFactory = InjectionPoint.instance(ComponentFactory);
@@ -49,16 +51,25 @@ export class ToggleIcon {
         /** @type {Component} */
         this.component = null;
 
+        /** @type {object} */
+        this.model = model;
+
+        /** @type {boolean} */
+        this.enabled = false;
+
+        /** @type {string} */
+        this.name = name;
+
         /** @type {String} */
         this.label = label;
 
-        /** @type {String} */
-        this.toggleIconSize = toggleIconSize;
+        /** @type {string} */
+        this.enabledIcon = enabledIcon;
 
-        /** @type {String} */
-        this.iconClass = iconClass;
+        /** @type {string} */
+        this.disabledIcon = disabledIcon;
 
-        /** @type {EventManager<ToggleIcon>} */
+        /** @type {EventManager} */
         this.eventManager = new EventManager();
     }
 
@@ -69,24 +80,18 @@ export class ToggleIcon {
         this.component = this.componentFactory.create("ToggleIcon");
         CanvasStyles.enableStyle(ToggleIcon.COMPONENT_NAME);
 
-        if (this.iconClass) {
-            this.component.get("checkbox").addChild(HTML.i("", this.iconClass));
-        }
-        if (this.label) {
-            this.component.get("checkbox").addChild(this.label);
-        }
+        const checkbox = this.component.get("checkbox");
+        checkbox.setAttributeValue("name", this.name);
+        checkbox.listenTo("change", new Method(this, this.clicked));
 
-        CSS.from(this.component.get("checkbox"))
-            .enable("toggleIcon")
-            .enable(this.toggleIconSize);
+        const id = checkbox.getAttributeValue("id");
 
-        this.component.get("checkbox").listenTo("change", new Method(this, (event) => {
-            if (event.target.element.checked) {
-                this.eventManager.trigger(ToggleIcon.EVENT_ENABLED, event);
-                return;
-            }
-            this.eventManager.trigger(ToggleIcon.EVENT_DISABLED, event);
-        }));
+        const label = this.component.get("label");
+        label.setAttributeValue("for", id);
+
+        const icon = this.component.get("icon");
+        icon.setAttributeValue("class", this.disabledIcon);
+
     }
 
     /**
@@ -98,23 +103,25 @@ export class ToggleIcon {
         return this;
     }
 
-    enableLoading() {
-        CSS.from(this.component.get("spinnerContainer"))
-            .disable(ToggleIcon.SPINNER_HIDDEN)
-            .enable(ToggleIcon.SPINNER_VISIBLE);
-    }
-
-    disableLoading() {
-        CSS.from(this.component.get("spinnerContainer"))
-            .disable(ToggleIcon.SPINNER_VISIBLE)
-            .enable(ToggleIcon.SPINNER_HIDDEN);
-    }
-
     disable() {
         this.component.get("checkbox").setAttributeValue("disabled","true");
     }
 
     enable() {
         this.component.get("checkbox").removeAttribute("disabled");
+    }
+
+    clicked(event) {
+        if (event.target.element.checked) {
+            this.enabled = true;
+            const icon = this.component.get("icon");
+            icon.setAttributeValue("class", this.enabledIcon);
+            this.eventManager.trigger(ToggleIcon.EVENT_ENABLED, event);
+            return;
+        }
+        this.enabled = false;
+        const icon = this.component.get("icon");
+        icon.setAttributeValue("class", this.disabledIcon);
+        this.eventManager.trigger(ToggleIcon.EVENT_DISABLED, event);
     }
 }
