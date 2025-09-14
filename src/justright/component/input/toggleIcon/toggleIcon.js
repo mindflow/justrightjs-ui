@@ -69,6 +69,15 @@ export class ToggleIcon {
         /** @type {string} */
         this.disabledIcon = "fas fa-circle";
 
+        /** @type {string} */
+        this.disabledColor = "lightgray";
+
+        /** @type {string} */
+        this.enabledColor = "#2196F3";
+
+        /** @type {string} */
+        this.hoverColor = "gray";
+
         /** @type {EventManager} */
         this.eventManager = new EventManager();
     }
@@ -84,26 +93,31 @@ export class ToggleIcon {
         checkbox.setAttributeValue("name", this.name);
         checkbox.listenTo("change", new Method(this, this.clicked));
 
+        const container = this.component.get("container");
+        container.listenTo("mouseover", new Method(this, this.enableHover));
+        container.listenTo("mouseout", new Method(this, this.disableHover));
+
         const id = checkbox.getAttributeValue("id");
 
         const label = this.component.get("label");
         label.setAttributeValue("for", id);
 
-        const icon = this.component.get("icon");
-        icon.setAttributeValue("class", this.disabledIcon);
+        this.applyIcon(this.disabledIcon);
+        this.applyColor(this.disabledColor);
 
     }
 
     loadIcons(disabledIcon, enabledIcon) {
         this.disabledIcon = disabledIcon;
         this.enabledIcon = enabledIcon;
-        
-        const icon = this.component.get("icon");
-        if (this.enabled) {
-            icon.setAttributeValue("class", this.enabledIcon);
-        } else {
-            icon.setAttributeValue("class", this.disabledIcon);
-        }
+        this.enabled ? this.applyIcon(this.enabledIcon) : this.applyIcon(this.disabledIcon);
+    }
+
+    loadColors(disabled, enabled, hover) {
+        this.disabledColor = disabled;
+        this.enabledColor = enabled;
+        this.hoverColor = hover;
+        this.enabled ? this.applyColor(this.enabledColor) : this.applyColor(this.disabledColor);
     }
 
     /**
@@ -124,16 +138,43 @@ export class ToggleIcon {
     }
 
     clicked(event) {
-        if (event.target.element.checked) {
-            this.enabled = true;
-            const icon = this.component.get("icon");
-            icon.setAttributeValue("class", this.enabledIcon);
+        this.enabled = event.target.element.checked;
+
+        if (this.enabled) {
+            this.applyIcon(this.enabledIcon);
+            this.applyColor(this.enabledColor);
             this.eventManager.trigger(ToggleIcon.EVENT_ENABLED, event);
             return;
         }
-        this.enabled = false;
-        const icon = this.component.get("icon");
-        icon.setAttributeValue("class", this.disabledIcon);
+        
+        this.applyIcon(this.disabledIcon);
+        this.applyColor(this.disabledColor);
         this.eventManager.trigger(ToggleIcon.EVENT_DISABLED, event);
+    }
+
+    applyColor(color) {
+        const container = this.component.get("container");
+        container.setAttributeValue("style", "color: " + color);
+    }
+
+    applyIcon(icon) {
+        const iconElement = this.component.get("icon");
+        iconElement.setAttributeValue("class", icon);
+    }
+
+    enableHover() {
+        const container = this.component.get("container");
+        if (!this.enabled) {
+            container.setAttributeValue("style", "color: " + this.hoverColor);
+        }
+    }
+
+    disableHover() {
+        const container = this.component.get("container");
+        if (this.enabled) {
+            container.setAttributeValue("style", "color: " + this.enabledColor);
+        } else {
+            container.setAttributeValue("style", "color: " + this.disabledColor);
+        }
     }
 }

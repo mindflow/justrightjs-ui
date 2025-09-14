@@ -23,18 +23,3 @@
   transition: all 0.3s ease;
   font-size: 20pt;
 }
-
-/* Change the color of the label when the icon is selected */
-.toggle-icon-container input[type="checkbox"]:not(:is(:checked)) + label {
-  color: lightgray;
-}
-
-/* Change the color of the label when the icon is selected */
-.toggle-icon-container input[type="checkbox"]:not(:is(:checked)) + label:hover {
-  color: gray;
-}
-
-/* Change the color of the label when the icon is selected */
-.toggle-icon-container input[type="checkbox"]:is(:checked) + label {
-  color: #2196F3;
-}
