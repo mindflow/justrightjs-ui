@@ -19,7 +19,7 @@
         
     }
 
-    .tree-panel-entry-record-subrecordelements-container {
+    .tree-panel-entry-record-subrecord-elements-container {
         position: relative;
         flex: 0 0 auto;
 
@@ -37,6 +37,23 @@
 
     }
 
+    .tree-panel-entry-buttons-container {
+        position: relative;
+        flex: 0 0 auto;
+
+        display: flex;
+        flex-direction: row;
+
+    }
+
+    .tree-panel-entry-buttons {
+        position: relative;
+        flex: 1 0 auto;
+
+        display: flex;
+        flex-direction: column;
+
+    }
 }
 
 @media (max-width: 733px) {
@@ -58,7 +75,7 @@
         margin-bottom: 5px;
     }
 
-    .tree-panel-entry-record-subrecordelements-container {
+    .tree-panel-entry-record-subrecord-elements-container {
         position: relative;
         flex: 0 0 auto;
 
@@ -68,6 +85,23 @@
     }
 
     .tree-panel-entry-subrecord-elements {
+        position: relative;
+        flex: 1 0 auto;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tree-panel-entry-buttons-container {
+        position: relative;
+        flex: 0 0 auto;
+
+        display: flex;
+        flex-direction: row;
+        
+    }
+
+    .tree-panel-entry-buttons {
         position: relative;
         flex: 1 0 auto;
 
@@ -97,6 +131,14 @@
 .tree-panel-entry-record-element {
     position: relative;
     flex: 1 0 auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.tree-panel-entry-buttons-indent {
+    position: relative;
+    flex: 0 0 35px;
+
     display: flex;
     flex-direction: row;
 }

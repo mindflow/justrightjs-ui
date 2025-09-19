@@ -153,7 +153,7 @@ export class TreePanelEntry {
 	 * @param {Event} event 
 	 */
     async loadSubRecordsClicked(event) {
-		const elementButtonsContainer = await this.component.get("subrecordElementButtonsContainer");
+		const elementButtonsContainer = await this.component.get("buttons");
         this.eventManager
 			.trigger(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, [event, this.record, this.arrayState, elementButtonsContainer]);
     }
@@ -163,7 +163,7 @@ export class TreePanelEntry {
 	 */
     hideSubRecordsClicked(event) {
         this.component.get("subrecordElements").clear();
-		this.component.get("subrecordElementButtonsContainer").clear();
+		this.component.get("buttons").clear();
     }
 
 }
