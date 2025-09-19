@@ -4,7 +4,6 @@
     border-radius: 50%;
     background-color: transparent;
     transition: background-color 0.3s;
-    cursor: pointer;
     text-align: center;
     line-height: 20pt;
 }
@@ -14,6 +13,7 @@
   /* Visually hide the radio button but keep it accessible via keyboard */
   opacity: 0;
   position: absolute;
+  cursor: pointer;
 }
 
 /* Style the radio icon */

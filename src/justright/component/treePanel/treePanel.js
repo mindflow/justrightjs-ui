@@ -1,6 +1,6 @@
 import { Logger, Method } from "coreutil_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
-import { Component, ComponentFactory, CanvasStyles, EventManager } from "justright_core_v1";
+import { Component, ComponentFactory, CanvasStyles, EventManager, SimpleElement } from "justright_core_v1";
 import { TreePanelEntry } from "./treePanelEntry/treePanelEntry.js";
 import { Panel } from "../panel/panel.js";
 
@@ -116,12 +116,13 @@ export class TreePanel {
 	 * @param {Event} event 
 	 * @param {any} record
 	 * @param {StateManager<any[]>} stateManager
+	 * @param {SimpleElement} elementButtonsContainer
 	 * @returns {Promise<TreePanelEntry[]>}
 	 */
-	async subRecordsUpdateRequested(event, record, stateManager) {
+	async subRecordsUpdateRequested(event, record, stateManager, elementButtonsContainer) {
 		try {
 			await this.events
-				.trigger(TreePanel.SUB_RECORDS_STATE_UPDATE_REQUESTED, [event, record, stateManager]);
+				.trigger(TreePanel.SUB_RECORDS_STATE_UPDATE_REQUESTED, [event, record, stateManager, elementButtonsContainer]);
 
 		} catch (error) {
 			LOG.error(error);

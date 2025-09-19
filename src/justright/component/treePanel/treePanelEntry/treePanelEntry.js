@@ -1,5 +1,5 @@
 import { Logger, Method } from "coreutil_v1";
-import { CanvasStyles, Component, ComponentFactory, EventManager, StateManager } from "justright_core_v1";
+import { CanvasStyles, Component, ComponentFactory, EventManager, SimpleElement, StateManager } from "justright_core_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
 import { Panel } from "../../panel/panel.js";
 import { RadioToggleIcon } from "../../input/radioToggleIcon/radioToggleIcon.js";
@@ -90,21 +90,22 @@ export class TreePanelEntry {
 			return;
 		}
 
-		const treePanelEntry = await this.treePanelEntryProvider.get([record]);
-		treePanelEntry.component.setChild("recordElement", recordElement.component);
+		const treePanelSubEntry = await this.treePanelEntryProvider.get([record]);
+		treePanelSubEntry.component.setChild("recordElement", recordElement.component);
 
-		await this.eventManager.trigger(TreePanelEntry.EVENT_EXPAND_TOGGLE_OVERRIDE, [null, treePanelEntry, record]);
+		await this.eventManager
+			.trigger(TreePanelEntry.EVENT_EXPAND_TOGGLE_OVERRIDE, [null, treePanelSubEntry, record]);
 
-		treePanelEntry.events
+		treePanelSubEntry.events
 			.listenTo(TreePanelEntry.RECORD_ELEMENT_REQUESTED, new Method(this, this.entryRequested));
 
-		treePanelEntry.events
+		treePanelSubEntry.events
 			.listenTo(TreePanelEntry.EVENT_EXPAND_TOGGLE_OVERRIDE, new Method(this, this.expandToggleOverride));
 
-		treePanelEntry.events
+		treePanelSubEntry.events
 			.listenTo(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, new Method(this, this.subRecordsUpdateRequested));
 
-		panel.component.addChild("panel", treePanelEntry.component);
+		panel.component.addChild("panel", treePanelSubEntry.component);
     }
 
 	/**
@@ -137,11 +138,12 @@ export class TreePanelEntry {
 	 * @param {Event} event 
 	 * @param {any} record
 	 * @param {StateManager<any[]>} stateManager
+	 * @param {SimpleElement} elementButtonsContainer
 	 */
-	async subRecordsUpdateRequested(event, record, stateManager) {
+	async subRecordsUpdateRequested(event, record, stateManager, elementButtonsContainer) {
 		try {
 			await this.events
-				.trigger(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, [event, record, stateManager]);
+				.trigger(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, [event, record, stateManager, elementButtonsContainer]);
 		} catch (error) {
 			LOG.error(error);
 		}
@@ -150,9 +152,10 @@ export class TreePanelEntry {
 	/**
 	 * @param {Event} event 
 	 */
-    loadSubRecordsClicked(event) {
+    async loadSubRecordsClicked(event) {
+		const elementButtonsContainer = await this.component.get("subrecordElementButtonsContainer");
         this.eventManager
-			.trigger(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, [event, this.record, this.arrayState]);
+			.trigger(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, [event, this.record, this.arrayState, elementButtonsContainer]);
     }
 
 	/**
@@ -160,6 +163,7 @@ export class TreePanelEntry {
 	 */
     hideSubRecordsClicked(event) {
         this.component.get("subrecordElements").clear();
+		this.component.get("subrecordElementButtonsContainer").clear();
     }
 
 }
