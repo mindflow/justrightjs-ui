@@ -76,13 +76,13 @@ export class TreePanel {
 	 * @param {TreePanelEntry} treePanelEntry
 	 * @param {any} record
 	 */
-	async entryRequested(event, treePanelEntry, record) {
+	async entryRequested(event, record, treePanelEntry, parentTreePanelEntry) {
 		LOG.info("Entry requested");
 		try {
 
 			/** @type {any} */
 			const panel = await this.events
-				.trigger(TreePanel.RECORD_ELEMENT_REQUESTED, [event, record]);
+				.trigger(TreePanel.RECORD_ELEMENT_REQUESTED, [event, record, treePanelEntry, parentTreePanelEntry]);
 
 			return panel;
 		} catch (error) {

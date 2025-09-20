@@ -84,13 +84,14 @@ export class TreePanelEntry {
      * @param {any} record 
      */
     async populateRecord(panel, record) {
-        const recordElement = await this.eventManager.trigger(TreePanelEntry.RECORD_ELEMENT_REQUESTED, [null, this, record]);
+		const treePanelSubEntry = await this.treePanelEntryProvider.get([record]);
+
+		const recordElement = await this.eventManager.trigger(TreePanelEntry.RECORD_ELEMENT_REQUESTED, [null, record, treePanelSubEntry, this]);
         
 		if (!recordElement) {
 			return;
 		}
 
-		const treePanelSubEntry = await this.treePanelEntryProvider.get([record]);
 		treePanelSubEntry.component.setChild("recordElement", recordElement.component);
 
 		await this.eventManager
@@ -113,9 +114,9 @@ export class TreePanelEntry {
 	 * @param {TreePanelEntry} treePanelEntry
 	 * @param {any} record
 	 */
-	async entryRequested(event, treePanelEntry, record) {
+	async entryRequested(event, record, treePanelEntry, parentTreePanelEntry) {
 		try {
-			return await this.events.trigger(TreePanelEntry.RECORD_ELEMENT_REQUESTED, [event, treePanelEntry, record]);
+			return await this.events.trigger(TreePanelEntry.RECORD_ELEMENT_REQUESTED, [event, record, treePanelEntry, parentTreePanelEntry]);
 		} catch (error) {
 			LOG.error(error);
 		}
@@ -132,6 +133,11 @@ export class TreePanelEntry {
 		} catch (error) {
 			LOG.error(error);
 		}
+	}
+
+	async reloadSubRecords() {
+		const elementButtonsContainer = await this.component.get("buttons");
+		await this.subRecordsUpdateRequested(null, this.record, this.arrayState, elementButtonsContainer);
 	}
 
 	/**
