@@ -50,13 +50,15 @@ export class DialogBox {
 
         /** @type {List<string>} */
         this.options = new List(defaultOptions);
+
+        /** @type {Function} */
+        this.destroyFocusEscapeListener = null;
     }
     
     postConfig() {
         this.component = this.componentFactory.create(DialogBox.COMPONENT_NAME);
         this.component.set("backShadeContainer", this.backShade.component);
         this.component.get("closeButton").listenTo("click", new Method(this, this.close));
-        CanvasRoot.listenToFocusEscape(new Method(this, this.close), this.component.get("dialogBoxOverlay"));
     }
 
     /**
@@ -96,6 +98,10 @@ export class DialogBox {
      * @returns 
      */
     hide(event) {
+        if (this.destroyFocusEscapeListener) {
+            this.destroyFocusEscapeListener();
+            this.destroyFocusEscapeListener = null;
+        }
         const options = this.options;
         if (this.hidden) {
             return Promise.resolve();
@@ -123,6 +129,14 @@ export class DialogBox {
      * @returns 
      */
     show(event, temporaryOptions) {
+        if (this.destroyFocusEscapeListener) {
+            this.destroyFocusEscapeListener();
+            this.destroyFocusEscapeListener = null;
+        }
+        this.destroyFocusEscapeListener = CanvasRoot.listenToFocusEscape(
+            new Method(this, this.close), this.component.get("dialogBoxOverlay")
+        );
+
         if (temporaryOptions) {
             this.options = new List(temporaryOptions);
         }
