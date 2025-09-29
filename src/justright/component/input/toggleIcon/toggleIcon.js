@@ -9,6 +9,7 @@ import {
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
 import { CommonEvents } from "../../common/commonEvents";
+import { ContainerEvent } from "containerbridge_v1";
 
 const LOG = new Logger("ToggleIcon");
 
@@ -137,8 +138,13 @@ export class ToggleIcon {
         this.component.get("checkbox").removeAttribute("disabled");
     }
 
+    /**
+     * 
+     * @param {ContainerEvent} event 
+     * @returns 
+     */
     clicked(event) {
-        this.enabled = event.target.element.checked;
+        this.enabled = event.target.checked;
 
         if (this.enabled) {
             this.applyIcon(this.enabledIcon);

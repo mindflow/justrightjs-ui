@@ -34,12 +34,11 @@ export class BackgroundVideo {
         this.component.get("source").setAttributeValue("src", this.videoSrc);
 	}
 
-	async play() {
+	async playMuted() {
 		await ContainerAsync.pause(100);
 		/** @type {VideoElement} */
 		const video = this.component.get("video");
-		video.mute();
-		video.play();
+		video.playMuted();
 	}
 
 }

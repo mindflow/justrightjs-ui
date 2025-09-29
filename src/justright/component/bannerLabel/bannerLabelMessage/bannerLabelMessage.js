@@ -1,4 +1,4 @@
-import { TimePromise } from "coreutil_v1";
+import { Method, TimePromise } from "coreutil_v1";
 import { CanvasStyles, ComponentFactory, CSS, EventManager, Style } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CustomAppearance } from "../../customAppearance.js";
@@ -60,9 +60,11 @@ export class BannerLabelMessage {
                 .enable("banner-label-message-" + this.customAppearance.spacing);
         }
 
-        this.component.get("bannerLabelMessageCloseButton").listenTo("click", () => {
-            this.eventManager.trigger(BannerLabelMessage.EVENT_CLOSE_CLICKED);
-        });
+        this.component.get("bannerLabelMessageCloseButton").listenTo("click", new Method(this, this.closeClicked));
+    }
+
+    closeClicked(event) {
+        this.eventManager.trigger(BannerLabelMessage.EVENT_CLOSE_CLICKED);
     }
 
     hide() {

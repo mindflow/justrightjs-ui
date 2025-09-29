@@ -118,7 +118,7 @@ export class DropDownPanel {
             .enable(DropDownPanel.CONTENT_VISIBLE);
         Style.from(this.component.get("arrow"))
             .set("display", "block");
-        this.component.get("content").element.focus();
+        this.component.get("content").containerElement.focus();
     }
 
     hide() {

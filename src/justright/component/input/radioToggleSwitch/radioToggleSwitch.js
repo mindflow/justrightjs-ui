@@ -9,6 +9,7 @@ import {
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
 import { CommonEvents } from "../../common/commonEvents";
+import { ContainerEvent } from "containerbridge_v1";
 
 const LOG = new Logger("RadioToggleSwitch");
 
@@ -58,11 +59,11 @@ export class RadioToggleSwitch {
 
     /**
      * 
-     * @param {Event} event 
+     * @param {ContainerEvent} event 
      */
     clicked(event) {
         const oldValue = this.checked;
-        this.checked = event.target.mappedElement.checked;
+        this.checked = event.target.checked;
 
         if (oldValue !== this.checked) {
             this.events.trigger(RadioToggleSwitch.EVENT_CHANGED, [event]);
@@ -86,7 +87,7 @@ export class RadioToggleSwitch {
         }
         this.checked = checked;
         if (this.component) {
-            this.component.get("checkbox").mappedElement.click();
+            this.component.get("checkbox").containerElement.click();
         }
     }
 
