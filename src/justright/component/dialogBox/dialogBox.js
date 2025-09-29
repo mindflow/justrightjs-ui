@@ -10,7 +10,7 @@ import { TimePromise, Logger, Method, List } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 import { BackShade } from "../backShade/backShade.js";
 import { BackShadeListeners } from "../backShade/backShadeListeners.js";
-import { ContainerElement } from "containerbridge_v1";
+import { ContainerElementUtils } from "containerbridge_v1";
 
 
 const LOG = new Logger("DialogBox");
@@ -160,6 +160,6 @@ export class DialogBox {
     getDialogBox() { return this.component.get("dialogBox"); }
 
     scrollLock() {
-        ContainerElement.scrollLockTo(this.component.get("dialogBoxContent").element, 0, 0, 1000);
+        ContainerElementUtils.scrollLockTo(this.component.get("dialogBoxContent").element, 0, 0, 1000);
     }
 }
