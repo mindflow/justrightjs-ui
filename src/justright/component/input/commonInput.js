@@ -1,5 +1,5 @@
 import { Method, Logger } from "coreutil_v1";
-import { InputElementDataBinding, AbstractValidator, ComponentFactory, CanvasStyles, Event, Component, EventManager } from "justright_core_v1";
+import { InputElementDataBinding, AbstractValidator, ComponentFactory, CanvasStyles, Component, EventManager } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CommonEvents } from "../common/commonEvents";
 import { ContainerEvent } from "containerbridge_v1";

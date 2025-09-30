@@ -2,7 +2,6 @@ import {
     ComponentFactory,
     CanvasStyles,
     Component,
-    Event,
     CanvasRoot,
     HTML,
     CSS,

@@ -3,7 +3,6 @@ import {
     ComponentFactory,
     CanvasStyles,
     CanvasRoot,
-    Event,
     Navigation
 } from "justright_core_v1";
 import { TimePromise, Logger, Method, List } from "coreutil_v1";

@@ -3,7 +3,6 @@ import {
     CanvasStyles,
     Component,
     EventManager,
-    Event,
     InputElementDataBinding
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
