@@ -10,7 +10,7 @@ import { TimePromise, Logger, Method, List } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 import { BackShade } from "../backShade/backShade.js";
 import { BackShadeListeners } from "../backShade/backShadeListeners.js";
-import { ContainerElementUtils } from "containerbridge_v1";
+import { ContainerElementUtils, ContainerEvent } from "containerbridge_v1";
 
 
 const LOG = new Logger("DialogBox");
@@ -94,7 +94,7 @@ export class DialogBox {
 
     /**
      * 
-     * @param {Event} event 
+     * @param {ContainerEvent} event 
      * @returns 
      */
     hide(event) {
@@ -124,7 +124,7 @@ export class DialogBox {
 
     /**
      * 
-     * @param {Event} event 
+     * @param {ContainerEvent} event 
      * @param {Array<string>} temporaryOptions
      * @returns 
      */

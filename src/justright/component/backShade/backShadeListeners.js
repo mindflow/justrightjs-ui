@@ -1,3 +1,4 @@
+import { ContainerEvent } from "containerbridge_v1";
 import { Method } from "coreutil_v1";
 
 export class BackShadeListeners {
@@ -27,7 +28,7 @@ export class BackShadeListeners {
     /**
      * 
      * @param {Method} listener 
-     * @param {Event} event 
+     * @param {ContainerEvent} event 
      */
     callListener(listener, event) {
         if (null != listener) {

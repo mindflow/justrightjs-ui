@@ -3,6 +3,7 @@ import { InjectionPoint, Provider } from "mindi_v1";
 import { Component, ComponentFactory, CanvasStyles, EventManager, SimpleElement } from "justright_core_v1";
 import { TreePanelEntry } from "./treePanelEntry/treePanelEntry.js";
 import { Panel } from "../panel/panel.js";
+import { ContainerEvent } from "containerbridge_v1";
 
 const LOG = new Logger("TreePanel");
 
@@ -72,7 +73,7 @@ export class TreePanel {
 	/**
 	 * Called by the root TreePanelEntry when it's or one of it's subordinate elements need to be rendered
 	 * 
-	 * @param {Event} event 
+	 * @param {ContainerEvent} event 
 	 * @param {TreePanelEntry} treePanelEntry
 	 * @param {any} record
 	 */
@@ -93,7 +94,7 @@ export class TreePanel {
 	/**
 	 * Called by the root TreePanelEntry it asks for the expand toggle to be overridden
 	 * 
-	 * @param {Event} event 
+	 * @param {ContainerEvent} event 
 	 * @param {TreePanelEntry} treePanelEntry
 	 * @param {any} record
 	 */
@@ -113,7 +114,7 @@ export class TreePanel {
 	 * Called by the root TreePanelEntry when it's or one of it's subordinate elements need the state of the subrecords to be updated,
 	 * for example when the expand button is clicked
 	 * 
-	 * @param {Event} event 
+	 * @param {ContainerEvent} event 
 	 * @param {any} record
 	 * @param {StateManager<any[]>} stateManager
 	 * @param {SimpleElement} elementButtonsContainer
@@ -132,7 +133,7 @@ export class TreePanel {
 	/**
 	 * Reset
 	 * 
-	 * @param {Event} event 
+	 * @param {ContainerEvent} event 
 	 */
 	async reset(event) {
 		await this.subRecordsUpdateRequested(event, null, this.treePanelEntry.arrayState);

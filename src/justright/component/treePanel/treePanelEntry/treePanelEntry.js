@@ -4,6 +4,7 @@ import { InjectionPoint, Provider } from "mindi_v1";
 import { Panel } from "../../panel/panel.js";
 import { RadioToggleIcon } from "../../input/radioToggleIcon/radioToggleIcon.js";
 import { ToggleIcon } from "../../input/toggleIcon/toggleIcon.js";
+import { ContainerEvent } from "containerbridge_v1";
 
 
 const LOG = new Logger("TreePanelEntry");
@@ -110,7 +111,7 @@ export class TreePanelEntry {
     }
 
 	/**
-	 * @param {Event} event 
+	 * @param {ContainerEvent} event 
 	 * @param {TreePanelEntry} treePanelEntry
 	 * @param {any} record
 	 */
@@ -123,7 +124,7 @@ export class TreePanelEntry {
 	}
 
 	/**
-	 * @param {Event} event 
+	 * @param {ContainerEvent} event 
 	 * @param {TreePanelEntry} treePanelEntry
 	 * @param {any} record
 	 */
@@ -141,7 +142,7 @@ export class TreePanelEntry {
 	}
 
 	/**
-	 * @param {Event} event 
+	 * @param {ContainerEvent} event 
 	 * @param {any} record
 	 * @param {StateManager<any[]>} stateManager
 	 * @param {SimpleElement} elementButtonsContainer
@@ -156,7 +157,7 @@ export class TreePanelEntry {
 	}
 
 	/**
-	 * @param {Event} event 
+	 * @param {ContainerEvent} event 
 	 */
     async loadSubRecordsClicked(event) {
 		const elementButtonsContainer = await this.component.get("buttons");
@@ -165,7 +166,7 @@ export class TreePanelEntry {
     }
 
 	/**
-	 * @param {Event} event 
+	 * @param {ContainerEvent} event 
 	 */
     hideSubRecordsClicked(event) {
         this.component.get("subrecordElements").clear();

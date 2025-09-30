@@ -10,6 +10,7 @@ import {
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
+import { ContainerEvent } from "containerbridge_v1";
 
 const LOG = new Logger("PopUpPanel");
 
@@ -98,7 +99,7 @@ export class PopUpPanel {
     }
     /**
      * 
-     * @param {Event} event 
+     * @param {ContainerEvent} event 
      */
     clicked(event) {
         this.toggleContent();

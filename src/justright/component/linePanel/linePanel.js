@@ -3,6 +3,7 @@ import { InjectionPoint, Provider } from "mindi_v1";
 import { Component, ComponentFactory, CanvasStyles, EventManager, StateManager } from "justright_core_v1";
 import { Panel } from "../panel/panel.js";
 import { LinePanelEntry } from "./treePanelEntry/linePanelEntry.js";
+import { ContainerEvent } from "containerbridge_v1";
 
 const LOG = new Logger("LinePanel");
 
@@ -71,7 +72,7 @@ export class LinePanel {
 	/**
 	 * Reset
 	 * 
-	 * @param {Event} event 
+	 * @param {ContainerEvent} event 
 	 */
 	async reset(event) {
 		this.events.trigger(LinePanel.RECORDS_STATE_UPDATE_REQUESTED, [event, this.arrayState]);

@@ -2,6 +2,7 @@ import { Method, Logger } from "coreutil_v1";
 import { InputElementDataBinding, AbstractValidator, ComponentFactory, CanvasStyles, Event, Component, EventManager } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CommonEvents } from "../common/commonEvents";
+import { ContainerEvent } from "containerbridge_v1";
 
 const LOG = new Logger("CommonInput");
 
@@ -123,7 +124,7 @@ export class CommonInput {
 
     /**
      * 
-     * @param {Event} event 
+     * @param {ContainerEvent} event 
      */
     keyupped(event) {
         if (!event.isKeyCode(13) && !event.isKeyCode(16) && !event.isKeyCode(9)) {
@@ -137,7 +138,7 @@ export class CommonInput {
 
     /**
      * 
-     * @param {Event} event 
+     * @param {ContainerEvent} event 
      */
     changed(event) {
         this.tainted = true;
