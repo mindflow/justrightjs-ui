@@ -1,6 +1,6 @@
 import { ContainerEvent, ContainerFileData } from "containerbridge_v1";
 import { Logger, Method } from "coreutil_v1";
-import { CanvasStyles, Component, ComponentFactory, EventManager, SimpleElement, CSS, HTML, StateManager } from "justright_core_v1";
+import { CanvasStyles, Component, ComponentFactory, EventManager, SimpleElement, CSS, HTML, StateManager, AndValidatorSet } from "justright_core_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
 import { FileUploadEntry } from "./fileUploadEntry/fileUploadEntry.js";
 import { CommonEvents } from "../../common/commonEvents.js";
@@ -18,6 +18,8 @@ export class FileUpload {
 	static EVENT_CLICKED = CommonEvents.CLICKED;
     static EVENT_FILE_ADDED = "fileAdded";
     static EVENT_FILE_REMOVED = "fileRemoved";
+    static EVENT_UPLOAD_COMPLETE = "uploadComplete";
+    static EVENT_UPLOAD_RESET = "uploadReset";
 
     /**
      * 
@@ -209,13 +211,27 @@ export class FileUpload {
     async updateFileList() {
         const fileList = this.component.get("fileList");
         fileList.clear();
-        
+        this.events.trigger(FileUpload.EVENT_UPLOAD_RESET);
         for (const file of this.fileArrayState.objectMap.values()) {
             const fileEntry = await this.fileUploadEntryProvider.get([file]);
             fileEntry.events.listenTo(FileUploadEntry.EVENT_REMOVE_CLICKED, new Method(this, this.removeFileEntry, [fileEntry]));
             this.fileArrayState.reactTo(file.name, new Method(fileEntry, fileEntry.updateProgress));
             fileList.addChild(fileEntry.component);
         }
+        this.fileArrayState.react(new Method(this, this.checkFileUploadComplete));
+    }
+
+    checkFileUploadComplete() {
+        if (this.fileArrayState.objectMap.size === 0) {
+            this.events.trigger(FileUpload.EVENT_UPLOAD_RESET);
+            return;
+        }
+        for (const file of this.fileArrayState.objectMap.values()) {
+            if (!file.uploadComplete) {
+                return;
+            }
+        }
+        this.events.trigger(FileUpload.EVENT_UPLOAD_COMPLETE);
     }
 
     /**
@@ -232,6 +248,7 @@ export class FileUpload {
         await this.updateFileList();
         // Prevent the click event from bubbling up to the upload box
         event.stopPropagation();
+        this.checkFileUploadComplete();
     }
 
     clicked(event) {

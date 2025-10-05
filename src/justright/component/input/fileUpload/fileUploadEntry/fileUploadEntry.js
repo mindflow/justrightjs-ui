@@ -56,6 +56,8 @@ export class FileUploadEntry {
         removeButton.listenTo("click", new Method(this, this.removeCliked));
 
         this.updateProgress(this.file, this.file.name);
+
+        
     }
     
     /**
@@ -75,6 +77,9 @@ export class FileUploadEntry {
         if (file) {
             const progressBar = this.component.get("fileProgressBar");
             progressBar.setStyle("width", file.uploadPercentage + "%");
+            if (file.uploadPercentage >= 100) {
+                file.uploadComplete = true;
+            }
         }
     }
 }
