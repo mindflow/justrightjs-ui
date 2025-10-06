@@ -34,7 +34,7 @@ export class TreePanelEntry {
 		this.eventManager = new EventManager();
 
         /** @type {StateManager<any[]>} */
-        this.arrayState = InjectionPoint.instance(StateManager);
+        this.arrayState = new StateManager();
 
 		/** @type {Provider<TreePanelEntry>} */
 		this.treePanelEntryProvider = InjectionPoint.provider(TreePanelEntry);
@@ -55,7 +55,7 @@ export class TreePanelEntry {
 
 		this.component.setChild("expandButton", this.expandToggle.component);
 
-        this.arrayState.react(new Method(this, this.handleArrayState));
+        this.arrayState.react(new Method(this, this.handleStateChange));
 
     }
 
@@ -65,19 +65,21 @@ export class TreePanelEntry {
 	get events() { return this.eventManager; }
 
     /**
-     * @param {Array} array 
+     * @param {Object} object 
      */
-    async handleArrayState(array) {
-		const panel = await this.panelProvider.get([
-			Panel.PARAMETER_STYLE_TYPE_COLUMN, 
-			Panel.PARAMETER_STYLE_CONTENT_ALIGN_LEFT, 
-			Panel.PARAMETER_STYLE_SIZE_MINIMAL]);
+    async handleStateChange(object) {
+		if (object instanceof Array) {
+			const panel = await this.panelProvider.get([
+				Panel.PARAMETER_STYLE_TYPE_COLUMN, 
+				Panel.PARAMETER_STYLE_CONTENT_ALIGN_LEFT, 
+				Panel.PARAMETER_STYLE_SIZE_MINIMAL]);
 
-		array.forEach(async (record) => {
-            await this.populateRecord(panel, record);
-        });
+			object.forEach(async (record) => {
+				await this.populateRecord(panel, record);
+			});
 
-		this.component.setChild("subrecordElements", panel.component);
+			this.component.setChild("subrecordElements", panel.component);
+		}
     }
 
     /**

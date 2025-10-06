@@ -39,7 +39,7 @@ export class LinePanel {
 		this.panelProvider = InjectionPoint.provider(Panel);
 
         /** @type {StateManager<any[]>} */
-        this.arrayState = InjectionPoint.instance(StateManager);
+        this.arrayState = new StateManager();
 
 		/** @type {Panel} */
 		this.buttonPanel = buttonPanel;
