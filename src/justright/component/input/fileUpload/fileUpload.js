@@ -234,7 +234,7 @@ export class FileUpload {
                 return;
             }
         }
-        this.events.trigger(FileUpload.EVENT_UPLOAD_COMPLETE);
+        this.events.trigger(FileUpload.EVENT_UPLOAD_COMPLETE, [this.fileArrayState.objectArray]);
     }
 
     /**
