@@ -102,6 +102,7 @@ export class FileUpload {
     async processFiles(files) {
         const supportedFiles = [];
         const unsupportedFiles = [];
+        const addedFiles = [];
 
         for (const file of files) {
             const supportedFile = this.isFileTypeSupported(file);
@@ -120,7 +121,7 @@ export class FileUpload {
                 this.fileArrayState.clear();
             }
             for (const file of supportedFiles) {
-                this.fileArrayState.update(file, file.name);
+                addedFiles.push(await this.fileArrayState.update(file, file.name));
                 if (this.multiple === false) {
                     break;
                 }
@@ -130,12 +131,10 @@ export class FileUpload {
         // Show unsupported files
         this.showUnsupportedFiles(unsupportedFiles);
         await this.updateFileList();
-        for (const stateFile of this.fileArrayState.objectMap.values()) {
-            for (const file of supportedFiles) {
-                if (file.name === stateFile.name) {
-                    this.events.trigger(FileUpload.EVENT_FILE_ADDED, [stateFile]);
-                }
-            }
+
+        // Trigger file added event for each supported file
+        for (const file of addedFiles) {
+            this.events.trigger(FileUpload.EVENT_FILE_ADDED, [file]);
         }
     }
 
