@@ -130,8 +130,12 @@ export class FileUpload {
         // Show unsupported files
         this.showUnsupportedFiles(unsupportedFiles);
         await this.updateFileList();
-        for (const file of this.fileArrayState.objectMap.values()) {
-            this.events.trigger(FileUpload.EVENT_FILE_ADDED, [file]);
+        for (const stateFile of this.fileArrayState.objectMap.values()) {
+            for (const file of supportedFiles) {
+                if (file.name === stateFile.name) {
+                    this.events.trigger(FileUpload.EVENT_FILE_ADDED, [stateFile]);
+                }
+            }
         }
     }
 
