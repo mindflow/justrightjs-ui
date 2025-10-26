@@ -1,4 +1,4 @@
-import { Component, TemplateComponentFactory, CanvasStyles, Style, HtmlBuilder, StylesheetBuilder } from "justright_core_v1";
+import { Component, TemplateComponentFactory, CanvasStyles, Style, StylesheetBuilder, UniqueIdRegistry, ComponentBuilder, InlineComponentFactory } from "justright_core_v1";
 import { Logger } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 
@@ -21,34 +21,38 @@ export class Background {
 		this.backgroundImagePath = backgroundImagePath;
 	}
 
-	set(key,val) {
-		this.component.set(key,val);
+	/**
+	 * 
+	 * @param {UniqueIdRegistry} uniqueIdRegistry
+	 * @returns {Component}
+	 */
+	static buildComponent(uniqueIdRegistry) {
+		return ComponentBuilder
+			.create(uniqueIdRegistry, "div", "id:background", "class:background")
+			.build();
 	}
 
 	/**
 	 * 
-	 * @returns {BaseElement}
+	 * @returns {String}
 	 */
-	static getComponentElement() {
-		return HtmlBuilder.create()
-			.add("div", "id:background", "class:background").open()
-				.add("div")
-			.close()
-			.build();
-	}
-
 	static getComponentStylesheet() {
 		return StylesheetBuilder.create()
 			.add(".background")
-				.set("position", "fixed")
-				.set("top", "0")
-				.set("left", "0")
-				.set("width", "100%")
-				.set("height", "100%")
-				.set("z-index", "-1")
+				.set("background-color", "rgb(150, 197, 255)")
+				.set("background-repeat", "no-repeat")
+				.set("background-position-x", "center")
+				.set("background-position-y", "center")
+				.set("background-attachment", "scroll")
 				.set("background-size", "cover")
-				.set("background-position", "center")
+				.set("font-family", "Source Sans Pro")
+				.set("font-weight", "300")
+				.set("height", "100%")
 			.build();
+	}
+
+	set(key,val) {
+		this.component.set(key,val);
 	}
 
 	postConfig() {

@@ -146,7 +146,7 @@ export class DialogBox {
         CanvasStyles.enableStyle(DialogBox.name, this.component.componentIndex);
         this.backShade.show();
         this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-overlay-fade dialogbox-overlay-display-block");
-        CanvasRoot.mouseDownElement = this.component.get("dialogBoxContent");
+        CanvasRoot.mouseDownElement = this.component.get("dialogBoxContent").containerElement;
         return TimePromise.asPromise(100,  () => {
                 this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-overlay-fade dialogbox-overlay-display-block dialogbox-overlay-show");
             }
