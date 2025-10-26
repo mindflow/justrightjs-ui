@@ -5,10 +5,8 @@ const LOG = new Logger("HiddenInput");
 
 export class HiddenInput extends CommonInput {
 
-    static COMPONENT_NAME = "HiddenInput";
     static TEMPLATE_URL = "/assets/justrightjs-ui/hiddenInput.html";
     static STYLES_URL = "/assets/justrightjs-ui/hiddenInput.css";
-
 
     /**
      * 
@@ -17,7 +15,7 @@ export class HiddenInput extends CommonInput {
      */
     constructor(name, model = null) {
 
-        super(HiddenInput.COMPONENT_NAME,
+        super(HiddenInput,
             name,
             model,
             null,

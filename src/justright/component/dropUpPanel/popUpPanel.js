@@ -15,7 +15,6 @@ const LOG = new Logger("PopUpPanel");
 
 export class PopUpPanel {
 
-	static COMPONENT_NAME = "PopUpPanel";
     static TEMPLATE_URL = "/assets/justrightjs-ui/popUpPanel.html";
     static STYLES_URL = "/assets/justrightjs-ui/popUpPanel.css";
 
@@ -50,7 +49,7 @@ export class PopUpPanel {
     constructor(iconClass, type = PopUpPanel.TYPE_DARK, size = PopUpPanel.SIZE_MEDIUM, orientation = PopUpPanel.ORIENTATION_LEFT) {
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -70,8 +69,8 @@ export class PopUpPanel {
     }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create(PopUpPanel.COMPONENT_NAME);
-        CanvasStyles.enableStyle(PopUpPanel.COMPONENT_NAME);
+        this.component = this.componentFactory.create(PopUpPanel);
+        CanvasStyles.enableStyle(PopUpPanel.name);
         this.component.get("button").setChild(HTML.i("", this.iconClass));
 
         CSS.from(this.component.get("button"))

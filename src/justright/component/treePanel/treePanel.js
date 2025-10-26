@@ -9,7 +9,6 @@ const LOG = new Logger("TreePanel");
 
 export class TreePanel {
 
-	static COMPONENT_NAME = "TreePanel";
 	static TEMPLATE_URL = "/assets/justrightjs-ui/treePanel.html";
 	static STYLES_URL = "/assets/justrightjs-ui/treePanel.css";
 
@@ -25,7 +24,7 @@ export class TreePanel {
 	constructor(buttonPanel = null) {
 
 		/** @type {TemplateComponentFactory} */
-		this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+		this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 		
 		/** @type {Component} */
 		this.component = null;
@@ -45,8 +44,8 @@ export class TreePanel {
 	}
 
 	async postConfig() {
-		this.component = this.templateComponentFactory.create(TreePanel.COMPONENT_NAME);
-		CanvasStyles.enableStyle(TreePanel.COMPONENT_NAME);
+		this.component = this.componentFactory.create(TreePanel);
+		CanvasStyles.enableStyle(TreePanel.name);
 
 		if (this.buttonPanel) {
 			this.component.setChild("buttonpanel", this.buttonPanel.component);

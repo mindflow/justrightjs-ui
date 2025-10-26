@@ -15,7 +15,6 @@ const LOG = new Logger("ToggleIcon");
 
 export class ToggleIcon {
 
-	static COMPONENT_NAME = "ToggleIcon";
     static TEMPLATE_URL = "/assets/justrightjs-ui/toggleIcon.html";
     static STYLES_URL = "/assets/justrightjs-ui/toggleIcon.css";
 
@@ -47,7 +46,7 @@ export class ToggleIcon {
     constructor(name = "?", model = null, label = null) {
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -87,8 +86,8 @@ export class ToggleIcon {
     get events() { return this.eventManager; }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create("ToggleIcon");
-        CanvasStyles.enableStyle(ToggleIcon.COMPONENT_NAME);
+        this.component = this.componentFactory.create(ToggleIcon);
+        CanvasStyles.enableStyle(ToggleIcon.name);
 
         const checkbox = this.component.get("checkbox");
         checkbox.setAttributeValue("name", this.name);

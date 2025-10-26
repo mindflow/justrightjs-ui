@@ -6,7 +6,6 @@ const LOG = new Logger("Panel");
 
 export class Panel {
 
-	static COMPONENT_NAME = "Panel";
     static TEMPLATE_URL = "/assets/justrightjs-ui/panel.html";
     static STYLES_URL = "/assets/justrightjs-ui/panel.css";
 
@@ -41,7 +40,7 @@ export class Panel {
         options = []) {
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -61,8 +60,8 @@ export class Panel {
     }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create(Panel.COMPONENT_NAME);
-        CanvasStyles.enableStyle(Panel.COMPONENT_NAME);
+        this.component = this.componentFactory.create(Panel);
+        CanvasStyles.enableStyle(Panel.name);
 
         CSS.from(this.component.get("panel"))
             .enable(this.type)

@@ -11,7 +11,6 @@ const LOG = new Logger("BannerMessage");
 
 export class BannerMessage {
 
-	static COMPONENT_NAME = "BannerMessage";
     static TEMPLATE_URL = "/assets/justrightjs-ui/bannerMessage.html";
     static STYLES_URL = "/assets/justrightjs-ui/bannerMessage.css";
 
@@ -30,7 +29,7 @@ export class BannerMessage {
     constructor(message, bannerType = BannerMessage.TYPE_INFO, closeable = false, customAppearance = null) {
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -56,7 +55,7 @@ export class BannerMessage {
     }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create("BannerMessage");
+        this.component = this.componentFactory.create(BannerMessage);
         this.component.get("bannerMessageHeader").setChild("Alert");
         this.component.get("bannerMessageMessage").setChild(this.message);
         this.applyClasses("banner-message fade");
@@ -118,7 +117,7 @@ export class BannerMessage {
         this.applyClasses("banner-message hide");
         await TimePromise.asPromise(500, () => { 
             this.component.get("bannerMessage").setStyle("display","none");
-            CanvasStyles.disableStyle(BannerMessage.COMPONENT_NAME, this.component.componentIndex);
+            CanvasStyles.disableStyle(BannerMessage.name, this.component.componentIndex);
         });
         if(this.onHideListener) {
             this.onHideListener.call();
@@ -132,7 +131,7 @@ export class BannerMessage {
         if (newMessage) {
             this.applyMessage(newMessage);
         }
-        CanvasStyles.enableStyle(BannerMessage.COMPONENT_NAME, this.component.componentIndex);
+        CanvasStyles.enableStyle(BannerMessage.name, this.component.componentIndex);
         this.component.get("bannerMessage").setStyle("display","block");
         await TimePromise.asPromise(100,() => { 
             this.applyClasses("banner-message show");

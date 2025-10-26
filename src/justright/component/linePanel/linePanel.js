@@ -9,7 +9,6 @@ const LOG = new Logger("LinePanel");
 
 export class LinePanel {
 
-	static COMPONENT_NAME = "LinePanel";
 	static TEMPLATE_URL = "/assets/justrightjs-ui/linePanel.html";
 	static STYLES_URL = "/assets/justrightjs-ui/linePanel.css";
 
@@ -24,7 +23,7 @@ export class LinePanel {
 	constructor(buttonPanel = null) {
 
 		/** @type {TemplateComponentFactory} */
-		this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+		this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 		
 		/** @type {Component} */
 		this.component = null;
@@ -47,8 +46,8 @@ export class LinePanel {
 	}
 
 	async postConfig() {
-		this.component = this.templateComponentFactory.create(LinePanel.COMPONENT_NAME);
-		CanvasStyles.enableStyle(LinePanel.COMPONENT_NAME);
+		this.component = this.componentFactory.create(LinePanel);
+		CanvasStyles.enableStyle(LinePanel.name);
 
 		if (this.buttonPanel) {
 			this.component.setChild("buttonPanel", this.buttonPanel.component);

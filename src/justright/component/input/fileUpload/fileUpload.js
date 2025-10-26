@@ -9,7 +9,6 @@ const LOG = new Logger("FileUpload");
 
 export class FileUpload {
 
-	static COMPONENT_NAME = "FileUpload";
 	static TEMPLATE_URL = "/assets/justrightjs-ui/fileUpload.html";
 	static STYLES_URL = "/assets/justrightjs-ui/fileUpload.css";
 
@@ -30,7 +29,7 @@ export class FileUpload {
     constructor(name, multiple = false, fileTypeArray = []) {
         
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -56,8 +55,8 @@ export class FileUpload {
     }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create(FileUpload.COMPONENT_NAME);
-        CanvasStyles.enableStyle(FileUpload.COMPONENT_NAME);
+        this.component = this.componentFactory.create(FileUpload);
+        CanvasStyles.enableStyle(FileUpload.name);
 
         
         /** @type {SimpleElement} */

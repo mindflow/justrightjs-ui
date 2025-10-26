@@ -5,7 +5,6 @@ import { SlideDeckEntry } from "./slideDeckEntry/slideDeckEntry.js";
 
 export class SlideDeck {
 
-    static COMPONENT_NAME = "SlideDeck";
     static TEMPLATE_URL = "/assets/justrightjs-ui/slideDeck.html";
     static STYLES_URL = "/assets/justrightjs-ui/slideDeck.css";
 
@@ -18,7 +17,7 @@ export class SlideDeck {
     constructor(componentMap) {
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -46,8 +45,8 @@ export class SlideDeck {
     }
 
     async postConfig() {
-        this.component = this.templateComponentFactory.create(SlideDeck.COMPONENT_NAME);
-        CanvasStyles.enableStyle(SlideDeck.COMPONENT_NAME);
+        this.component = this.componentFactory.create(SlideDeck);
+        CanvasStyles.enableStyle(SlideDeck.name);
 
         if (this.componentMap) {
             this.prepareEntries();

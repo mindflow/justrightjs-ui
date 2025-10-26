@@ -6,7 +6,6 @@ const LOG = new Logger("PhoneInput");
 
 export class PhoneInput extends CommonInput {
 
-    static COMPONENT_NAME = "PhoneInput";
     static TEMPLATE_URL = "/assets/justrightjs-ui/phoneInput.html";
     static STYLES_URL = "/assets/justrightjs-ui/phoneInput.css";
 
@@ -21,7 +20,7 @@ export class PhoneInput extends CommonInput {
      */
     constructor(name, model = null, placeholder = TextInput.DEFAULT_PLACEHOLDER, mandatory = false) {
 
-        super(PhoneInput.COMPONENT_NAME,
+        super(PhoneInput,
             name,
             model,
             new PhoneValidator(mandatory, !mandatory),

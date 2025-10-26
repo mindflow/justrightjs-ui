@@ -6,7 +6,6 @@ const LOG = new Logger("PasswordMatcherInputValue");
 
 export class PasswordMatcherInputValue extends CommonInput {
     
-    static COMPONENT_NAME = "PasswordMatcherInputValue";
     static TEMPLATE_URL = "/assets/justrightjs-ui/passwordMatcherInputValue.html";
     static STYLES_URL = "/assets/justrightjs-ui/passwordMatcherInputValue.css";
 
@@ -21,7 +20,7 @@ export class PasswordMatcherInputValue extends CommonInput {
      */
     constructor(name, model = null, placeholder = TextInput.DEFAULT_PLACEHOLDER, mandatory = false) {
 
-        super(PasswordMatcherInputValue.COMPONENT_NAME,
+        super(PasswordMatcherInputValue,
             name,
             model,
             new PasswordValidator(mandatory),

@@ -5,7 +5,6 @@ import { InjectionPoint } from "mindi_v1";
 
 export class FileUploadEntry {
     
-    static COMPONENT_NAME = "FileUploadEntry"
     static TEMPLATE_URL = "/assets/justrightjs-ui/fileUploadEntry.html"
     static STYLES_URL = "/assets/justrightjs-ui/fileUploadEntry.css"
     
@@ -18,7 +17,7 @@ export class FileUploadEntry {
     constructor(file) {
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
         
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -40,8 +39,8 @@ export class FileUploadEntry {
     }
     
     async postConfig() {
-        this.component = this.templateComponentFactory.create(FileUploadEntry.COMPONENT_NAME);
-        CanvasStyles.enableStyle(FileUploadEntry.COMPONENT_NAME);
+        this.component = this.componentFactory.create(FileUploadEntry);
+        CanvasStyles.enableStyle(FileUploadEntry.name);
         
         const fileNameElement = this.component.get("fileName");
         fileNameElement.setChild(this.fileName);

@@ -16,7 +16,7 @@ export class CommonInput {
 
     /**
      * 
-     * @param {string} componentName
+     * @param {Function} componentClass
      * @param {string} name
      * @param {object} model
      * @param {AbstractValidator} validator
@@ -24,7 +24,7 @@ export class CommonInput {
      * @param {string} inputElementId
      * @param {string} errorElementId
      */
-    constructor(componentName,
+    constructor(componentClass,
         name,
         model = null,
         validator = null, 
@@ -34,7 +34,7 @@ export class CommonInput {
 
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -42,8 +42,8 @@ export class CommonInput {
         /** @type {AbstractValidator} */
         this.validator = validator;
 
-        /** @type {string} */
-        this.componentName = componentName;
+        /** @type {Function} */
+        this.componentClass = componentClass;
 
         /** @type {string} */
         this.name = name;
@@ -71,9 +71,9 @@ export class CommonInput {
     }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create(this.componentName);
+        this.component = this.componentFactory.create(this.componentClass);
 
-        CanvasStyles.enableStyle(this.componentName, this.component.componentIndex);
+        CanvasStyles.enableStyle(this.componentClass.name, this.component.componentIndex);
 
         this.component.get(this.inputElementId).setAttributeValue("name", this.name);
         if (this.placeholder) {

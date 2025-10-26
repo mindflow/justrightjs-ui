@@ -6,12 +6,10 @@ const LOG = new Logger("TextInput");
 
 export class NumberInput extends CommonInput {
 
-    static COMPONENT_NAME = "NumberInput";
     static TEMPLATE_URL = "/assets/justrightjs-ui/numberInput.html";
     static STYLES_URL = "/assets/justrightjs-ui/numberInput.css";
 
     static DEFAULT_PLACEHOLDER = "Number";
-
 
     /**
      * 
@@ -22,7 +20,7 @@ export class NumberInput extends CommonInput {
      */
     constructor(name, model = null, placeholder = NumberInput.DEFAULT_PLACEHOLDER, mandatory = false) {
 
-        super(NumberInput.COMPONENT_NAME,
+        super(NumberInput,
             name,
             model,
             new NumberValidator(mandatory, !mandatory),

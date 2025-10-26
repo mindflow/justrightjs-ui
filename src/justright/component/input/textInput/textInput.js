@@ -6,7 +6,6 @@ const LOG = new Logger("TextInput");
 
 export class TextInput extends CommonInput {
 
-    static COMPONENT_NAME = "TextInput";
     static TEMPLATE_URL = "/assets/justrightjs-ui/textInput.html";
     static STYLES_URL = "/assets/justrightjs-ui/textInput.css";
 
@@ -21,7 +20,7 @@ export class TextInput extends CommonInput {
      */
     constructor(name, model = null, placeholder = TextInput.DEFAULT_PLACEHOLDER, mandatory = false) {
 
-        super(TextInput.COMPONENT_NAME,
+        super(TextInput,
             name,
             model,
             new RequiredValidator(false, mandatory),

@@ -5,7 +5,6 @@ import { CustomAppearance } from "../../customAppearance.js";
 
 export class BannerLabelMessage {
 
-	static get COMPONENT_NAME() { return "BannerLabelMessage"; }
     static get TEMPLATE_URL() { return "/assets/justrightjs-ui/bannerLabelMessage.html"; }
     static get STYLES_URL() { return "/assets/justrightjs-ui/bannerLabelMessage.css"; }
 
@@ -19,7 +18,7 @@ export class BannerLabelMessage {
     constructor(message, bannerType = BannerLabelMessage.TYPE_INFO, customAppearance = null) {
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -41,8 +40,8 @@ export class BannerLabelMessage {
     }
 
     async postConfig() {
-        this.component = this.templateComponentFactory.create(BannerLabelMessage.COMPONENT_NAME);
-        CanvasStyles.enableStyle(BannerLabelMessage.COMPONENT_NAME);
+        this.component = this.componentFactory.create(BannerLabelMessage);
+        CanvasStyles.enableStyle(BannerLabelMessage.name);
         CSS.from(this.messageContentElement)
             .enable("banner-label-message")
             .enable("banner-label-message-" + this.bannerType);

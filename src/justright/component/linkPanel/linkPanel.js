@@ -13,7 +13,6 @@ const LOG = new Logger("LinkPanel");
 
 export class LinkPanel {
 
-	static COMPONENT_NAME = "LinkPanel";
     static TEMPLATE_URL = "/assets/justrightjs-ui/linkPanel.html";
     static STYLES_URL = "/assets/justrightjs-ui/linkPanel.css";
 
@@ -40,7 +39,7 @@ export class LinkPanel {
     constructor(label, icon, theme = LinkPanel.THEME_DARK, orientation = LinkPanel.ORIENTATION_FLAT, size = LinkPanel.SIZE_SMALL) {
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -68,8 +67,8 @@ export class LinkPanel {
     get events() { return this.eventManager; }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create(LinkPanel.COMPONENT_NAME);
-        CanvasStyles.enableStyle(LinkPanel.COMPONENT_NAME);
+        this.component = this.componentFactory.create(LinkPanel);
+        CanvasStyles.enableStyle(LinkPanel.name);
         
         CSS.from(this.component.get("link"))
             .enable(this.size)

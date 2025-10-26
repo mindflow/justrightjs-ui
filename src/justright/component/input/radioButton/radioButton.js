@@ -13,7 +13,6 @@ const LOG = new Logger("RadioButton");
 
 export class RadioButton {
 
-	static COMPONENT_NAME = "RadioButton";
     static TEMPLATE_URL = "/assets/justrightjs-ui/radioButton.html";
     static STYLES_URL = "/assets/justrightjs-ui/radioButton.css";
     
@@ -27,7 +26,7 @@ export class RadioButton {
     constructor(name, model = null) {
         
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -44,8 +43,8 @@ export class RadioButton {
     }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create(RadioButton.COMPONENT_NAME);
-        CanvasStyles.enableStyle(RadioButton.COMPONENT_NAME);
+        this.component = this.componentFactory.create(RadioButton);
+        CanvasStyles.enableStyle(RadioButton.name);
         this.component.get("radio").setAttributeValue("name",this.name);
 
         if (this.model) {

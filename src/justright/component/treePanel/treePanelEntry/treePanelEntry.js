@@ -11,7 +11,6 @@ const LOG = new Logger("TreePanelEntry");
 
 export class TreePanelEntry {
 
-	static COMPONENT_NAME = "TreePanelEntry";
 	static TEMPLATE_URL = "/assets/justrightjs-ui/treePanelEntry.html";
 	static STYLES_URL = "/assets/justrightjs-ui/treePanelEntry.css";
 
@@ -22,7 +21,7 @@ export class TreePanelEntry {
     constructor(record = null) {
 
 		/** @type {TemplateComponentFactory} */
-		this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+		this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
 		/** @type {Component} */
 		this.component = null;
@@ -47,8 +46,8 @@ export class TreePanelEntry {
     }
 
     async postConfig() {
-		this.component = this.templateComponentFactory.create(TreePanelEntry.COMPONENT_NAME);
-		CanvasStyles.enableStyle(TreePanelEntry.COMPONENT_NAME);
+		this.component = this.componentFactory.create(TreePanelEntry);
+		CanvasStyles.enableStyle(TreePanelEntry.name);
 
 		this.expandToggle.events.listenTo(RadioToggleIcon.EVENT_ENABLED, new Method(this, this.loadSubRecordsClicked));
 		this.expandToggle.events.listenTo(RadioToggleIcon.EVENT_DISABLED, new Method(this, this.hideSubRecordsClicked));

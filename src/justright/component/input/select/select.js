@@ -7,7 +7,6 @@ const LOG = new Logger("Select");
 
 export class Select {
 
-	static COMPONENT_NAME = "Select";
 	static TEMPLATE_URL = "/assets/justrightjs-ui/select.html";
 	static STYLES_URL = "/assets/justrightjs-ui/select.css";
 
@@ -26,7 +25,7 @@ export class Select {
     constructor(name, model = null, options = [], placeholder = Select.DEFAULT_PLACEHOLDER, mandatory = false) {
         
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -52,8 +51,8 @@ export class Select {
     }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create(Select.COMPONENT_NAME);
-        CanvasStyles.enableStyle(Select.COMPONENT_NAME);
+        this.component = this.componentFactory.create(Select);
+        CanvasStyles.enableStyle(Select.name);
 
 		/** @type {SelectElement} */
 		const select = this.component.get("select");

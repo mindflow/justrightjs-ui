@@ -14,7 +14,6 @@ const LOG = new Logger("Button");
 
 export class Button {
 
-	static COMPONENT_NAME = "Button";
     static TEMPLATE_URL = "/assets/justrightjs-ui/button.html";
     static STYLES_URL = "/assets/justrightjs-ui/button.css";
 
@@ -44,7 +43,7 @@ export class Button {
     constructor(label, buttonType = Button.TYPE_PRIMARY, buttonSize = Button.SIZE_MEDIUM, iconClass) {
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -69,8 +68,8 @@ export class Button {
     get events() { return this.eventManager; }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create("Button");
-        CanvasStyles.enableStyle(Button.COMPONENT_NAME);
+        this.component = this.componentFactory.create(Button);
+        CanvasStyles.enableStyle(Button.name);
         if (this.iconClass) {
             this.component.get("button").addChild(HTML.i("", this.iconClass));
         }

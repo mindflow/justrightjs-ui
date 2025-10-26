@@ -6,7 +6,6 @@ const LOG = new Logger("EmailInput");
 
 export class EmailInput extends CommonInput {
 
-    static COMPONENT_NAME = "EmailInput";
     static TEMPLATE_URL = "/assets/justrightjs-ui/emailInput.html";
     static STYLES_URL = "/assets/justrightjs-ui/emailInput.css";
 
@@ -21,7 +20,7 @@ export class EmailInput extends CommonInput {
      */
     constructor(name, model = null, placeholder = TextInput.DEFAULT_PLACEHOLDER, mandatory = false) {
 
-        super(EmailInput.COMPONENT_NAME,
+        super(EmailInput,
             name,
             model,
             new EmailValidator(mandatory, !mandatory),

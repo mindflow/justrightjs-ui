@@ -6,14 +6,13 @@ const LOG = new Logger("LinePanelEntry");
 
 export class LinePanelEntry {
 
-	static COMPONENT_NAME = "LinePanelEntry";
 	static TEMPLATE_URL = "/assets/justrightjs-ui/linePanelEntry.html";
 	static STYLES_URL = "/assets/justrightjs-ui/linePanelEntry.css";
 
     constructor() {
 
 		/** @type {TemplateComponentFactory} */
-		this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+		this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
 		/** @type {Component} */
 		this.component = null;
@@ -21,8 +20,8 @@ export class LinePanelEntry {
     }
 
     async postConfig() {
-		this.component = this.templateComponentFactory.create(LinePanelEntry.COMPONENT_NAME);
-		CanvasStyles.enableStyle(LinePanelEntry.COMPONENT_NAME);
+		this.component = this.componentFactory.create(LinePanelEntry);
+		CanvasStyles.enableStyle(LinePanelEntry.name);
     }
 
 

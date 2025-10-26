@@ -4,7 +4,6 @@ import { InjectionPoint } from "mindi_v1";
 
 export class SlideDeckEntry {
 
-    static COMPONENT_NAME = "SlideDeckEntry";
     static TEMPLATE_URL = "/assets/justrightjs-ui/slideDeckEntry.html";
     static STYLES_URL = "/assets/justrightjs-ui/slideDeckEntry.css";
 
@@ -19,7 +18,7 @@ export class SlideDeckEntry {
 
     constructor() {
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -46,8 +45,8 @@ export class SlideDeckEntry {
     }
 
     async postConfig() {
-        this.component = this.templateComponentFactory.create(SlideDeckEntry.COMPONENT_NAME);
-        CanvasStyles.enableStyle(SlideDeckEntry.COMPONENT_NAME);
+        this.component = this.componentFactory.create(SlideDeckEntry);
+        CanvasStyles.enableStyle(SlideDeckEntry.name);
     }
 
     setIndex(index) {

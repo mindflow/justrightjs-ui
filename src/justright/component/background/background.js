@@ -6,14 +6,13 @@ const LOG = new Logger("Background");
 
 export class Background {
 
-	static COMPONENT_NAME = "Background";
 	static TEMPLATE_URL = "/assets/justrightjs-ui/background.html";
 	static STYLES_URL = "/assets/justrightjs-ui/background.css";
 
     constructor(backgroundImagePath){
 
 		/** @type {TemplateComponentFactory} */
-		this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+		this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
 		/** @type {Component} */
 		this.component = null;
@@ -53,12 +52,12 @@ export class Background {
 	}
 
 	postConfig() {
-		this.component = this.templateComponentFactory.create(Background.COMPONENT_NAME);
+		this.component = this.componentFactory.create(Background);
 		if (this.backgroundImagePath) {
             Style.from(this.component.get("background"))
                 .set("background-image", "url(\"" + this.backgroundImagePath + "\")");
 		}
-		CanvasStyles.enableStyle(Background.COMPONENT_NAME);
+		CanvasStyles.enableStyle(Background.name);
 	}
 
 }

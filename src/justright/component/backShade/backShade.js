@@ -12,7 +12,6 @@ const LOG = new Logger("BackShade");
 
 export class BackShade {
 
-	static COMPONENT_NAME = "BackShade";
 	static TEMPLATE_URL = "/assets/justrightjs-ui/backShade.html";
     static STYLES_URL = "/assets/justrightjs-ui/backShade.css";
 
@@ -22,7 +21,7 @@ export class BackShade {
     constructor(backShadeListeners = new BackShadeListeners()){
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -37,7 +36,7 @@ export class BackShade {
 	}
 
     postConfig() {
-        this.component = this.templateComponentFactory.create(BackShade.COMPONENT_NAME);
+        this.component = this.componentFactory.create(BackShade);
     }
 
     hideAfter(milliSeconds) {
@@ -53,7 +52,7 @@ export class BackShade {
         );
         const disableStylePromise = TimePromise.asPromise(milliSeconds + 1,
             () => {
-                CanvasStyles.disableStyle(BackShade.COMPONENT_NAME, this.component.componentIndex);
+                CanvasStyles.disableStyle(BackShade.name, this.component.componentIndex);
             }
         );
         return Promise.all([hidePromise, disableStylePromise]);
@@ -64,7 +63,7 @@ export class BackShade {
             return new Promise((resolve, reject) => {resolve();});
         }
         this.hidden = false;
-        CanvasStyles.enableStyle(BackShade.COMPONENT_NAME, this.component.componentIndex);
+        CanvasStyles.enableStyle(BackShade.name, this.component.componentIndex);
         this.component.get("backShade").setStyle("display", "block");
         return TimePromise.asPromise(100,
             () => { 

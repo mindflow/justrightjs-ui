@@ -14,7 +14,6 @@ const LOG = new Logger("RadioToggleIcon");
 
 export class RadioToggleIcon {
 
-    static COMPONENT_NAME = "RadioToggleIcon";
     static TEMPLATE_URL = "/assets/justrightjs-ui/radioToggleIcon.html";
     static STYLES_URL = "/assets/justrightjs-ui/radioToggleIcon.css";
     
@@ -28,7 +27,7 @@ export class RadioToggleIcon {
     constructor(name = "?", model = null, icon = "fas fa-question", label = null) {
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -56,8 +55,8 @@ export class RadioToggleIcon {
     }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create(RadioToggleIcon.COMPONENT_NAME);
-        CanvasStyles.enableStyle(RadioToggleIcon.COMPONENT_NAME);
+        this.component = this.componentFactory.create(RadioToggleIcon);
+        CanvasStyles.enableStyle(RadioToggleIcon.name);
 
         const radio = this.component.get("radio");
         radio.setAttributeValue("name", this.name);

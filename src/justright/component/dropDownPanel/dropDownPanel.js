@@ -15,7 +15,6 @@ const LOG = new Logger("DropDownPanel");
 
 export class DropDownPanel {
 
-	static COMPONENT_NAME = "DropDownPanel";
     static TEMPLATE_URL = "/assets/justrightjs-ui/dropDownPanel.html";
     static STYLES_URL = "/assets/justrightjs-ui/dropDownPanel.css";
 
@@ -50,7 +49,7 @@ export class DropDownPanel {
     constructor(iconClass, type = DropDownPanel.TYPE_DARK, size = DropDownPanel.SIZE_MEDIUM, orientation = DropDownPanel.ORIENTATION_LEFT) {
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -70,8 +69,8 @@ export class DropDownPanel {
     }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create(DropDownPanel.COMPONENT_NAME);
-        CanvasStyles.enableStyle(DropDownPanel.COMPONENT_NAME);
+        this.component = this.componentFactory.create(DropDownPanel);
+        CanvasStyles.enableStyle(DropDownPanel.name);
         this.component.get("button").setChild(HTML.i("", this.iconClass));
 
         CSS.from(this.component.get("button"))

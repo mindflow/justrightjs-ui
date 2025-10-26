@@ -15,7 +15,6 @@ const LOG = new Logger("RadioToggleSwitch");
 
 export class RadioToggleSwitch {
 
-    static COMPONENT_NAME = "RadioToggleSwitch";
     static TEMPLATE_URL = "/assets/justrightjs-ui/radioToggleSwitch.html";
     static STYLES_URL = "/assets/justrightjs-ui/radioToggleSwitch.css";
     
@@ -30,7 +29,7 @@ export class RadioToggleSwitch {
     constructor(model = null) {
         
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -47,8 +46,8 @@ export class RadioToggleSwitch {
     }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create(RadioToggleSwitch.COMPONENT_NAME);
-        CanvasStyles.enableStyle(RadioToggleSwitch.COMPONENT_NAME);
+        this.component = this.componentFactory.create(RadioToggleSwitch);
+        CanvasStyles.enableStyle(RadioToggleSwitch.name);
 
         if (this.model) {
             InputElementDataBinding.link(this.model).to(this.component.get("checkbox"));

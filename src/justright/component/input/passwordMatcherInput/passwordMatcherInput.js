@@ -16,7 +16,6 @@ const LOG = new Logger("PasswordMatcherInput");
 
 export class PasswordMatcherInput {
 
-	static COMPONENT_NAME = "PasswordMatcherInput";
     static TEMPLATE_URL = "/assets/justrightjs-ui/passwordMatcherInput.html";
     static STYLES_URL = "/assets/justrightjs-ui/passwordMatcherInput.css";
 
@@ -37,7 +36,7 @@ export class PasswordMatcherInput {
         mandatory = false) {
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -65,9 +64,9 @@ export class PasswordMatcherInput {
     }
 
     async postConfig() {
-        this.component = await this.templateComponentFactory.create(PasswordMatcherInput.COMPONENT_NAME);
+        this.component = this.componentFactory.create(PasswordMatcherInput);
 
-        CanvasStyles.enableStyle(PasswordMatcherInput.COMPONENT_NAME);
+        CanvasStyles.enableStyle(PasswordMatcherInput.name);
 
         this.component.setChild("passwordMatcherInputValue",this.passwordMatcherInputValue.component);
         this.component.setChild("passwordMatcherInputControl",this.passwordMatcherInputControl.component);

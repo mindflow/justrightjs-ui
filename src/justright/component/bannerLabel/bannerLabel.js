@@ -6,13 +6,12 @@ import { BannerLabelMessage } from "./bannerLabelMessage/bannerLabelMessage.js";
 
 export class BannerLabel {
 
-	static COMPONENT_NAME = "BannerLabel";
     static TEMPLATE_URL = "/assets/justrightjs-ui/bannerLabel.html";
     static STYLES_URL = "/assets/justrightjs-ui/bannerLabel.css";
 
     constructor() {
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -38,8 +37,8 @@ export class BannerLabel {
     }
 
     async postConfig() {
-        this.component = this.templateComponentFactory.create(BannerLabel.COMPONENT_NAME);
-        CanvasStyles.enableStyle(BannerLabel.COMPONENT_NAME);
+        this.component = this.componentFactory.create(BannerLabel);
+        CanvasStyles.enableStyle(BannerLabel.name);
         this.success.hide();
         this.warning.hide();
         this.error.hide();

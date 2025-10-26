@@ -7,14 +7,13 @@ const LOG = new Logger("BackgroundVideo");
 
 export class BackgroundVideo {
 
-	static COMPONENT_NAME = "BackgroundVideo";
 	static TEMPLATE_URL = "/assets/justrightjs-ui/backgroundVideo.html";
 	static STYLES_URL = "/assets/justrightjs-ui/backgroundVideo.css";
 
     constructor(videoSrc){
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
 		/** @type {Component} */
 		this.component = null;
@@ -28,8 +27,8 @@ export class BackgroundVideo {
 	}
 
 	postConfig() {
-		this.component = this.templateComponentFactory.create(BackgroundVideo.COMPONENT_NAME);
-		CanvasStyles.enableStyle(BackgroundVideo.COMPONENT_NAME);
+		this.component = this.componentFactory.create(BackgroundVideo);
+		CanvasStyles.enableStyle(BackgroundVideo.name);
 
         this.component.get("source").setAttributeValue("src", this.videoSrc);
 	}

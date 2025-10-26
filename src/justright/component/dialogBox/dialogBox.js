@@ -16,7 +16,6 @@ const LOG = new Logger("DialogBox");
 
 export class DialogBox {
 
-	static COMPONENT_NAME = "DialogBox";
     static TEMPLATE_URL = "/assets/justrightjs-ui/dialogBox.html";
     static STYLES_URL = "/assets/justrightjs-ui/dialogBox.css";
     
@@ -28,7 +27,7 @@ export class DialogBox {
     constructor(defaultOptions = []){
 
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
 		/** @type {Component} */
         this.component = null;
@@ -55,7 +54,7 @@ export class DialogBox {
     }
     
     postConfig() {
-        this.component = this.templateComponentFactory.create(DialogBox.COMPONENT_NAME);
+        this.component = this.componentFactory.create(DialogBox);
         this.component.set("backShadeContainer", this.backShade.component);
         this.component.get("closeButton").listenTo("click", new Method(this, this.close));
     }
@@ -114,7 +113,7 @@ export class DialogBox {
         );
         const disableStylePromise = TimePromise.asPromise(201, () => {
                 this.getDialogBox().remove();
-                CanvasStyles.disableStyle(DialogBox.COMPONENT_NAME, this.component.componentIndex);
+                CanvasStyles.disableStyle(DialogBox.name, this.component.componentIndex);
             }
         );
         this.options = this.defaultOptions;
@@ -144,7 +143,7 @@ export class DialogBox {
             return new Promise((resolve, reject) => {resolve();});
         }
         this.hidden = false;
-        CanvasStyles.enableStyle(DialogBox.COMPONENT_NAME, this.component.componentIndex);
+        CanvasStyles.enableStyle(DialogBox.name, this.component.componentIndex);
         this.backShade.show();
         this.getDialogBoxOverlay().setAttributeValue("class", "dialogbox-overlay dialogbox-overlay-fade dialogbox-overlay-display-block");
         CanvasRoot.mouseDownElement = this.component.get("dialogBoxContent");

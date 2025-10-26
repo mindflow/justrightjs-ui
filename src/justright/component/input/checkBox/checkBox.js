@@ -11,7 +11,6 @@ const LOG = new Logger("CheckBox");
 
 export class CheckBox {
 
-	static COMPONENT_NAME = "CheckBox";
     static TEMPLATE_URL = "/assets/justrightjs-ui/checkBox.html";
     static STYLES_URL = "/assets/justrightjs-ui/checkBox.css";
     /**
@@ -22,7 +21,7 @@ export class CheckBox {
     constructor(name, model = null) {
         
         /** @type {TemplateComponentFactory} */
-        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -36,8 +35,8 @@ export class CheckBox {
     }
 
     postConfig() {
-        this.component = this.templateComponentFactory.create(CheckBox.COMPONENT_NAME);
-        CanvasStyles.enableStyle(CheckBox.COMPONENT_NAME);
+        this.component = this.componentFactory.create(CheckBox);
+        CanvasStyles.enableStyle(CheckBox.name);
         this.component.get("checkBox").setAttributeValue("name",this.name);
 
         if(this.model) {
