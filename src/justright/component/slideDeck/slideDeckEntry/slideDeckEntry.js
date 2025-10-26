@@ -1,5 +1,5 @@
 import { TimePromise } from "coreutil_v1";
-import { BaseElement, CanvasStyles, Component, ComponentFactory, CSS } from "justright_core_v1";
+import { BaseElement, CanvasStyles, Component, TemplateComponentFactory, CSS } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 
 export class SlideDeckEntry {
@@ -18,8 +18,8 @@ export class SlideDeckEntry {
     static CONTENT_EXISTANCE_REMOVED = "existance-removed";
 
     constructor() {
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -46,7 +46,7 @@ export class SlideDeckEntry {
     }
 
     async postConfig() {
-        this.component = this.componentFactory.create(SlideDeckEntry.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(SlideDeckEntry.COMPONENT_NAME);
         CanvasStyles.enableStyle(SlideDeckEntry.COMPONENT_NAME);
     }
 

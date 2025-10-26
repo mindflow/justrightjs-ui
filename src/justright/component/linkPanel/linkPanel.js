@@ -1,5 +1,5 @@
 import {
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     Component,
     EventManager,
@@ -39,8 +39,8 @@ export class LinkPanel {
      */
     constructor(label, icon, theme = LinkPanel.THEME_DARK, orientation = LinkPanel.ORIENTATION_FLAT, size = LinkPanel.SIZE_SMALL) {
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -68,7 +68,7 @@ export class LinkPanel {
     get events() { return this.eventManager; }
 
     postConfig() {
-        this.component = this.componentFactory.create(LinkPanel.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(LinkPanel.COMPONENT_NAME);
         CanvasStyles.enableStyle(LinkPanel.COMPONENT_NAME);
         
         CSS.from(this.component.get("link"))

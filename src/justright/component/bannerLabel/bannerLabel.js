@@ -1,5 +1,5 @@
 import { Method } from "coreutil_v1";
-import { CanvasStyles, ComponentFactory } from "justright_core_v1";
+import { CanvasStyles, TemplateComponentFactory } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CustomAppearance } from "../customAppearance.js";
 import { BannerLabelMessage } from "./bannerLabelMessage/bannerLabelMessage.js";
@@ -11,8 +11,8 @@ export class BannerLabel {
     static STYLES_URL = "/assets/justrightjs-ui/bannerLabel.css";
 
     constructor() {
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -38,7 +38,7 @@ export class BannerLabel {
     }
 
     async postConfig() {
-        this.component = this.componentFactory.create(BannerLabel.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(BannerLabel.COMPONENT_NAME);
         CanvasStyles.enableStyle(BannerLabel.COMPONENT_NAME);
         this.success.hide();
         this.warning.hide();

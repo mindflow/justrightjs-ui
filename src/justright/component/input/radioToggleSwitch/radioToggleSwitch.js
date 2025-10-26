@@ -1,5 +1,5 @@
 import {
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     Component,
     InputElementDataBinding,
@@ -29,8 +29,8 @@ export class RadioToggleSwitch {
      */
     constructor(model = null) {
         
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -47,7 +47,7 @@ export class RadioToggleSwitch {
     }
 
     postConfig() {
-        this.component = this.componentFactory.create(RadioToggleSwitch.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(RadioToggleSwitch.COMPONENT_NAME);
         CanvasStyles.enableStyle(RadioToggleSwitch.COMPONENT_NAME);
 
         if (this.model) {

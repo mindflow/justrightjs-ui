@@ -1,6 +1,6 @@
 import { Logger, Method } from "coreutil_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
-import { Component, ComponentFactory, CanvasStyles, EventManager, StateManager } from "justright_core_v1";
+import { Component, TemplateComponentFactory, CanvasStyles, EventManager, StateManager } from "justright_core_v1";
 import { Panel } from "../panel/panel.js";
 import { LinePanelEntry } from "./treePanelEntry/linePanelEntry.js";
 import { ContainerEvent } from "containerbridge_v1";
@@ -23,8 +23,8 @@ export class LinePanel {
 	 */
 	constructor(buttonPanel = null) {
 
-		/** @type {ComponentFactory} */
-		this.componentFactory = InjectionPoint.instance(ComponentFactory);
+		/** @type {TemplateComponentFactory} */
+		this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 		
 		/** @type {Component} */
 		this.component = null;
@@ -47,7 +47,7 @@ export class LinePanel {
 	}
 
 	async postConfig() {
-		this.component = this.componentFactory.create(LinePanel.COMPONENT_NAME);
+		this.component = this.templateComponentFactory.create(LinePanel.COMPONENT_NAME);
 		CanvasStyles.enableStyle(LinePanel.COMPONENT_NAME);
 
 		if (this.buttonPanel) {

@@ -1,5 +1,5 @@
 import {
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     Component,
     InputElementDataBinding,
@@ -26,8 +26,8 @@ export class RadioButton {
      */
     constructor(name, model = null) {
         
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -44,7 +44,7 @@ export class RadioButton {
     }
 
     postConfig() {
-        this.component = this.componentFactory.create(RadioButton.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(RadioButton.COMPONENT_NAME);
         CanvasStyles.enableStyle(RadioButton.COMPONENT_NAME);
         this.component.get("radio").setAttributeValue("name",this.name);
 

@@ -1,5 +1,5 @@
 import {
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     Component,
     EventManager,
@@ -46,8 +46,8 @@ export class ToggleIcon {
      */
     constructor(name = "?", model = null, label = null) {
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -87,7 +87,7 @@ export class ToggleIcon {
     get events() { return this.eventManager; }
 
     postConfig() {
-        this.component = this.componentFactory.create("ToggleIcon");
+        this.component = this.templateComponentFactory.create("ToggleIcon");
         CanvasStyles.enableStyle(ToggleIcon.COMPONENT_NAME);
 
         const checkbox = this.component.get("checkbox");

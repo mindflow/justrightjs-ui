@@ -1,5 +1,5 @@
 import { 
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     AndValidatorSet,
     Component,
@@ -36,8 +36,8 @@ export class PasswordMatcherInput {
         controlPlaceholder = PasswordMatcherInput.DEFAULT_CONTROL_PLACEHOLDER,
         mandatory = false) {
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -65,7 +65,7 @@ export class PasswordMatcherInput {
     }
 
     async postConfig() {
-        this.component = await this.componentFactory.create(PasswordMatcherInput.COMPONENT_NAME);
+        this.component = await this.templateComponentFactory.create(PasswordMatcherInput.COMPONENT_NAME);
 
         CanvasStyles.enableStyle(PasswordMatcherInput.COMPONENT_NAME);
 

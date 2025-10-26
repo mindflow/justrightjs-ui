@@ -1,5 +1,5 @@
 import {
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     Component,
     CanvasRoot,
@@ -49,8 +49,8 @@ export class DropDownPanel {
      */
     constructor(iconClass, type = DropDownPanel.TYPE_DARK, size = DropDownPanel.SIZE_MEDIUM, orientation = DropDownPanel.ORIENTATION_LEFT) {
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -70,7 +70,7 @@ export class DropDownPanel {
     }
 
     postConfig() {
-        this.component = this.componentFactory.create(DropDownPanel.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(DropDownPanel.COMPONENT_NAME);
         CanvasStyles.enableStyle(DropDownPanel.COMPONENT_NAME);
         this.component.get("button").setChild(HTML.i("", this.iconClass));
 

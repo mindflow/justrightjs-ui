@@ -1,6 +1,6 @@
 import { Logger, Method } from "coreutil_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
-import { Component, ComponentFactory, CanvasStyles, EventManager, SimpleElement } from "justright_core_v1";
+import { Component, TemplateComponentFactory, CanvasStyles, EventManager, SimpleElement } from "justright_core_v1";
 import { TreePanelEntry } from "./treePanelEntry/treePanelEntry.js";
 import { Panel } from "../panel/panel.js";
 import { ContainerEvent } from "containerbridge_v1";
@@ -24,8 +24,8 @@ export class TreePanel {
 	 */
 	constructor(buttonPanel = null) {
 
-		/** @type {ComponentFactory} */
-		this.componentFactory = InjectionPoint.instance(ComponentFactory);
+		/** @type {TemplateComponentFactory} */
+		this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 		
 		/** @type {Component} */
 		this.component = null;
@@ -45,7 +45,7 @@ export class TreePanel {
 	}
 
 	async postConfig() {
-		this.component = this.componentFactory.create(TreePanel.COMPONENT_NAME);
+		this.component = this.templateComponentFactory.create(TreePanel.COMPONENT_NAME);
 		CanvasStyles.enableStyle(TreePanel.COMPONENT_NAME);
 
 		if (this.buttonPanel) {

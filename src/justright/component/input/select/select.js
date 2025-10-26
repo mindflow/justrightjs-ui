@@ -1,5 +1,5 @@
 import { Logger, Method } from "coreutil_v1";
-import { CanvasStyles, Component, ComponentFactory, EventManager, InputElementDataBinding, OptionElement, SelectElement } from "justright_core_v1";
+import { CanvasStyles, Component, TemplateComponentFactory, EventManager, InputElementDataBinding, OptionElement, SelectElement } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CommonEvents } from "../../common/commonEvents";
 
@@ -25,8 +25,8 @@ export class Select {
      */
     constructor(name, model = null, options = [], placeholder = Select.DEFAULT_PLACEHOLDER, mandatory = false) {
         
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -52,7 +52,7 @@ export class Select {
     }
 
     postConfig() {
-        this.component = this.componentFactory.create(Select.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(Select.COMPONENT_NAME);
         CanvasStyles.enableStyle(Select.COMPONENT_NAME);
 
 		/** @type {SelectElement} */

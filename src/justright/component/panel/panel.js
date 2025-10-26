@@ -1,4 +1,4 @@
-import { ComponentFactory, Component, CanvasStyles, CSS } from "justright_core_v1";
+import { TemplateComponentFactory, Component, CanvasStyles, CSS } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger } from "coreutil_v1";
 
@@ -40,8 +40,8 @@ export class Panel {
         size = Panel.PARAMETER_STYLE_SIZE_AUTO,
         options = []) {
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -61,7 +61,7 @@ export class Panel {
     }
 
     postConfig() {
-        this.component = this.componentFactory.create(Panel.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(Panel.COMPONENT_NAME);
         CanvasStyles.enableStyle(Panel.COMPONENT_NAME);
 
         CSS.from(this.component.get("panel"))

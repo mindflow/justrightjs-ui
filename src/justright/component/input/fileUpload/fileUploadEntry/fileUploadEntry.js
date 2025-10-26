@@ -1,6 +1,6 @@
 import { ContainerEvent, ContainerFileData } from "containerbridge_v1";
 import { Method } from "coreutil_v1";
-import { CanvasStyles, Component, ComponentFactory, EventManager } from "justright_core_v1";
+import { CanvasStyles, Component, TemplateComponentFactory, EventManager } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 
 export class FileUploadEntry {
@@ -17,8 +17,8 @@ export class FileUploadEntry {
      */
     constructor(file) {
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
         
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -40,7 +40,7 @@ export class FileUploadEntry {
     }
     
     async postConfig() {
-        this.component = this.componentFactory.create(FileUploadEntry.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(FileUploadEntry.COMPONENT_NAME);
         CanvasStyles.enableStyle(FileUploadEntry.COMPONENT_NAME);
         
         const fileNameElement = this.component.get("fileName");

@@ -1,5 +1,5 @@
 import {
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     Component
 } from "justright_core_v1";
@@ -29,8 +29,8 @@ export class BannerMessage {
      */
     constructor(message, bannerType = BannerMessage.TYPE_INFO, closeable = false, customAppearance = null) {
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -56,7 +56,7 @@ export class BannerMessage {
     }
 
     postConfig() {
-        this.component = this.componentFactory.create("BannerMessage");
+        this.component = this.templateComponentFactory.create("BannerMessage");
         this.component.get("bannerMessageHeader").setChild("Alert");
         this.component.get("bannerMessageMessage").setChild(this.message);
         this.applyClasses("banner-message fade");

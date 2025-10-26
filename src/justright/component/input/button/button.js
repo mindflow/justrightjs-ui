@@ -1,5 +1,5 @@
 import {
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     Component,
     EventManager,
@@ -43,8 +43,8 @@ export class Button {
      */
     constructor(label, buttonType = Button.TYPE_PRIMARY, buttonSize = Button.SIZE_MEDIUM, iconClass) {
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -69,7 +69,7 @@ export class Button {
     get events() { return this.eventManager; }
 
     postConfig() {
-        this.component = this.componentFactory.create("Button");
+        this.component = this.templateComponentFactory.create("Button");
         CanvasStyles.enableStyle(Button.COMPONENT_NAME);
         if (this.iconClass) {
             this.component.get("button").addChild(HTML.i("", this.iconClass));

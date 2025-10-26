@@ -1,4 +1,4 @@
-import { VideoElement, CanvasStyles, Component, ComponentFactory } from "justright_core_v1";
+import { VideoElement, CanvasStyles, Component, TemplateComponentFactory } from "justright_core_v1";
 import { Logger } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 import { ContainerAsync } from "containerbridge_v1"
@@ -13,8 +13,8 @@ export class BackgroundVideo {
 
     constructor(videoSrc){
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
 		/** @type {Component} */
 		this.component = null;
@@ -28,7 +28,7 @@ export class BackgroundVideo {
 	}
 
 	postConfig() {
-		this.component = this.componentFactory.create(BackgroundVideo.COMPONENT_NAME);
+		this.component = this.templateComponentFactory.create(BackgroundVideo.COMPONENT_NAME);
 		CanvasStyles.enableStyle(BackgroundVideo.COMPONENT_NAME);
 
         this.component.get("source").setAttributeValue("src", this.videoSrc);

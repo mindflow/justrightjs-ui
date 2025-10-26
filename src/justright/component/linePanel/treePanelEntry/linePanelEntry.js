@@ -1,5 +1,5 @@
 import { Logger } from "coreutil_v1";
-import { CanvasStyles, Component, ComponentFactory } from "justright_core_v1";
+import { CanvasStyles, Component, TemplateComponentFactory } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 
 const LOG = new Logger("LinePanelEntry");
@@ -12,8 +12,8 @@ export class LinePanelEntry {
 
     constructor() {
 
-		/** @type {ComponentFactory} */
-		this.componentFactory = InjectionPoint.instance(ComponentFactory);
+		/** @type {TemplateComponentFactory} */
+		this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
 		/** @type {Component} */
 		this.component = null;
@@ -21,7 +21,7 @@ export class LinePanelEntry {
     }
 
     async postConfig() {
-		this.component = this.componentFactory.create(LinePanelEntry.COMPONENT_NAME);
+		this.component = this.templateComponentFactory.create(LinePanelEntry.COMPONENT_NAME);
 		CanvasStyles.enableStyle(LinePanelEntry.COMPONENT_NAME);
     }
 

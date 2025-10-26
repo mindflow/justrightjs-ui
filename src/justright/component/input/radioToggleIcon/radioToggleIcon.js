@@ -1,5 +1,5 @@
 import {
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     Component,
     EventManager,
@@ -27,8 +27,8 @@ export class RadioToggleIcon {
      */
     constructor(name = "?", model = null, icon = "fas fa-question", label = null) {
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -56,7 +56,7 @@ export class RadioToggleIcon {
     }
 
     postConfig() {
-        this.component = this.componentFactory.create(RadioToggleIcon.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(RadioToggleIcon.COMPONENT_NAME);
         CanvasStyles.enableStyle(RadioToggleIcon.COMPONENT_NAME);
 
         const radio = this.component.get("radio");

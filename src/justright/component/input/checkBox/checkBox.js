@@ -1,5 +1,5 @@
 import {
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     Component,
     InputElementDataBinding
@@ -21,8 +21,8 @@ export class CheckBox {
      */
     constructor(name, model = null) {
         
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -36,7 +36,7 @@ export class CheckBox {
     }
 
     postConfig() {
-        this.component = this.componentFactory.create(CheckBox.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(CheckBox.COMPONENT_NAME);
         CanvasStyles.enableStyle(CheckBox.COMPONENT_NAME);
         this.component.get("checkBox").setAttributeValue("name",this.name);
 

@@ -1,5 +1,5 @@
 import { Logger, Method } from "coreutil_v1";
-import { CanvasStyles, Component, ComponentFactory, EventManager, SimpleElement, StateManager } from "justright_core_v1";
+import { CanvasStyles, Component, TemplateComponentFactory, EventManager, SimpleElement, StateManager } from "justright_core_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
 import { Panel } from "../../panel/panel.js";
 import { RadioToggleIcon } from "../../input/radioToggleIcon/radioToggleIcon.js";
@@ -21,8 +21,8 @@ export class TreePanelEntry {
 
     constructor(record = null) {
 
-		/** @type {ComponentFactory} */
-		this.componentFactory = InjectionPoint.instance(ComponentFactory);
+		/** @type {TemplateComponentFactory} */
+		this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
 		/** @type {Component} */
 		this.component = null;
@@ -47,7 +47,7 @@ export class TreePanelEntry {
     }
 
     async postConfig() {
-		this.component = this.componentFactory.create(TreePanelEntry.COMPONENT_NAME);
+		this.component = this.templateComponentFactory.create(TreePanelEntry.COMPONENT_NAME);
 		CanvasStyles.enableStyle(TreePanelEntry.COMPONENT_NAME);
 
 		this.expandToggle.events.listenTo(RadioToggleIcon.EVENT_ENABLED, new Method(this, this.loadSubRecordsClicked));

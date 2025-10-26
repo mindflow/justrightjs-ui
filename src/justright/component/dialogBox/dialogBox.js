@@ -1,6 +1,6 @@
 import {
     Component,
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     CanvasRoot,
     Navigation
@@ -27,8 +27,8 @@ export class DialogBox {
      */
     constructor(defaultOptions = []){
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
 		/** @type {Component} */
         this.component = null;
@@ -55,7 +55,7 @@ export class DialogBox {
     }
     
     postConfig() {
-        this.component = this.componentFactory.create(DialogBox.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(DialogBox.COMPONENT_NAME);
         this.component.set("backShadeContainer", this.backShade.component);
         this.component.get("closeButton").listenTo("click", new Method(this, this.close));
     }

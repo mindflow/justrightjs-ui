@@ -1,5 +1,5 @@
 import { Method, TimePromise } from "coreutil_v1";
-import { CanvasStyles, ComponentFactory, CSS, EventManager, Style } from "justright_core_v1";
+import { CanvasStyles, TemplateComponentFactory, CSS, EventManager, Style } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CustomAppearance } from "../../customAppearance.js";
 
@@ -18,8 +18,8 @@ export class BannerLabelMessage {
 
     constructor(message, bannerType = BannerLabelMessage.TYPE_INFO, customAppearance = null) {
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -41,7 +41,7 @@ export class BannerLabelMessage {
     }
 
     async postConfig() {
-        this.component = this.componentFactory.create(BannerLabelMessage.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(BannerLabelMessage.COMPONENT_NAME);
         CanvasStyles.enableStyle(BannerLabelMessage.COMPONENT_NAME);
         CSS.from(this.messageContentElement)
             .enable("banner-label-message")

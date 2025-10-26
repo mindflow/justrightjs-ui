@@ -1,4 +1,4 @@
-import { Component, ComponentFactory, CanvasStyles, Style } from "justright_core_v1";
+import { Component, TemplateComponentFactory, CanvasStyles, Style, HtmlBuilder, StylesheetBuilder } from "justright_core_v1";
 import { Logger } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 
@@ -11,8 +11,9 @@ export class Background {
 	static STYLES_URL = "/assets/justrightjs-ui/background.css";
 
     constructor(backgroundImagePath){
-		/** @type {ComponentFactory} */
-		this.componentFactory = InjectionPoint.instance(ComponentFactory);
+
+		/** @type {TemplateComponentFactory} */
+		this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
 		/** @type {Component} */
 		this.component = null;
@@ -25,8 +26,34 @@ export class Background {
 		this.component.set(key,val);
 	}
 
+	/**
+	 * 
+	 * @returns {BaseElement}
+	 */
+	static getComponentElement() {
+		return HtmlBuilder.create()
+			.add("div", "id:background", "class:background").open()
+				.add("div")
+			.close()
+			.build();
+	}
+
+	static getComponentStylesheet() {
+		return StylesheetBuilder.create()
+			.add(".background")
+				.set("position", "fixed")
+				.set("top", "0")
+				.set("left", "0")
+				.set("width", "100%")
+				.set("height", "100%")
+				.set("z-index", "-1")
+				.set("background-size", "cover")
+				.set("background-position", "center")
+			.build();
+	}
+
 	postConfig() {
-		this.component = this.componentFactory.create(Background.COMPONENT_NAME);
+		this.component = this.templateComponentFactory.create(Background.COMPONENT_NAME);
 		if (this.backgroundImagePath) {
             Style.from(this.component.get("background"))
                 .set("background-image", "url(\"" + this.backgroundImagePath + "\")");

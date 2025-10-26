@@ -1,5 +1,5 @@
 import {
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     Component,
     CanvasRoot,
@@ -49,8 +49,8 @@ export class PopUpPanel {
      */
     constructor(iconClass, type = PopUpPanel.TYPE_DARK, size = PopUpPanel.SIZE_MEDIUM, orientation = PopUpPanel.ORIENTATION_LEFT) {
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -70,7 +70,7 @@ export class PopUpPanel {
     }
 
     postConfig() {
-        this.component = this.componentFactory.create(PopUpPanel.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(PopUpPanel.COMPONENT_NAME);
         CanvasStyles.enableStyle(PopUpPanel.COMPONENT_NAME);
         this.component.get("button").setChild(HTML.i("", this.iconClass));
 

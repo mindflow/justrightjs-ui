@@ -1,6 +1,6 @@
 import {
     Component,
-    ComponentFactory,
+    TemplateComponentFactory,
     CanvasStyles,
     BaseElement
 } from "justright_core_v1";
@@ -21,8 +21,8 @@ export class BackShade {
      */
     constructor(backShadeListeners = new BackShadeListeners()){
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -37,7 +37,7 @@ export class BackShade {
 	}
 
     postConfig() {
-        this.component = this.componentFactory.create(BackShade.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(BackShade.COMPONENT_NAME);
     }
 
     hideAfter(milliSeconds) {

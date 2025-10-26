@@ -1,5 +1,5 @@
 import { List, Map } from "coreutil_v1";
-import { CanvasStyles, Component, ComponentFactory, EventManager } from "justright_core_v1";
+import { CanvasStyles, Component, TemplateComponentFactory, EventManager } from "justright_core_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
 import { SlideDeckEntry } from "./slideDeckEntry/slideDeckEntry.js";
 
@@ -17,8 +17,8 @@ export class SlideDeck {
      */
     constructor(componentMap) {
 
-        /** @type {ComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(ComponentFactory);
+        /** @type {TemplateComponentFactory} */
+        this.templateComponentFactory = InjectionPoint.instance(TemplateComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -46,7 +46,7 @@ export class SlideDeck {
     }
 
     async postConfig() {
-        this.component = this.componentFactory.create(SlideDeck.COMPONENT_NAME);
+        this.component = this.templateComponentFactory.create(SlideDeck.COMPONENT_NAME);
         CanvasStyles.enableStyle(SlideDeck.COMPONENT_NAME);
 
         if (this.componentMap) {
