@@ -15,8 +15,8 @@ const LOG = new Logger("BackShade");
 
 export class BackShade {
 
-	static TEMPLATE_URL = "/assets/justrightjs-ui/backShade.html";
-	static STYLES_URL = "/assets/justrightjs-ui/backShade.css";
+	//static TEMPLATE_URL = "/assets/justrightjs-ui/backShade.html";
+	//static STYLES_URL = "/assets/justrightjs-ui/backShade.css";
 
     /**
      * 
@@ -24,7 +24,7 @@ export class BackShade {
     constructor(backShadeListeners = new BackShadeListeners()){
 
         /** @type {TemplateComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {Component} */
         this.component = null;
