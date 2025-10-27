@@ -1,9 +1,9 @@
 import { Component,
-	TemplateComponentFactory,
 	CanvasStyles,
 	Style,
 	StylesheetBuilder,
-	ComponentBuilder
+	ComponentBuilder,
+	InlineComponentFactory
 } from "justright_core_v1";
 import { Logger } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
@@ -12,13 +12,10 @@ const LOG = new Logger("Background");
 
 export class Background {
 
-	static TEMPLATE_URL = "/assets/justrightjs-ui/background.html";
-	static STYLES_URL = "/assets/justrightjs-ui/background.css";
-
     constructor(backgroundImagePath){
 
-		/** @type {TemplateComponentFactory} */
-		this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+		/** @type {InlineComponentFactory} */
+		this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
 		/** @type {Component} */
 		this.component = null;

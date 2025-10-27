@@ -4,8 +4,7 @@ import {
     BaseElement,
     StylesheetBuilder,
     InlineComponentFactory,
-    ComponentBuilder,
-    TemplateComponentFactory
+    ComponentBuilder
 } from "justright_core_v1";
 import { Logger, TimePromise } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
@@ -15,15 +14,12 @@ const LOG = new Logger("BackShade");
 
 export class BackShade {
 
-	//static TEMPLATE_URL = "/assets/justrightjs-ui/backShade.html";
-	//static STYLES_URL = "/assets/justrightjs-ui/backShade.css";
-
     /**
      * @param {BackShadeListeners} backShadeListeners
      */
     constructor(backShadeListeners = new BackShadeListeners()){
 
-        /** @type {TemplateComponentFactory} */
+        /** @type {InlineComponentFactory} */
         this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {Component} */
