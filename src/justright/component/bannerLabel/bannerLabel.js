@@ -40,21 +40,27 @@ export class BannerLabel {
      */
     static buildStylesheet(stylesheetBuilder) {
         return stylesheetBuilder
-            .add(".banner-label")
-                .set("color", "white")
-                .set("width", "100%")
-                .set("overflow", "hidden")
-                .set("position", "relative")
+            .selector(".banner-label")
+            .open()
+                .style("color", "white")
+                .style("width", "100%")
+                .style("overflow", "hidden")
+                .style("position", "relative")
+            .close()
 
-            .add(".banner-label-visible")
-                .set("max-height", "50px")
-                .set("visibility", "visible")
-                .set("transition", "max-height .3s, visibility 0s")
+            .selector(".banner-label-visible")
+            .open()
+                .style("max-height", "50px")
+                .style("visibility", "visible")
+                .style("transition", "max-height .3s, visibility 0s")
+            .close()
 
-            .add(".banner-label-hidden")
-                .set("max-height", "0px")
-                .set("visibility", "hidden")
-                .set("transition", "max-height .3s .3s, visibility 0s .3s")
+            .selector(".banner-label-hidden")
+            .open()
+                .style("max-height", "0px")
+                .style("visibility", "hidden")
+                .style("transition", "max-height .3s .3s, visibility 0s .3s")
+            .close()
 
             .build();
     }

@@ -1,7 +1,7 @@
 import { Method, TimePromise } from "coreutil_v1";
 import {
     CanvasStyles,
-    StyleClassAccessor,
+    StyleSelectorAccessor,
     EventManager,
     StyleAccessor,
     Component,
@@ -52,77 +52,115 @@ export class BannerLabelMessage {
      */
     static buildStylesheet(stylesheetBuilder) {
         return stylesheetBuilder
-            .add(".banner-label-message")
-                .set("color", "white")
-                .set("width", "100%")
+            .selector(".banner-label-message")
+            .open()
+                .style("color", "white")
+                .style("width", "100%")
+            .close()
 
-            .add(".banner-label-message-visible")
-                .set("opacity", "0.8")
-                .set("transition", "opacity .5s .1s")
+            .selector(".banner-label-message-visible")
+            .open()
+                .style("opacity", "0.8")
+                .style("transition", "opacity .5s .1s")
+            .close()
 
-            .add(".banner-label-message-hidden")
-                .set("opacity", "0")
-                .set("transition", "opacity .5s 0s")
+            .selector(".banner-label-message-hidden")
+            .open()
+                .style("opacity", "0")
+                .style("transition", "opacity .5s 0s")
+            .close()
 
-            .add(".banner-label-message-close-button")
-                .set("margin-left", "15pt")
-                .set("color", "white")
-                .set("font-weight", "bold")
-                .set("float", "right")
-                .set("font-size", "22pt")
-                .set("line-height", "14pt")
-                .set("cursor", "pointer")
-                .set("transition", "0.3s")
+            .selector(".banner-label-message-close-button")
+            .open()
+                .style("margin-left", "15pt")
+                .style("color", "white")
+                .style("font-weight", "bold")
+                .style("float", "right")
+                .style("font-size", "22pt")
+                .style("line-height", "14pt")
+                .style("cursor", "pointer")
+                .style("transition", "0.3s")
+            .close()
 
-            .add(".banner-label-message-header")
-                .set("color", "white")
+            .selector(".banner-label-message-header")
+            .open()
+                .style("color", "white")
+            .close()
 
-            .add(".banner-label-message-text")
-                .set("margin-left", "15px")
+            .selector(".banner-label-message-text")
+            .open()
+                .style("margin-left", "15px")
+            .close()
 
-            .add(".banner-label-message-type-alert")
-                .set("background-color", "#f44336")
+            .selector(".banner-label-message-type-alert")
+            .open()
+                .style("background-color", "#f44336")
+            .close()
 
-            .add(".banner-label-message-type-success")
-                .set("background-color", "#4CAF50")
+            .selector(".banner-label-message-type-success")
+            .open()
+                .style("background-color", "#4CAF50")
+            .close()
 
-            .add(".banner-label-message-type-info")
-                .set("background-color", "#2196F3")
+            .selector(".banner-label-message-type-info")
+            .open()
+                .style("background-color", "#2196F3")
+            .close()
 
-            .add(".banner-label-message-type-warning")
-                .set("background-color", "#ff9800")
+            .selector(".banner-label-message-type-warning")
+            .open()
+                .style("background-color", "#ff9800")
+            .close()
 
-            .add(".banner-label-message-size-large")
-                .set("padding", "18pt")
+            .selector(".banner-label-message-size-large")
+            .open()
+                .style("padding", "18pt")
+            .close()
 
-            .add(".banner-label-message-size-default")
-                .set("padding", "12pt")
+            .selector(".banner-label-message-size-default")
+            .open()
+                .style("padding", "12pt")
+            .close()
 
-            .add(".banner-label-message-size-small")
-                .set("padding-left", "10pt")
-                .set("padding-right", "10px")
-                .set("padding-bottom", "8px")
-                .set("padding-top", "8px")
+            .selector(".banner-label-message-size-small")
+            .open()
+                .style("padding-left", "10pt")
+                .style("padding-right", "10px")
+                .style("padding-bottom", "8px")
+                .style("padding-top", "8px")
+            .close()
 
-            .add(".banner-label-message-shape-square")
-                .set("border-radius", "0px")
+            .selector(".banner-label-message-shape-square")
+            .open()
+                .style("border-radius", "0px")
+            .close()
 
-            .add(".banner-label-message-shape-round")
-                .set("border-radius", "3px")
+            .selector(".banner-label-message-shape-round")
+            .open()
+                .style("border-radius", "3px")
+            .close()
 
-            .add(".banner-label-message-spacing-none")
-                .set("margin", "0pt")
+            .selector(".banner-label-message-spacing-none")
+            .open()
+                .style("margin", "0pt")
+            .close()
 
-            .add(".banner-label-message-spacing-above")
-                .set("margin-top", "1rem")
+            .selector(".banner-label-message-spacing-above")
+            .open()
+                .style("margin-top", "1rem")
+            .close()
 
-            .add(".banner-label-message-spacing-below")
-                .set("margin-bottom", "1rem")
+            .selector(".banner-label-message-spacing-below")
+            .open()
+                .style("margin-bottom", "1rem")
+            .close()
 
-            .add(".banner-label-message-spacing-above-below")
-                .set("margin-top", "1rem")
-                .set("margin-bottom", "1rem")
-                
+            .selector(".banner-label-message-spacing-above-below")
+            .open()
+                .style("margin-top", "1rem")
+                .style("margin-bottom", "1rem")
+            .close()
+
             .build();
     }
 
@@ -153,20 +191,20 @@ export class BannerLabelMessage {
         /** @type {Component} */
         this.component = this.componentFactory.create(BannerLabelMessage);
         CanvasStyles.enableStyle(BannerLabelMessage.name);
-        StyleClassAccessor.from(this.messageContentElement)
+        StyleSelectorAccessor.from(this.messageContentElement)
             .enable("banner-label-message")
             .enable("banner-label-message-" + this.bannerType);
 
         if (this.customAppearance && this.customAppearance.shape) {
-            StyleClassAccessor.from(this.messageContentElement)
+            StyleSelectorAccessor.from(this.messageContentElement)
                 .enable("banner-label-message-" + this.customAppearance.shape);
         }
         if (this.customAppearance && this.customAppearance.size) {
-            StyleClassAccessor.from(this.messageContentElement)
+            StyleSelectorAccessor.from(this.messageContentElement)
                 .enable("banner-label-message-" + this.customAppearance.size);
         }
         if (this.customAppearance && this.customAppearance.spacing) {
-            StyleClassAccessor.from(this.messageContentElement)
+            StyleSelectorAccessor.from(this.messageContentElement)
                 .enable("banner-label-message-" + this.customAppearance.spacing);
         }
 
@@ -178,7 +216,7 @@ export class BannerLabelMessage {
     }
 
     hide() {
-        StyleClassAccessor.from(this.messageContentElement)
+        StyleSelectorAccessor.from(this.messageContentElement)
             .disable("banner-label-message-visible")
             .enable("banner-label-message-hidden");
 
@@ -198,7 +236,7 @@ export class BannerLabelMessage {
 
         TimePromise.asPromise(50, () => {
             if (this.isVisible) {
-                StyleClassAccessor.from(this.messageContentElement)
+                StyleSelectorAccessor.from(this.messageContentElement)
                     .disable("banner-label-message-hidden")
                     .enable("banner-label-message-visible")
             }

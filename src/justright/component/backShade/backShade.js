@@ -53,23 +53,29 @@ export class BackShade {
 	 */
 	static buildStylesheet(stylesheetBuilder) {
 		return stylesheetBuilder
-			.add(".back-shade")
-                .set("opacity", "0")
-                .set("position", "fixed")
-                .set("top", "0")
-                .set("left", "0")
-                .set("z-index", "1040")
-                .set("width", "100vw")
-                .set("height", "100vh")
-                .set("background-color", "#000")
+			.selector(".back-shade")
+            .open()
+                .style("opacity", "0")
+                .style("position", "fixed")
+                .style("top", "0")
+                .style("left", "0")
+                .style("z-index", "1040")
+                .style("width", "100vw")
+                .style("height", "100vh")
+                .style("background-color", "#000")
+            .close()
 
-            .add(".back-shade.show")
-                .set("opacity", "0.5")
+            .selector(".back-shade.show")
+            .open()
+                .style("opacity", "0.5")
+            .close()
 
-            .add(".back-shade.fade")
-                .set("transition", "opacity 0.3s ease-in-out")
-                .set("-moz-transition", "opacity 0.3s ease-in-out")
-                .set("-webkit-transition", "opacity 0.3s ease-in-out")
+            .selector(".back-shade.fade")
+            .open()
+                .style("transition", "opacity 0.3s ease-in-out")
+                .style("-moz-transition", "opacity 0.3s ease-in-out")
+                .style("-webkit-transition", "opacity 0.3s ease-in-out")
+            .close()
 
 			.build();
 	}

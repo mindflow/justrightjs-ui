@@ -4,7 +4,7 @@ import {
     Component,
     CanvasRoot,
     HTML,
-    StyleClassAccessor,
+    StyleSelectorAccessor,
     StyleAccessor
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
@@ -73,11 +73,11 @@ export class PopUpPanel {
         CanvasStyles.enableStyle(PopUpPanel.name);
         this.component.get("button").setChild(HTML.i("", this.iconClass));
 
-        StyleClassAccessor.from(this.component.get("button"))
+        StyleSelectorAccessor.from(this.component.get("button"))
             .enable(PopUpPanel.BUTTON)
             .enable(this.type);
 
-        StyleClassAccessor.from(this.component.get("content"))
+        StyleSelectorAccessor.from(this.component.get("content"))
             .enable(PopUpPanel.CONTENT)
             .disable(PopUpPanel.CONTENT_VISIBLE)
             .enable(PopUpPanel.CONTENT_HIDDEN)
@@ -112,7 +112,7 @@ export class PopUpPanel {
     }
 
     show() {
-        StyleClassAccessor.from(this.component.get("content"))
+        StyleSelectorAccessor.from(this.component.get("content"))
             .disable(PopUpPanel.CONTENT_HIDDEN)
             .enable(PopUpPanel.CONTENT_VISIBLE);
         StyleAccessor.from(this.component.get("arrow"))
@@ -121,7 +121,7 @@ export class PopUpPanel {
     }
 
     hide() {
-        StyleClassAccessor.from(this.component.get("content"))
+        StyleSelectorAccessor.from(this.component.get("content"))
             .disable(PopUpPanel.CONTENT_VISIBLE)
             .enable(PopUpPanel.CONTENT_HIDDEN);
         this.component.get("arrow").setStyle("display", "none");

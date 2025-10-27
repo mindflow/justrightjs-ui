@@ -2,7 +2,7 @@ import { TimePromise } from "coreutil_v1";
 import { BaseElement,
     CanvasStyles,
     Component,
-    StyleClassAccessor,
+    StyleSelectorAccessor,
     StylesheetBuilder,
     ComponentBuilder,
     Stylesheet,
@@ -44,29 +44,47 @@ export class SlideDeckEntry {
      */
     static buildStylesheet(stylesheetBuilder) {
         return stylesheetBuilder
-            .add(".slide-deck-entry")
-                .set("box-shadow", "0px 0px 10px 10px #cccccc")
-                .set("position", "relative")
-                .set("background-color", "#ffffff")
-                .set("grid-column", "1")
-                .set("grid-row", "1")
-                .set("width", "100%")
-                .set("height", "100%")
-                .set("min-height", "0")
-            .add(".slide-deck-entry.position-front")
-                .set("transform", "translate(0%, 0%)")
-                .set("transition", "transform .6s")
-            .add(".slide-deck-entry.position-behind")
-                .set("transform", "translate(0%, 0%)")
-                .set("transition", "transform .6s")
-            .add(".slide-deck-entry.position-right")
-                .set("transform", "translate(+105%, 0%)")
-                .set("transition", "transform .6s")
-            .add(".slide-deck-entry-content.existance-removed")
-                .set("display", "none")
-            .add(".slide-deck-entry-content.existance-present")
-                .set("position", "relative")
-                .set("height", "100%")
+            .selector(".slide-deck-entry")
+            .open()
+                .style("box-shadow", "0px 0px 10px 10px #cccccc")
+                .style("position", "relative")
+                .style("background-color", "#ffffff")
+                .style("grid-column", "1")
+                .style("grid-row", "1")
+                .style("width", "100%")
+                .style("height", "100%")
+                .style("min-height", "0")
+            .close()
+
+            .selector(".slide-deck-entry.position-front")
+            .open()
+                .style("transform", "translate(0%, 0%)")
+                .style("transition", "transform .6s")
+            .close()
+
+            .selector(".slide-deck-entry.position-behind")
+            .open()
+                .style("transform", "translate(0%, 0%)")
+                .style("transition", "transform .6s")
+            .close()
+
+            .selector(".slide-deck-entry.position-right")
+            .open()
+                .style("transform", "translate(+105%, 0%)")
+                .style("transition", "transform .6s")
+            .close()
+
+            .selector(".slide-deck-entry-content.existance-removed")
+            .open()
+                .style("display", "none")
+            .close()
+
+            .selector(".slide-deck-entry-content.existance-present")
+            .open()
+                .style("position", "relative")
+                .style("height", "100%")
+            .close()
+
             .build()
     }
 
@@ -134,12 +152,12 @@ export class SlideDeckEntry {
     }
 
     setContentVisibility(contentVisibility) {
-        StyleClassAccessor.from(this.contentElement).replace("existance-", contentVisibility);
+        StyleSelectorAccessor.from(this.contentElement).replace("existance-", contentVisibility);
     }
 
     setShift(position) {
         this.position = position;
-        StyleClassAccessor.from(this.entryElement).replace("position-", position);
+        StyleSelectorAccessor.from(this.entryElement).replace("position-", position);
     }
 
 }

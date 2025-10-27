@@ -5,7 +5,7 @@ import { CanvasStyles,
     TemplateComponentFactory,
     EventManager,
     SimpleElement,
-    StyleClassAccessor,
+    StyleSelectorAccessor,
     HTML,
     StateManager
 } from "justright_core_v1";
@@ -191,7 +191,7 @@ export class FileUpload {
         event.stopPropagation();
 
         const uploadBox = this.component.get("uploadBox");
-        StyleClassAccessor.from(uploadBox).enable("file-upload-box-dragover");
+        StyleSelectorAccessor.from(uploadBox).enable("file-upload-box-dragover");
     }
 
     /**
@@ -202,7 +202,7 @@ export class FileUpload {
         event.stopPropagation();
 
         const uploadBox = this.component.get("uploadBox");
-        StyleClassAccessor.from(uploadBox).disable("file-upload-box-dragover");
+        StyleSelectorAccessor.from(uploadBox).disable("file-upload-box-dragover");
     }
 
     /**
@@ -213,7 +213,7 @@ export class FileUpload {
         event.stopPropagation();
 
         const uploadBox = this.component.get("uploadBox");
-        StyleClassAccessor.from(uploadBox).disable("file-upload-box-dragover");
+        StyleSelectorAccessor.from(uploadBox).disable("file-upload-box-dragover");
 
         this.processFiles(event.files);
     }

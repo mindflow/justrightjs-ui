@@ -41,16 +41,18 @@ export class Background {
 	 */
 	static buildStylesheet(stylesheetBuilder) {
 		return stylesheetBuilder
-			.add(".background")
-				.set("background-color", "rgb(150, 197, 255)")
-				.set("background-repeat", "no-repeat")
-				.set("background-position-x", "center")
-				.set("background-position-y", "center")
-				.set("background-attachment", "scroll")
-				.set("background-size", "cover")
-				.set("font-family", "Source Sans Pro")
-				.set("font-weight", "300")
-				.set("height", "100%")
+			.selector(".background")
+			.open()
+				.style("background-color", "rgb(150, 197, 255)")
+				.style("background-repeat", "no-repeat")
+				.style("background-position-x", "center")
+				.style("background-position-y", "center")
+				.style("background-attachment", "scroll")
+				.style("background-size", "cover")
+				.style("font-family", "Source Sans Pro")
+				.style("font-weight", "300")
+				.style("height", "100%")
+			.close()
 			.build();
 	}
 

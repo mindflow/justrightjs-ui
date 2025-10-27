@@ -53,11 +53,13 @@ export class SlideDeck {
      */
     static buildStylesheet(stylesheetBuilder) {
         return stylesheetBuilder
-            .add(".slide-deck")
-                .set("position", "relative")
-                .set("background-color", "#f1f1f1")
-                .set("display", "grid")
-                .set("height", "100%")
+            .selector(".slide-deck")
+            .open()
+                .style("position", "relative")
+                .style("background-color", "#f1f1f1")
+                .style("display", "grid")
+                .style("height", "100%")
+            .close()
             .build();
     }
 
