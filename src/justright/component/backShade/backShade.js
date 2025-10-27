@@ -42,7 +42,7 @@ export class BackShade {
 	 */
 	static buildComponent(componentBuilder) {
 		return componentBuilder
-			.root("div", "id:backShade", "style:z-index:3;display:none;", "class:back-shade")
+			.root("div", "id=backShade", "style=z-index:3;display:none;", "class=back-shade")
 			.build();
 	}
 
