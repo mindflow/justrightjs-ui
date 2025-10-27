@@ -34,7 +34,7 @@ export class Background {
 	 */
 	static buildComponent(componentBuilder) {
 		return componentBuilder
-			.root(uniqueIdRegistry, "div", "id:background", "class:background")
+			.root("div", "id:background", "class:background")
 			.build();
 	}
 
