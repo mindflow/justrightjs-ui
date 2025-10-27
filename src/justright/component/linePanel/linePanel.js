@@ -1,6 +1,6 @@
 import { Logger, Method } from "coreutil_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
-import { Component, TemplateComponentFactory, CanvasStyles, EventManager, StateManager, StylesheetBuilder, InlineComponentFactory } from "justright_core_v1";
+import { Component, CanvasStyles, EventManager, StateManager, StylesheetBuilder, InlineComponentFactory } from "justright_core_v1";
 import { Panel } from "../panel/panel.js";
 import { LinePanelEntry } from "./treePanelEntry/linePanelEntry.js";
 import { ContainerEvent } from "containerbridge_v1";
@@ -8,9 +8,6 @@ import { ContainerEvent } from "containerbridge_v1";
 const LOG = new Logger("LinePanel");
 
 export class LinePanel {
-
-	//static TEMPLATE_URL = "/assets/justrightjs-ui/linePanel.html";
-	//static STYLES_URL = "/assets/justrightjs-ui/linePanel.css";
 
 	static EVENT_REFRESH_CLICKED = "refreshClicked";
 	static RECORD_ELEMENT_REQUESTED = "recordElementRequested";
