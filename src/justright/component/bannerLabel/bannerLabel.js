@@ -1,17 +1,14 @@
 import { Method } from "coreutil_v1";
-import { CanvasStyles, TemplateComponentFactory } from "justright_core_v1";
+import { CanvasStyles, InlineComponentFactory } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CustomAppearance } from "../customAppearance.js";
 import { BannerLabelMessage } from "./bannerLabelMessage/bannerLabelMessage.js";
 
 export class BannerLabel {
 
-    static TEMPLATE_URL = "/assets/justrightjs-ui/bannerLabel.html";
-    static STYLES_URL = "/assets/justrightjs-ui/bannerLabel.css";
-
     constructor() {
-        /** @type {TemplateComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        /** @type {InlineComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -35,6 +32,34 @@ export class BannerLabel {
 
         this.isVisible = false;
     }
+
+    static buildStylesheet(stylesheetBuilder) {
+        return stylesheetBuilder
+            .add(".banner-label")
+                .set("color", "white")
+                .set("width", "100%")
+                .set("overflow", "hidden")
+                .set("position", "relative")
+
+            .add(".banner-label-visible")
+                .set("max-height", "50px")
+                .set("visibility", "visible")
+                .set("transition", "max-height .3s, visibility 0s")
+
+            .add(".banner-label-hidden")
+                .set("max-height", "0px")
+                .set("visibility", "hidden")
+                .set("transition", "max-height .3s .3s, visibility 0s .3s")
+                
+            .build();
+    }
+
+    static buildComponent(componentBuilder) {
+        return componentBuilder
+            .root("div", "id=bannerLabel", "class=banner-label banner-label-hidden")
+            .build();
+    }
+
 
     async postConfig() {
         this.component = this.componentFactory.create(BannerLabel);

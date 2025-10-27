@@ -32,10 +32,13 @@ export class BackgroundVideo {
 	 */
 	static buildComponent(componentBuilder) {
 		return componentBuilder
-			.root("div", "id=backgroundVideo", "class=background-video").open()
+			.root("div", "id=backgroundVideo", "class=background-video")
+			.open()
 				.add("div", "class=background-video-overlay")
-				.add("video", "id=video", "class=background-video-player", "playsinline=playsinline",
-						"autoplay=true", "muted=true", "loop=loop").open()
+				.add("video", "id=video", "class=background-video-player",
+				              "playsinline=playsinline", "autoplay=true",
+				              "muted=true", "loop=loop")
+				.open()
 					.add("source", "id=source", "src=", "type=video/mp4")
 				.close()
 			.close()
@@ -52,6 +55,7 @@ export class BackgroundVideo {
 			.add(".background-video")
 				.set("width", "auto")
 				.set("height", "auto")
+
 			.add(".background-video-player")
 				.set("position", "fixed")
 				.set("top", "50%")
@@ -62,6 +66,7 @@ export class BackgroundVideo {
 				.set("height", "auto")
 				.set("transform", "translateX(-50%) translateY(-50%)")
 				.set("z-index", "0")
+
 			.add(".background-video-overlay")
 				.set("position", "absolute")
 				.set("min-width", "100%")
@@ -71,6 +76,7 @@ export class BackgroundVideo {
 				.set("background-color", "#1144aa")
 				.set("opacity", "0.3")
 				.set("z-index", "1")
+				
 			.build();
 	}
 
