@@ -5,7 +5,9 @@ import {
     EventManager,
     StyleAccessor,
     Component,
-    InlineComponentFactory
+    InlineComponentFactory,
+    ComponentBuilder,
+    StylesheetBuilder
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CustomAppearance } from "../../customAppearance.js";
@@ -43,6 +45,11 @@ export class BannerLabelMessage {
         this.eventManager = new EventManager();
     }
 
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     * @returns 
+     */
     static buildStylesheet(stylesheetBuilder) {
         return stylesheetBuilder
             .add(".banner-label-message")
@@ -119,6 +126,11 @@ export class BannerLabelMessage {
             .build();
     }
 
+    /**
+     * 
+     * @param {ComponentBuilder} componentBuilder 
+     * @returns 
+     */
     static buildComponent(componentBuilder) {
         return componentBuilder
             .root("div", "id=bannerLabelMessage", "style=display:none;")
@@ -126,6 +138,9 @@ export class BannerLabelMessage {
                 .add("div", "id=bannerLabelMessageContent", "class=banner-label-message banner-label-message-hidden")
                 .open()
                     .add("span", "id=bannerLabelMessageCloseButton", "class=banner-label-message-close-button")
+                    .open()
+                        .addText("×")
+                    .close()
                     .add("span", "id=bannerLabelMessageHeader", "class=banner-label-message-header")
                     .add("span", "id=bannerLabelMessageText", "class=banner-label-message-text")
                 .close()
@@ -142,7 +157,6 @@ export class BannerLabelMessage {
             .enable("banner-label-message")
             .enable("banner-label-message-" + this.bannerType);
 
-        this.component.get("bannerLabelMessageCloseButton").setChild("×");
         if (this.customAppearance && this.customAppearance.shape) {
             StyleClassAccessor.from(this.messageContentElement)
                 .enable("banner-label-message-" + this.customAppearance.shape);

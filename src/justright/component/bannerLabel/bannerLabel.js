@@ -1,5 +1,5 @@
 import { Method } from "coreutil_v1";
-import { CanvasStyles, InlineComponentFactory } from "justright_core_v1";
+import { CanvasStyles, ComponentBuilder, InlineComponentFactory, StylesheetBuilder } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CustomAppearance } from "../customAppearance.js";
 import { BannerLabelMessage } from "./bannerLabelMessage/bannerLabelMessage.js";
@@ -33,6 +33,11 @@ export class BannerLabel {
         this.isVisible = false;
     }
 
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     * @returns 
+     */
     static buildStylesheet(stylesheetBuilder) {
         return stylesheetBuilder
             .add(".banner-label")
@@ -50,10 +55,15 @@ export class BannerLabel {
                 .set("max-height", "0px")
                 .set("visibility", "hidden")
                 .set("transition", "max-height .3s .3s, visibility 0s .3s")
-                
+
             .build();
     }
 
+    /**
+     * 
+     * @param {ComponentBuilder} componentBuilder 
+     * @returns 
+     */
     static buildComponent(componentBuilder) {
         return componentBuilder
             .root("div", "id=bannerLabel", "class=banner-label banner-label-hidden")
