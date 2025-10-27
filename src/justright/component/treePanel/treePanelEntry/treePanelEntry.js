@@ -1,5 +1,13 @@
 import { Logger, Method } from "coreutil_v1";
-import { CanvasStyles, Component, TemplateComponentFactory, EventManager, SimpleElement, StateManager } from "justright_core_v1";
+import { CanvasStyles,
+	Component,
+	EventManager,
+	SimpleElement,
+	StateManager,
+	StylesheetBuilder,
+	ComponentBuilder,
+	InlineComponentFactory
+} from "justright_core_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
 import { Panel } from "../../panel/panel.js";
 import { RadioToggleIcon } from "../../input/radioToggleIcon/radioToggleIcon.js";
@@ -11,17 +19,14 @@ const LOG = new Logger("TreePanelEntry");
 
 export class TreePanelEntry {
 
-	static TEMPLATE_URL = "/assets/justrightjs-ui/treePanelEntry.html";
-	static STYLES_URL = "/assets/justrightjs-ui/treePanelEntry.css";
-
 	static RECORD_ELEMENT_REQUESTED = "recordElementRequested";
 	static SUB_RECORDS_STATE_UPDATE_REQUESTED = "subRecordsStateUpdateRequested";
 	static EVENT_EXPAND_TOGGLE_OVERRIDE = "expandToggleOverride";
 
     constructor(record = null) {
 
-		/** @type {TemplateComponentFactory} */
-		this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+		/** @type {InlineComponentFactory} */
+		this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
 		/** @type {Component} */
 		this.component = null;
@@ -44,6 +49,179 @@ export class TreePanelEntry {
         /** @type {any} */
         this.record = record;
     }
+
+	/**
+	 * 
+	 * @param {StylesheetBuilder} stylesheetBuilder 
+	 * @returns {Stylesheet}
+	 */
+	static buildStylesheet(stylesheetBuilder) {
+		return stylesheetBuilder
+			.media("@media (min-width: 734px)")
+			.open()
+				.selector(".tree-panel-entry")
+				.open()
+					.style("position", "relative")
+					.style("flex", "0 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "column")
+				.close()
+
+				.selector(".tree-panel-entry-record-element")
+				.open()
+					.style("position", "relative")
+					.style("flex", "1 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "row")
+					.style("margin-bottom", "5px")
+				.close()
+
+				.selector(".tree-panel-entry-record-subrecord-elements-container")
+				.open()
+					.style("position", "relative")
+					.style("flex", "0 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "row")
+				.close()
+
+				.selector(".tree-panel-entry-subrecord-elements")
+				.open()
+					.style("position", "relative")
+					.style("flex", "1 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "column")
+				.close()
+
+				.selector(".tree-panel-entry-buttons-container")
+				.open()
+					.style("position", "relative")
+					.style("flex", "0 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "row")
+				.close()
+
+				.selector(".tree-panel-entry-buttons")
+				.open()
+					.style("position", "relative")
+					.style("flex", "1 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "column")
+				.close()
+			.close()
+
+			.media("@media (max-width: 733px)")
+			.open()
+				.selector(".tree-panel-entry")
+				.open()
+					.style("position", "relative")
+					.style("flex", "0 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "column")
+				.close()
+
+				.selector(".tree-panel-entry-record-element")
+				.open()
+					.style("position", "relative")
+					.style("flex", "1 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "row")
+					.style("margin-bottom", "5px")
+				.close()
+
+				.selector(".tree-panel-entry-record-subrecord-elements-container")
+				.open()
+					.style("position", "relative")
+					.style("flex", "0 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "row")
+				.close()
+
+				.selector(".tree-panel-entry-subrecord-elements")
+				.open()
+					.style("position", "relative")
+					.style("flex", "1 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "column")
+				.close()
+
+				.selector(".tree-panel-entry-buttons-container")
+				.open()
+					.style("position", "relative")
+					.style("flex", "0 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "row")
+				.close()
+
+				.selector(".tree-panel-entry-buttons")
+				.open()
+					.style("position", "relative")
+					.style("flex", "1 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "column")
+				.close()
+			.close()
+
+			.selector(".tree-panel-entry-expand")
+			.open()
+				.style("position", "relative")
+				.style("flex", "0 1 auto")
+				.style("display", "flex")
+				.style("padding-right", "5px")
+			.close()
+
+			.selector(".tree-panel-entry-subrecord-elements-indent")
+			.open()
+				.style("position", "relative")
+				.style("flex", "0 0 18pt")
+				.style("display", "flex")
+				.style("flex-direction", "row")
+			.close()
+
+			.selector(".tree-panel-entry-record-element")
+			.open()
+				.style("position", "relative")
+				.style("flex", "1 0 auto")
+				.style("display", "flex")
+				.style("flex-direction", "row")
+			.close()
+
+			.selector(".tree-panel-entry-buttons-indent")
+			.open()
+				.style("position", "relative")
+				.style("flex", "0 0 18pt")
+				.style("display", "flex")
+				.style("flex-direction", "row")
+			.close()
+			.build();
+	}
+
+	/**
+	 * 
+	 * @param {ComponentBuilder} componentBuilder 
+	 * @returns {Component}
+	 */
+	static buildComponent(componentBuilder) {
+		return componentBuilder
+			.root("div", "class=tree-panel-entry")
+			.open()
+				.add("div", "class=tree-panel-entry-record-element", "id=recordElementContainer")
+				.open()
+					.add("div", "class=tree-panel-entry-expand", "id=expandButton")
+					.add("div", "class=tree-panel-entry-record-element", "id=recordElement")
+				.close()
+				.add("div", "class=tree-panel-entry-buttons-container", "id=buttonsContainer")
+				.open()
+					.add("div", "class=tree-panel-entry-buttons-indent", "id=buttonsIndent")
+					.add("div", "class=tree-panel-entry-buttons", "id=buttons")
+				.close()
+				.add("div", "class=tree-panel-entry-record-subrecord-elements-container", "id=subrecordElementsContainer")
+				.open()
+					.add("div", "class=tree-panel-entry-subrecord-elements-indent", "id=subrecordIndent")
+					.add("div", "class=tree-panel-entry-subrecord-elements", "id=subrecordElements")
+				.close()
+			.close()
+			.build();
+	}
 
     async postConfig() {
 		this.component = this.componentFactory.create(TreePanelEntry);
