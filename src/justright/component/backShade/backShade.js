@@ -19,7 +19,7 @@ export class BackShade {
 	//static STYLES_URL = "/assets/justrightjs-ui/backShade.css";
 
     /**
-     * 
+     * @param {BackShadeListeners} backShadeListeners
      */
     constructor(backShadeListeners = new BackShadeListeners()){
 
@@ -41,21 +41,22 @@ export class BackShade {
 
 	/**
 	 * 
-	 * @param {UniqueIdRegistry} uniqueIdRegistry
+	 * @param {ComponentBuilder} componentBuilder
 	 * @returns {Component}
 	 */
-	static buildComponent(uniqueIdRegistry) {
-		return ComponentBuilder
-			.create(uniqueIdRegistry, "div", "id:backShade", "style:z-index:3;display:none;", "class:back-shade")
+	static buildComponent(componentBuilder) {
+		return componentBuilder
+			.root("div", "id:backShade", "style:z-index:3;display:none;", "class:back-shade")
 			.build();
 	}
 
 	/**
 	 * 
+     * @param {StylesheetBuilder} stylesheetBuilder
 	 * @returns {String}
 	 */
-	static getComponentStylesheet() {
-		return StylesheetBuilder.create()
+	static buildStylesheet(stylesheetBuilder) {
+		return stylesheetBuilder
 			.add(".back-shade")
                 .set("opacity", "0")
                 .set("position", "fixed")
@@ -65,12 +66,15 @@ export class BackShade {
                 .set("width", "100vw")
                 .set("height", "100vh")
                 .set("background-color", "#000")
+
             .add(".back-shade.show")
                 .set("opacity", "0.5")
+
             .add(".back-shade.fade")
                 .set("transition", "opacity 0.3s ease-in-out")
                 .set("-moz-transition", "opacity 0.3s ease-in-out")
                 .set("-webkit-transition", "opacity 0.3s ease-in-out")
+
 			.build();
 	}
 

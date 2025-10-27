@@ -1,4 +1,10 @@
-import { Component, TemplateComponentFactory, CanvasStyles, Style, StylesheetBuilder, UniqueIdRegistry, ComponentBuilder, InlineComponentFactory } from "justright_core_v1";
+import { Component,
+	TemplateComponentFactory,
+	CanvasStyles,
+	Style,
+	StylesheetBuilder,
+	ComponentBuilder
+} from "justright_core_v1";
 import { Logger } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
 
@@ -23,21 +29,21 @@ export class Background {
 
 	/**
 	 * 
-	 * @param {UniqueIdRegistry} uniqueIdRegistry
+	 * @param {ComponentBuilder} uniqueIdRegistry
 	 * @returns {Component}
 	 */
-	static buildComponent(uniqueIdRegistry) {
-		return ComponentBuilder
-			.create(uniqueIdRegistry, "div", "id:background", "class:background")
+	static buildComponent(componentBuilder) {
+		return componentBuilder
+			.root(uniqueIdRegistry, "div", "id:background", "class:background")
 			.build();
 	}
 
 	/**
-	 * 
+	 * @param {StylesheetBuilder} stylesheetBuilder
 	 * @returns {String}
 	 */
-	static getComponentStylesheet() {
-		return StylesheetBuilder.create()
+	static buildStylesheet(stylesheetBuilder) {
+		return stylesheetBuilder
 			.add(".background")
 				.set("background-color", "rgb(150, 197, 255)")
 				.set("background-repeat", "no-repeat")
