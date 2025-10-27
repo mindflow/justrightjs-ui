@@ -1,12 +1,14 @@
 import { List, Map } from "coreutil_v1";
-import { CanvasStyles, Component, TemplateComponentFactory, EventManager } from "justright_core_v1";
+import { CanvasStyles,
+    Component,
+    EventManager,
+    StylesheetBuilder,
+    InlineComponentFactory
+} from "justright_core_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
 import { SlideDeckEntry } from "./slideDeckEntry/slideDeckEntry.js";
 
 export class SlideDeck {
-
-    static TEMPLATE_URL = "/assets/justrightjs-ui/slideDeck.html";
-    static STYLES_URL = "/assets/justrightjs-ui/slideDeck.css";
 
     static EVENT_ENTRY_CHANGED = "eventEntryChanged";
 
@@ -16,8 +18,8 @@ export class SlideDeck {
      */
     constructor(componentMap) {
 
-        /** @type {TemplateComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        /** @type {InlineComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -42,6 +44,27 @@ export class SlideDeck {
 
         /** @type {EventManager} */
         this.events = new EventManager();
+    }
+
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     * @returns 
+     */
+    static buildStylesheet(stylesheetBuilder) {
+        return stylesheetBuilder
+            .add(".slide-deck")
+                .set("position", "relative")
+                .set("background-color", "#f1f1f1")
+                .set("display", "grid")
+                .set("height", "100%")
+            .build();
+    }
+
+    static buildComponent(componentBuilder) {
+        return componentBuilder
+            .root("div", "id=slideDeckEntries", "class=slide-deck")
+            .build();
     }
 
     async postConfig() {

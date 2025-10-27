@@ -1,11 +1,19 @@
 import { TimePromise } from "coreutil_v1";
-import { BaseElement, CanvasStyles, Component, TemplateComponentFactory, StyleClassAccessor } from "justright_core_v1";
+import { BaseElement,
+    CanvasStyles,
+    Component,
+    StyleClassAccessor,
+    StylesheetBuilder,
+    ComponentBuilder,
+    Stylesheet,
+    InlineComponentFactory
+} from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 
 export class SlideDeckEntry {
 
-    static TEMPLATE_URL = "/assets/justrightjs-ui/slideDeckEntry.html";
-    static STYLES_URL = "/assets/justrightjs-ui/slideDeckEntry.css";
+    //static TEMPLATE_URL = "/assets/justrightjs-ui/slideDeckEntry.html";
+    //static STYLES_URL = "/assets/justrightjs-ui/slideDeckEntry.css";
 
     static DEFAULT_CLASS = "slide-deck-entry";
 
@@ -17,8 +25,8 @@ export class SlideDeckEntry {
     static CONTENT_EXISTANCE_REMOVED = "existance-removed";
 
     constructor() {
-        /** @type {TemplateComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        /** @type {InlineComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -28,6 +36,51 @@ export class SlideDeckEntry {
 
         /** @type {String} */
         this.position = SlideDeckEntry.ENTRY_POSITION_FRONT;
+    }
+
+    /**
+     * @returns {Stylesheet}
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     */
+    static buildStylesheet(stylesheetBuilder) {
+        return stylesheetBuilder
+            .add(".slide-deck-entry")
+                .set("box-shadow", "0px 0px 10px 10px #cccccc")
+                .set("position", "relative")
+                .set("background-color", "#ffffff")
+                .set("grid-column", "1")
+                .set("grid-row", "1")
+                .set("width", "100%")
+                .set("height", "100%")
+                .set("min-height", "0")
+            .add(".slide-deck-entry.position-front")
+                .set("transform", "translate(0%, 0%)")
+                .set("transition", "transform .6s")
+            .add(".slide-deck-entry.position-behind")
+                .set("transform", "translate(0%, 0%)")
+                .set("transition", "transform .6s")
+            .add(".slide-deck-entry.position-right")
+                .set("transform", "translate(+105%, 0%)")
+                .set("transition", "transform .6s")
+            .add(".slide-deck-entry-content.existance-removed")
+                .set("display", "none")
+            .add(".slide-deck-entry-content.existance-present")
+                .set("position", "relative")
+                .set("height", "100%")
+            .build()
+    }
+
+    /**
+     * @returns {Component}
+     * @param {ComponentBuilder} componentBuilder 
+     */
+    static buildComponent(componentBuilder) {
+        return componentBuilder
+            .root("div", "id=slideDeckEntry", "class=slide-deck-entry")
+            .open()
+                .add("div", "id=slideDeckEntryContent", "class=slide-deck-entry-content")
+            .close()
+            .build();
     }
 
     /**
