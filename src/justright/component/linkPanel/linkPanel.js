@@ -3,7 +3,7 @@ import {
     CanvasStyles,
     Component,
     EventManager,
-    CSS
+    StyleClassAccessor
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
@@ -70,7 +70,7 @@ export class LinkPanel {
         this.component = this.componentFactory.create(LinkPanel);
         CanvasStyles.enableStyle(LinkPanel.name);
         
-        CSS.from(this.component.get("link"))
+        StyleClassAccessor.from(this.component.get("link"))
             .enable(this.size)
             .enable(this.orientation)
             .enable(this.theme);
@@ -82,7 +82,7 @@ export class LinkPanel {
         }
 
         if (this.icon) {
-            CSS.from(this.component.get("icon"))
+            StyleClassAccessor.from(this.component.get("icon"))
                 .clear()
                 .enable(this.icon);
         } else {

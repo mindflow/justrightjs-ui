@@ -1,6 +1,6 @@
 import { Component,
 	CanvasStyles,
-	Style,
+	StyleAccessor,
 	StylesheetBuilder,
 	ComponentBuilder,
 	InlineComponentFactory
@@ -61,7 +61,7 @@ export class Background {
 	postConfig() {
 		this.component = this.componentFactory.create(Background);
 		if (this.backgroundImagePath) {
-            Style.from(this.component.get("background"))
+            StyleAccessor.from(this.component.get("background"))
                 .set("background-image", "url(\"" + this.backgroundImagePath + "\")");
 		}
 		CanvasStyles.enableStyle(Background.name);

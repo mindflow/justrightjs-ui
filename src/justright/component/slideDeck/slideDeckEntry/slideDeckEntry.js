@@ -1,5 +1,5 @@
 import { TimePromise } from "coreutil_v1";
-import { BaseElement, CanvasStyles, Component, TemplateComponentFactory, CSS } from "justright_core_v1";
+import { BaseElement, CanvasStyles, Component, TemplateComponentFactory, StyleClassAccessor } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 
 export class SlideDeckEntry {
@@ -81,12 +81,12 @@ export class SlideDeckEntry {
     }
 
     setContentVisibility(contentVisibility) {
-        CSS.from(this.contentElement).replace("existance-", contentVisibility);
+        StyleClassAccessor.from(this.contentElement).replace("existance-", contentVisibility);
     }
 
     setShift(position) {
         this.position = position;
-        CSS.from(this.entryElement).replace("position-", position);
+        StyleClassAccessor.from(this.entryElement).replace("position-", position);
     }
 
 }

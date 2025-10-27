@@ -1,5 +1,10 @@
 import { Method, TimePromise } from "coreutil_v1";
-import { CanvasStyles, TemplateComponentFactory, CSS, EventManager, Style } from "justright_core_v1";
+import { CanvasStyles,
+    TemplateComponentFactory,
+    StyleClassAccessor,
+    EventManager,
+    StyleAccessor
+} from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CustomAppearance } from "../../customAppearance.js";
 
@@ -42,20 +47,20 @@ export class BannerLabelMessage {
     async postConfig() {
         this.component = this.componentFactory.create(BannerLabelMessage);
         CanvasStyles.enableStyle(BannerLabelMessage.name);
-        CSS.from(this.messageContentElement)
+        StyleClassAccessor.from(this.messageContentElement)
             .enable("banner-label-message")
             .enable("banner-label-message-" + this.bannerType);
 
         if (this.customAppearance && this.customAppearance.shape) {
-            CSS.from(this.messageContentElement)
+            StyleClassAccessor.from(this.messageContentElement)
                 .enable("banner-label-message-" + this.customAppearance.shape);
         }
         if (this.customAppearance && this.customAppearance.size) {
-            CSS.from(this.messageContentElement)
+            StyleClassAccessor.from(this.messageContentElement)
                 .enable("banner-label-message-" + this.customAppearance.size);
         }
         if (this.customAppearance && this.customAppearance.spacing) {
-            CSS.from(this.messageContentElement)
+            StyleClassAccessor.from(this.messageContentElement)
                 .enable("banner-label-message-" + this.customAppearance.spacing);
         }
 
@@ -67,7 +72,7 @@ export class BannerLabelMessage {
     }
 
     hide() {
-        CSS.from(this.messageContentElement)
+        StyleClassAccessor.from(this.messageContentElement)
             .disable("banner-label-message-visible")
             .enable("banner-label-message-hidden");
 
@@ -75,19 +80,19 @@ export class BannerLabelMessage {
         
         TimePromise.asPromise(500, () => {
             if (!this.isVisible) {
-                Style.from(this.component.get("bannerLabelMessage"))
+                StyleAccessor.from(this.component.get("bannerLabelMessage"))
                     .set("display", "none");
             }
         });
     }
 
     show() {
-        Style.from(this.component.get("bannerLabelMessage"))
+        StyleAccessor.from(this.component.get("bannerLabelMessage"))
             .set("display", "block");
 
         TimePromise.asPromise(50, () => {
             if (this.isVisible) {
-                CSS.from(this.messageContentElement)
+                StyleClassAccessor.from(this.messageContentElement)
                     .disable("banner-label-message-hidden")
                     .enable("banner-label-message-visible")
             }

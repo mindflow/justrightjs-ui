@@ -1,4 +1,4 @@
-import { TemplateComponentFactory, Component, CanvasStyles, CSS } from "justright_core_v1";
+import { TemplateComponentFactory, Component, CanvasStyles, StyleClassAccessor } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger } from "coreutil_v1";
 
@@ -63,7 +63,7 @@ export class Panel {
         this.component = this.componentFactory.create(Panel);
         CanvasStyles.enableStyle(Panel.name);
 
-        CSS.from(this.component.get("panel"))
+        StyleClassAccessor.from(this.component.get("panel"))
             .enable(this.type)
             .enable(this.contentAlign)
             .enable(this.size);

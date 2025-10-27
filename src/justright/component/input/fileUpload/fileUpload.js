@@ -1,6 +1,14 @@
 import { ContainerEvent, ContainerFileData } from "containerbridge_v1";
 import { Logger, Method } from "coreutil_v1";
-import { CanvasStyles, Component, TemplateComponentFactory, EventManager, SimpleElement, CSS, HTML, StateManager, AndValidatorSet } from "justright_core_v1";
+import { CanvasStyles,
+    Component,
+    TemplateComponentFactory,
+    EventManager,
+    SimpleElement,
+    StyleClassAccessor,
+    HTML,
+    StateManager
+} from "justright_core_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
 import { FileUploadEntry } from "./fileUploadEntry/fileUploadEntry.js";
 import { CommonEvents } from "../../common/commonEvents.js";
@@ -183,7 +191,7 @@ export class FileUpload {
         event.stopPropagation();
 
         const uploadBox = this.component.get("uploadBox");
-        CSS.from(uploadBox).enable("file-upload-box-dragover");
+        StyleClassAccessor.from(uploadBox).enable("file-upload-box-dragover");
     }
 
     /**
@@ -194,7 +202,7 @@ export class FileUpload {
         event.stopPropagation();
 
         const uploadBox = this.component.get("uploadBox");
-        CSS.from(uploadBox).disable("file-upload-box-dragover");
+        StyleClassAccessor.from(uploadBox).disable("file-upload-box-dragover");
     }
 
     /**
@@ -205,7 +213,7 @@ export class FileUpload {
         event.stopPropagation();
 
         const uploadBox = this.component.get("uploadBox");
-        CSS.from(uploadBox).disable("file-upload-box-dragover");
+        StyleClassAccessor.from(uploadBox).disable("file-upload-box-dragover");
 
         this.processFiles(event.files);
     }

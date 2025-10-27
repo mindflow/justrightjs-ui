@@ -3,7 +3,7 @@ import {
     CanvasStyles,
     Component,
     EventManager,
-    CSS,
+    StyleClassAccessor,
     HTML
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
@@ -77,7 +77,7 @@ export class Button {
             this.component.get("button").addChild(this.label);
         }
 
-        CSS.from(this.component.get("button"))
+        StyleClassAccessor.from(this.component.get("button"))
             .enable("button")
             .enable(this.buttonSize)
             .enable(this.buttonType);
@@ -97,13 +97,13 @@ export class Button {
     }
 
     enableLoading() {
-        CSS.from(this.component.get("spinnerContainer"))
+        StyleClassAccessor.from(this.component.get("spinnerContainer"))
             .disable(Button.SPINNER_HIDDEN)
             .enable(Button.SPINNER_VISIBLE);
     }
 
     disableLoading() {
-        CSS.from(this.component.get("spinnerContainer"))
+        StyleClassAccessor.from(this.component.get("spinnerContainer"))
             .disable(Button.SPINNER_VISIBLE)
             .enable(Button.SPINNER_HIDDEN);
     }

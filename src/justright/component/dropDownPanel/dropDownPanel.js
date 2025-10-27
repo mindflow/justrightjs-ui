@@ -4,8 +4,8 @@ import {
     Component,
     CanvasRoot,
     HTML,
-    CSS,
-    Style
+    StyleClassAccessor,
+    StyleAccessor
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
@@ -73,11 +73,11 @@ export class DropDownPanel {
         CanvasStyles.enableStyle(DropDownPanel.name);
         this.component.get("button").setChild(HTML.i("", this.iconClass));
 
-        CSS.from(this.component.get("button"))
+        StyleClassAccessor.from(this.component.get("button"))
             .enable(DropDownPanel.BUTTON)
             .enable(this.type);
 
-        CSS.from(this.component.get("content"))
+        StyleClassAccessor.from(this.component.get("content"))
             .enable(DropDownPanel.CONTENT)
             .disable(DropDownPanel.CONTENT_VISIBLE)
             .enable(DropDownPanel.CONTENT_HIDDEN)
@@ -104,7 +104,7 @@ export class DropDownPanel {
     }
 
     toggleContent() {
-        if (!Style.from(this.component.get("arrow")).is("display","block")) {
+        if (!StyleAccessor.from(this.component.get("arrow")).is("display","block")) {
             this.show();
         } else {
             this.hide();
@@ -112,16 +112,16 @@ export class DropDownPanel {
     }
 
     show() {
-        CSS.from(this.component.get("content"))
+        StyleClassAccessor.from(this.component.get("content"))
             .disable(DropDownPanel.CONTENT_HIDDEN)
             .enable(DropDownPanel.CONTENT_VISIBLE);
-        Style.from(this.component.get("arrow"))
+        StyleAccessor.from(this.component.get("arrow"))
             .set("display", "block");
         this.component.get("content").containerElement.focus();
     }
 
     hide() {
-        CSS.from(this.component.get("content"))
+        StyleClassAccessor.from(this.component.get("content"))
             .disable(DropDownPanel.CONTENT_VISIBLE)
             .enable(DropDownPanel.CONTENT_HIDDEN);
         this.component.get("arrow").setStyle("display", "none");
