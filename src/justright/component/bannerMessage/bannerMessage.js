@@ -1,7 +1,9 @@
 import {
-    TemplateComponentFactory,
     CanvasStyles,
-    Component
+    Component,
+    StylesheetBuilder,
+    ComponentBuilder,
+    InlineComponentFactory
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method, TimePromise } from "coreutil_v1";
@@ -10,9 +12,6 @@ import { CustomAppearance } from "../customAppearance.js";
 const LOG = new Logger("BannerMessage");
 
 export class BannerMessage {
-
-    static TEMPLATE_URL = "/assets/justrightjs-ui/bannerMessage.html";
-    static STYLES_URL = "/assets/justrightjs-ui/bannerMessage.css";
 
     static TYPE_ALERT = "type-alert";
     static TYPE_INFO = "type-info";
@@ -28,8 +27,8 @@ export class BannerMessage {
      */
     constructor(message, bannerType = BannerMessage.TYPE_INFO, closeable = false, customAppearance = null) {
 
-        /** @type {TemplateComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        /** @type {InlineComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -52,6 +51,103 @@ export class BannerMessage {
         /** @type {CustomAppearance} */
         this.customAppearance = customAppearance;
 
+    }
+
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     */
+    static buildStylesheet(stylesheetBuilder) {
+        return stylesheetBuilder
+            .add(".banner-message-size-large")
+                .set("padding", "18pt")
+
+            .add(".banner-message-size-default, .banner-message-size-medium")
+                .set("padding", "12pt")
+
+            .add(".banner-message-size-small")
+                .set("padding-left", "10pt")
+                .set("padding-right", "10px")
+                .set("padding-bottom", "8px")
+                .set("padding-top", "8px")
+
+            .add(".banner-message-shape-default, .banner-message-shape-square")
+                .set("border-radius", "0px")
+
+            .add(".banner-message-shape-round")
+                .set("border-radius", "3px")
+
+            .add(".banner-message-spacing-default, .banner-message-spacing-none")
+                .set("margin", "0pt")
+
+            .add(".banner-message-spacing-above")
+                .set("margin-top", "1rem")
+
+            .add(".banner-message-spacing-below")
+                .set("margin-bottom", "1rem")
+
+            .add(".banner-message-spacing-above-below")
+                .set("margin-top", "1rem")
+                .set("margin-bottom", "1rem")
+
+            .add(".banner-message")
+                .set("color", "white")
+                .set("width", "100%")
+                .set("transition", "opacity 0.5s")
+
+            .add(".banner-message.hide")
+                .set("opacity", "0")
+
+            .add(".banner-message.show")
+                .set("opacity", "0.90")
+
+            .add(".banner-message-type-alert")
+                .set("background-color", "#f44336")
+
+            .add(".banner-message-type-success")
+                .set("background-color", "#4CAF50")
+
+            .add(".banner-message-type-info")
+                .set("background-color", "#2196F3")
+
+            .add(".banner-message-type-warning")
+                .set("background-color", "#ff9800")
+
+            .add(".banner-message-close-button")
+                .set("margin-left", "15pt")
+                .set("color", "white")
+                .set("font-weight", "bold")
+                .set("float", "right")
+                .set("font-size", "22pt")
+                .set("line-height", "14pt")
+                .set("cursor", "pointer")
+                .set("transition", "0.3s")
+
+            .add(".banner-message-close-button:hover")
+                .set("color", "black")
+
+            .add(".banner-message-message")
+                .set("margin-left", "15px")
+
+            .build();
+    }
+
+    /**
+     * 
+     * @param {ComponentBuilder} componentBuilder 
+     */
+    static buildComponent(componentBuilder) {
+        return componentBuilder
+            .root("div", "id=bannerMessage", "class=banner-message")
+            .open()
+                .add("span", "id=bannerMessageCloseButton", "class=banner-message-close-button")
+                .open()
+                    .addText("×")
+                .close()
+                .add("span", "id=bannerMessageHeader", "class=banner-message-header")
+                .add("span", "id=bannerMessageMessage", "class=banner-message-message")
+            .close()
+            .build();
     }
 
     postConfig() {
