@@ -1,13 +1,10 @@
 import { Logger } from "coreutil_v1";
-import { CanvasStyles, Component, ComponentBuilder, InlineComponentFactory, StylesheetBuilder, TemplateComponentFactory } from "justright_core_v1";
+import { CanvasStyles, Component, ComponentBuilder, InlineComponentFactory, StylesheetBuilder } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 
 const LOG = new Logger("LinePanelEntry");
 
 export class LinePanelEntry {
-
-	static TEMPLATE_URL = "/assets/justrightjs-ui/linePanelEntry.html";
-	static STYLES_URL = "/assets/justrightjs-ui/linePanelEntry.css";
 
     constructor() {
 
