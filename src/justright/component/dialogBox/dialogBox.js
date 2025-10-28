@@ -69,6 +69,7 @@ export class DialogBox {
                     .style("width", "100%")
                     .style("height", "100%")
                 .close()
+
                 .selector(".dialogbox-frame")
                 .open()
                     .style("position", "absolute")
@@ -76,11 +77,13 @@ export class DialogBox {
                     .style("width", "100%")
                     .style("height", "100%")
                 .close()
+
                 .selector(".dialogbox-content")
                 .open()
                     .style("position", "relative")
                     .style("height", "100%")
                 .close()
+
                 .selector(".dialogbox-body")
                 .open()
                     .style("overflow-y", "visible")
@@ -99,6 +102,7 @@ export class DialogBox {
                     .style("width", "auto")
                     .style("height", "auto")
                 .close()
+
                 .selector(".dialogbox-frame")
                 .open()
                     .style("position", "relative")
@@ -107,6 +111,7 @@ export class DialogBox {
                     .style("margin", "0.5rem")
                     .style("pointer-events", "none")
                 .close()
+
                 .selector(".dialogbox-content")
                 .open()
                     .style("position", "relative")
@@ -114,11 +119,13 @@ export class DialogBox {
                     .style("border-radius", "0.3rem")
                     .style("height", "auto")
                 .close()
+
                 .selector(".dialogbox-body")
                 .open()
                     .style("overflow-y", "visible")
                     .style("overflow-x", "hidden")
                 .close()
+
                 .selector(".dialogbox-header")
                 .open()
                     .style("border-top-left-radius", "0.3rem")
@@ -131,6 +138,7 @@ export class DialogBox {
                 .open()
                     .style("transition", "none")
                 .close()
+
                 .selector(".dialogbox-fade")
                 .open()
                     .style("transition", "none")
@@ -140,27 +148,33 @@ export class DialogBox {
             .open()
                 .style("overflow", "hidden")
             .close()
+
             .selector(".dialogbox-open .dialogbox-overlay")
             .open()
                 .style("overflow-x", "hidden")
                 .style("overflow-y", "auto")
             .close()
+
             .selector(".dialogbox-overlay-fade")
             .open()
                 .style("transition", "opacity 0.15s linear")
             .close()
+
             .selector(".dialogbox-overlay-display-block")
             .open()
                 .style("display", "block")
             .close()
+
             .selector(".dialogbox-overlay-display-none")
             .open()
                 .style("display", "none")
             .close()
+
             .selector(".dialogbox-overlay-fade:not(.dialogbox-overlay-show)")
             .open()
                 .style("opacity", "0")
             .close()
+
             .selector(".dialogbox-overlay.dialogbox-overlay-fade .dialogbox-frame")
             .open()
                 .style("transition", "-webkit-transform 0.3s ease-out")
@@ -169,27 +183,32 @@ export class DialogBox {
                 .style("-webkit-transform", "translate(0, -50px)")
                 .style("transform", "translate(0, -50px)")
             .close()
+
             .selector(".dialogbox-overlay.dialogbox-overlay-show .dialogbox-frame")
             .open()
                 .style("-webkit-transform", "none")
                 .style("transform", "none")
             .close()
+
             .selector(".dialogbox-header .dialogbox-close-button")
             .open()
                 .style("padding", "0.7rem 1rem")
                 .style("margin", "-0.7rem -1rem -0.7rem auto")
             .close()
+
             .selector(".dialogbox-title")
             .open()
                 .style("margin-bottom", "0")
                 .style("line-height", "1.5")
             .close()
+
             .selector(".dialogbox-body")
             .open()
                 .style("position", "relative")
                 .style("-ms-flex", "1 1 auto")
                 .style("flex", "1 1 auto")
             .close()
+
             .selector(".dialogbox-footer")
             .open()
                 .style("display", "-ms-flexbox")
@@ -203,14 +222,17 @@ export class DialogBox {
                 .style("border-bottom-right-radius", "0.3rem")
                 .style("border-bottom-left-radius", "0.3rem")
             .close()
+
             .selector(".dialogbox-footer > :not(:first-child)")
             .open()
                 .style("margin-left", ".25rem")
             .close()
+
             .selector(".dialogbox-footer > :not(:last-child)")
             .open()
                 .style("margin-right", ".25rem")
             .close()
+
             .selector(".dialogbox-overlay")
             .open()
                 .style("top", "0")
@@ -218,10 +240,12 @@ export class DialogBox {
                 .style("overflow", "hidden")
                 .style("outline", "0")
             .close()
+
             .selector(".dialogbox-frame")
             .open()
                 .style("margin", "0")
             .close()
+
             .selector(".dialogbox-content")
             .open()
                 .style("display", "-ms-flexbox")
@@ -233,6 +257,7 @@ export class DialogBox {
                 .style("background-color", "#fff")
                 .style("background-clip", "padding-box")
             .close()
+
             .selector(".dialogbox-header")
             .open()
                 .style("display", "-ms-flexbox")
@@ -246,6 +271,7 @@ export class DialogBox {
                 .style("padding", "0.7rem 1rem")
                 .style("border-bottom", "1px solid #dee2e6")
             .close()
+
             .selector(".dialogbox-close-button")
             .open()
                 .style("float", "right")
@@ -256,15 +282,18 @@ export class DialogBox {
                 .style("text-shadow", "0 1px 0 #fff")
                 .style("opacity", ".5")
             .close()
+
             .selector(".dialogbox-close-button:hover")
             .open()
                 .style("color", "#000")
                 .style("text-decoration", "none")
             .close()
+
             .selector(".dialogbox-close-button:not(:disabled):not(.disabled):hover, .dialogbox-close-button:not(:disabled):not(.disabled):focus")
             .open()
                 .style("opacity", ".75")
             .close()
+
             .selector("button.dialogbox-close-button")
             .open()
                 .style("padding", "0")
@@ -274,6 +303,7 @@ export class DialogBox {
                 .style("-moz-appearance", "none")
                 .style("appearance", "none")
             .close()
+            
             .build();
     }
 
