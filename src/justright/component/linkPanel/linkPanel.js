@@ -1,9 +1,12 @@
 import {
-    TemplateComponentFactory,
     CanvasStyles,
     Component,
     EventManager,
-    StyleSelectorAccessor
+    StyleSelectorAccessor,
+    StylesheetBuilder,
+    ComponentBuilder,
+    Stylesheet,
+    InlineComponentFactory
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
@@ -12,9 +15,6 @@ import { CommonEvents } from "../common/commonEvents";
 const LOG = new Logger("LinkPanel");
 
 export class LinkPanel {
-
-    static TEMPLATE_URL = "/assets/justrightjs-ui/linkPanel.html";
-    static STYLES_URL = "/assets/justrightjs-ui/linkPanel.css";
 
     static EVENT_CLICKED = CommonEvents.CLICKED;
 
@@ -38,8 +38,8 @@ export class LinkPanel {
      */
     constructor(label, icon, theme = LinkPanel.THEME_DARK, orientation = LinkPanel.ORIENTATION_FLAT, size = LinkPanel.SIZE_SMALL) {
 
-        /** @type {TemplateComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        /** @type {InlineComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -61,6 +61,151 @@ export class LinkPanel {
 
         /** @type {EventManager<LinkPanel>} */
         this.eventManager = new EventManager();
+    }
+
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     * @returns {Stylesheet}
+     */
+    static buildStylesheet(stylesheetBuilder) {
+        return stylesheetBuilder
+            .selector(".link-panel")
+            .open()
+                .style("display", "flex")
+                .style("align-items", "stretch")
+                .style("margin", "2pt")
+                .style("border-radius", "5pt")
+                .style("cursor", "pointer")
+                .style("padding", "0.75rem 0.75rem")
+                .style("user-select", "none")
+            .close()
+
+            .selector(".link-panel-flat")
+            .open()
+                .style("flex-direction", "row")
+            .close()
+
+            .selector(".link-panel-flat > .link-panel-icon")
+            .open()
+                .style("width", "2rem")
+            .close()
+
+            .selector(".link-panel-stacked")
+            .open()
+                .style("flex-direction", "column")
+            .close()
+
+            .selector(".link-panel-small")
+            .open()
+                .style("font-size", "1rem")
+            .close()
+
+            .selector(".link-panel-medium")
+            .open()
+                .style("font-size", "1.2rem")
+            .close()
+
+            .selector(".link-panel-large")
+            .open()
+                .style("font-size", "1.5rem")
+            .close()
+
+            .selector(".link-panel-dark")
+            .open()
+                .style("color", "#212529")
+            .close()
+
+            .selector(".link-panel-dark:hover")
+            .open()
+                .style("background-color", "#bfbfbf")
+            .close()
+
+            .selector(".link-panel-light")
+            .open()
+                .style("color", "#ffffff")
+            .close()
+
+            .selector(".link-panel-light:hover")
+            .open()
+                .style("background-color", "#8f8f8f")
+            .close()
+
+            .selector(".link-panel-danger")
+            .open()
+                .style("color", "#ff0000")
+            .close()
+
+            .selector(".link-panel-danger:hover")
+            .open()
+                .style("background-color", "#bfbfbf")
+            .close()
+
+            .selector(".link-panel-info")
+            .open()
+                .style("color", "#0000ff")
+            .close()
+
+            .selector(".link-panel-info:hover")
+            .open()
+                .style("background-color", "#bfbfbf")
+            .close()
+
+            .selector(".link-panel-success")
+            .open()
+                .style("color", "#00ff00")
+            .close()
+
+            .selector(".link-panel-success:hover")
+            .open()
+                .style("background-color", "#ffffff")
+            .close()
+
+            .selector(".link-panel-icon")
+            .open()
+                .style("text-align", "center")
+                .style("vertical-align", "middle")
+                .style("user-select", "none")
+            .close()
+
+            .selector(".link-panel-label")
+            .open()
+                .style("font-weight", "400")
+                .style("text-align", "center")
+                .style("vertical-align", "middle")
+                .style("padding-left", "5pt")
+                .style("padding-right", "5pt")
+                .style("user-select", "none")
+                .style("transition", "color 0.15s ease-in-out, " +
+                    "background-color 0.15s ease-in-out, " +
+                    "border-color 0.15s ease-in-out, " +
+                    "box-shadow 0.15s ease-in-out")
+            .close()
+
+            .build();
+
+
+    }
+
+    /**
+     * 
+     * @param {ComponentBuilder} componentBuilder 
+     * @returns {Component}
+     */
+    static buildComponent(componentBuilder) {
+        return componentBuilder
+            .root("div", "id=link", "class=link-panel")
+            .open()
+                .add("div", "class=link-panel-icon")
+                .open()
+                    .add("i", "id=icon")
+                .close()
+                .add("div", "class=link-panel-label")
+                .open()
+                    .add("a", "id=label")
+                .close()
+            .close()
+            .build();
     }
 
     /** @type {EventManager<LinkPanel>} */
