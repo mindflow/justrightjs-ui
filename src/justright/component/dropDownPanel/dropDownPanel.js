@@ -1,5 +1,4 @@
 import {
-    TemplateComponentFactory,
     CanvasStyles,
     Component,
     CanvasRoot,
@@ -196,13 +195,15 @@ export class DropDownPanel {
                 .style("text-decoration", "none")
             .close()
 
-            .selector(".drop-down-panel-button:focus, .drop-down-panel-button.focus")
+            .selector(".drop-down-panel-button:focus," +
+                        ".drop-down-panel-button.focus")
             .open()
                 .style("outline", "0")
                 .style("box-shadow", "0 0 0 0.2rem rgba(0, 123, 255, 0.25)")
             .close()
 
-            .selector(".drop-down-panel-button.disabled, .drop-down-panel-button:disabled")
+            .selector(".drop-down-panel-button.disabled,"+ 
+                        ".drop-down-panel-button:disabled")
             .open()
                 .style("opacity", "0.65")
             .close()
@@ -221,26 +222,32 @@ export class DropDownPanel {
                 .style("border-color", "#0062cc")
             .close()
         
-            .selector(".drop-down-panel-button-primary:focus, .drop-down-panel-button-primary.focus")
+            .selector(".drop-down-panel-button-primary:focus," +
+                        ".drop-down-panel-button-primary.focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(38, 143, 255, 0.5)")
             .close()
-        
-            .selector(".drop-down-panel-button-primary.disabled, .drop-down-panel-button-primary:disabled")
+
+            .selector(".drop-down-panel-button-primary.disabled," +
+                        ".drop-down-panel-button-primary:disabled")
             .open()
                 .style("color", "#fff")
                 .style("background-color", "#5eabfd")
                 .style("border-color", "#5eabfd")
             .close()
-        
-            .selector(".drop-down-panel-button-primary:not(:disabled):not(.disabled):active, .drop-down-panel-button-primary:not(:disabled):not(.disabled).active, .show > .drop-down-panel-button-primary.dropdown-toggle")
+
+            .selector(".drop-down-panel-button-primary:not(:disabled):not(.disabled):active," +
+                        ".drop-down-panel-button-primary:not(:disabled):not(.disabled).active," +
+                        ".show > .drop-down-panel-button-primary.dropdown-toggle")
             .open()
                 .style("color", "#fff")
                 .style("background-color", "#0062cc")
                 .style("border-color", "#005cbf")
             .close()
         
-            .selector(".drop-down-panel-button-primary:not(:disabled):not(.disabled):active:focus, .drop-down-panel-button-primary:not(:disabled):not(.disabled).active:focus, .show > .drop-down-panel-button-primary.dropdown-toggle:focus")
+            .selector(".drop-down-panel-button-primary:not(:disabled):not(.disabled):active:focus," +
+                        ".drop-down-panel-button-primary:not(:disabled):not(.disabled).active:focus," + 
+                        ".show > .drop-down-panel-button-primary.dropdown-toggle:focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(38, 143, 255, 0.5)")
             .close()
@@ -259,45 +266,56 @@ export class DropDownPanel {
                 .style("border-color", "#545b62")
             .close()
         
-            .selector(".drop-down-panel-button-secondary:focus, .drop-down-panel-button-secondary.focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(130, 138, 145, 0.5)")
-            .close()
-        
-            .selector(".drop-down-panel-button-secondary.disabled, .drop-down-panel-button-secondary:disabled")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#6c757d")
-                .style("border-color", "#6c757d")
-            .close()
-        
-            .selector(".drop-down-panel-button-secondary:not(:disabled):not(.disabled):active, .drop-down-panel-button-secondary:not(:disabled):not(.disabled).active, .show > .drop-down-panel-button-secondary.dropdown-toggle")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#545b62")
-                .style("border-color", "#4e555b")
-            .close()
-        
-            .selector(".drop-down-panel-button-secondary:not(:disabled):not(.disabled):active:focus, .drop-down-panel-button-secondary:not(:disabled):not(.disabled).active:focus, .show > .drop-down-panel-button-secondary.dropdown-toggle:focus")
+            .selector(".drop-down-panel-button-secondary:focus," + 
+                        ".drop-down-panel-button-secondary.focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(130, 138, 145, 0.5)")
             .close()
 
-            .selector(".drop-down-panel-button-secondary.disabled, .drop-down-panel-button-secondary:disabled")
+            .selector(".drop-down-panel-button-secondary.disabled," +
+                        ".drop-down-panel-button-secondary:disabled")
             .open()
                 .style("color", "#fff")
                 .style("background-color", "#6c757d")
                 .style("border-color", "#6c757d")
             .close()
 
-            .selector(".drop-down-panel-button-secondary:not(:disabled):not(.disabled):active, .drop-down-panel-button-secondary:not(:disabled):not(.disabled).active, .show > .drop-down-panel-button-secondary.dropdown-toggle")
+            .selector(".drop-down-panel-button-secondary:not(:disabled):not(.disabled):active," +
+                        ".drop-down-panel-button-secondary:not(:disabled):not(.disabled).active," +
+                        ".show > .drop-down-panel-button-secondary.dropdown-toggle")
             .open()
                 .style("color", "#fff")
                 .style("background-color", "#545b62")
                 .style("border-color", "#4e555b")
             .close()
-        
-            .selector(".drop-down-panel-button-secondary:not(:disabled):not(.disabled):active:focus, .drop-down-panel-button-secondary:not(:disabled):not(.disabled).active:focus, .show > .drop-down-panel-button-secondary.dropdown-toggle:focus")
+
+            .selector(".drop-down-panel-button-secondary:not(:disabled):not(.disabled):active:focus," +
+                        ".drop-down-panel-button-secondary:not(:disabled):not(.disabled).active:focus," +
+                        ".show > .drop-down-panel-button-secondary.dropdown-toggle:focus")
+            .open()
+                .style("box-shadow", "0 0 0 0.2rem rgba(130, 138, 145, 0.5)")
+            .close()
+
+            .selector(".drop-down-panel-button-secondary.disabled," +
+                        ".drop-down-panel-button-secondary:disabled")
+            .open()
+                .style("color", "#fff")
+                .style("background-color", "#6c757d")
+                .style("border-color", "#6c757d")
+            .close()
+
+            .selector(".drop-down-panel-button-secondary:not(:disabled):not(.disabled):active," +
+                        ".drop-down-panel-button-secondary:not(:disabled):not(.disabled).active," +
+                        ".show > .drop-down-panel-button-secondary.dropdown-toggle")
+            .open()
+                .style("color", "#fff")
+                .style("background-color", "#545b62")
+                .style("border-color", "#4e555b")
+            .close()
+
+            .selector(".drop-down-panel-button-secondary:not(:disabled):not(.disabled):active:focus," +
+                        ".drop-down-panel-button-secondary:not(:disabled):not(.disabled).active:focus," +
+                        ".show > .drop-down-panel-button-secondary.dropdown-toggle:focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(130, 138, 145, 0.5)")
             .close()
@@ -316,26 +334,32 @@ export class DropDownPanel {
                 .style("border-color", "#1e7e34")
             .close()
         
-            .selector(".drop-down-panel-button-success:focus, .drop-down-panel-button-success.focus")
+            .selector(".drop-down-panel-button-success:focus," +
+                        ".drop-down-panel-button-success.focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(72, 180, 97, 0.5)")
             .close()
         
-            .selector(".drop-down-panel-button-success.disabled, .drop-down-panel-button-success:disabled")
+            .selector(".drop-down-panel-button-success.disabled," + 
+                        ".drop-down-panel-button-success:disabled")
             .open()
                 .style("color", "#fff")
                 .style("background-color", "#28a745")
                 .style("border-color", "#28a745")
             .close()
-        
-            .selector(".drop-down-panel-button-success:not(:disabled):not(.disabled):active, .drop-down-panel-button-success:not(:disabled):not(.disabled).active, .show > .drop-down-panel-button-success.dropdown-toggle")
+
+            .selector(".drop-down-panel-button-success:not(:disabled):not(.disabled):active," +
+                        ".drop-down-panel-button-success:not(:disabled):not(.disabled).active," +
+                        ".show > .drop-down-panel-button-success.dropdown-toggle")
             .open()
                 .style("color", "#fff")
                 .style("background-color", "#1e7e34")
                 .style("border-color", "#1c7430")
             .close()
-        
-            .selector(".drop-down-panel-button-success:not(:disabled):not(.disabled):active:focus, .drop-down-panel-button-success:not(:disabled):not(.disabled).active:focus, .show > .drop-down-panel-button-success.dropdown-toggle:focus")
+
+            .selector(".drop-down-panel-button-success:not(:disabled):not(.disabled):active:focus," +
+                        ".drop-down-panel-button-success:not(:disabled):not(.disabled).active:focus," +
+                        ".show > .drop-down-panel-button-success.dropdown-toggle:focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(72, 180, 97, 0.5)")
             .close()
@@ -354,26 +378,32 @@ export class DropDownPanel {
                 .style("border-color", "#117a8b")
             .close()
 
-            .selector(".drop-down-panel-button-info:focus, .drop-down-panel-button-info.focus")
+            .selector(".drop-down-panel-button-info:focus," + 
+                        ".drop-down-panel-button-info.focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(58, 176, 195, 0.5)")
             .close()
 
-            .selector(".drop-down-panel-button-info.disabled, .drop-down-panel-button-info:disabled")
+            .selector(".drop-down-panel-button-info.disabled," + 
+                        ".drop-down-panel-button-info:disabled")
             .open()
                 .style("color", "#fff")
                 .style("background-color", "#17a2b8")
                 .style("border-color", "#17a2b8")
             .close()
 
-            .selector(".drop-down-panel-button-info:not(:disabled):not(.disabled):active, .drop-down-panel-button-info:not(:disabled):not(.disabled).active, .show > .drop-down-panel-button-info.dropdown-toggle")
+            .selector(".drop-down-panel-button-info:not(:disabled):not(.disabled):active," + 
+                        ".drop-down-panel-button-info:not(:disabled):not(.disabled).active," + 
+                        ".show > .drop-down-panel-button-info.dropdown-toggle")
             .open()
                 .style("color", "#fff")
                 .style("background-color", "#117a8b")
                 .style("border-color", "#10707f")
             .close()
 
-            .selector(".drop-down-panel-button-info:not(:disabled):not(.disabled):active:focus, .drop-down-panel-button-info:not(:disabled):not(.disabled).active:focus, .show > .drop-down-panel-button-info.dropdown-toggle:focus")
+            .selector(".drop-down-panel-button-info:not(:disabled):not(.disabled):active:focus," + 
+                ".drop-down-panel-button-info:not(:disabled):not(.disabled).active:focus," + 
+                ".show > .drop-down-panel-button-info.dropdown-toggle:focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(58, 176, 195, 0.5)")
             .close()
@@ -392,19 +422,23 @@ export class DropDownPanel {
                 .style("border-color", "#d39e00")
             .close()
 
-            .selector(".drop-down-panel-button-warning:focus, .drop-down-panel-button-warning.focus")
+            .selector(".drop-down-panel-button-warning:focus," +
+                        ".drop-down-panel-button-warning.focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(222, 170, 12, 0.5)")
             .close()
 
-            .selector(".drop-down-panel-button-warning.disabled, .drop-down-panel-button-warning:disabled")
+            .selector(".drop-down-panel-button-warning.disabled," + 
+                        ".drop-down-panel-button-warning:disabled")
             .open()
                 .style("color", "#212529")
                 .style("background-color", "#ffc107")
                 .style("border-color", "#ffc107")
             .close()
 
-            .selector(".drop-down-panel-button-warning:not(:disabled):not(.disabled):active:focus, .drop-down-panel-button-warning:not(:disabled):not(.disabled).active:focus, .show > .drop-down-panel-button-warning.dropdown-toggle:focus")
+            .selector(".drop-down-panel-button-warning:not(:disabled):not(.disabled):active:focus," + 
+                        ".drop-down-panel-button-warning:not(:disabled):not(.disabled).active:focus," + 
+                        ".show > .drop-down-panel-button-warning.dropdown-toggle:focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(222, 170, 12, 0.5)")
             .close()
@@ -428,21 +462,26 @@ export class DropDownPanel {
                 .style("box-shadow", "0 0 0 0.2rem rgba(225, 83, 97, 0.5)")
             .close()
 
-            .selector(".drop-down-panel-button-danger.disabled, .drop-down-panel-button-danger:disabled")
+            .selector(".drop-down-panel-button-danger.disabled," + 
+                        ".drop-down-panel-button-danger:disabled")
             .open()
                 .style("color", "#fff")
                 .style("background-color", "#dc3545")
                 .style("border-color", "#dc3545")
             .close()
 
-            .selector(".drop-down-panel-button-danger:not(:disabled):not(.disabled):active, .drop-down-panel-button-danger:not(:disabled):not(.disabled).active, .show > .drop-down-panel-button-danger.dropdown-toggle")
+            .selector(".drop-down-panel-button-danger:not(:disabled):not(.disabled):active," + 
+                        ".drop-down-panel-button-danger:not(:disabled):not(.disabled).active," + 
+                        ".show > .drop-down-panel-button-danger.dropdown-toggle")
             .open()
                 .style("color", "#fff")
                 .style("background-color", "#bd2130")
                 .style("border-color", "#b21f2d")
             .close()
 
-            .selector(".drop-down-panel-button-danger:not(:disabled):not(.disabled):active:focus, .drop-down-panel-button-danger:not(:disabled):not(.disabled).active:focus, .show > .drop-down-panel-button-danger.dropdown-toggle:focus")
+            .selector(".drop-down-panel-button-danger:not(:disabled):not(.disabled):active:focus," + 
+                        ".drop-down-panel-button-danger:not(:disabled):not(.disabled).active:focus," + 
+                        ".show > .drop-down-panel-button-danger.dropdown-toggle:focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(225, 83, 97, 0.5)")
             .close()
@@ -461,26 +500,32 @@ export class DropDownPanel {
                 .style("border-color", "#dae0e5")
             .close()
         
-            .selector(".drop-down-panel-button-light:focus, .drop-down-panel-button-light.focus")
+            .selector(".drop-down-panel-button-light:focus," + 
+                        ".drop-down-panel-button-light.focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(216, 217, 219, 0.5)")
             .close()
         
-            .selector(".drop-down-panel-button-light.disabled, .drop-down-panel-button-light:disabled")
+            .selector(".drop-down-panel-button-light.disabled," + 
+                        ".drop-down-panel-button-light:disabled")
             .open()
                 .style("color", "#212529")
                 .style("background-color", "#f8f9fa")
                 .style("border-color", "#f8f9fa")
             .close()
         
-            .selector(".drop-down-panel-button-light:not(:disabled):not(.disabled):active, .drop-down-panel-button-light:not(:disabled):not(.disabled).active, .show > .drop-down-panel-button-light.dropdown-toggle")
+            .selector(".drop-down-panel-button-light:not(:disabled):not(.disabled):active," + 
+                        ".drop-down-panel-button-light:not(:disabled):not(.disabled).active," + 
+                        ".show > .drop-down-panel-button-light.dropdown-toggle")
             .open()
                 .style("color", "#212529")
                 .style("background-color", "#dae0e5")
                 .style("border-color", "#d3d9df")
             .close()
-        
-            .selector(".drop-down-panel-button-light:not(:disabled):not(.disabled):active:focus, .drop-down-panel-button-light:not(:disabled):not(.disabled).active:focus, .show > .drop-down-panel-button-light.dropdown-toggle:focus")
+
+            .selector(".drop-down-panel-button-light:not(:disabled):not(.disabled):active:focus," + 
+                        ".drop-down-panel-button-light:not(:disabled):not(.disabled).active:focus," + 
+                        ".show > .drop-down-panel-button-light.dropdown-toggle:focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(216, 217, 219, 0.5)")
             .close()
@@ -499,26 +544,32 @@ export class DropDownPanel {
                 .style("border-color", "#1d2124")
             .close()
         
-            .selector(".drop-down-panel-button-dark:focus, .drop-down-panel-button-dark.focus")
+            .selector(".drop-down-panel-button-dark:focus," + 
+                        ".drop-down-panel-button-dark.focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(82, 88, 93, 0.5)")
             .close()
         
-            .selector(".drop-down-panel-button-dark.disabled, .drop-down-panel-button-dark:disabled")
+            .selector(".drop-down-panel-button-dark.disabled," + 
+                        ".drop-down-panel-button-dark:disabled")
             .open()
                 .style("color", "#fff")
                 .style("background-color", "#343a40")
                 .style("border-color", "#343a40")
             .close()
-        
-            .selector(".drop-down-panel-button-dark:not(:disabled):not(.disabled):active, .drop-down-panel-button-dark:not(:disabled):not(.disabled).active, .show > .drop-down-panel-button-dark.dropdown-toggle")
+
+            .selector(".drop-down-panel-button-dark:not(:disabled):not(.disabled):active," + 
+                        ".drop-down-panel-button-dark:not(:disabled):not(.disabled).active," + 
+                        ".show > .drop-down-panel-button-dark.dropdown-toggle")
             .open()
                 .style("color", "#fff")
                 .style("background-color", "#1d2124")
                 .style("border-color", "#171a1d")
             .close()
-        
-            .selector(".drop-down-panel-button-dark:not(:disabled):not(.disabled):active:focus, .drop-down-panel-button-dark:not(:disabled):not(.disabled).active:focus, .show > .drop-down-panel-button-dark.dropdown-toggle:focus")
+
+            .selector(".drop-down-panel-button-dark:not(:disabled):not(.disabled):active:focus," + 
+                        ".drop-down-panel-button-dark:not(:disabled):not(.disabled).active:focus," + 
+                        ".show > .drop-down-panel-button-dark.dropdown-toggle:focus")
             .open()
                 .style("box-shadow", "0 0 0 0.2rem rgba(82, 88, 93, 0.5)")
             .close()
