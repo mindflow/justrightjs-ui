@@ -2,12 +2,15 @@ import { ContainerEvent, ContainerFileData } from "containerbridge_v1";
 import { Logger, Method } from "coreutil_v1";
 import { CanvasStyles,
     Component,
-    TemplateComponentFactory,
     EventManager,
     SimpleElement,
     StyleSelectorAccessor,
     HTML,
-    StateManager
+    StateManager,
+    StylesheetBuilder,
+    Stylesheet,
+    ComponentBuilder,
+    InlineComponentFactory
 } from "justright_core_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
 import { FileUploadEntry } from "./fileUploadEntry/fileUploadEntry.js";
@@ -16,9 +19,6 @@ import { CommonEvents } from "../../common/commonEvents.js";
 const LOG = new Logger("FileUpload");
 
 export class FileUpload {
-
-	static TEMPLATE_URL = "/assets/justrightjs-ui/fileUpload.html";
-	static STYLES_URL = "/assets/justrightjs-ui/fileUpload.css";
 
 	static DEFAULT_PLACEHOLDER = "FileUpload";
 
@@ -36,8 +36,8 @@ export class FileUpload {
      */
     constructor(name, multiple = false, fileTypeArray = []) {
         
-        /** @type {TemplateComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        /** @type {InlineComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -60,6 +60,147 @@ export class FileUpload {
         /** @type {Provider<FileUploadEntry>} */
         this.fileUploadEntryProvider = InjectionPoint.provider(FileUploadEntry);
 
+    }
+
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     * @returns {Stylesheet}
+     */
+    static buildStylesheet(stylesheetBuilder) {
+       stylesheetBuilder
+           .selector(".file-upload-error")
+           .open()
+                .style("width", "fit-content")
+                .style("color", "#333333")
+                .style("transform", "translate(+5px,-5px)")
+                .style("background-color", "#FFFFE0")
+                .style("font-weight", "normal")
+                .style("font-size", "14px")
+                .style("border-radius", "8px")
+                .style("position", "relative")
+                .style("z-index", "99999998")
+                .style("box-sizing", "border-box")
+                .style("box-shadow", "0 1px 8px rgba(0,0,0,0.5)")
+                .style("cursor", "pointer")
+           .close()
+
+           .selector(".file-upload-error-hidden")
+           .open()
+                .style("transition", "max-height .3s .2s, padding .3s .2s, opacity .2s 0s, visibility 0s .2s")
+                .style("opacity", "0")
+                .style("padding", "0px 0px")
+                .style("max-height", "0px")
+                .style("display", "block")
+                .style("visibility", "hidden")
+           .close()
+
+           .selector(".file-upload-error-visible")
+           .open()
+                .style("transition", "max-height .3s, padding .2s, opacity .2s .2s")
+                .style("opacity", "1")
+                .style("padding", "10px 20px")
+                .style("max-height", "50px")
+                .style("display", "block")
+                .style("visibility", "visible")
+                .style("margin-top", "10px")
+           .close()
+
+           .selector(".file-upload-error i")
+           .open()
+                .style("position", "absolute")
+                .style("top", "100%")
+                .style("left", "30%")
+                .style("margin-left", "-15px")
+                .style("width", "30px")
+                .style("height", "15px")
+                .style("overflow", "hidden")
+           .close()
+
+           .selector(".file-upload-box")
+           .open()
+                .style("border", "2px dashed #ced4da")
+                .style("border-radius", "0.25rem")
+                .style("padding", "1rem")
+                .style("cursor", "pointer")
+                .style("transition", "background-color 0.15s ease-in-out, border-color 0.15s ease-in-out")
+                .style("margin-bottom", "15pt")
+           .close()
+
+           .selector(".file-upload-box-instructions")
+           .open()
+                .style("text-align", "center")
+           .close()
+
+           .selector(".file-upload-box-instructions-icon")
+           .open()
+                .style("width", "48px")
+                .style("height", "48px")
+                .style("margin", "0 auto 0 auto")
+                .style("background-size", "contain")
+                .style("background-repeat", "no-repeat")
+                .style("background-position", "center")
+                .style("color", "#e1e1e1")
+                .style("font-size", "3rem")
+           .close()
+
+           .selector(".file-upload-box-instructions-text")
+           .open()
+                .style("font-size", "1rem")
+                .style("color", "#6c757d")
+           .close()
+
+           .selector(".file-upload-box-dragover")
+           .open()
+                .style("background-color", "#e9ecef")
+                .style("border-color", "#80bdff")
+           .close()
+
+           .selector(".file-upload-input")
+           .open()
+                .style("display", "none")
+           .close()
+
+           .selector(".file-upload-unsupported-file")
+           .open()
+                .style("color", "#dc3545")
+                .style("font-size", "0.875rem")
+                .style("padding", "0.25rem 0")
+                .style("border-left", "3px solid #dc3545")
+                .style("padding-left", "0.5rem")
+                .style("margin-top", "0.50rem")
+                .style("background-color", "#f8d7da")
+                .style("border-radius", "0.25rem")
+           .close();
+         return stylesheetBuilder.build();
+    }
+
+    /**
+     * 
+     * @param {ComponentBuilder} componentBuilder 
+     * @returns {Component}
+     */
+    static buildComponent(componentBuilder) {
+        componentBuilder
+            .root("div")
+            .open()
+                .node("div", "id=fileUploadError", "class=file-upload-error file-upload-error-hidden")
+                .open()
+                    .text("Invalid file-upload")
+                    .node("i")
+                .close()
+                .node("div", "id=uploadBox", "class=file-upload-box")
+                .open()
+                    .node("div", "id=instructions", "class=file-upload-box-instructions")
+                    .open()
+                        .node("input", "id=fileInput", "type=file", "class=file-upload-input")
+                        .node("div", "id=uploadBoxIcon", "class=fas fa-upload file-upload-box-instructions-icon")
+                    .close()
+                    .node("div", "id=unsupported")
+                    .node("div", "id=fileList")
+                .close()
+            .close();
+        return componentBuilder.build();
     }
 
     postConfig() {
