@@ -13,6 +13,7 @@ import {
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
 import { ContainerEvent } from "containerbridge_v1";
+import { ColorPalette } from "../colorPalette";
 
 const LOG = new Logger("DropDownPanel");
 
@@ -209,67 +210,67 @@ export class DropDownPanel {
             .close();
 
         DropDownPanel.dropDownPanelButtonMode(stylesheetBuilder, "primary",
-            ["#fff","#007bff","#007bff"], // defaultColors
-            ["#fff","#0069d9","#0062cc"], // hoverColors
-            ["#fff","#5eabfd","#5eabfd"], // disabledColors
-            ["#fff","#0062cc","#005cbf"], // activeColors
+            ColorPalette.PRIMARY_COLORS,
+            ColorPalette.PRIMARY_HOVER_COLORS,
+            ColorPalette.PRIMARY_DISABLED_COLORS,
+            ColorPalette.PRIMARY_ACTIVE_COLORS,
             "0 0 0 0.2rem rgba(130, 138, 145, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(130, 138, 145, 0.5)"); // boxShadowActiveFocus
 
 
         DropDownPanel.dropDownPanelButtonMode(stylesheetBuilder, "secondary",
-            ["#fff","#6c757d","#6c757d"], // defaultColors
-            ["#fff","#5a6268","#545b62"], // hoverColors
-            ["#fff","#6c757d","#6c757d"], // disabledColors
-            ["#fff","#545b62","#4e555b"], // activeColors
+            ColorPalette.SECONDARY_COLORS,
+            ColorPalette.SECONDARY_HOVER_COLORS,
+            ColorPalette.SECONDARY_DISABLED_COLORS,
+            ColorPalette.SECONDARY_ACTIVE_COLORS,
             "0 0 0 0.2rem rgba(130, 138, 145, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(130, 138, 145, 0.5)"); // boxShadowActiveFocus
         
         DropDownPanel.dropDownPanelButtonMode(stylesheetBuilder, "success",
-            ["#fff","#28a745","#28a745"], // defaultColors
-            ["#fff","#218838","#1e7e34"], // hoverColors
-            ["#fff","#28a745","#28a745"], // disabledColors
-            ["#fff","#1e7e34","#1c7430"], // activeColors
+            ColorPalette.SUCCESS_COLORS,
+            ColorPalette.SUCCESS_HOVER_COLORS,
+            ColorPalette.SUCCESS_DISABLED_COLORS,
+            ColorPalette.SUCCESS_ACTIVE_COLORS,
             "0 0 0 0.2rem rgba(72, 180, 97, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(72, 180, 97, 0.5)"); // boxShadowActiveFocus
 
         DropDownPanel.dropDownPanelButtonMode(stylesheetBuilder, "info",
-            ["#fff","#17a2b8","#17a2b8"], // defaultColors
-            ["#fff","#138496","#117a8b"], // hoverColors
-            ["#fff","#17a2b8","#17a2b8"], // disabledColors
-            ["#fff","#117a8b","#10707f"], // activeColors
+            ColorPalette.INFO_COLORS,
+            ColorPalette.INFO_HOVER_COLORS,
+            ColorPalette.INFO_DISABLED_COLORS,
+            ColorPalette.INFO_ACTIVE_COLORS,
             "0 0 0 0.2rem rgba(58, 176, 195, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(58, 176, 195, 0.5)"); // boxShadowActiveFocus
 
         DropDownPanel.dropDownPanelButtonMode(stylesheetBuilder, "warning",
-            ["#212529","#ffc107","#ffc107"], // defaultColors
-            ["#212529","#e0a800","#d39e00"], // hoverColors
-            ["#212529","#ffc107","#ffc107"], // disabledColors
-            ["#212529","#d39e00","#c69500"], // activeColors
+            ColorPalette.WARNING_COLORS,
+            ColorPalette.WARNING_HOVER_COLORS,
+            ColorPalette.WARNING_DISABLED_COLORS,
+            ColorPalette.WARNING_ACTIVE_COLORS,
             "0 0 0 0.2rem rgba(222, 170, 12, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(222, 170, 12, 0.5)"); // boxShadowActiveFocus
 
         DropDownPanel.dropDownPanelButtonMode(stylesheetBuilder, "danger",
-            ["#fff","#dc3545","#dc3545"], // defaultColors
-            ["#fff","#c82333","#bd2130"], // hoverColors
-            ["#fff","#dc3545","#dc3545"], // disabledColors
-            ["#fff","#bd2130","#b21f2d"], // activeColors
+            ColorPalette.DANGER_COLORS,
+            ColorPalette.DANGER_HOVER_COLORS,
+            ColorPalette.DANGER_DISABLED_COLORS,
+            ColorPalette.DANGER_ACTIVE_COLORS,
             "0 0 0 0.2rem rgba(225, 83, 97, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(225, 83, 97, 0.5)"); // boxShadowActiveFocus
 
         DropDownPanel.dropDownPanelButtonMode(stylesheetBuilder, "light",
-            ["#212529","#f8f9fa","#f8f9fa"], // defaultColors
-            ["#212529","#e2e6ea","#dae0e5"], // hoverColors
-            ["#212529","#f8f9fa","#f8f9fa"], // disabledColors
-            ["#212529","#dae0e5","#d3d9df"], // activeColors
+            ColorPalette.LIGHT_COLORS,
+            ColorPalette.LIGHT_HOVER_COLORS,
+            ColorPalette.LIGHT_DISABLED_COLORS,
+            ColorPalette.LIGHT_ACTIVE_COLORS,
             "0 0 0 0.2rem rgba(216, 217, 219, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(216, 217, 219, 0.5)"); // boxShadowActiveFocus
 
         DropDownPanel.dropDownPanelButtonMode(stylesheetBuilder, "dark",
-            ["#fff","#343a40","#343a40"], // defaultColors
-            ["#fff","#23272b","#1d2124"], // hoverColors
-            ["#fff","#343a40","#343a40"], // disabledColors
-            ["#fff","#1d2124","#171a1d"], // activeColors
+            ColorPalette.DARK_COLORS,
+            ColorPalette.DARK_HOVER_COLORS,
+            ColorPalette.DARK_DISABLED_COLORS,
+            ColorPalette.DARK_ACTIVE_COLORS,
             "0 0 0 0.2rem rgba(82, 88, 93, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(82, 88, 93, 0.5)"); // boxShadowActiveFocus
 
