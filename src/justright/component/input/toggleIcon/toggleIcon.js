@@ -1,10 +1,11 @@
 import {
-    TemplateComponentFactory,
     CanvasStyles,
     Component,
     EventManager,
-    CSS,
-    HTML
+    StylesheetBuilder,
+    Stylesheet,
+    ComponentBuilder,
+    InlineComponentFactory
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
@@ -14,9 +15,6 @@ import { ContainerEvent } from "containerbridge_v1";
 const LOG = new Logger("ToggleIcon");
 
 export class ToggleIcon {
-
-    static TEMPLATE_URL = "/assets/justrightjs-ui/toggleIcon.html";
-    static STYLES_URL = "/assets/justrightjs-ui/toggleIcon.css";
 
     static TYPE_PRIMARY = "toggleIcon-primary";
     static TYPE_SECONDARY = "toggleIcon-secondary";
@@ -45,8 +43,8 @@ export class ToggleIcon {
      */
     constructor(name = "?", model = null, label = null) {
 
-        /** @type {TemplateComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        /** @type {InlineComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -80,6 +78,60 @@ export class ToggleIcon {
 
         /** @type {EventManager} */
         this.eventManager = new EventManager();
+    }
+
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     * @returns {Stylesheet}
+     */
+    static buildStylesheet(stylesheetBuilder) {
+        stylesheetBuilder
+            .selector(".toggle-icon-container")
+            .open()
+                .style("display", "inline-block")
+                .style("margin", "1pt")
+                .style("border-radius", "50%")
+                .style("background-color", "transparent")
+                .style("transition", "background-color 0.3s")
+                .style("text-align", "center")
+                .style("line-height", "20pt")
+            .close()
+
+            .selector(".toggle-icon-radio")
+            .open()
+                .style("opacity", "0")
+                .style("position", "absolute")
+                .style("cursor", "pointer")
+            .close()
+
+            .selector(".toggle-icon-label")
+            .open()
+                .style("cursor", "pointer")
+                .style("border-radius", "5px")
+                .style("transition", "all 0.3s ease")
+                .style("font-size", "20pt")
+            .close();
+
+        return stylesheetBuilder.build();
+    }
+
+    /**
+     * 
+     * @param {ComponentBuilder} componentBuilder 
+     * @return {Component}
+     */
+    static buildComponent(componentBuilder) {
+        return componentBuilder
+            .root("span", "id=container", "class=toggle-icon-container")
+            .open()
+                .node("input", "id=checkbox", "class=toggle-icon-radio", "type=checkbox")
+                .node("label", "id=label", "class=toggle-icon-label")
+                .open()
+                    .node("i", "id=icon", "title=")
+                .close()
+            .close()
+            .build();
     }
 
     /** @type {EventManager<ToggleIcon>} */
