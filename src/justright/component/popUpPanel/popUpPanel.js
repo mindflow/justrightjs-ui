@@ -14,6 +14,7 @@ import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
 import { ContainerEvent } from "containerbridge_v1";
 import { ColorPalette } from "../colorPalette";
+import { ElementThemeApplicator } from "../common/elementThemeApplicator";
 
 const LOG = new Logger("PopUpPanel");
 
@@ -204,7 +205,7 @@ export class PopUpPanel {
                 .style("opacity", "0.65")
             .close();
 
-        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "primary",
+        ElementThemeApplicator.apply(stylesheetBuilder, "pop-up-panel-button", "primary",
             ColorPalette.PRIMARY_COLORS,
             ColorPalette.PRIMARY_HOVER_COLORS,
             ColorPalette.PRIMARY_DISABLED_COLORS,
@@ -213,7 +214,7 @@ export class PopUpPanel {
             "0 0 0 0.2rem rgba(130, 138, 145, 0.5)"); // boxShadowActiveFocus
 
 
-        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "secondary",
+        ElementThemeApplicator.apply(stylesheetBuilder, "pop-up-panel-button", "secondary",
             ColorPalette.SECONDARY_COLORS,
             ColorPalette.SECONDARY_HOVER_COLORS,
             ColorPalette.SECONDARY_DISABLED_COLORS,
@@ -221,7 +222,7 @@ export class PopUpPanel {
             "0 0 0 0.2rem rgba(130, 138, 145, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(130, 138, 145, 0.5)"); // boxShadowActiveFocus
         
-        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "success",
+        ElementThemeApplicator.apply(stylesheetBuilder, "pop-up-panel-button", "success",
             ColorPalette.SUCCESS_COLORS,
             ColorPalette.SUCCESS_HOVER_COLORS,
             ColorPalette.SUCCESS_DISABLED_COLORS,
@@ -229,7 +230,7 @@ export class PopUpPanel {
             "0 0 0 0.2rem rgba(72, 180, 97, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(72, 180, 97, 0.5)"); // boxShadowActiveFocus
 
-        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "info",
+        ElementThemeApplicator.apply(stylesheetBuilder, "pop-up-panel-button", "info",
             ColorPalette.INFO_COLORS,
             ColorPalette.INFO_HOVER_COLORS,
             ColorPalette.INFO_DISABLED_COLORS,
@@ -237,7 +238,7 @@ export class PopUpPanel {
             "0 0 0 0.2rem rgba(58, 176, 195, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(58, 176, 195, 0.5)"); // boxShadowActiveFocus
 
-        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "warning",
+        ElementThemeApplicator.apply(stylesheetBuilder, "pop-up-panel-button", "warning",
             ColorPalette.WARNING_COLORS,
             ColorPalette.WARNING_HOVER_COLORS,
             ColorPalette.WARNING_DISABLED_COLORS,
@@ -245,7 +246,7 @@ export class PopUpPanel {
             "0 0 0 0.2rem rgba(222, 170, 12, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(222, 170, 12, 0.5)"); // boxShadowActiveFocus
 
-        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "danger",
+        ElementThemeApplicator.apply(stylesheetBuilder, "pop-up-panel-button", "danger",
             ColorPalette.DANGER_COLORS,
             ColorPalette.DANGER_HOVER_COLORS,
             ColorPalette.DANGER_DISABLED_COLORS,
@@ -253,7 +254,7 @@ export class PopUpPanel {
             "0 0 0 0.2rem rgba(225, 83, 97, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(225, 83, 97, 0.5)"); // boxShadowActiveFocus
 
-        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "light",
+        ElementThemeApplicator.apply(stylesheetBuilder, "pop-up-panel-button", "light",
             ColorPalette.LIGHT_COLORS,
             ColorPalette.LIGHT_HOVER_COLORS,
             ColorPalette.LIGHT_DISABLED_COLORS,
@@ -261,7 +262,7 @@ export class PopUpPanel {
             "0 0 0 0.2rem rgba(216, 217, 219, 0.5)", // boxShadowFocus
             "0 0 0 0.2rem rgba(216, 217, 219, 0.5)"); // boxShadowActiveFocus
 
-        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "dark",
+        ElementThemeApplicator.apply(stylesheetBuilder, "pop-up-panel-button", "dark",
             ColorPalette.DARK_COLORS,
             ColorPalette.DARK_HOVER_COLORS,
             ColorPalette.DARK_DISABLED_COLORS,
@@ -270,86 +271,6 @@ export class PopUpPanel {
             "0 0 0 0.2rem rgba(82, 88, 93, 0.5)"); // boxShadowActiveFocus
 
         return stylesheetBuilder.build();
-    }
-
-    /**
-     * 
-     * @param {StylesheetBuilder} stylesheetBuilder 
-     * @param {String} modeName 
-     * @param {String[]} defaultColors 
-     * @param {String[]} hoverColors 
-     * @param {String[]} disabledColors 
-     * @param {String[]} activeColors 
-     * @param {String} boxShadowFocus 
-     * @param {String} boxShadowActiveFocus 
-     * @return {StylesheetBuilder}
-     */
-    static dropDownPanelButtonMode(stylesheetBuilder, modeName,
-            defaultColors, hoverColors, disabledColors, activeColors,
-            boxShadowFocus, boxShadowActiveFocus) {
-
-        const classPrefix = "pop-up-panel-button";
-
-        PopUpPanel.coloring(stylesheetBuilder, 
-            `.${classPrefix}-${modeName}`,
-            defaultColors[0], defaultColors[1], defaultColors[2]);
-
-        PopUpPanel.coloring(stylesheetBuilder,
-            `.${classPrefix}-${modeName}:hover`,
-            hoverColors[0], hoverColors[1], hoverColors[2]);
-
-        PopUpPanel.coloring(stylesheetBuilder,
-            `.${classPrefix}-${modeName}:focus, .${classPrefix}-${modeName}.focus`,
-            hoverColors[0], hoverColors[1], hoverColors[2]);
-
-        PopUpPanel.coloring(stylesheetBuilder,
-            `.${classPrefix}-${modeName}.disabled, .${classPrefix}-${modeName}:disabled`,
-            disabledColors[0], disabledColors[1], disabledColors[2]);
-
-        PopUpPanel.coloring(stylesheetBuilder,
-            `.${classPrefix}-${modeName}:not(:disabled):not(.disabled):active,` +
-                `.${classPrefix}-${modeName}:not(:disabled):not(.disabled).active,` +
-                `.show > .${classPrefix}-${modeName}.dropdown-toggle`,
-            activeColors[0], activeColors[1], activeColors[2]);
-
-        PopUpPanel.coloring(stylesheetBuilder,
-            `.${classPrefix}-${modeName}:not(:disabled):not(.disabled):active:focus,` +
-                `.${classPrefix}-${modeName}:not(:disabled):not(.disabled).active:focus,` +
-                `.show > .${classPrefix}-${modeName}.dropdown-toggle:focus`,
-            activeColors[0], activeColors[1], activeColors[2]);
-
-
-        return stylesheetBuilder
-            .selector(`.${classPrefix}-${modeName}:not(:disabled):not(.disabled):active:focus,` +
-                        `.${classPrefix}-${modeName}:not(:disabled):not(.disabled).active:focus,` +
-                        `.show > .${classPrefix}-${modeName}.dropdown-toggle:focus`)
-            .open()
-                .style("box-shadow", boxShadowActiveFocus)
-            .close()
-
-            .selector(`.${classPrefix}-${modeName}:focus,` + 
-                        `${classPrefix}-${modeName}.focus`)
-            .open()
-                .style("box-shadow", boxShadowFocus)
-            .close();
-    }
-
-    /**
-     * 
-     * @param {StylesheetBuilder} stylesheetBuilder 
-     * @param {String} selector 
-     * @param {String} fontColor 
-     * @param {String} backgroundColor 
-     * @param {String} borderColor 
-     * @returns 
-     */
-    static coloring(stylesheetBuilder, selector, fontColor, backgroundColor, borderColor) {
-        return stylesheetBuilder.selector(selector)
-            .open()
-                .style("color", fontColor)
-                .style("background-color", backgroundColor)
-                .style("border-color", borderColor)
-            .close();
     }
 
     /**
