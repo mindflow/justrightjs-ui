@@ -301,12 +301,6 @@ export class PopUpPanel {
                 .style("background-color", hoverColors[1])
                 .style("border-color", hoverColors[2])
             .close()
-        
-            .selector(`.${classPrefix}-${modeName}:focus,` + 
-                        `${classPrefix}-${modeName}.focus`)
-            .open()
-                .style("box-shadow", boxShadowFocus)
-            .close()
 
             .selector(`.${classPrefix}-${modeName}.disabled,` +
                         `.${classPrefix}-${modeName}:disabled`)
@@ -331,6 +325,12 @@ export class PopUpPanel {
             .open()
                 .style("box-shadow", boxShadowActiveFocus)
             .close()
+
+            .selector(`.${classPrefix}-${modeName}:focus,` + 
+                        `${classPrefix}-${modeName}.focus`)
+            .open()
+                .style("box-shadow", boxShadowFocus)
+            .close();
     }
 
     /**
