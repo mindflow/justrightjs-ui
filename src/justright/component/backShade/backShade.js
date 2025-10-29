@@ -4,7 +4,8 @@ import {
     BaseElement,
     StylesheetBuilder,
     InlineComponentFactory,
-    ComponentBuilder
+    ComponentBuilder,
+    Stylesheet
 } from "justright_core_v1";
 import { Logger, TimePromise } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
@@ -37,19 +38,8 @@ export class BackShade {
 
 	/**
 	 * 
-	 * @param {ComponentBuilder} componentBuilder
-	 * @returns {Component}
-	 */
-	static buildComponent(componentBuilder) {
-		return componentBuilder
-			.root("div", "id=backShade", "style=z-index:3;display:none;", "class=back-shade")
-			.build();
-	}
-
-	/**
-	 * 
      * @param {StylesheetBuilder} stylesheetBuilder
-	 * @returns {String}
+	 * @returns {Stylesheet}
 	 */
 	static buildStylesheet(stylesheetBuilder) {
 		return stylesheetBuilder
@@ -80,6 +70,16 @@ export class BackShade {
 			.build();
 	}
 
+	/**
+	 * 
+	 * @param {ComponentBuilder} componentBuilder
+	 * @returns {Component}
+	 */
+	static buildComponent(componentBuilder) {
+		return componentBuilder
+			.root("div", "id=backShade", "style=z-index:3;display:none;", "class=back-shade")
+			.build();
+	}
 
     postConfig() {
         this.component = this.componentFactory.create(BackShade);

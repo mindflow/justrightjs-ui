@@ -1,6 +1,6 @@
 import { Logger, Method } from "coreutil_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
-import { Component, CanvasStyles, EventManager, StateManager, StylesheetBuilder, InlineComponentFactory } from "justright_core_v1";
+import { Component, CanvasStyles, EventManager, StateManager, StylesheetBuilder, InlineComponentFactory, Stylesheet, ComponentBuilder } from "justright_core_v1";
 import { Panel } from "../panel/panel.js";
 import { LinePanelEntry } from "./treePanelEntry/linePanelEntry.js";
 import { ContainerEvent } from "containerbridge_v1";
@@ -102,8 +102,8 @@ export class LinePanel {
 		return componentBuilder
 			.root("div", "class=line-panel")
 			.open()
-				.add("div", "class=line-panel-buttons", "id=buttonPanel")
-				.add("div", "class=line-panel-content", "id=recordElements")
+				.node("div", "class=line-panel-buttons", "id=buttonPanel")
+				.node("div", "class=line-panel-content", "id=recordElements")
 			.close()
 			.build();
 	}

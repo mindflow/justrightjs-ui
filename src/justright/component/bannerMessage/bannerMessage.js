@@ -3,7 +3,8 @@ import {
     Component,
     StylesheetBuilder,
     ComponentBuilder,
-    InlineComponentFactory
+    InlineComponentFactory,
+    Stylesheet
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method, TimePromise } from "coreutil_v1";
@@ -56,6 +57,7 @@ export class BannerMessage {
     /**
      * 
      * @param {StylesheetBuilder} stylesheetBuilder 
+     * @returns {Stylesheet}
      */
     static buildStylesheet(stylesheetBuilder) {
         return stylesheetBuilder
@@ -173,17 +175,18 @@ export class BannerMessage {
     /**
      * 
      * @param {ComponentBuilder} componentBuilder 
+     * @returns {Component}
      */
     static buildComponent(componentBuilder) {
         return componentBuilder
             .root("div", "id=bannerMessage", "class=banner-message")
             .open()
-                .add("span", "id=bannerMessageCloseButton", "class=banner-message-close-button")
+                .node("span", "id=bannerMessageCloseButton", "class=banner-message-close-button")
                 .open()
-                    .addText("×")
+                    .text("×")
                 .close()
-                .add("span", "id=bannerMessageHeader", "class=banner-message-header")
-                .add("span", "id=bannerMessageMessage", "class=banner-message-message")
+                .node("span", "id=bannerMessageHeader", "class=banner-message-header")
+                .node("span", "id=bannerMessageMessage", "class=banner-message-message")
             .close()
             .build();
     }

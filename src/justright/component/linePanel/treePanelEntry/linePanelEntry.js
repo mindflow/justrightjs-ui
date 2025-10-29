@@ -1,5 +1,5 @@
 import { Logger } from "coreutil_v1";
-import { CanvasStyles, Component, ComponentBuilder, InlineComponentFactory, StylesheetBuilder } from "justright_core_v1";
+import { CanvasStyles, Component, ComponentBuilder, InlineComponentFactory, Stylesheet, StylesheetBuilder } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 
 const LOG = new Logger("LinePanelEntry");
@@ -131,11 +131,12 @@ export class LinePanelEntry {
 		return componentBuilder
 			.root("div", "class=line-panel-entry")
 			.open()
-				.add("div", "class=line-panel-entry-record-element", "id=recordElementContainer")
+				.node("div", "class=line-panel-entry-record-element", "id=recordElementContainer")
 				.open()
-					.add("div", "class=line-panel-entry-record-element", "id=recordElement")
+					.node("div", "class=line-panel-entry-record-element", "id=recordElement")
 				.close()
 			.close()
+
 			.build();
 	}
 

@@ -195,13 +195,13 @@ export class LinkPanel {
         return componentBuilder
             .root("div", "id=link", "class=link-panel")
             .open()
-                .add("div", "class=link-panel-icon")
+                .node("div", "class=link-panel-icon")
                 .open()
-                    .add("i", "id=icon")
+                    .node("i", "id=icon")
                 .close()
-                .add("div", "class=link-panel-label")
+                .node("div", "class=link-panel-label")
                 .open()
-                    .add("a", "id=label")
+                    .node("a", "id=label")
                 .close()
             .close()
             .build();

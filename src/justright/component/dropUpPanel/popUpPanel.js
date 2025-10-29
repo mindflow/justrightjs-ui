@@ -541,12 +541,12 @@ export class PopUpPanel {
         return componentBuilder
             .root("div", "id=popUpPanelRoot", "class=pop-up-panel-outline")
             .open()
-                .add("button", "id=button", "class=pop-up-panel-button")
-                .add("div", "id=arrow", "class=pop-up-panel-arrow")
+                .node("button", "id=button", "class=pop-up-panel-button")
+                .node("div", "id=arrow", "class=pop-up-panel-arrow")
                 .open()
-                    .add("i")
+                    .node("i")
                 .close()
-                .add("div", "id=content", "class=pop-up-panel-content", "tabindex=0")
+                .node("div", "id=content", "class=pop-up-panel-content", "tabindex=0")
             .close()
             .build();
     }

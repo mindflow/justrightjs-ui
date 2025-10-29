@@ -96,7 +96,7 @@ export class SlideDeckEntry {
         return componentBuilder
             .root("div", "id=slideDeckEntry", "class=slide-deck-entry")
             .open()
-                .add("div", "id=slideDeckEntryContent", "class=slide-deck-entry-content")
+                .node("div", "id=slideDeckEntryContent", "class=slide-deck-entry-content")
             .close()
             .build();
     }

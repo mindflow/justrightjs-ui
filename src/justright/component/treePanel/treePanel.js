@@ -101,8 +101,8 @@ export class TreePanel {
 		return componentBuilder
 			.root("div", "class=tree-panel")
 			.open()
-				.add("div", "class=tree-panel-buttons", "id=buttonpanel")
-				.add("div", "class=tree-panel-content", "id=rootelement")
+				.node("div", "class=tree-panel-buttons", "id=buttonpanel")
+				.node("div", "class=tree-panel-content", "id=rootelement")
 			.close()
 			.build();
 	}

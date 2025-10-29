@@ -317,43 +317,44 @@ export class DialogBox {
             .root("div", "id=dialogBox",
                         "style=z-index:-1")
             .open()
-                .add("div", "id=backShadeContainer")
-                .add("div", "id=dialogBoxOverlay",
+                .node("div", "id=backShadeContainer")
+                .node("div", "id=dialogBoxOverlay",
                             "class=dialogbox-overlay dialogbox-overlay-display-block dialogbox-overlay-fade",
                             "tabindex=-1",
                             "role=dialog",
                             "aria-labelledby=dialogLabel",
                             "aria-dialogbox=true")
                     .open()
-                        .add("div", "class=dialogbox-frame",
+                        .node("div", "class=dialogbox-frame",
                                     "style=z-index:2",
                                     "role=document")
                             .open()
-                                .add("div", "class=dialogbox-content")
+                                .node("div", "class=dialogbox-content")
                                     .open()
-                                        .add("div", "class=dialogbox-header")
+                                        .node("div", "class=dialogbox-header")
                                             .open()
-                                                .add("h5", "id=title",
+                                                .node("h5", "id=title",
                                                         "class=dialogbox-title")
                                                 .open()
-                                                    .addText("Message")
+                                                    .text("Message")
                                                 .close()
-                                                .add("button", "id=closeButton",
+                                                .node("button", "id=closeButton",
                                                                 "type=button",
                                                                 "class=dialogbox-close-button",
                                                                 "data-dismiss=dialogbox",
                                                                 "aria-label=Close")
                                                     .open()
-                                                        .add("i", "class=fa fa-window-close",
+                                                        .node("i", "class=fa fa-window-close",
                                                                     "aria-hidden=true")
                                                     .close()
                                             .close()
-                                        .add("div", "id=dialogBoxContent",
+                                        .node("div", "id=dialogBoxContent",
                                                     "class=dialogbox-body")
                                     .close()
                             .close()
                     .close()
             .close()
+
             .build();
     }
 

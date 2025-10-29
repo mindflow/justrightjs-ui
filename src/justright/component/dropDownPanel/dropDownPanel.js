@@ -586,12 +586,12 @@ export class DropDownPanel {
        return componentBuilder
             .root("div", "id=dropDownPanelRoot", "class=drop-down-panel-outline")
             .open()
-                .add("button", "id=button", "class=drop-down-panel-button")
-                .add("div", "id=arrow", "class=drop-down-panel-arrow")
+                .node("button", "id=button", "class=drop-down-panel-button")
+                .node("div", "id=arrow", "class=drop-down-panel-arrow")
                 .open()
-                    .add("i")
+                    .node("i")
                 .close()
-                .add("div", "id=content", "class=drop-down-panel-content", "tabindex=0")
+                .node("div", "id=content", "class=drop-down-panel-content", "tabindex=0")
             .close()
 
             .build();

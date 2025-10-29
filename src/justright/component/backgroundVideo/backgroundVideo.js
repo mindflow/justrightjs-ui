@@ -3,7 +3,8 @@ import { VideoElement,
 	Component,
 	StylesheetBuilder,
 	ComponentBuilder,
-	InlineComponentFactory 
+	InlineComponentFactory, 
+	Stylesheet
  } from "justright_core_v1";
 import { Logger } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
@@ -27,28 +28,8 @@ export class BackgroundVideo {
 
 	/**
 	 * 
-	 * @param {ComponentBuilder} componentBuilder
-	 * @returns {Component}
-	 */
-	static buildComponent(componentBuilder) {
-		return componentBuilder
-			.root("div", "id=backgroundVideo", "class=background-video")
-			.open()
-				.add("div", "class=background-video-overlay")
-				.add("video", "id=video", "class=background-video-player",
-				              "playsinline=playsinline", "autoplay=true",
-				              "muted=true", "loop=loop")
-				.open()
-					.add("source", "id=source", "src=", "type=video/mp4")
-				.close()
-			.close()
-			.build();
-	}
-
-	/**
-	 * 
      * @param {StylesheetBuilder} stylesheetBuilder
-	 * @returns {String}
+	 * @returns {Stylesheet}
 	 */
 	static buildStylesheet(stylesheetBuilder) {
 		return stylesheetBuilder
@@ -83,6 +64,27 @@ export class BackgroundVideo {
 				.style("z-index", "1")
 			.close()
 				
+			.build();
+	}
+
+	/**
+	 * 
+	 * @param {ComponentBuilder} componentBuilder
+	 * @returns {Component}
+	 */
+	static buildComponent(componentBuilder) {
+		return componentBuilder
+			.root("div", "id=backgroundVideo", "class=background-video")
+			.open()
+				.node("div", "class=background-video-overlay")
+				.node("video", "id=video", "class=background-video-player",
+				        "playsinline=playsinline",
+						"autoplay=true",
+				        "muted=true", "loop=loop")
+				.open()
+					.node("source", "id=source", "src=", "type=video/mp4")
+				.close()
+			.close()
 			.build();
 	}
 

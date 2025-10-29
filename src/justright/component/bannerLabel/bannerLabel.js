@@ -1,5 +1,5 @@
 import { Method } from "coreutil_v1";
-import { CanvasStyles, ComponentBuilder, InlineComponentFactory, StylesheetBuilder } from "justright_core_v1";
+import { CanvasStyles, ComponentBuilder, InlineComponentFactory, Stylesheet, StylesheetBuilder } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CustomAppearance } from "../customAppearance.js";
 import { BannerLabelMessage } from "./bannerLabelMessage/bannerLabelMessage.js";
@@ -36,7 +36,7 @@ export class BannerLabel {
     /**
      * 
      * @param {StylesheetBuilder} stylesheetBuilder 
-     * @returns 
+     * @returns {Stylesheet}
      */
     static buildStylesheet(stylesheetBuilder) {
         return stylesheetBuilder

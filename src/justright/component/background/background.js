@@ -3,7 +3,8 @@ import { Component,
 	StyleAccessor,
 	StylesheetBuilder,
 	ComponentBuilder,
-	InlineComponentFactory
+	InlineComponentFactory,
+	Stylesheet
 } from "justright_core_v1";
 import { Logger } from "coreutil_v1";
 import { InjectionPoint } from "mindi_v1";
@@ -25,19 +26,8 @@ export class Background {
 	}
 
 	/**
-	 * 
-	 * @param {ComponentBuilder} uniqueIdRegistry
-	 * @returns {Component}
-	 */
-	static buildComponent(componentBuilder) {
-		return componentBuilder
-			.root("div", "id=background", "class=background")
-			.build();
-	}
-
-	/**
 	 * @param {StylesheetBuilder} stylesheetBuilder
-	 * @returns {String}
+	 * @returns {Stylesheet}
 	 */
 	static buildStylesheet(stylesheetBuilder) {
 		return stylesheetBuilder
@@ -53,6 +43,17 @@ export class Background {
 				.style("font-weight", "300")
 				.style("height", "100%")
 			.close()
+			.build();
+	}
+
+	/**
+	 * 
+	 * @param {ComponentBuilder} uniqueIdRegistry
+	 * @returns {Component}
+	 */
+	static buildComponent(componentBuilder) {
+		return componentBuilder
+			.root("div", "id=background", "class=background")
 			.build();
 	}
 
