@@ -19,9 +19,6 @@ const LOG = new Logger("Button");
 
 export class Button {
 
-    static TEMPLATE_URL = "/assets/justrightjs-ui/button.html";
-    static STYLES_URL = "/assets/justrightjs-ui/button.css";
-
     static TYPE_PRIMARY = "button-primary";
     static TYPE_SECONDARY = "button-secondary";
     static TYPE_SUCCESS = "button-success";
