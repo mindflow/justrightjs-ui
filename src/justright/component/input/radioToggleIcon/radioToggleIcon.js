@@ -3,7 +3,11 @@ import {
     CanvasStyles,
     Component,
     EventManager,
-    InputElementDataBinding
+    InputElementDataBinding,
+    StylesheetBuilder,
+    Stylesheet,
+    ComponentBuilder,
+    InlineComponentFactory
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
@@ -13,9 +17,6 @@ import { ContainerEvent } from "containerbridge_v1";
 const LOG = new Logger("RadioToggleIcon");
 
 export class RadioToggleIcon {
-
-    static TEMPLATE_URL = "/assets/justrightjs-ui/radioToggleIcon.html";
-    static STYLES_URL = "/assets/justrightjs-ui/radioToggleIcon.css";
     
     static EVENT_ENABLED = CommonEvents.ENABLED;
     static EVENT_DISABLED = CommonEvents.DISABLED;
@@ -26,8 +27,8 @@ export class RadioToggleIcon {
      */
     constructor(name = "?", model = null, icon = "fas fa-question", label = null) {
 
-        /** @type {TemplateComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        /** @type {InlineComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -52,6 +53,74 @@ export class RadioToggleIcon {
 
         /** @type {boolean} */
         this.checked = false;
+    }
+
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     * @returns {Stylesheet}
+     */
+    static buildStylesheet(stylesheetBuilder) {
+        stylesheetBuilder
+            .selector(".radio-toggle-icon-container")
+            .open()
+                .style("display", "inline-block")
+                .style("margin", "5pt")
+                .style("border-radius", "50%")
+                .style("background-color", "transparent")
+                .style("transition", "background-color 0.3s")
+                .style("cursor", "pointer")
+                .style("text-align", "center")
+                .style("line-height", "24pt")
+            .close()
+
+            .selector(".radio-toggle-icon-radio")
+            .open()
+                .style("opacity", "0")
+                .style("position", "absolute")
+            .close()
+
+            .selector(".radio-toggle-icon-label")
+            .open()
+                .style("cursor", "pointer")
+                .style("border-radius", "5px")
+                .style("transition", "all 0.3s ease")
+            .close()
+
+            .selector(".radio-toggle-icon-container input[type='radio']:not(:is(:checked)) + label")
+            .open()
+                .style("color", "lightgray")
+            .close()
+
+            .selector(".radio-toggle-icon-container input[type='radio']:not(:is(:checked)) + label:hover")
+            .open()
+                .style("color", "gray")
+            .close()
+
+            .selector(".radio-toggle-icon-container input[type='radio']:is(:checked) + label")
+            .open()
+                .style("color", "#2196F3")
+            .close();
+        return stylesheetBuilder.build();
+
+    }
+
+    /**
+     * 
+     * @param {ComponentBuilder} componentBuilder 
+     * @returns {Component}
+     */
+    static buildComponent(componentBuilder) {
+        return componentBuilder
+            .root("span", "id=container", "class=radio-toggle-icon-container")
+            .open()
+                .node("input", "id=radio", "class=radio-toggle-icon-radio", "type=radio")
+                .node("label", "id=label", "class=radio-toggle-icon-label")
+                .open()
+                    .node("i", "id=icon", "title=")
+                .close()
+            .close()
+            .build();
     }
 
     postConfig() {
