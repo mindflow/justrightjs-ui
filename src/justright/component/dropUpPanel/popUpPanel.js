@@ -74,7 +74,7 @@ export class PopUpPanel {
      * @returns {Stylesheet}
      */
     static buildStylesheet(stylesheetBuilder) {
-        return stylesheetBuilder
+        stylesheetBuilder
             .media("@media (prefers-reduced-motion: reduce)")
             .open()
                 .selector(".pop-up-panel-button")
@@ -201,336 +201,136 @@ export class PopUpPanel {
             .selector(".pop-up-panel-button.disabled, .pop-up-panel-button:disabled")
             .open()
                 .style("opacity", "0.65")
-            .close()
+            .close();
 
-            .selector(".pop-up-panel-button-primary")
+        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "primary",
+            ["#fff","#007bff","#007bff"], // defaultColors
+            ["#fff","#0069d9","#0062cc"], // hoverColors
+            ["#fff","#5eabfd","#5eabfd"], // disabledColors
+            ["#fff","#0062cc","#005cbf"], // activeColors
+            "0 0 0 0.2rem rgba(130, 138, 145, 0.5)", // boxShadowFocus
+            "0 0 0 0.2rem rgba(130, 138, 145, 0.5)"); // boxShadowActiveFocus
+
+
+        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "secondary",
+            ["#fff","#6c757d","#6c757d"], // defaultColors
+            ["#fff","#5a6268","#545b62"], // hoverColors
+            ["#fff","#6c757d","#6c757d"], // disabledColors
+            ["#fff","#545b62","#4e555b"], // activeColors
+            "0 0 0 0.2rem rgba(130, 138, 145, 0.5)", // boxShadowFocus
+            "0 0 0 0.2rem rgba(130, 138, 145, 0.5)"); // boxShadowActiveFocus
+        
+        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "success",
+            ["#fff","#28a745","#28a745"], // defaultColors
+            ["#fff","#218838","#1e7e34"], // hoverColors
+            ["#fff","#28a745","#28a745"], // disabledColors
+            ["#fff","#1e7e34","#1c7430"], // activeColors
+            "0 0 0 0.2rem rgba(72, 180, 97, 0.5)", // boxShadowFocus
+            "0 0 0 0.2rem rgba(72, 180, 97, 0.5)"); // boxShadowActiveFocus
+
+        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "info",
+            ["#fff","#17a2b8","#17a2b8"], // defaultColors
+            ["#fff","#138496","#117a8b"], // hoverColors
+            ["#fff","#17a2b8","#17a2b8"], // disabledColors
+            ["#fff","#117a8b","#10707f"], // activeColors
+            "0 0 0 0.2rem rgba(58, 176, 195, 0.5)", // boxShadowFocus
+            "0 0 0 0.2rem rgba(58, 176, 195, 0.5)"); // boxShadowActiveFocus
+
+        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "warning",
+            ["#212529","#ffc107","#ffc107"], // defaultColors
+            ["#212529","#e0a800","#d39e00"], // hoverColors
+            ["#212529","#ffc107","#ffc107"], // disabledColors
+            ["#212529","#d39e00","#c69500"], // activeColors
+            "0 0 0 0.2rem rgba(222, 170, 12, 0.5)", // boxShadowFocus
+            "0 0 0 0.2rem rgba(222, 170, 12, 0.5)"); // boxShadowActiveFocus
+
+        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "danger",
+            ["#fff","#dc3545","#dc3545"], // defaultColors
+            ["#fff","#c82333","#bd2130"], // hoverColors
+            ["#fff","#dc3545","#dc3545"], // disabledColors
+            ["#fff","#bd2130","#b21f2d"], // activeColors
+            "0 0 0 0.2rem rgba(225, 83, 97, 0.5)", // boxShadowFocus
+            "0 0 0 0.2rem rgba(225, 83, 97, 0.5)"); // boxShadowActiveFocus
+
+        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "light",
+            ["#212529","#f8f9fa","#f8f9fa"], // defaultColors
+            ["#212529","#e2e6ea","#dae0e5"], // hoverColors
+            ["#212529","#f8f9fa","#f8f9fa"], // disabledColors
+            ["#212529","#dae0e5","#d3d9df"], // activeColors
+            "0 0 0 0.2rem rgba(216, 217, 219, 0.5)", // boxShadowFocus
+            "0 0 0 0.2rem rgba(216, 217, 219, 0.5)"); // boxShadowActiveFocus
+
+        PopUpPanel.dropDownPanelButtonMode(stylesheetBuilder, "dark",
+            ["#fff","#343a40","#343a40"], // defaultColors
+            ["#fff","#23272b","#1d2124"], // hoverColors
+            ["#fff","#343a40","#343a40"], // disabledColors
+            ["#fff","#1d2124","#171a1d"], // activeColors
+            "0 0 0 0.2rem rgba(82, 88, 93, 0.5)", // boxShadowFocus
+            "0 0 0 0.2rem rgba(82, 88, 93, 0.5)"); // boxShadowActiveFocus
+
+        return stylesheetBuilder.build();
+    }
+
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     * @param {String} modeName 
+     * @param {String[]} defaultColors 
+     * @param {String[]} hoverColors 
+     * @param {String[]} disabledColors 
+     * @param {String[]} activeColors 
+     * @param {String} boxShadowFocus 
+     * @param {String} boxShadowActiveFocus 
+     */
+    static dropDownPanelButtonMode(stylesheetBuilder, modeName,
+            defaultColors, hoverColors, disabledColors, activeColors,
+            boxShadowFocus, boxShadowActiveFocus) {
+
+        const classPrefix = "pop-up-panel-button";
+
+        stylesheetBuilder.selector(`.${classPrefix}-${modeName}`)
             .open()
-                .style("color", "#fff")
-                .style("background-color", "#007bff")
-                .style("border-color", "#007bff")
+                .style("color", defaultColors[0])
+                .style("background-color", defaultColors[1])
+                .style("border-color", defaultColors[2])
             .close()
-
-            .selector(".pop-up-panel-button-primary:hover")
+        
+            .selector(`.${classPrefix}-${modeName}:hover`)
             .open()
-                .style("color", "#fff")
-                .style("background-color", "#0069d9")
-                .style("border-color", "#0062cc")
+                .style("color", hoverColors[0])
+                .style("background-color", hoverColors[1])
+                .style("border-color", hoverColors[2])
             .close()
-
-            .selector(".pop-up-panel-button-primary:focus, .pop-up-panel-button-primary.focus")
+        
+            .selector(`.${classPrefix}-${modeName}:focus,` + 
+                        `${classPrefix}-${modeName}.focus`)
             .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(38, 143, 255, 0.5)")
+                .style("box-shadow", boxShadowFocus)
             .close()
 
-            .selector(".pop-up-panel-button-primary.disabled, .pop-up-panel-button-primary:disabled")
+            .selector(`.${classPrefix}-${modeName}.disabled,` +
+                        `.${classPrefix}-${modeName}:disabled`)
             .open()
-                .style("color", "#fff")
-                .style("background-color", "#5eabfd")
-                .style("border-color", "#5eabfd")
+                .style("color", disabledColors[0])
+                .style("background-color", disabledColors[1])
+                .style("border-color", disabledColors[2])
             .close()
 
-            .selector(".pop-up-panel-button-primary:not(:disabled):not(.disabled):active, " +
-                ".pop-up-panel-button-primary:not(:disabled):not(.disabled).active, " +
-                ".show > .pop-up-panel-button-primary.dropdown-toggle")
+            .selector(`.${classPrefix}-${modeName}:not(:disabled):not(.disabled):active,` +
+                        `.${classPrefix}-${modeName}:not(:disabled):not(.disabled).active,` +
+                        `.show > .${classPrefix}-${modeName}.dropdown-toggle`)
             .open()
-                .style("color", "#fff")
-                .style("background-color", "#0062cc")
-                .style("border-color", "#005cbf")
+                .style("color", activeColors[0])
+                .style("background-color", activeColors[1])
+                .style("border-color", activeColors[2])
             .close()
 
-            .selector(".pop-up-panel-button-primary:not(:disabled):not(.disabled):active:focus, " +
-                ".pop-up-panel-button-primary:not(:disabled):not(.disabled).active:focus, " +
-                ".show > .pop-up-panel-button-primary.dropdown-toggle:focus")
+            .selector(`.${classPrefix}-${modeName}:not(:disabled):not(.disabled):active:focus,` +
+                        `.${classPrefix}-${modeName}:not(:disabled):not(.disabled).active:focus,` +
+                        `.show > .${classPrefix}-${modeName}.dropdown-toggle:focus`)
             .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(38, 143, 255, 0.5)")
+                .style("box-shadow", boxShadowActiveFocus)
             .close()
-
-            .selector(".pop-up-panel-button-secondary")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#6c757d")
-                .style("border-color", "#6c757d")
-            .close()
-
-            .selector(".pop-up-panel-button-secondary:hover")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#5a6268")
-                .style("border-color", "#545b62")
-            .close()
-
-            .selector(".pop-up-panel-button-secondary:focus, .pop-up-panel-button-secondary.focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(130, 138, 145, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-secondary.disabled, .pop-up-panel-button-secondary:disabled")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#6c757d")
-                .style("border-color", "#6c757d")
-            .close()
-
-            .selector(".pop-up-panel-button-secondary:not(:disabled):not(.disabled):active, " +
-                ".pop-up-panel-button-secondary:not(:disabled):not(.disabled).active, " +
-                ".show > .pop-up-panel-button-secondary.dropdown-toggle")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#545b62")
-                .style("border-color", "#4e555b")
-            .close()
-
-            .selector(".pop-up-panel-button-secondary:not(:disabled):not(.disabled):active:focus, " +
-                ".pop-up-panel-button-secondary:not(:disabled):not(.disabled).active:focus, " +
-                ".show > .pop-up-panel-button-secondary.dropdown-toggle:focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(130, 138, 145, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-success")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#28a745")
-                .style("border-color", "#28a745")
-            .close()
-
-            .selector(".pop-up-panel-button-success:hover")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#218838")
-                .style("border-color", "#1e7e34")
-            .close()
-
-            .selector(".pop-up-panel-button-success:focus, .pop-up-panel-button-success.focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(72, 180, 97, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-success.disabled, .pop-up-panel-button-success:disabled")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#28a745")
-                .style("border-color", "#28a745")
-            .close()
-
-            .selector(".pop-up-panel-button-success:not(:disabled):not(.disabled):active, " +
-                ".pop-up-panel-button-success:not(:disabled):not(.disabled).active, " +
-                ".show > .pop-up-panel-button-success.dropdown-toggle")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#1e7e34")
-                .style("border-color", "#1c7430")
-            .close()
-
-            .selector(".pop-up-panel-button-success:not(:disabled):not(.disabled):active:focus, " +
-                ".pop-up-panel-button-success:not(:disabled):not(.disabled).active:focus, " +
-                ".show > .pop-up-panel-button-success.dropdown-toggle:focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(72, 180, 97, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-info")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#17a2b8")
-                .style("border-color", "#17a2b8")
-            .close()
-
-            .selector(".pop-up-panel-button-info:hover")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#138496")
-                .style("border-color", "#117a8b")
-            .close()
-
-            .selector(".pop-up-panel-button-info:focus, .pop-up-panel-button-info.focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(58, 176, 195, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-info.disabled, .pop-up-panel-button-info:disabled")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#17a2b8")
-                .style("border-color", "#17a2b8")
-            .close()
-
-            .selector(".pop-up-panel-button-info:not(:disabled):not(.disabled):active, " +
-                ".pop-up-panel-button-info:not(:disabled):not(.disabled).active, " +
-                ".show > .pop-up-panel-button-info.dropdown-toggle")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#117a8b")
-                .style("border-color", "#10707f")
-            .close()
-
-            .selector(".pop-up-panel-button-info:not(:disabled):not(.disabled):active:focus, " +
-                ".pop-up-panel-button-info:not(:disabled):not(.disabled).active:focus, " +
-                ".show > .pop-up-panel-button-info.dropdown-toggle:focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(58, 176, 195, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-warning")
-            .open()
-                .style("color", "#212529")
-                .style("background-color", "#ffc107")
-                .style("border-color", "#ffc107")
-            .close()
-
-            .selector(".pop-up-panel-button-warning:hover")
-            .open()
-                .style("color", "#212529")
-                .style("background-color", "#e0a800")
-                .style("border-color", "#d39e00")
-            .close()
-
-            .selector(".pop-up-panel-button-warning:focus, .pop-up-panel-button-warning.focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(222, 170, 12, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-warning.disabled, .pop-up-panel-button-warning:disabled")
-            .open()
-                .style("color", "#212529")
-                .style("background-color", "#ffc107")
-                .style("border-color", "#ffc107")
-            .close()
-
-            .selector(".pop-up-panel-button-warning:not(:disabled):not(.disabled):active:focus, " +
-                ".pop-up-panel-button-warning:not(:disabled):not(.disabled).active:focus, " +
-                ".show > .pop-up-panel-button-warning.dropdown-toggle:focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(222, 170, 12, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-danger")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#dc3545")
-                .style("border-color", "#dc3545")
-            .close()
-
-            .selector(".pop-up-panel-button-danger:hover")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#c82333")
-                .style("border-color", "#bd2130")
-            .close()
-
-            .selector(".pop-up-panel-button-danger:focus, .pop-up-panel-button-danger.focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(225, 83, 97, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-danger.disabled, .pop-up-panel-button-danger:disabled")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#dc3545")
-                .style("border-color", "#dc3545")
-            .close()
-
-            .selector(".pop-up-panel-button-danger:not(:disabled):not(.disabled):active, " +
-                ".pop-up-panel-button-danger:not(:disabled):not(.disabled).active, " +
-                ".show > .pop-up-panel-button-danger.dropdown-toggle")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#bd2130")
-                .style("border-color", "#b21f2d")
-            .close()
-
-            .selector(".pop-up-panel-button-danger:not(:disabled):not(.disabled):active:focus, " +
-                ".pop-up-panel-button-danger:not(:disabled):not(.disabled).active:focus, " +
-                ".show > .pop-up-panel-button-danger.dropdown-toggle:focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(225, 83, 97, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-light")
-            .open()
-                .style("color", "#212529")
-                .style("background-color", "#f8f9fa")
-                .style("border-color", "#f8f9fa")
-            .close()
-
-            .selector(".pop-up-panel-button-light:hover")
-            .open()
-                .style("color", "#212529")
-                .style("background-color", "#e2e6ea")
-                .style("border-color", "#dae0e5")
-            .close()
-
-            .selector(".pop-up-panel-button-light:focus, .pop-up-panel-button-light.focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(216, 217, 219, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-light.disabled, .pop-up-panel-button-light:disabled")
-            .open()
-                .style("color", "#212529")
-                .style("background-color", "#f8f9fa")
-                .style("border-color", "#f8f9fa")
-            .close()
-
-            .selector(".pop-up-panel-button-light:not(:disabled):not(.disabled):active, " +
-                ".pop-up-panel-button-light:not(:disabled):not(.disabled).active, " +
-                ".show > .pop-up-panel-button-light.dropdown-toggle")
-            .open()
-                .style("color", "#212529")
-                .style("background-color", "#dae0e5")
-                .style("border-color", "#d3d9df")
-            .close()
-
-            .selector(".pop-up-panel-button-light:not(:disabled):not(.disabled):active:focus, " +
-                ".pop-up-panel-button-light:not(:disabled):not(.disabled).active:focus, " +
-                ".show > .pop-up-panel-button-light.dropdown-toggle:focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(216, 217, 219, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-dark")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#343a40")
-                .style("border-color", "#343a40")
-            .close()
-
-            .selector(".pop-up-panel-button-dark:hover")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#23272b")
-                .style("border-color", "#1d2124")
-            .close()
-
-            .selector(".pop-up-panel-button-dark:focus, .pop-up-panel-button-dark.focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(82, 88, 93, 0.5)")
-            .close()
-
-            .selector(".pop-up-panel-button-dark.disabled, .pop-up-panel-button-dark:disabled")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#343a40")
-                .style("border-color", "#343a40")
-            .close()
-
-            .selector(".pop-up-panel-button-dark:not(:disabled):not(.disabled):active, " +
-                ".pop-up-panel-button-dark:not(:disabled):not(.disabled).active, " +
-                ".show > .pop-up-panel-button-dark.dropdown-toggle")
-            .open()
-                .style("color", "#fff")
-                .style("background-color", "#1d2124")
-                .style("border-color", "#171a1d")
-            .close()
-
-            .selector(".pop-up-panel-button-dark:not(:disabled):not(.disabled):active:focus, " +
-                ".pop-up-panel-button-dark:not(:disabled):not(.disabled).active:focus, " +
-                ".show > .pop-up-panel-button-dark.dropdown-toggle:focus")
-            .open()
-                .style("box-shadow", "0 0 0 0.2rem rgba(82, 88, 93, 0.5)")
-            .close()
-
-            .build();
     }
 
     /**
