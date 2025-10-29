@@ -1,11 +1,9 @@
-/* File Upload Entry Container */
 .file-upload-entry {
     border-top: 1px solid #ddd;
     padding-top: 5pt;
     margin-top: 10pt;
 }
 
-/* File Upload Entry Details Row */
 .file-upload-entry-details {
     display: flex;
     flex-direction: row;
@@ -13,7 +11,6 @@
     margin-bottom: 8px;
 }
 
-/* File Upload Entry Details Columns */
 .file-upload-entry-details-name {
     flex: 1;
     font-weight: 500;
@@ -41,7 +38,6 @@
     background-color: #f8f9fa;
 }
 
-/* File Upload Entry Progress Row */
 .file-upload-entry-progress {
     display: flex;
     flex-direction: row;
@@ -49,7 +45,6 @@
     gap: 12px;
 }
 
-/* File Upload Entry Progress Columns */
 .file-upload-entry-progress-size {
     flex: 0 0 auto;
     font-size: 0.9em;
