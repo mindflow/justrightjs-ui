@@ -1,10 +1,12 @@
 import {
-    TemplateComponentFactory,
     CanvasStyles,
     Component,
     InputElementDataBinding,
     EventManager,
-    Event
+    StylesheetBuilder,
+    Stylesheet,
+    ComponentBuilder,
+    InlineComponentFactory
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
@@ -14,9 +16,6 @@ import { ContainerEvent } from "containerbridge_v1";
 const LOG = new Logger("RadioToggleSwitch");
 
 export class RadioToggleSwitch {
-
-    static TEMPLATE_URL = "/assets/justrightjs-ui/radioToggleSwitch.html";
-    static STYLES_URL = "/assets/justrightjs-ui/radioToggleSwitch.css";
     
     static EVENT_ENABLED = CommonEvents.ENABLED;
     static EVENT_DISABLED = CommonEvents.DISABLED;
@@ -28,8 +27,8 @@ export class RadioToggleSwitch {
      */
     constructor(model = null) {
         
-        /** @type {TemplateComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        /** @type {InlineComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {EventManager} */
         this.events = new EventManager();
@@ -43,6 +42,109 @@ export class RadioToggleSwitch {
         /** @type {boolean} */
         this.checked = false;
 
+    }
+
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     * @returns {Stylesheet}
+     */
+    static buildStylesheet(stylesheetBuilder) {
+       stylesheetBuilder
+            .selector(".radio-toggle-switch")
+            .open()
+                .style("position", "relative")
+                .style("display", "inline-block")
+                .style("width", "41pt")
+                .style("height", "24pt")
+                .style("margin-bottom", "1rem")
+            .close()
+
+            .selector(".radio-toggle-switch input")
+            .open()
+                .style("opacity", "0")
+                .style("width", "0")
+                .style("height", "0")
+            .close()
+
+            .selector(".radio-toggle-switch-slider")
+            .open()
+                .style("position", "absolute")
+                .style("cursor", "pointer")
+                .style("top", "0")
+                .style("left", "0")
+                .style("right", "0")
+                .style("bottom", "0")
+                .style("background-color", "#ccc")
+                .style("border-radius", "24pt")
+                .style("transition", ".4s")
+                .style("border-width", "1pt")
+                .style("border-style", "solid")
+                .style("border-color", "#bbb")
+            .close()
+
+            .selector(".radio-toggle-switch-slider:before")
+            .open()
+                .style("position", "absolute")
+                .style("content", "\"\"")
+                .style("height", "17pt")
+                .style("width", "17pt")
+                .style("left", "3.5pt")
+                .style("bottom", "3.5pt")
+                .style("background-color", "white")
+                .style("border-radius", "50%")
+                .style("transition", ".4s")
+                .style("transform", "translateX(0)")
+            .close()
+
+            .selector(".radio-toggle-switch:hover .radio-toggle-switch-slider")
+            .open()
+                .style("background-color", "#bbb")
+            .close()
+
+            .selector(".radio-toggle-switch input:checked + .radio-toggle-switch-slider")
+            .open()
+                .style("background-color", "#2196F3")
+                .style("border-color", "#1976D2")
+            .close()
+
+            .selector(".radio-toggle-switch input:checked + .radio-toggle-switch-slider:before")
+            .open()
+                .style("transform", "translateX(17pt)")
+            .close()
+
+            .selector(".radio-toggle-switch input:focus + .radio-toggle-switch-slider")
+            .open()
+                .style("box-shadow", "0 0 1pt #2196F3")
+            .close()
+
+            .selector(".radio-toggle-switch input:disabled + .radio-toggle-switch-slider")
+            .open()
+                .style("opacity", "0.6")
+                .style("cursor", "not-allowed")
+            .close()
+
+            .selector(".radio-toggle-switch input:disabled:hover + .radio-toggle-switch-slider")
+            .open()
+                .style("background-color", "#ccc")
+            .close();
+
+        return stylesheetBuilder.build();
+    }
+
+    /**
+     * 
+     * @param {ComponentBuilder} conmponentBuilder 
+     * @returns {Component}
+     */
+    static buildComponent(conmponentBuilder) {
+        return conmponentBuilder
+            .root("label", "class=radio-toggle-switch")
+            .open()
+                .node("input", "id=checkbox", "type=checkbox")
+                .node("span", "class=radio-toggle-switch-slider")
+            .close()
+            .build();
     }
 
     postConfig() {
