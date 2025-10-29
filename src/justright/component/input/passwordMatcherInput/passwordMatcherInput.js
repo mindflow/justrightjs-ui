@@ -1,9 +1,12 @@
 import { 
-    TemplateComponentFactory,
     CanvasStyles,
     AndValidatorSet,
     Component,
-    EventManager
+    EventManager,
+    StylesheetBuilder,
+    Stylesheet,
+    ComponentBuilder,
+    InlineComponentFactory
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, PropertyAccessor, Method } from "coreutil_v1";
@@ -15,9 +18,6 @@ import { CommonInput } from "../commonInput.js";
 const LOG = new Logger("PasswordMatcherInput");
 
 export class PasswordMatcherInput {
-
-    static TEMPLATE_URL = "/assets/justrightjs-ui/passwordMatcherInput.html";
-    static STYLES_URL = "/assets/justrightjs-ui/passwordMatcherInput.css";
 
 	static EVENT_VALIDATED_ENTERED = "validatedEntered";
 
@@ -35,8 +35,8 @@ export class PasswordMatcherInput {
         controlPlaceholder = PasswordMatcherInput.DEFAULT_CONTROL_PLACEHOLDER,
         mandatory = false) {
 
-        /** @type {TemplateComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        /** @type {InlineComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {Component} */
         this.component = null;
@@ -61,6 +61,43 @@ export class PasswordMatcherInput {
 
         /** @type {EventManager} */
         this.eventManager = new EventManager();
+    }
+
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     * @returns {Stylesheet}
+     */
+    static buildStylesheet(stylesheetBuilder) {
+       stylesheetBuilder
+           .selector(".password-matcher-input-hint")
+           .open()
+               .style("color", "#888888")
+               .style("font-size", "0.8em")
+               .style("margin-bottom", "1rem")
+               .style("white-space", "nowrap")
+           .close();
+
+       return stylesheetBuilder.build();
+    }
+
+    /**
+     * 
+     * @param {ComponentBuilder} componentBuilder 
+     * @returns {Component}
+     */
+    static buildComponent(componentBuilder) {
+        return componentBuilder
+            .root("div", "class=password-matcher-input-root")
+            .open()
+                .node("div", "id=passwordMatcherInputValue")
+                .node("div", "id=passwordMatcherInputControl")
+                .node("div", "class=password-matcher-input-hint")
+                .open()
+                    .text("* Must contain letters, numbers and special characters")
+                .close()
+            .close()
+            .build();
     }
 
     async postConfig() {

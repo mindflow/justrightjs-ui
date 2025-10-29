@@ -1,6 +1,13 @@
 import { ContainerEvent, ContainerFileData } from "containerbridge_v1";
 import { Method } from "coreutil_v1";
-import { CanvasStyles, Component, EventManager, StylesheetBuilder, Stylesheet, ComponentBuilder, InlineComponentFactory } from "justright_core_v1";
+import { CanvasStyles,
+    Component,
+    EventManager,
+    StylesheetBuilder,
+    Stylesheet,
+    ComponentBuilder,
+    InlineComponentFactory
+} from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 
 export class FileUploadEntry {
