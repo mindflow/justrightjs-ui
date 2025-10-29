@@ -1,5 +1,5 @@
 import { Method, Logger } from "coreutil_v1";
-import { InputElementDataBinding, AbstractValidator, TemplateComponentFactory, CanvasStyles, Component, EventManager } from "justright_core_v1";
+import { InputElementDataBinding, AbstractValidator, TemplateComponentFactory, CanvasStyles, Component, EventManager, InlineComponentFactory } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CommonEvents } from "../common/commonEvents";
 import { ContainerEvent } from "containerbridge_v1";
@@ -33,8 +33,8 @@ export class CommonInput {
         errorElementId = null) {
 
 
-        /** @type {TemplateComponentFactory} */
-        this.componentFactory = InjectionPoint.instance(TemplateComponentFactory);
+        /** @type {InlineComponentFactory} */
+        this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
 
         /** @type {Component} */
         this.component = null;

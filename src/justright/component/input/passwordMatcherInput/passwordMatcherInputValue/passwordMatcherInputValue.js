@@ -1,13 +1,10 @@
-import { PasswordValidator } from "justright_core_v1";
+import { Component, ComponentBuilder, PasswordValidator, Stylesheet, StylesheetBuilder } from "justright_core_v1";
 import { Logger } from "coreutil_v1";
 import { CommonInput } from "../../commonInput.js";
 
 const LOG = new Logger("PasswordMatcherInputValue");
 
 export class PasswordMatcherInputValue extends CommonInput {
-    
-    static TEMPLATE_URL = "/assets/justrightjs-ui/passwordMatcherInputValue.html";
-    static STYLES_URL = "/assets/justrightjs-ui/passwordMatcherInputValue.css";
 
     static DEFAULT_PLACEHOLDER = "New password";
 
@@ -27,6 +24,135 @@ export class PasswordMatcherInputValue extends CommonInput {
             placeholder,
             "passwordMatcherInputValueField",
             "passwordMatcherInputValueError");
+    }
+
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     * @returns {Stylesheet}
+     */
+    static buildStylesheet(stylesheetBuilder) {
+        stylesheetBuilder
+            .selector(".password-matcher-input-value-entry")
+            .open()
+                .style("display", "block")
+                .style("width", "100%")
+                .style("height", "calc(1.5em + 0.75rem + 2px)")
+                .style("padding", "0.375rem 0.75rem")
+                .style("font-size", "1rem")
+                .style("font-weight", "400")
+                .style("line-height", "1.5")
+                .style("color", "#495057")
+                .style("background-color", "#fff")
+                .style("background-clip", "padding-box")
+                .style("border", "1px solid #ced4da")
+                .style("border-radius", "0.25rem")
+                .style("transition", "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out")
+                .style("margin-bottom", "1rem")
+            .close()
+
+            .selector(".password-matcher-input-value-error")
+            .open()
+                .style("width", "fit-content")
+                .style("color", "#333333")
+                .style("transform", "translate(+5px,-5px)")
+                .style("background-color", "#FFFFE0")
+                .style("font-weight", "normal")
+                .style("font-size", "14px")
+                .style("border-radius", "8px")
+                .style("position", "relative")
+                .style("z-index", "99999998")
+                .style("box-sizing", "border-box")
+                .style("box-shadow", "0 1px 8px rgba(0,0,0,0.5)")
+                .style("cursor", "pointer")
+            .close()
+
+            .selector(".password-matcher-input-value-error-hidden")
+            .open()
+                .style("transition", "max-height .3s .2s, padding .3s .2s, opacity .2s 0s, visibility 0s .2s")
+                .style("opacity", "0")
+                .style("padding", "0px 0px")
+                .style("max-height", "0px")
+                .style("display", "block")
+                .style("visibility", "hidden")
+            .close()
+
+            .selector(".password-matcher-input-value-error-visible")
+            .open()
+                .style("transition", "max-height .3s, padding .2s, opacity .2s .2s")
+                .style("opacity", "1")
+                .style("padding", "10px 20px")
+                .style("max-height", "250px")
+                .style("display", "block")
+                .style("visibility", "visible")
+                .style("margin-top", "10px")
+            .close()
+
+            .selector(".password-matcher-input-value-error i")
+            .open()
+                .style("position", "absolute")
+                .style("top", "100%")
+                .style("left", "30%")
+                .style("margin-left", "-15px")
+                .style("width", "30px")
+                .style("height", "15px")
+                .style("overflow", "hidden")
+            .close()
+
+            .selector(".password-matcher-input-value-error i::after")
+            .open()
+                .style("content", "''")
+                .style("position", "absolute")
+                .style("width", "15px")
+                .style("height", "15px")
+                .style("left", "50%")
+                .style("transform", "translate(-50%,-50%) rotate(45deg)")
+                .style("background-color", "#FFFFE0")
+                .style("box-shadow", "0 1px 8px rgba(0,0,0,0.5)")
+            .close()
+
+            .selector(".password-matcher-input-value-crieria-list")
+            .open()
+                .style("margin-top", "0")
+                .style("margin-bottom", "0")
+                .style("padding-inline-start", "2em")
+            .close();
+
+        return stylesheetBuilder.build();
+    }
+
+    /**
+     * 
+     * @param {ComponentBuilder} componentBuilder 
+     * @returns {Component}
+     */
+    static buildComponent(componentBuilder) {
+        return componentBuilder
+            .root("div")
+            .open()
+                .node("div", "id=passwordMatcherInputValueError", "class=password-matcher-input-value-error password-matcher-input-value-error-hidden")
+                .open()
+                    .text("Minimum 8 characters containing:")
+                    .node("ul", "class=password-matcher-input-value-crieria-list")
+                    .open()
+                        .node("li")
+                        .open()
+                            .text("Letter(s)")
+                        .close()
+                        .node("li")
+                        .open()
+                            .text("Number(s)")
+                        .close()
+                        .node("li")
+                        .open()
+                            .text("Special character(s) #?!@$%^&*-")
+                        .close()
+                    .close()
+                    .node("i")
+                .close()
+                .node("input", "autocomplete=new-password", "id=passwordMatcherInputValueField", "type=password", "class=password-matcher-input-value-entry")
+            .close()
+            .build();
     }
 
     showValidationError() { this.component.get(this.errorElementId).setAttributeValue("class", "password-matcher-input-value-error password-matcher-input-value-error-visible"); }
