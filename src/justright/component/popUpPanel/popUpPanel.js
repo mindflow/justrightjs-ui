@@ -282,6 +282,7 @@ export class PopUpPanel {
      * @param {String[]} activeColors 
      * @param {String} boxShadowFocus 
      * @param {String} boxShadowActiveFocus 
+     * @return {StylesheetBuilder}
      */
     static dropDownPanelButtonMode(stylesheetBuilder, modeName,
             defaultColors, hoverColors, disabledColors, activeColors,
@@ -289,37 +290,36 @@ export class PopUpPanel {
 
         const classPrefix = "pop-up-panel-button";
 
-        stylesheetBuilder.selector(`.${classPrefix}-${modeName}`)
-            .open()
-                .style("color", defaultColors[0])
-                .style("background-color", defaultColors[1])
-                .style("border-color", defaultColors[2])
-            .close()
-        
-            .selector(`.${classPrefix}-${modeName}:hover`)
-            .open()
-                .style("color", hoverColors[0])
-                .style("background-color", hoverColors[1])
-                .style("border-color", hoverColors[2])
-            .close()
+        PopUpPanel.coloring(stylesheetBuilder, 
+            `.${classPrefix}-${modeName}`,
+            defaultColors[0], defaultColors[1], defaultColors[2]);
 
-            .selector(`.${classPrefix}-${modeName}.disabled,` +
-                        `.${classPrefix}-${modeName}:disabled`)
-            .open()
-                .style("color", disabledColors[0])
-                .style("background-color", disabledColors[1])
-                .style("border-color", disabledColors[2])
-            .close()
+        PopUpPanel.coloring(stylesheetBuilder,
+            `.${classPrefix}-${modeName}:hover`,
+            hoverColors[0], hoverColors[1], hoverColors[2]);
 
-            .selector(`.${classPrefix}-${modeName}:not(:disabled):not(.disabled):active,` +
-                        `.${classPrefix}-${modeName}:not(:disabled):not(.disabled).active,` +
-                        `.show > .${classPrefix}-${modeName}.dropdown-toggle`)
-            .open()
-                .style("color", activeColors[0])
-                .style("background-color", activeColors[1])
-                .style("border-color", activeColors[2])
-            .close()
+        PopUpPanel.coloring(stylesheetBuilder,
+            `.${classPrefix}-${modeName}:focus, .${classPrefix}-${modeName}.focus`,
+            hoverColors[0], hoverColors[1], hoverColors[2]);
 
+        PopUpPanel.coloring(stylesheetBuilder,
+            `.${classPrefix}-${modeName}.disabled, .${classPrefix}-${modeName}:disabled`,
+            disabledColors[0], disabledColors[1], disabledColors[2]);
+
+        PopUpPanel.coloring(stylesheetBuilder,
+            `.${classPrefix}-${modeName}:not(:disabled):not(.disabled):active,` +
+                `.${classPrefix}-${modeName}:not(:disabled):not(.disabled).active,` +
+                `.show > .${classPrefix}-${modeName}.dropdown-toggle`,
+            activeColors[0], activeColors[1], activeColors[2]);
+
+        PopUpPanel.coloring(stylesheetBuilder,
+            `.${classPrefix}-${modeName}:not(:disabled):not(.disabled):active:focus,` +
+                `.${classPrefix}-${modeName}:not(:disabled):not(.disabled).active:focus,` +
+                `.show > .${classPrefix}-${modeName}.dropdown-toggle:focus`,
+            activeColors[0], activeColors[1], activeColors[2]);
+
+
+        return stylesheetBuilder
             .selector(`.${classPrefix}-${modeName}:not(:disabled):not(.disabled):active:focus,` +
                         `.${classPrefix}-${modeName}:not(:disabled):not(.disabled).active:focus,` +
                         `.show > .${classPrefix}-${modeName}.dropdown-toggle:focus`)
@@ -331,6 +331,24 @@ export class PopUpPanel {
                         `${classPrefix}-${modeName}.focus`)
             .open()
                 .style("box-shadow", boxShadowFocus)
+            .close();
+    }
+
+    /**
+     * 
+     * @param {StylesheetBuilder} stylesheetBuilder 
+     * @param {String} selector 
+     * @param {String} fontColor 
+     * @param {String} backgroundColor 
+     * @param {String} borderColor 
+     * @returns 
+     */
+    static coloring(stylesheetBuilder, selector, fontColor, backgroundColor, borderColor) {
+        return stylesheetBuilder.selector(selector)
+            .open()
+                .style("color", fontColor)
+                .style("background-color", backgroundColor)
+                .style("border-color", borderColor)
             .close();
     }
 

@@ -1,3 +1,6 @@
+/**
+ * @description Font color, background color, and border color palettes for various modes.
+ */
 export class ColorPalette {
 
     static PRIMARY_COLORS =          ["#fff","#007bff","#007bff"];
