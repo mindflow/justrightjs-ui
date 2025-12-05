@@ -143,7 +143,7 @@ export class ToggleIcon {
 
         const checkbox = this.component.get("checkbox");
         checkbox.setAttributeValue("name", this.name);
-        checkbox.listenTo("change", new Method(this, this.clicked));
+        checkbox.listenTo("change", new Method(this, this.changed));
 
         const container = this.component.get("container");
         container.listenTo("mouseover", new Method(this, this.enableHover));
@@ -194,7 +194,7 @@ export class ToggleIcon {
      * @param {ContainerEvent} event 
      * @returns 
      */
-    clicked(event) {
+    changed(event) {
         this.enabled = event.target.checked;
 
         if (this.enabled) {

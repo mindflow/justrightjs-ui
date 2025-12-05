@@ -143,8 +143,6 @@ export class RadioToggleIcon {
             InputElementDataBinding.link(this.model).to(this.component.get("radio"));
         }
 
-        this.component.get("radio").listenTo("change", new Method(this, this.clicked));
-
     }
 
     /**
