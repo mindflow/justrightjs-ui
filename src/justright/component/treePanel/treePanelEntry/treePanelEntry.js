@@ -67,13 +67,27 @@ export class TreePanelEntry {
 					.style("flex-direction", "column")
 				.close()
 
+				.selector(".tree-panel-entry-bordered")
+				.open()
+					.style("position", "relative")
+					.style("flex", "0 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "column")
+					.style("border", "2pt solid #dddddd")
+					.style("border-radius", "4pt")
+					.style("padding-top", "6pt")
+					.style("padding-left", "2pt")
+					.style("margin-bottom", "2pt")
+					.style("margin-right", "2pt")
+				.close()
+
 				.selector(".tree-panel-entry-record-element")
 				.open()
 					.style("position", "relative")
 					.style("flex", "1 0 auto")
 					.style("display", "flex")
 					.style("flex-direction", "row")
-					.style("margin-bottom", "5px")
+					.style("margin-bottom", "3pt")
 				.close()
 
 				.selector(".tree-panel-entry-record-subrecord-elements-container")
@@ -119,13 +133,27 @@ export class TreePanelEntry {
 					.style("flex-direction", "column")
 				.close()
 
+				.selector(".tree-panel-entry-bordered")
+				.open()
+					.style("position", "relative")
+					.style("flex", "0 0 auto")
+					.style("display", "flex")
+					.style("flex-direction", "column")
+					.style("border", "2pt solid #dddddd")
+					.style("border-radius", "5pt")
+					.style("padding-top", "6pt")
+					.style("padding-left", "2pt")
+					.style("margin-bottom", "2pt")
+					.style("margin-right", "2pt")
+				.close()
+
 				.selector(".tree-panel-entry-record-element")
 				.open()
 					.style("position", "relative")
 					.style("flex", "1 0 auto")
 					.style("display", "flex")
 					.style("flex-direction", "row")
-					.style("margin-bottom", "5px")
+					.style("margin-bottom", "3pt")
 				.close()
 
 				.selector(".tree-panel-entry-record-subrecord-elements-container")
@@ -202,7 +230,7 @@ export class TreePanelEntry {
 	 */
 	static buildComponent(componentBuilder) {
 		return componentBuilder
-			.root("div", "class=tree-panel-entry")
+			.root("div", "class=tree-panel-entry", "id=root")
 			.open()
 				.node("div", "class=tree-panel-entry-record-element", "id=recordElementContainer")
 				.open()
@@ -235,6 +263,10 @@ export class TreePanelEntry {
         this.arrayState.react(new Method(this, this.handleStateChange));
 
     }
+
+	async enableBorder() {
+		this.component.get("root").setAttributeValue("class", "tree-panel-entry-bordered");
+	}
 
 	/**
 	 * @returns { EventManager }
