@@ -106,7 +106,7 @@ export class TextInput extends CommonInput {
                 .style("width", "15px")
                 .style("height", "15px")
                 .style("left", "50%")
-                 .style("transform", "translate(-50%,-50%) rotate(45deg)")
+                .style("transform", "translate(-50%,-50%) rotate(45deg)")
                 .style("background-color", "#FFFFE0")
                 .style("box-shadow", "0 1px 8px rgba(0,0,0,0.5)")
             .close();
