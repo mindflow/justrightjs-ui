@@ -143,11 +143,11 @@ export class ToggleIcon {
 
         const checkbox = this.component.get("checkbox");
         checkbox.setAttributeValue("name", this.name);
-        checkbox.listenTo("change", new Method(this, this.changed));
+        checkbox.listenTo("change", this.changed, this);
 
         const container = this.component.get("container");
-        container.listenTo("mouseover", new Method(this, this.enableHover));
-        container.listenTo("mouseout", new Method(this, this.disableHover));
+        container.listenTo("mouseover", this.enableHover, this);
+        container.listenTo("mouseout", this.disableHover, this);
 
         const id = checkbox.getAttributeValue("id");
 

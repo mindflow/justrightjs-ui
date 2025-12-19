@@ -116,7 +116,7 @@ export class LinePanel {
 			this.component.setChild("buttonPanel", this.buttonPanel.component);
 		}
 
-		this.arrayState.react(new Method(this, this.handleArrayState));
+		this.arrayState.react(new Method(this.handleArrayState, this));
 
 
 	}

@@ -35,7 +35,7 @@ export class DialogBox {
         /** @type {BackShade} */
         this.backShade = InjectionPoint.instance(BackShade, [
             new BackShadeListeners()
-                .withBackgroundClicked(new Method(this, this.hide))]);
+                .withBackgroundClicked(new Method(this.hide, this))]);
 
         this.hidden = true;
 
@@ -361,7 +361,7 @@ export class DialogBox {
     postConfig() {
         this.component = this.componentFactory.create(DialogBox);
         this.component.set("backShadeContainer", this.backShade.component);
-        this.component.get("closeButton").listenTo("click", new Method(this, this.close));
+        this.component.get("closeButton").listenTo("click", this.close, this);
     }
 
     /**
@@ -437,7 +437,7 @@ export class DialogBox {
             this.destroyFocusEscapeListener = null;
         }
         this.destroyFocusEscapeListener = CanvasRoot.listenToFocusEscape(
-            new Method(this, this.close), this.component.get("dialogBoxOverlay")
+            this.component.get("dialogBoxOverlay"), this.close, this, 
         );
 
         if (temporaryOptions) {

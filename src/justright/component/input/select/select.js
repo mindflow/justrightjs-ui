@@ -187,7 +187,7 @@ export class Select {
 			select.options = this.optionsArray;
 		}
 
-        select.listenTo("click", new Method(this, this.clicked));
+        select.listenTo("click", this.clicked, this);
     }
 
 	/**

@@ -155,7 +155,7 @@ export class RadioToggleSwitch {
             InputElementDataBinding.link(this.model).to(this.component.get("checkbox"));
         }
 
-        this.component.get("checkbox").listenTo("change", new Method(this, this.clicked));
+        this.component.get("checkbox").listenTo("change", this.clicked, this);
     }
 
     /**

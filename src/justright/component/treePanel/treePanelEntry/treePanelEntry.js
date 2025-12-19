@@ -255,12 +255,12 @@ export class TreePanelEntry {
 		this.component = this.componentFactory.create(TreePanelEntry);
 		CanvasStyles.enableStyle(TreePanelEntry.name);
 
-		this.expandToggle.events.listenTo(RadioToggleIcon.EVENT_ENABLED, new Method(this, this.loadSubRecordsClicked));
-		this.expandToggle.events.listenTo(RadioToggleIcon.EVENT_DISABLED, new Method(this, this.hideSubRecordsClicked));
+		this.expandToggle.events.listenTo(RadioToggleIcon.EVENT_ENABLED, this.loadSubRecordsClicked, this);
+		this.expandToggle.events.listenTo(RadioToggleIcon.EVENT_DISABLED, this.hideSubRecordsClicked, this);
 
 		this.component.setChild("expandButton", this.expandToggle.component);
 
-        this.arrayState.react(new Method(this, this.handleStateChange));
+        this.arrayState.react(new Method(this.handleStateChange, this));
 
     }
 
@@ -310,13 +310,13 @@ export class TreePanelEntry {
 			.trigger(TreePanelEntry.EVENT_EXPAND_TOGGLE_OVERRIDE, [null, treePanelSubEntry, record]);
 
 		treePanelSubEntry.events
-			.listenTo(TreePanelEntry.RECORD_ELEMENT_REQUESTED, new Method(this, this.entryRequested));
+			.listenTo(TreePanelEntry.RECORD_ELEMENT_REQUESTED, this.entryRequested, this);
 
 		treePanelSubEntry.events
-			.listenTo(TreePanelEntry.EVENT_EXPAND_TOGGLE_OVERRIDE, new Method(this, this.expandToggleOverride));
+			.listenTo(TreePanelEntry.EVENT_EXPAND_TOGGLE_OVERRIDE, this.expandToggleOverride, this);
 
 		treePanelSubEntry.events
-			.listenTo(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, new Method(this, this.subRecordsUpdateRequested));
+			.listenTo(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, this.subRecordsUpdateRequested, this);
 
 		panel.component.addChild("panel", treePanelSubEntry.component);
     }

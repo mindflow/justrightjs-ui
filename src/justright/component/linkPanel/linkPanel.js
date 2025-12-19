@@ -234,9 +234,9 @@ export class LinkPanel {
         }
 
 
-        this.component.get("link").listenTo("click", new Method(this, (event) => {
+        this.component.get("link").listenTo("click", (event) => {
             this.eventManager.trigger(LinkPanel.EVENT_CLICKED, event);
-        }));
+        }, this);
     }
 
     /**

@@ -303,9 +303,9 @@ export class Button {
             .enable(this.buttonSize)
             .enable(this.buttonType);
 
-        this.component.get("button").listenTo("click", new Method(this, (event) => {
+        this.component.get("button").listenTo("click", (event) => {
             this.eventManager.trigger(Button.EVENT_CLICKED, event);
-        }));
+        }, this);
     }
 
     /**

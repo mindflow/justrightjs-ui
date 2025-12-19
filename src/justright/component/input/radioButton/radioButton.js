@@ -145,7 +145,7 @@ export class RadioButton {
             InputElementDataBinding.link(this.model).to(this.component.get("radio"));
         }
 
-        this.component.get("radio").listenTo("click", new Method(this, this.clicked));
+        this.component.get("radio").listenTo("click", this.clicked, this);
     }
 
     clicked(event) {

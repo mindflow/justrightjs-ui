@@ -210,10 +210,10 @@ export class FileUpload {
         
         /** @type {SimpleElement} */
         const uploadBox = this.component.get("uploadBox");
-        uploadBox.listenTo("dragover", new Method(this, this.dragOver));
-        uploadBox.listenTo("dragleave", new Method(this, this.dragLeave));
-        uploadBox.listenTo("drop", new Method(this, this.fileDropped));
-        uploadBox.listenTo("click", new Method(this, this.fileInputClicked));
+        uploadBox.listenTo("dragover", this.dragOver, this);
+        uploadBox.listenTo("dragleave", this.dragLeave, this);
+        uploadBox.listenTo("drop", this.fileDropped, this);
+        uploadBox.listenTo("click", this.fileInputClicked, this);
 
         if (this.multiple) {
             const fileInput = this.component.get("fileInput");
@@ -221,7 +221,7 @@ export class FileUpload {
         }
 
         const fileInput = this.component.get("fileInput");
-        fileInput.listenTo("change", new Method(this, this.fileInputChanged));
+        fileInput.listenTo("change", this.fileInputChanged, this);
 
     }
 
@@ -365,11 +365,11 @@ export class FileUpload {
         this.events.trigger(FileUpload.EVENT_UPLOAD_RESET);
         for (const file of this.fileArrayState.objectMap.values()) {
             const fileEntry = await this.fileUploadEntryProvider.get([file]);
-            fileEntry.events.listenTo(FileUploadEntry.EVENT_REMOVE_CLICKED, new Method(this, this.removeFileEntry, [fileEntry]));
-            this.fileArrayState.reactTo(file.name, new Method(fileEntry, fileEntry.updateProgress));
+            fileEntry.events.listenTo(FileUploadEntry.EVENT_REMOVE_CLICKED, this.removeFileEntry, this);
+            this.fileArrayState.reactTo(file.name, new Method(fileEntry.updateProgress, fileEntry));
             fileList.addChild(fileEntry.component);
         }
-        this.fileArrayState.react(new Method(this, this.checkFileUploadComplete));
+        this.fileArrayState.react(new Method(this.checkFileUploadComplete, this));
     }
 
     checkFileUploadComplete() {

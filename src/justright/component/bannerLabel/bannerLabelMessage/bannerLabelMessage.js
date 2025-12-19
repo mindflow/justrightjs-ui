@@ -1,4 +1,4 @@
-import { Method, TimePromise } from "coreutil_v1";
+import { TimePromise } from "coreutil_v1";
 import {
     CanvasStyles,
     StyleSelectorAccessor,
@@ -208,7 +208,7 @@ export class BannerLabelMessage {
                 .enable("banner-label-message-" + this.customAppearance.spacing);
         }
 
-        this.component.get("bannerLabelMessageCloseButton").listenTo("click", new Method(this, this.closeClicked));
+        this.component.get("bannerLabelMessageCloseButton").listenTo("click", this.closeClicked, this);
     }
 
     closeClicked(event) {

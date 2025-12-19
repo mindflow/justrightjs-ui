@@ -81,7 +81,7 @@ export class CommonInput {
         }
 
         if(this.validator) {
-            this.validator.withValidListener(new Method(this,this.hideValidationError));
+            this.validator.withValidListener(new Method(this.hideValidationError, this));
         }
 
         if(this.model) {
@@ -89,19 +89,19 @@ export class CommonInput {
         }
 
         this.component.get(this.inputElementId)
-            .listenTo("keyup", new Method(this, this.keyupped))
-            .listenTo("change", new Method(this, this.changed))
-            .listenTo("blur", new Method(this, this.blurred))
-            .listenTo("click", new Method(this, this.clicked))
-            .listenTo("keyup", new Method(this, (event) => {
+            .listenTo("keyup", this.keyupped, this)
+            .listenTo("change", this.changed, this)
+            .listenTo("blur", this.blurred, this)
+            .listenTo("click", this.clicked, this)
+            .listenTo("keyup", (event) => {
                 if (event.isKeyCode(13)) {
                     this.entered(event);
                 }
-            }));
+            }, this);
 
         if (this.errorElementId) {
             this.component.get(this.errorElementId)
-                .listenTo("click", new Method(this, this.errorClicked));
+                .listenTo("click", this.errorClicked, this);
         }
     }
 

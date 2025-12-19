@@ -1,4 +1,3 @@
-import { Method } from "coreutil_v1";
 import { CanvasStyles, ComponentBuilder, InlineComponentFactory, Stylesheet, StylesheetBuilder } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { CustomAppearance } from "../customAppearance.js";
@@ -86,9 +85,9 @@ export class BannerLabel {
         this.component.get("bannerLabel").addChild(this.success.component);
         this.component.get("bannerLabel").addChild(this.warning.component);
         this.component.get("bannerLabel").addChild(this.error.component);
-        this.success.eventManager.listenTo(BannerLabelMessage.EVENT_CLOSE_CLICKED, new Method(this, this.hide));
-        this.warning.eventManager.listenTo(BannerLabelMessage.EVENT_CLOSE_CLICKED, new Method(this, this.hide));
-        this.error.eventManager.listenTo(BannerLabelMessage.EVENT_CLOSE_CLICKED, new Method(this, this.hide));
+        this.success.eventManager.listenTo(BannerLabelMessage.EVENT_CLOSE_CLICKED, this.hide, this);
+        this.warning.eventManager.listenTo(BannerLabelMessage.EVENT_CLOSE_CLICKED, this.hide, this);
+        this.error.eventManager.listenTo(BannerLabelMessage.EVENT_CLOSE_CLICKED, this.hide, this);
         this.active = this.success;
     }
 

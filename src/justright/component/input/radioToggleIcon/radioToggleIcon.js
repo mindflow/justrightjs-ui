@@ -129,7 +129,7 @@ export class RadioToggleIcon {
 
         const radio = this.component.get("radio");
         radio.setAttributeValue("name", this.name);
-        radio.listenTo("click", new Method(this, this.clicked));
+        radio.listenTo("click", this.clicked, this);
 
         const id = radio.getAttributeValue("id");
 

@@ -314,8 +314,8 @@ export class DropDownPanel {
             .enable(this.size)
             .enable(this.orientation);
 
-        this.component.get("button").listenTo("click", new Method(this, this.clicked));
-        CanvasRoot.listenToFocusEscape(new Method(this, this.hide), this.component.get("dropDownPanelRoot"));
+        this.component.get("button").listenTo("click", this.clicked, this);
+        CanvasRoot.listenToFocusEscape(this.component.get("dropDownPanelRoot"), this.hide, this);
     }
 
     /**

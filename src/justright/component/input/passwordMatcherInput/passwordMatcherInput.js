@@ -109,17 +109,17 @@ export class PasswordMatcherInput {
         this.component.setChild("passwordMatcherInputControl",this.passwordMatcherInputControl.component);
 
         this.passwordMatcherInputValue.events
-            .listenTo(CommonInput.EVENT_ENTERED, new Method(this, this.passwordValueEntered))
-            .listenTo(CommonInput.EVENT_KEYUPPED, new Method(this, this.passwordValueChanged));
+            .listenTo(CommonInput.EVENT_ENTERED, this.passwordValueEntered, this)
+            .listenTo(CommonInput.EVENT_KEYUPPED, this.passwordValueChanged, this);
 
         this.passwordMatcherInputControl.events
-            .listenTo(CommonInput.EVENT_ENTERED, new Method(this, this.passwordControlEntered));
+            .listenTo(CommonInput.EVENT_ENTERED, this.passwordControlEntered, this);
 
         /** @type {AndValidatorSet} */
         this.validator = new AndValidatorSet()
             .withValidator(this.passwordMatcherInputValue.validator)
             .withValidator(this.passwordMatcherInputControl.validator)
-            .withValidListener(new Method(this, this.passwordMatcherValidOccured));
+            .withValidListener(new Method(this.passwordMatcherValidOccured, this));
 
     }
 

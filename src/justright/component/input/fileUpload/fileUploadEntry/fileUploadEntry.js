@@ -1,5 +1,4 @@
 import { ContainerEvent, ContainerFileData } from "containerbridge_v1";
-import { Method } from "coreutil_v1";
 import { CanvasStyles,
     Component,
     EventManager,
@@ -196,7 +195,7 @@ export class FileUploadEntry {
         fileTypeElement.setChild(this.fileType ? this.fileType : "Unknown");
 
         const removeButton = this.component.get("removeButton");
-        removeButton.listenTo("click", new Method(this, this.removeCliked));
+        removeButton.listenTo("click", this.removeCliked, this);
 
         this.updateProgress(this.file, this.file.name);
 
