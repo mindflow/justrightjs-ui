@@ -1,4 +1,4 @@
-import { Logger, Method } from "coreutil_v1";
+import { Logger } from "coreutil_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
 import { Component, CanvasStyles, EventManager, SimpleElement, StylesheetBuilder, ComponentBuilder, InlineComponentFactory } from "justright_core_v1";
 import { TreePanelEntry } from "./treePanelEntry/treePanelEntry.js";

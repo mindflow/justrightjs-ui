@@ -11,7 +11,7 @@ import {
     InlineComponentFactory
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
-import { Logger, Method } from "coreutil_v1";
+import { Logger } from "coreutil_v1";
 import { ContainerEvent } from "containerbridge_v1";
 import { ColorPalette } from "../colorPalette";
 import { ElementThemeApplicator } from "../common/elementThemeApplicator";

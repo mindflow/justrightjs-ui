@@ -9,7 +9,7 @@ import {
     InlineComponentFactory
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
-import { Logger, Method } from "coreutil_v1";
+import { Logger } from "coreutil_v1";
 import { CommonEvents } from "../../common/commonEvents";
 import { ContainerEvent } from "containerbridge_v1";
 
