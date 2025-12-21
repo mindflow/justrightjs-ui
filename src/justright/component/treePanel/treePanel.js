@@ -141,7 +141,6 @@ export class TreePanel {
 	 * @param {any} record
 	 */
 	async entryRequested(event, record, treePanelEntry, parentTreePanelEntry) {
-		LOG.info("Entry requested");
 		try {
 
 			/** @type {any} */
@@ -162,9 +161,7 @@ export class TreePanel {
 	 * @param {any} record
 	 */
 	async expandToggleOverride(event, treePanelEntry, record) {
-		LOG.info("Expand Toggle Override requested");
 		try {
-
 			await this.events
 				.trigger(TreePanel.EVENT_EXPAND_TOGGLE_OVERRIDE, [treePanelEntry.expandToggle, record]);
 
