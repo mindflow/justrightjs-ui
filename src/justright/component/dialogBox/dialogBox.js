@@ -463,6 +463,6 @@ export class DialogBox {
     getDialogBox() { return this.component.get("dialogBox"); }
 
     scrollLock() {
-        ContainerElementUtils.scrollLockTo(this.component.get("dialogBoxContent").element, 0, 0, 1000);
+        ContainerElementUtils.scrollLockTo(this.component.get("dialogBoxContent").containerElement, 0, 0, 1000);
     }
 }
