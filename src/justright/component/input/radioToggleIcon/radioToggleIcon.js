@@ -7,7 +7,8 @@ import {
     StylesheetBuilder,
     Stylesheet,
     ComponentBuilder,
-    InlineComponentFactory
+    InlineComponentFactory,
+    RadioInputElement
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger } from "coreutil_v1";
@@ -38,9 +39,6 @@ export class RadioToggleIcon {
 
         /** @type {object} */
         this.model = model;
-
-        /** @type {boolean} */
-        this.enabled = false;
 
         /** @type {string} */
         this.name = name;
@@ -127,7 +125,7 @@ export class RadioToggleIcon {
         this.component = this.componentFactory.create(RadioToggleIcon);
         CanvasStyles.enableStyle(RadioToggleIcon.name);
 
-        const radio = this.component.get("radio");
+        const radio = this.getRadio();
         radio.setAttributeValue("name", this.name);
         radio.listenTo("click", this.clicked, this);
 
@@ -140,7 +138,7 @@ export class RadioToggleIcon {
         icon.setAttributeValue("class", this.icon);
 
         if (this.model) {
-            InputElementDataBinding.link(this.model).to(this.component.get("radio"));
+            InputElementDataBinding.link(this.model).to(radio);
         }
 
     }
@@ -168,15 +166,31 @@ export class RadioToggleIcon {
     /**
      * Set the toggle state programmatically
      * @param {boolean} checked 
+     * @param {boolean} silent
      */
-    toggle(checked) {
+    toggle(checked, silent = false) {
         if (this.checked === checked) {
             return; // No change
         }
         this.checked = checked;
-        if (this.component) {
-            this.component.get("radio").containerElement.click();
+        if (!this.component) {
+            return;
         }
+        if (!silent) {
+            this.getRadio().containerElement.click();
+            return;
+        }
+        if (checked) {
+            this.getRadio().checked = true;
+        } else {
+            this.getRadio().checked = false;
+        }
+        this.refreshColors();
+    }
+
+    /** @returns {RadioInputElement} */
+    getRadio() {
+        return this.component.get("radio");
     }
 
     /**

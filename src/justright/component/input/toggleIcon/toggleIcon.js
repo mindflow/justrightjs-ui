@@ -5,7 +5,8 @@ import {
     StylesheetBuilder,
     Stylesheet,
     ComponentBuilder,
-    InlineComponentFactory
+    InlineComponentFactory,
+    CheckboxInputElement
 } from "justright_core_v1";
 import { InjectionPoint } from "mindi_v1";
 import { Logger, Method } from "coreutil_v1";
@@ -38,10 +39,10 @@ export class ToggleIcon {
      * 
      * @param {String} name
      * @param {Object} model
-     * @param {String} icon
      * @param {String} label
+     * @param {Boolean} checked
      */
-    constructor(name = "?", model = null, label = null) {
+    constructor(name = "?", model = null, label = null, checked = false) {
 
         /** @type {InlineComponentFactory} */
         this.componentFactory = InjectionPoint.instance(InlineComponentFactory);
@@ -53,7 +54,7 @@ export class ToggleIcon {
         this.model = model;
 
         /** @type {boolean} */
-        this.enabled = false;
+        this.checked = checked;
 
         /** @type {string} */
         this.name = name;
@@ -77,7 +78,7 @@ export class ToggleIcon {
         this.hoverColor = "gray";
 
         /** @type {EventManager} */
-        this.eventManager = new EventManager();
+        this.events = new EventManager();
     }
 
     /**
@@ -134,16 +135,16 @@ export class ToggleIcon {
             .build();
     }
 
-    /** @type {EventManager<ToggleIcon>} */
-    get events() { return this.eventManager; }
-
     postConfig() {
         this.component = this.componentFactory.create(ToggleIcon);
         CanvasStyles.enableStyle(ToggleIcon.name);
 
-        const checkbox = this.component.get("checkbox");
+        const checkbox = this.getCheckbox();
         checkbox.setAttributeValue("name", this.name);
         checkbox.listenTo("change", this.changed, this);
+        if (this.checked) {
+            checkbox.setAttributeValue("checked", "checked");
+        }
 
         const container = this.component.get("container");
         container.listenTo("mouseover", this.enableHover, this);
@@ -154,22 +155,32 @@ export class ToggleIcon {
         const label = this.component.get("label");
         label.setAttributeValue("for", id);
 
-        this.applyIcon(this.disabledIcon);
-        this.applyColor(this.disabledColor);
+        this.refreshColors();
 
+    }
+
+    async refreshColors() {
+        if (this.checked) {
+            this.applyIcon(this.enabledIcon);
+            this.applyColor(this.enabledColor);
+            
+        } else {
+            this.applyIcon(this.disabledIcon);
+            this.applyColor(this.disabledColor);
+        }
     }
 
     loadIcons(disabledIcon, enabledIcon) {
         this.disabledIcon = disabledIcon;
         this.enabledIcon = enabledIcon;
-        this.enabled ? this.applyIcon(this.enabledIcon) : this.applyIcon(this.disabledIcon);
+        this.checked ? this.applyIcon(this.enabledIcon) : this.applyIcon(this.disabledIcon);
     }
 
-    loadColors(disabled, enabled, hover) {
+    loadColors(disabled, checked, hover) {
         this.disabledColor = disabled;
-        this.enabledColor = enabled;
+        this.enabledColor = checked;
         this.hoverColor = hover;
-        this.enabled ? this.applyColor(this.enabledColor) : this.applyColor(this.disabledColor);
+        this.checked ? this.applyColor(this.enabledColor) : this.applyColor(this.disabledColor);
     }
 
     /**
@@ -177,36 +188,58 @@ export class ToggleIcon {
      * @param {Method} method 
      */
     withClickListener(method) {
-        this.component.get("checkbox").listenTo("click", method);
+        this.getCheckbox().listenTo("click", method);
         return this;
     }
 
-    disable() {
-        this.component.get("checkbox").setAttributeValue("disabled","true");
-    }
-
-    enable() {
-        this.component.get("checkbox").removeAttribute("disabled");
+    /**
+     * Set the toggle state programmatically
+     * @param {boolean} checked 
+     * @param {boolean} silent
+     */
+    toggle(checked, silent = false) {
+        if (this.checked === checked) {
+            return; // No change
+        }
+        this.checked = checked;
+        if (!this.component) {
+            return;
+        }
+        if (!silent) {
+            this.getCheckbox().containerElement.click();
+            return;
+        }
+        if (checked) {
+            this.getCheckbox().checked = true;
+        } else {
+            this.getCheckbox().checked = false;
+        }
+        this.refreshColors();
     }
 
     /**
      * 
+     * @returns {CheckboxInputElement}
+     */
+    getCheckbox() {
+        return this.component.get("checkbox");
+    }
+
+    /**
      * @param {ContainerEvent} event 
      * @returns 
      */
     changed(event) {
-        this.enabled = event.target.checked;
+        this.checked = event.target.checked;
 
-        if (this.enabled) {
-            this.applyIcon(this.enabledIcon);
-            this.applyColor(this.enabledColor);
-            this.eventManager.trigger(ToggleIcon.EVENT_ENABLED, event);
+        this.refreshColors();
+
+        if (this.checked) {
+            this.events.trigger(ToggleIcon.EVENT_ENABLED, event);
             return;
         }
         
-        this.applyIcon(this.disabledIcon);
-        this.applyColor(this.disabledColor);
-        this.eventManager.trigger(ToggleIcon.EVENT_DISABLED, event);
+        this.events.trigger(ToggleIcon.EVENT_DISABLED, event);
     }
 
     applyColor(color) {
@@ -221,14 +254,14 @@ export class ToggleIcon {
 
     enableHover() {
         const container = this.component.get("container");
-        if (!this.enabled) {
+        if (!this.checked) {
             container.setAttributeValue("style", "color: " + this.hoverColor);
         }
     }
 
     disableHover() {
         const container = this.component.get("container");
-        if (this.enabled) {
+        if (this.checked) {
             container.setAttributeValue("style", "color: " + this.enabledColor);
         } else {
             container.setAttributeValue("style", "color: " + this.disabledColor);
