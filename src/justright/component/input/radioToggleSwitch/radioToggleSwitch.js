@@ -167,7 +167,7 @@ export class RadioToggleSwitch {
         this.checked = event.target.checked;
 
         if (oldValue !== this.checked) {
-            this.events.trigger(RadioToggleSwitch.EVENT_CHANGED, [event]);
+            this.events.trigger(RadioToggleSwitch.EVENT_CHANGED, [event, this.checked]);
         }
 
         if (this.checked) {
