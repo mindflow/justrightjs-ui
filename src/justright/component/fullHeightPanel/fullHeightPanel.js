@@ -52,6 +52,10 @@ export class FullHeightPanel {
             .build();
     }
 
+    setContent(component) {
+        this.component.setChild("content", component);
+    }
+
     /**
      * 
      * @param {ComponentBuilder} componentBuilder 
