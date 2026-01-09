@@ -12,6 +12,10 @@
     width: var(--width-1);
 }
 
+.width-full {
+    width: 100%;
+}
+
 .padding-small {
     padding: 4pt;
 }

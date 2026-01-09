@@ -1,7 +1,5 @@
 import { Component,
     CanvasStyles,
-    StylesheetBuilder,
-    Stylesheet,
     ComponentBuilder,
     InlineComponentFactory
 } from "justright_core_v1";
@@ -26,31 +24,6 @@ export class FillPanel {
 
     }
 
-    /**
-     * 
-     * @param {StylesheetBuilder} stylesheetBuilder 
-     * @returns {Stylesheet}
-     */
-    static buildStylesheet(stylesheetBuilder) {
-
-        return stylesheetBuilder
-            .selector(".fill-panel")
-            .open()
-                .style("display", "flex")
-                .style("flex-direction", "column")
-                .style("width", "100%")
-            .close()
-            
-            .selector(".fill-panel > *")
-            .open()
-                .style("flex-grow", "1")
-                .style("flex-shrink", "0")
-                .style("flex-basis", "auto")
-            .close()
-
-            .build();
-    }
-
     setContent(component) {
         this.component.setChild("content", component);
     }
@@ -62,13 +35,12 @@ export class FillPanel {
      */
     static buildComponent(componentBuilder) {
         return componentBuilder
-            .root("div", "id=content", "class=fill-panel")
+            .root("div", "id=content", "class=cntr cntr-rows cntr-grow-only width-full")
             .build();
     }
 
     postConfig() {
         this.component = this.componentFactory.create(FillPanel);
-        CanvasStyles.enableStyle(FillPanel.name);
     }
 
 }
