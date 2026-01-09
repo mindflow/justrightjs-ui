@@ -1999,9 +1999,9 @@ class DropDownPanel {
     }
 }
 
-new coreutil_v1.Logger("FullHeightPanel");
+new coreutil_v1.Logger("FillPanel");
 
-class FullHeightPanel {
+class FillPanel {
 
 
     /**
@@ -2025,14 +2025,14 @@ class FullHeightPanel {
     static buildStylesheet(stylesheetBuilder) {
 
         return stylesheetBuilder
-            .selector(".full-height-panel")
+            .selector(".fill-panel")
             .open()
                 .style("display", "flex")
                 .style("flex-direction", "column")
                 .style("width", "100%")
             .close()
             
-            .selector(".full-height-panel > *")
+            .selector(".fill-panel > *")
             .open()
                 .style("flex-grow", "1")
                 .style("flex-shrink", "0")
@@ -2053,13 +2053,13 @@ class FullHeightPanel {
      */
     static buildComponent(componentBuilder) {
         return componentBuilder
-            .root("div", "id=content", "class=full-height-panel")
+            .root("div", "id=content", "class=fill-panel")
             .build();
     }
 
     postConfig() {
-        this.component = this.componentFactory.create(FullHeightPanel);
-        justright_core_v1.CanvasStyles.enableStyle(FullHeightPanel.name);
+        this.component = this.componentFactory.create(FillPanel);
+        justright_core_v1.CanvasStyles.enableStyle(FillPanel.name);
     }
 
 }
@@ -7257,7 +7257,7 @@ exports.ElementThemeApplicator = ElementThemeApplicator;
 exports.EmailInput = EmailInput;
 exports.FileUpload = FileUpload;
 exports.FileUploadEntry = FileUploadEntry;
-exports.FullHeightPanel = FullHeightPanel;
+exports.FillPanel = FillPanel;
 exports.HiddenInput = HiddenInput;
 exports.LinePanel = LinePanel;
 exports.LinePanelEntry = LinePanelEntry;

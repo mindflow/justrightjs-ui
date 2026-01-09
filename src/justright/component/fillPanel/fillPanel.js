@@ -8,9 +8,9 @@ import { Component,
 import { InjectionPoint } from "mindi_v1";
 import { Logger } from "coreutil_v1";
 
-const LOG = new Logger("FullHeightPanel");
+const LOG = new Logger("FillPanel");
 
-export class FullHeightPanel {
+export class FillPanel {
 
 
     /**
@@ -34,14 +34,14 @@ export class FullHeightPanel {
     static buildStylesheet(stylesheetBuilder) {
 
         return stylesheetBuilder
-            .selector(".full-height-panel")
+            .selector(".fill-panel")
             .open()
                 .style("display", "flex")
                 .style("flex-direction", "column")
                 .style("width", "100%")
             .close()
             
-            .selector(".full-height-panel > *")
+            .selector(".fill-panel > *")
             .open()
                 .style("flex-grow", "1")
                 .style("flex-shrink", "0")
@@ -62,13 +62,13 @@ export class FullHeightPanel {
      */
     static buildComponent(componentBuilder) {
         return componentBuilder
-            .root("div", "id=content", "class=full-height-panel")
+            .root("div", "id=content", "class=fill-panel")
             .build();
     }
 
     postConfig() {
-        this.component = this.componentFactory.create(FullHeightPanel);
-        CanvasStyles.enableStyle(FullHeightPanel.name);
+        this.component = this.componentFactory.create(FillPanel);
+        CanvasStyles.enableStyle(FillPanel.name);
     }
 
 }
