@@ -65,7 +65,6 @@ export class LinePanel {
 
 		this.arrayState.react(new Method(this.handleArrayState, this));
 
-
 	}
 
 	/**

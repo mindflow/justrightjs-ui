@@ -1,6 +1,6 @@
 import { Logger } from "coreutil_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
-import { Component, CanvasStyles, EventManager, SimpleElement, StylesheetBuilder, ComponentBuilder, InlineComponentFactory } from "justright_core_v1";
+import { Component, EventManager, SimpleElement, ComponentBuilder, InlineComponentFactory } from "justright_core_v1";
 import { TreePanelEntry } from "./treePanelEntry/treePanelEntry.js";
 import { Panel } from "../panel/panel.js";
 import { ContainerEvent } from "containerbridge_v1";
@@ -42,77 +42,24 @@ export class TreePanel {
 
 	/**
 	 * 
-	 * @param {StylesheetBuilder} stylesheetBuilder 
-	 * @returns {Stylesheet}
-	 */
-	static buildStylesheet(stylesheetBuilder) {
-		return stylesheetBuilder
-			.media("@media (min-width: 734px)")
-			.open()
-				.selector(".tree-panel")
-				.open()
-					.style("position", "relative")
-					.style("flex", "1 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "column")
-					.style("justify-content", "top")
-					.style("background-color", "#ffffff")
-					.style("padding", "5px")
-				.close()
-			.close()
-
-			.media("@media (max-width: 733px)")
-			.open()
-				.selector(".tree-panel")
-				.open()
-					.style("position", "relative")
-					.style("display", "flex")
-					.style("flex-direction", "column")
-					.style("background-color", "#ffffff")
-					.style("width", "100%")
-					.style("padding", "5px")
-				.close()
-			.close()
-
-			.selector(".tree-panel-content")
-			.open()
-				.style("position", "relative")
-				.style("display", "flex")
-				.style("flex-direction", "column")
-				.style("flex", "1 0 auto")
-			.close()
-
-			.selector(".tree-panel-buttons")
-			.open()
-				.style("position", "relative")
-				.style("flex", "0 1 auto")
-				.style("padding-bottom", "5px")
-			.close()
-
-			.build();
-	}
-
-	/**
-	 * 
 	 * @param {ComponentBuilder} componentBuilder 
 	 * @returns {Component}
 	 */
 	static buildComponent(componentBuilder) {
 		return componentBuilder
-			.root("div", "class=tree-panel")
+			.root("div", "class=cntr cntr-gap-small cntr-rows cntr-prevent-size-change padding-small")
 			.open()
-				.node("div", "class=tree-panel-buttons", "id=buttonpanel")
-				.node("div", "class=tree-panel-content", "id=rootelement")
+				.node("div", "id=buttonPanel")
+				.node("div", "class=cntr-override-grow-only cntr cntr-rows cntr-gap-medium", "id=rootElement")
 			.close()
 			.build();
 	}
 
 	async postConfig() {
 		this.component = this.componentFactory.create(TreePanel);
-		CanvasStyles.enableStyle(TreePanel.name);
 
 		if (this.buttonPanel) {
-			this.component.setChild("buttonpanel", this.buttonPanel.component);
+			this.component.setChild("buttonPanel", this.buttonPanel.component);
 		}
 
 		this.treePanelEntry = await this.treePanelEntryProvier.get();
@@ -197,6 +144,6 @@ export class TreePanel {
 	 */
 	async reset(event) {
 		await this.subRecordsUpdateRequested(event, null, this.treePanelEntry.arrayState);
-		this.component.setChild("rootelement", this.treePanelEntry.component);
+		this.component.setChild("rootElement", this.treePanelEntry.component);
 	}
 }
