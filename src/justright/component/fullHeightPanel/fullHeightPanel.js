@@ -43,7 +43,6 @@ export class FullHeightPanel {
             
             .selector(".full-height-panel > *")
             .open()
-                .style("background-color", "#ffffff")
                 .style("flex-grow", "1")
                 .style("flex-shrink", "0")
                 .style("flex-basis", "auto")

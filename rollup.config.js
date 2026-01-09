@@ -56,8 +56,8 @@ export default [{
         multi(),
         copy({
             targets: [
-              { src: 'src/**/*.css', dest: 'dist/assets/justrightjs-ui' },
-              { src: 'src/**/*.html', dest: 'dist/assets/justrightjs-ui' }
+              { src: 'src/**/*.css', dest: 'dist/assets/css' },
+              { src: 'src/**/*.html', dest: 'dist/assets/html' }
             ],
             verbose: true
         })

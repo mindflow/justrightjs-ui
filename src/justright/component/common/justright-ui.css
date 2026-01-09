@@ -12,6 +12,18 @@
     width: var(--width-1);
 }
 
+.padding-small {
+    padding: 4pt;
+}
+
+.padding-medium {
+    padding: 8pt;
+}
+
+.padding-large {
+    padding: 16pt;
+}
+
 /* Container classes */ 
 
 .cntr {
