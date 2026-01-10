@@ -90,6 +90,7 @@ export class LinePanel {
      * @param {Array} array 
      */
     async handleArrayState(array) {
+		this.component.clearChildren("recordElements");
 		array.forEach(async (record) => {
             this.component.addChild("recordElements", 
 				await this.populateRecord(record));
