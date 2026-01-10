@@ -1,19 +1,17 @@
 import { Logger, Method } from "coreutil_v1";
-import { CanvasStyles,
-	Component,
+import { Component,
 	EventManager,
 	SimpleElement,
 	StateManager,
-	StylesheetBuilder,
 	ComponentBuilder,
-	InlineComponentFactory
+	InlineComponentFactory,
+	StyleSelectorAccessor
 } from "justright_core_v1";
 import { InjectionPoint, Provider } from "mindi_v1";
 import { Panel } from "../../panel/panel.js";
 import { RadioToggleIcon } from "../../input/radioToggleIcon/radioToggleIcon.js";
-import { ToggleIcon } from "../../input/toggleIcon/toggleIcon.js";
 import { ContainerEvent } from "containerbridge_v1";
-
+import { ToggleIcon } from "../../input/toggleIcon/toggleIcon.js";
 
 const LOG = new Logger("TreePanelEntry");
 
@@ -52,200 +50,27 @@ export class TreePanelEntry {
 
 	/**
 	 * 
-	 * @param {StylesheetBuilder} stylesheetBuilder 
-	 * @returns {Stylesheet}
-	 */
-	static buildStylesheet(stylesheetBuilder) {
-		return stylesheetBuilder
-			.media("@media (min-width: 734px)")
-			.open()
-				.selector(".tree-panel-entry")
-				.open()
-					.style("position", "relative")
-					.style("flex", "0 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "column")
-				.close()
-
-				.selector(".tree-panel-entry-bordered")
-				.open()
-					.style("position", "relative")
-					.style("flex", "0 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "column")
-					.style("border", "2pt solid #dddddd")
-					.style("border-radius", "8pt 8pt 8pt 8pt")
-					.style("padding-top", "6pt")
-					.style("padding-left", "6pt")
-					.style("margin-bottom", "2pt")
-					.style("margin-right", "2pt")
-				.close()
-
-				.selector(".tree-panel-entry-record-element")
-				.open()
-					.style("position", "relative")
-					.style("flex", "1 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "row")
-					.style("margin-bottom", "3pt")
-				.close()
-
-				.selector(".tree-panel-entry-record-subrecord-elements-container")
-				.open()
-					.style("position", "relative")
-					.style("flex", "0 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "row")
-				.close()
-
-				.selector(".tree-panel-entry-subrecord-elements")
-				.open()
-					.style("position", "relative")
-					.style("flex", "1 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "column")
-				.close()
-
-				.selector(".tree-panel-entry-buttons-container")
-				.open()
-					.style("position", "relative")
-					.style("flex", "0 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "row")
-				.close()
-
-				.selector(".tree-panel-entry-buttons")
-				.open()
-					.style("position", "relative")
-					.style("flex", "1 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "column")
-				.close()
-			.close()
-
-			.media("@media (max-width: 733px)")
-			.open()
-				.selector(".tree-panel-entry")
-				.open()
-					.style("position", "relative")
-					.style("flex", "0 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "column")
-				.close()
-
-				.selector(".tree-panel-entry-bordered")
-				.open()
-					.style("position", "relative")
-					.style("flex", "0 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "column")
-					.style("border", "2pt solid #dddddd")
-					.style("border-radius", "8pt 8pt 8pt 8pt")
-					.style("padding-top", "6pt")
-					.style("padding-left", "6pt")
-					.style("margin-bottom", "2pt")
-					.style("margin-right", "2pt")
-				.close()
-
-				.selector(".tree-panel-entry-record-element")
-				.open()
-					.style("position", "relative")
-					.style("flex", "1 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "row")
-					.style("margin-bottom", "3pt")
-				.close()
-
-				.selector(".tree-panel-entry-record-subrecord-elements-container")
-				.open()
-					.style("position", "relative")
-					.style("flex", "0 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "row")
-				.close()
-
-				.selector(".tree-panel-entry-subrecord-elements")
-				.open()
-					.style("position", "relative")
-					.style("flex", "1 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "column")
-				.close()
-
-				.selector(".tree-panel-entry-buttons-container")
-				.open()
-					.style("position", "relative")
-					.style("flex", "0 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "row")
-				.close()
-
-				.selector(".tree-panel-entry-buttons")
-				.open()
-					.style("position", "relative")
-					.style("flex", "1 0 auto")
-					.style("display", "flex")
-					.style("flex-direction", "column")
-				.close()
-			.close()
-
-			.selector(".tree-panel-entry-expand")
-			.open()
-				.style("position", "relative")
-				.style("flex", "0 1 auto")
-				.style("display", "flex")
-				.style("padding-right", "5px")
-			.close()
-
-			.selector(".tree-panel-entry-subrecord-elements-indent")
-			.open()
-				.style("position", "relative")
-				.style("flex", "0 0 18pt")
-				.style("display", "flex")
-				.style("flex-direction", "row")
-			.close()
-
-			.selector(".tree-panel-entry-record-element")
-			.open()
-				.style("position", "relative")
-				.style("flex", "1 0 auto")
-				.style("display", "flex")
-				.style("flex-direction", "row")
-			.close()
-
-			.selector(".tree-panel-entry-buttons-indent")
-			.open()
-				.style("position", "relative")
-				.style("flex", "0 0 18pt")
-				.style("display", "flex")
-				.style("flex-direction", "row")
-			.close()
-			.build();
-	}
-
-	/**
-	 * 
 	 * @param {ComponentBuilder} componentBuilder 
 	 * @returns {Component}
 	 */
 	static buildComponent(componentBuilder) {
 		return componentBuilder
-			.root("div", "class=tree-panel-entry", "id=root")
+			.root("div", "style=--width-1:10pt", "class=cntr cntr-rows cntr-prevent-size-change cntr-gap-medium", "id=root")
 			.open()
-				.node("div", "class=tree-panel-entry-record-element", "id=recordElementContainer")
+				.node("div", "class=cntr cntr-columns cntr-grow-only cntr-gap-medium", "id=recordElementContainer")
 				.open()
-					.node("div", "class=tree-panel-entry-expand", "id=expandButton")
-					.node("div", "class=tree-panel-entry-record-element", "id=recordElement")
+					.node("div", "class=cntr-override-prevent-size-change", "id=expandButton")
+					.node("div", "id=recordElement")
 				.close()
-				.node("div", "class=tree-panel-entry-buttons-container", "id=buttonsContainer")
+				.node("div", "class=cntr cntr-columns cntr-grow-only cntr-gap-medium hidden", "id=buttonsContainer")
 				.open()
-					.node("div", "class=tree-panel-entry-buttons-indent", "id=buttonsIndent")
-					.node("div", "class=tree-panel-entry-buttons", "id=buttons")
+					.node("div", "class=cntr-override-prevent-size-change width-1", "id=buttonsIndent")
+					.node("div", "class=cntr-gap-medium", "id=buttons")
 				.close()
-				.node("div", "class=tree-panel-entry-record-subrecord-elements-container", "id=subrecordElementsContainer")
+				.node("div", "class=cntr cntr-columns cntr-grow-only cntr-gap-medium hidden", "id=subrecordElementsContainer")
 				.open()
-					.node("div", "class=tree-panel-entry-subrecord-elements-indent", "id=subrecordIndent")
-					.node("div", "class=tree-panel-entry-subrecord-elements", "id=subrecordElements")
+					.node("div", "class=cntr-override-prevent-size-change width-1", "id=subrecordIndent")
+					.node("div", "class=cntr cntr-rows cntr-gap-medium", "id=subrecordElements")
 				.close()
 			.close()
 			.build();
@@ -253,7 +78,6 @@ export class TreePanelEntry {
 
     async postConfig() {
 		this.component = this.componentFactory.create(TreePanelEntry);
-		CanvasStyles.enableStyle(TreePanelEntry.name);
 
 		this.expandToggle.events.listenTo(RadioToggleIcon.EVENT_ENABLED, this.loadSubRecordsClicked, this);
 		this.expandToggle.events.listenTo(RadioToggleIcon.EVENT_DISABLED, this.hideSubRecordsClicked, this);
@@ -265,7 +89,7 @@ export class TreePanelEntry {
     }
 
 	async enableBorder() {
-		this.component.get("root").setAttributeValue("class", "tree-panel-entry-bordered");
+		StyleSelectorAccessor.from(this.component.get("root")).enable("cntr-round-bordered");
 	}
 
 	/**
@@ -278,24 +102,20 @@ export class TreePanelEntry {
      */
     async handleStateChange(object) {
 		if (object instanceof Array) {
-			const panel = await this.panelProvider.get([
-				Panel.PARAMETER_STYLE_TYPE_COLUMN, 
-				Panel.PARAMETER_STYLE_CONTENT_ALIGN_LEFT, 
-				Panel.PARAMETER_STYLE_SIZE_MINIMAL]);
 
+			this.component.clearChildren("subrecordElements");
 			object.forEach(async (record) => {
-				await this.populateRecord(panel, record);
+				this.component.addChild("subrecordElements", await this.createSubEntry(record));
 			});
-
-			this.component.setChild("subrecordElements", panel.component);
+			await this.toggleChildElements(true);
 		}
     }
 
     /**
-	 * @param {Component} panel
      * @param {any} record 
+	 * @returns {SimpleElement}
      */
-    async populateRecord(panel, record) {
+    async createSubEntry(record) {
 		const treePanelSubEntry = await this.treePanelEntryProvider.get([record]);
 
 		const recordElement = await this.eventManager.trigger(TreePanelEntry.RECORD_ELEMENT_REQUESTED, [null, record, treePanelSubEntry, this]);
@@ -318,7 +138,7 @@ export class TreePanelEntry {
 		treePanelSubEntry.events
 			.listenTo(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, this.subRecordsUpdateRequested, this);
 
-		panel.component.addChild("panel", treePanelSubEntry.component);
+		return treePanelSubEntry.component;
     }
 
 	/**
@@ -362,9 +182,34 @@ export class TreePanelEntry {
 		try {
 			await this.events
 				.trigger(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, [event, record, stateManager, elementButtonsContainer]);
+			await this.toggleChildElements(true);
 		} catch (error) {
 			LOG.error(error);
 		}
+	}
+
+	/**
+	 * 
+	 * @param {Boolean} visible 
+	 */
+	async toggleChildElements(visible) {
+		if (visible) {
+			StyleSelectorAccessor.from(this.component.get("subrecordElementsContainer")).disable("hidden");
+			return;
+		}
+		StyleSelectorAccessor.from(this.component.get("subrecordElementsContainer")).enable("hidden");
+	}
+
+	/**
+	 * 
+	 * @param {Boolean} visible 
+	 */
+	async toggleButtons(visible) {
+		if (visible) {
+			StyleSelectorAccessor.from(this.component.get("buttonsContainer")).disable("hidden");
+			return;
+		}
+		StyleSelectorAccessor.from(this.component.get("buttonsContainer")).enable("hidden");
 	}
 
 	/**
@@ -372,14 +217,19 @@ export class TreePanelEntry {
 	 */
     async loadSubRecordsClicked(event) {
 		const elementButtonsContainer = await this.component.get("buttons");
-        this.eventManager
+        await this.eventManager
 			.trigger(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, [event, this.record, this.arrayState, elementButtonsContainer]);
+		if (elementButtonsContainer.containerElement.firstChild) {
+			await this.toggleButtons(true);
+		}
     }
 
 	/**
 	 * @param {ContainerEvent} event 
 	 */
-    hideSubRecordsClicked(event) {
+    async hideSubRecordsClicked(event) {
+		await this.toggleChildElements(false);
+		await this.toggleButtons(false);
         this.component.get("subrecordElements").clear();
 		this.component.get("buttons").clear();
     }

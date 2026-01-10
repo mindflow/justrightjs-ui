@@ -3,7 +3,9 @@
     --small-gap: 4pt;
     --medium-gap: 8pt;
     --large-gap: 16pt;
-    --width-1: 80pt;
+    --width-1: 20pt;
+    --width-2: 40pt;
+    --width-3: 80pt;
 }
 
 /* Size adjustments */
@@ -12,8 +14,20 @@
     width: var(--width-1);
 }
 
+.width-2 {
+    width: var(--width-2);
+}
+
+.width-3 {
+    width: var(--width-3);
+}
+
 .width-full {
     width: 100%;
+}
+
+.hidden {
+    display: none !important;
 }
 
 .padding-small {
