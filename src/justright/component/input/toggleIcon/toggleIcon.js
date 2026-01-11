@@ -91,13 +91,11 @@ export class ToggleIcon {
             .selector(".toggle-icon-container")
             .open()
                 .style("display", "inline-block")
-                .style("margin", "1pt")
                 .style("border-radius", "50%")
                 .style("background-color", "transparent")
                 .style("transition", "background-color 0.3s")
                 .style("text-align", "center")
                 .style("align-items", "center")
-                .style("line-height", "20pt")
             .close()
 
             .selector(".toggle-icon-radio")

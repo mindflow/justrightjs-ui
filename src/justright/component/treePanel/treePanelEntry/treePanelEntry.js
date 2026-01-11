@@ -55,22 +55,22 @@ export class TreePanelEntry {
 	 */
 	static buildComponent(componentBuilder) {
 		return componentBuilder
-			.root("div", "id=root", "style=--width-1:10pt", "class=cntr cntr-rows cntr-prevent-size-change cntr-gap-medium")
+			.root("div", "id=root", "style=--width-1:10pt", "class=cntr cntr-rows cntr-prevent-size-change cntr-gap-small")
 			.open()
-				.node("div", "id=recordElementContainer", "class=cntr cntr-columns cntr-grow-only cntr-gap-medium")
+				.node("div", "id=recordElementContainer", "class=cntr cntr-columns cntr-grow-only cntr-gap-small cntr-centered")
 				.open()
 					.node("div", "id=expandButton", "class=cntr-override-prevent-size-change")
 					.node("div", "id=recordElement")
 				.close()
-				.node("div", "id=buttonsContainer", "class=cntr cntr-columns cntr-grow-only cntr-gap-medium hidden")
+				.node("div", "id=buttonsContainer", "class=cntr cntr-columns cntr-grow-only cntr-gap-small cntr-centered hidden")
 				.open()
 					.node("div", "id=buttonsIndent", "class=cntr-override-prevent-size-change width-1")
-					.node("div", "id=buttons", "class=cntr-gap-medium")
+					.node("div", "id=buttons", "class=cntr-gap-small")
 				.close()
-				.node("div", "id=subrecordElementsContainer", "class=cntr cntr-columns cntr-grow-only cntr-gap-medium hidden")
+				.node("div", "id=subrecordElementsContainer", "class=cntr cntr-columns cntr-grow-only cntr-gap-small` cntr-centered hidden")
 				.open()
 					.node("div", "id=subrecordIndent", "class=cntr-override-prevent-size-change width-1")
-					.node("div", "id=subrecordElements", "class=cntr cntr-rows cntr-gap-medium")
+					.node("div", "id=subrecordElements", "class=cntr cntr-rows cntr-gap-small")
 				.close()
 			.close()
 			.build();

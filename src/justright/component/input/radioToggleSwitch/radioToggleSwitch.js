@@ -57,7 +57,6 @@ export class RadioToggleSwitch {
                 .style("display", "inline-block")
                 .style("width", "41pt")
                 .style("height", "24pt")
-                .style("margin-bottom", "1rem")
             .close()
 
             .selector(".radio-toggle-switch input")

@@ -48,10 +48,10 @@ export class LinePanel {
 	 */
 	static buildComponent(componentBuilder) {
 		return componentBuilder
-			.root("div", "class=cntr cntr-gap-small cntr-rows cntr-prevent-size-change padding-small")
+			.root("div", "class=cntr cntr-gap-medium cntr-rows cntr-prevent-size-change padding-small")
 			.open()
 				.node("div", "id=buttonPanel")
-				.node("div", "id=recordElements", "class=cntr-override-grow-only cntr cntr-rows cntr-gap-medium")
+				.node("div", "id=recordElements", "class=cntr-override-grow-only cntr cntr-rows cntr-gap-small")
 			.close()
 			.build();
 	}
