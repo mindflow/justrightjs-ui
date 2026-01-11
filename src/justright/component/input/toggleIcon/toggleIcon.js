@@ -96,6 +96,7 @@ export class ToggleIcon {
                 .style("background-color", "transparent")
                 .style("transition", "background-color 0.3s")
                 .style("text-align", "center")
+                .style("align-items", "center")
                 .style("line-height", "20pt")
             .close()
 
