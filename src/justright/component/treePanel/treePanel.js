@@ -50,7 +50,7 @@ export class TreePanel {
 			.root("div", "class=cntr cntr-gap-small cntr-rows cntr-prevent-size-change padding-small")
 			.open()
 				.node("div", "id=buttonPanel")
-				.node("div", "class=cntr-override-grow-only cntr cntr-rows cntr-gap-medium", "id=rootElement")
+				.node("div", "id=rootElement", "class=cntr-override-grow-only cntr cntr-rows cntr-gap-medium")
 			.close()
 			.build();
 	}

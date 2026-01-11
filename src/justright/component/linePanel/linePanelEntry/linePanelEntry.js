@@ -23,7 +23,7 @@ export class LinePanelEntry {
 	 */
 	static buildComponent(componentBuilder) {
 		return componentBuilder
-			.root("div", "class=cntr cntr-columns cntr-gap-small", "id=recordElement")
+			.root("div", "id=recordElement", "class=cntr cntr-columns cntr-gap-small")
 			.build();
 	}
 
