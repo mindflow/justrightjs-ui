@@ -64,11 +64,10 @@ export class TreePanel {
 
 		this.treePanelEntry = await this.treePanelEntryProvier.get();
 		this.treePanelEntry.events
-			.listenTo(TreePanelEntry.RECORD_ELEMENT_REQUESTED, this.entryRequested, this);
-		this.treePanelEntry.events
-			.listenTo(TreePanelEntry.EVENT_EXPAND_TOGGLE_OVERRIDE, this.expandToggleOverride, this);
-		this.treePanelEntry.events
+			.listenTo(TreePanelEntry.RECORD_ELEMENT_REQUESTED, this.entryRequested, this)
+			.listenTo(TreePanelEntry.EVENT_EXPAND_TOGGLE_OVERRIDE, this.expandToggleOverride, this)
 			.listenTo(TreePanelEntry.SUB_RECORDS_STATE_UPDATE_REQUESTED, this.subRecordsUpdateRequested, this);
+			
 		// Root element has no record
 		this.treePanelEntry.component.get("subrecordIndent").remove();
 		this.treePanelEntry.component.get("recordElementContainer").remove();
