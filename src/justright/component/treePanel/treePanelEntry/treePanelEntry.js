@@ -67,7 +67,7 @@ export class TreePanelEntry {
 					.node("div", "id=buttonsIndent", "class=cntr-override-prevent-size-change width-1")
 					.node("div", "id=buttons", "class=cntr-gap-small")
 				.close()
-				.node("div", "id=subrecordElementsContainer", "class=cntr cntr-columns cntr-grow-only cntr-gap-small` cntr-centered hidden")
+				.node("div", "id=subrecordElementsContainer", "class=cntr cntr-columns cntr-grow-only cntr-gap-small cntr-centered hidden")
 				.open()
 					.node("div", "id=subrecordIndent", "class=cntr-override-prevent-size-change width-1")
 					.node("div", "id=subrecordElements", "class=cntr cntr-rows cntr-gap-small")

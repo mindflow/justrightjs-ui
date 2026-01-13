@@ -11,30 +11,44 @@
     --font-size-3: 16pt;
     --font-size-4: 18pt;
     --font-size-5: 20pt;
-    
+    --hidden-toggle-1: none;
+    --hidden-toggle-2: none;
+    --hidden-toggle-3: none;
 
 }
 
 /* Size adjustments */
 
-.width-1 {
+div.width-1 {
     width: var(--width-1);
 }
 
-.width-2 {
+div.width-2 {
     width: var(--width-2);
 }
 
-.width-3 {
+div.width-3 {
     width: var(--width-3);
 }
 
-.width-full {
+div.width-full {
     width: 100%;
 }
 
-.hidden {
-    display: none !important;
+div.hidden-toggle-1 {
+    display: var(--hidden-toggle-1);
+}
+
+div.hidden-toggle-2 {
+    display: var(--hidden-toggle-2);
+}
+
+div.hidden-toggle-3 {
+    display: var(--hidden-toggle-3);
+}
+
+div.hidden {
+    display: none;
 }
 
 .green {
