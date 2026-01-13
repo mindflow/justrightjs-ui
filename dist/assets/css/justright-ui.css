@@ -35,6 +35,10 @@ div.width-full {
     width: 100%;
 }
 
+div.button-width {
+    width: 36pt;
+}
+
 div.hidden-toggle-1 {
     display: var(--hidden-toggle-1);
 }
