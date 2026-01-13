@@ -35,6 +35,10 @@ div.width-full {
     width: 100%;
 }
 
+div.height-full {
+    height: 100%;
+}
+
 div.button-width {
     width: 36pt;
 }
