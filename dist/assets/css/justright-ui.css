@@ -71,8 +71,20 @@ div.hidden {
     color: #28a745;
 }
 
+.softblue {
+    color: #2196F3;
+}
+
+.bold {
+    font-weight: bold;
+}
+
 .orange {
     color: orange;
+}
+
+.darkgray {
+    color: #333333;
 }
 
 .background-lightgray {
@@ -98,6 +110,7 @@ div.hidden {
 .font-size-5 {
     font-size: var(--font-size-5);
 }
+
 
 .padding-small {
     padding: 4pt;
@@ -251,46 +264,4 @@ div.hidden {
 
 .cntr-gap-large {
     gap: var(--large-gap);
-}
-
-.cntr-rows-padded > * {
-    padding-top: 4pt;
-    padding-left: 8pt;
-    padding-right: 8pt;
-    padding-bottom: 4pt;
-}
-
-.cntr-rows-padded:first-child {
-    padding-top: 8pt;
-    padding-left: 8pt;
-    padding-right: 8pt;
-    padding-bottom: 4pt;
-}
-
-.cntr-rows-padded:last-child {
-    padding-top: 4pt;
-    padding-left: 8pt;
-    padding-right: 8pt;
-    padding-bottom: 4pt;
-}
-
-.cntr-columns-padded > * {
-    padding-top: 8pt;
-    padding-left: 4pt;
-    padding-right: 4pt;
-    padding-bottom: 8pt;
-}
-
-.cntr-columns-padded:first-child {
-    padding-top: 8pt;
-    padding-left: 8pt;
-    padding-right: 4pt;
-    padding-bottom: 8pt;
-}
-
-.cntr-columns-padded:last-child {
-    padding-top: 8pt;
-    padding-left: 4pt;
-    padding-right: 8pt;
-    padding-bottom: 8pt;
 }
