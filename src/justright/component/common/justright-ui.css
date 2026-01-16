@@ -232,6 +232,14 @@ div.hidden {
     flex-basis: auto;
 }
 
+.cntr-override-hidden-when-overflow {
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+}
+
 /* - */
 
 .cntr-round-bordered {
