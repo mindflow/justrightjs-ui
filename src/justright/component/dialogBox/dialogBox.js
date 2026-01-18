@@ -94,7 +94,7 @@ export class DialogBox {
             .open()
                 .selector(".dialogbox-overlay")
                 .open()
-                    .style("position", "absolute")
+                    .style("position", "fixed")
                     .style("margin-top", "54pt")
                     .style("padding-top", "1.5rem")
                     .style("left", "50%")
